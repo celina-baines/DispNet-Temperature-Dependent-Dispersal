@@ -270,6 +270,22 @@ d_phase2 <- d_phase2 %>%
 
 ```
 
+CODE CHUNK ADDED BY NIKKI - TESTING 
+```{r writedata, echo = F}
+
+# load data file from github directory
+folder <- paste("./", Genus, "_", species, "/", sep = "") #specify folder in git repo
+fitpath <- paste("Phase1_fitness_", Genus, ".", species, ".csv", sep = "") #specify file name for fitness
+disppath <- paste("Phase2_dispersal_", Genus, ".", species, ".csv", sep = "")
+
+fitdf <- read.csv(paste(folder, fitpath, sep = "")) #read in fitness file from github path
+dispdf <- read.csv(paste(folder, disppath, sep = "")) #read in dispersal file from github path
+
+write.csv(fitdf, file = paste("./raw_data/", fitpath)) #copy the raw data csv to the raw data folder
+write.csv(dispdf, file = paste("./raw_data/", disppath))
+
+```
+
 ### Does fitness change with temperature (phase 1)?
 
 `r ifelse(fitness.transformed.normal == TRUE, print(paste(fitness.proxy, " was not normally distributed so we ", transform.description, "-transformed it. The transformed variable followed a normal distribution.", sep = "")), ifelse(fitness.normal == TRUE, print(paste(fitness.proxy, "was normally distributed.")), print(paste("The fitness proxy,", tolower(fitness.proxy), ", was a binary variable."))))`
