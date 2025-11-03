@@ -48,6 +48,7 @@ high.temp = 30 #value of high temperature treatment in Celsius
 #writing.path <- "C:/Users/nikki/OneDrive - University of Toronto/PhD Research/Parasitism Content/Distributed Experiment/DispNet-Temperature-Dependent-Dispersal/Notonecta_undulata/outputs/" # make sure to end path with /
 
 # trying alternatives to reading and writing paths
+  #not finding dfs from this directory
 reading.path <- paste("./", Genus, "_", species, "/", sep = "") #specify folder in git repo
 writing.path <- paste("./", Genus, "_", species, "/", "outputs", sep = "") #specify folder in git repo
 
