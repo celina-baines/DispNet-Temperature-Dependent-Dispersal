@@ -1,9 +1,13 @@
 ---
 title: "Temperature dependent dispersal: A distributed experiment"
 author: "researcher names here"
-output: word_document
+output: 
+  word_document:
+    toc: true
+output_file: "../Knitted_RMarkdowns/Notonecta_undulata.docx"
 editor_options: 
   chunk_output_type: console
+  
 ---
 
 ```{r instructions, echo = F, warning = F}
@@ -39,18 +43,24 @@ high.temp = 30 #value of high temperature treatment in Celsius
 
 
 # 4. Set paths
+folder <- paste("./", Genus, "_", species, "/", sep = "") #specify folder in git repo#
+#setwd(paste("./",folder, sep = ""))
+#setwd("C:/Users/nikki/OneDrive - University of Toronto/PhD Research/Parasitism Content/Distributed Experiment/DispNet-Temperature-Dependent-Dispersal/")
+dir()
 
 ## set path for reading files (folder that contains the raw data files)
-#reading.path <- ("C:/Users/nikki/OneDrive - University of Toronto/PhD Research/Parasitism Content/Distributed Experiment/DispNet-Temperature-Dependent-Dispersal/Notonecta_undulata/")
+#reading.path <- ("C:/Users/nikki/OneDrive - University of Toronto/PhD Research/Parasitism Content/Distributed Experiment/DispNet-Temperature-Dependent-Dispersal/")
 
+reading.path <- ("./")
 
+writing.path <- ("C:/Users/nikki/OneDrive - University of Toronto/PhD Research/Parasitism Content/Distributed Experiment/DispNet-Temperature-Dependent-Dispersal/Notonecta_undulata/outputs/") # make sure to end path with /
 
-#writing.path <- "C:/Users/nikki/OneDrive - University of Toronto/PhD Research/Parasitism Content/Distributed Experiment/DispNet-Temperature-Dependent-Dispersal/Notonecta_undulata/outputs/" # make sure to end path with /
+#writng.path <- ("./outputs/")
 
 # trying alternatives to reading and writing paths
   #not finding dfs from this directory
-reading.path <- paste("./", Genus, "_", species, "/", sep = "") #specify folder in git repo
-writing.path <- paste("./", Genus, "_", species, "/", "outputs", sep = "") #specify folder in git repo
+#reading.path <- paste("./", Genus, "_", species, "/", sep = "") #specify folder in git repo
+#writing.path <- paste("./", Genus, "_", species, "/", "outputs", sep = "") #specify folder in git repo
 
 # 5. Check that the data files have the following headers (order of columns is not important):
 
@@ -253,12 +263,6 @@ Provide details about the methods for estimating dispersal including:
 
 ## Statistical Analysis
 
-```{r setup, include = F}
-
-knitr::opts_knit$set(root.dir = normalizePath(reading.path))
-#knitr::opts_knit$set(root.dir = normalizePath(dir()))
-```
-
 ```{r loaddata, echo = F}
 
 # load data file
@@ -267,21 +271,24 @@ d_phase2 <- read.csv(paste("Phase2_dispersal_", Genus, ".", species, ".csv", sep
 
 d_phase1 <- within(d_phase1, Temp.treatment <- relevel(as.factor(Temp.treatment), ref = "opt"))
 
-
-
 d_phase2 <- within(d_phase2, Temp.treatment <- relevel(as.factor(Temp.treatment), ref = "opt"))
 
-d_phase2 <- d_phase2 %>%
-  { if (filter.dead) filter(., Survival == 1) else . }
+#d_phase2 <- d_phase2 %>%
+#  { if (filter.dead) filter(., Survival == 1) else . }
 
 #d_phase2 <- d_phase2 %>% filter(Survived == "Y") # exclude dead individuals if needed
 
 ```
 
-```{r writedata, echo = F}
+```{r setup, include = F}
+
+knitr::opts_knit$set(root.dir = normalizePath(reading.path))
+#knitr::opts_knit$set(root.dir = normalizePath(dir()))
+```
+
+#```{r writedata, echo = F}
 
 # load data file from github directory
-folder <- paste("./", Genus, "_", species, "/", sep = "") #specify folder in git repo
 fitpath <- paste("Phase1_fitness_", Genus, ".", species, ".csv", sep = "") #specify file name for fitness
 disppath <- paste("Phase2_dispersal_", Genus, ".", species, ".csv", sep = "")
 
@@ -291,7 +298,7 @@ dispdf <- read.csv(paste(folder, disppath, sep = "")) #read in dispersal file fr
 write.csv(fitdf, file = paste("./raw_data/", fitpath)) #copy the raw data csv to the raw data folder
 write.csv(dispdf, file = paste("./raw_data/", disppath))
 
-```
+#```
 
 
 ### Does fitness change with temperature (phase 1)?
@@ -346,13 +353,11 @@ output_fitness_contrasts <- output_fitness_emmeans$contrasts %>%
      summary(infer = TRUE)
 ```
 
-
 ```{r fitnesstablebinary, eval = fitness.binary, echo = F}
 
 fittable <- with(d_phase1, table(Temp.treatment, Fitness))
 knitr::kable(fittable, col.names = c(Fit0, Fit1),
  caption = paste("Table 1. Relationship between", tolower(fitness.proxy), "and temperature treatment.")) 
-
 
 ```
 
@@ -372,6 +377,7 @@ output_fitness_contrasts <- output_fitness_emmeans$contrasts %>%
      summary(infer = TRUE)
 
 ```
+
 
 #### Results for main effect of temperature on fitness
 ```{r fitnessresultsmaineffect, echo = F}
@@ -522,3 +528,8 @@ write.table(output_dispersal_emmeans$contrasts, paste(writing.path, "output_disp
 write.table(d_moderator, paste(writing.path, "moderators_", Genus, ".", species, ".txt", sep = ""))
 
 ```
+
+#```{r markdownrender}
+setwd("../")  # move up one directory
+rmarkdown::render(paste(Genus, "_", species, "/", Genus, "_", species, ".Rmd", sep = ""), output_file = paste("Knitted_RMarkdowns/", Genus, "_", species,".docx", sep = ""))
+#```
