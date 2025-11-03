@@ -41,10 +41,15 @@ high.temp = 30 #value of high temperature treatment in Celsius
 # 4. Set paths
 
 ## set path for reading files (folder that contains the raw data files)
-reading.path <- ("C:/Users/nikki/OneDrive - University of Toronto/PhD Research/Parasitism Content/Distributed Experiment/DispNet-Temperature-Dependent-Dispersal/Notonecta_undulata/")
-#reading.path <- ("./Notonecta_undulata/")
-## set path for writing files (folder where you want output text files to go)
-writing.path <- "C:/Users/nikki/OneDrive - University of Toronto/PhD Research/Parasitism Content/Distributed Experiment/DispNet-Temperature-Dependent-Dispersal/Notonecta_undulata/outputs/" # make sure to end path with /
+#reading.path <- ("C:/Users/nikki/OneDrive - University of Toronto/PhD Research/Parasitism Content/Distributed Experiment/DispNet-Temperature-Dependent-Dispersal/Notonecta_undulata/")
+
+
+
+#writing.path <- "C:/Users/nikki/OneDrive - University of Toronto/PhD Research/Parasitism Content/Distributed Experiment/DispNet-Temperature-Dependent-Dispersal/Notonecta_undulata/outputs/" # make sure to end path with /
+
+# trying alternatives to reading and writing paths
+reading.path <- paste("./", Genus, "_", species, "/", sep = "") #specify folder in git repo
+writing.path <- paste("./", Genus, "_", species, "/", "outputs", sep = "") #specify folder in git repo
 
 # 5. Check that the data files have the following headers (order of columns is not important):
 
