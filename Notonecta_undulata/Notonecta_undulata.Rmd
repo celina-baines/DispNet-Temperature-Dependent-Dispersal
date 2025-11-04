@@ -247,6 +247,12 @@ Provide details about the methods for estimating dispersal including:
 
 ## Statistical Analysis
 
+```{r setup, include = F}
+
+knitr::opts_knit$set(root.dir = normalizePath(reading.path))
+```
+
+
 ```{r loaddata, echo = F}
 
 # load data file
@@ -298,12 +304,6 @@ write.csv(d_phase2, paste(data_path, disppath, sep = ""), row.names = FALSE)
 
 ```
 
-
-```{r setup, include = F}
-
-knitr::opts_knit$set(root.dir = normalizePath(reading.path))
-#knitr::opts_knit$set(root.dir = normalizePath(dir()))
-```
 
 
 ### Does fitness change with temperature (phase 1)?
