@@ -10,7 +10,9 @@ editor_options:
 
 # INSTRUCTIONS FOR RESEARCHERS
 
-# Here, you'll find instructions and information to fill out about your species. Once you have finished following the instructions, go to the render_script in your species folder and run the code - this will automatically knit a word document to the shared knitted markdowns folder. Do not try to "run all" within R, you will get an error. Knitting the document will only save it to your species folder, not add it to the shared folder. You don't need to make any changes to the analysis outside of this code chunk, but feel free to do so if it's appropriate for your species. If you make substantive changes to either of the models, please flag it for Celina.
+# Here, you'll find instructions and information to fill out about your species. Once you have finished following the instructions, go to the render_script in your species folder and run the code - this will automatically knit a word document to the shared Knitted_Markdowns folder. You don't need to make any changes to the analysis outside of this code chunk, but feel free to do so if it's appropriate for your species. If you make substantive changes to either of the models, please flag it for Celina.
+
+# Note: Do not try to "run all" within R, you will get an error. Knitting the document from the RStudio menu will only save it to your species folder, not add it to the shared folder, so please use render_script.
 
 # 0. Add names of researchers who worked on this species to author list above
 
@@ -38,13 +40,7 @@ opt.temp = x #value of optimal temperature treatment in Celsius
 high.temp = x #value of high temperature treatment in Celsius
 
 
-# 4. Set paths
-#Do not change these paths
-reading.path <- ("./")
-
-writing.path <- ("../outputs/")
-
-# 5. Check that the data files have the following headers (order of columns is not important):
+# 4. Check that the data files have the following headers (order of columns is not important):
 
 ## phase1 : Temp.treatment (levels = low, opt, high), Temp.value (in degrees C), random effects (name as appropriate), Fitness
 ### It's important to give the column of the fitness variable the header "Fitness". You have already provided a description of the fitness proxy which will be used in the knitted document.
@@ -55,11 +51,12 @@ writing.path <- ("../outputs/")
 #### Temp.treatment (levels = low, opt, high), Temp.value (in degrees C), random effects (name as appropriate), Num.disp, Num.nondisp (or alternatively, Num.disp and total N)
 
 ### If your phase 2 data are formatted with individuals as rows and a dispersed column (0s and 1s) giving dispersal status for each individual, then these headers:
-#### Temp.treatment (levels = low, opt, high), Temp.value (in degrees C), random effects (name as appropriate), Dispersed
+#### Temp.treatment (levels = low, opt, high), Temp.value (in degrees C), random effects (name as appropriate), Dispersed (0/1)
 
 # note that the datasets can also include fixed effects and phenotypes, as appropriate for your study
 
-# 6. Type of fitness data
+
+# 5. Type of fitness data
 
 ## Answer questions below about the fitness proxy
 
@@ -74,31 +71,33 @@ fitness.transformed.normal = TRUE/FALSE/NA
 
 ## If fitness variable is continuous normal AFTER transformation, choose transformation used (just write it in if not on this list):
 
-transform.description <- "sqrt/log/log10"
+transform.description <- "square-root/log/log10" # leave as-is if not applicable
 fitness.transformation.function <- function(x) {return (XYZ(x))} # give transformation formula here; replace XYZ with transformation e.g., sqrt(x) or log(x + 1), etc., where x will be Fitness, below
 
 ## note: if fitness (or transformed fitness) does not have a binomial or normal distribution, check in with Celina.
 
-# 7. Structure of dispersal data
 
-## Are there dead individuals that should be removed from the dispersal data?
+# 6. Structure of dispersal data
 
-filter.dead = TRUE/FALSE
-
-## Is there overdispersion in the dispersal data? If you do not yet know, choose FALSE and this will be dealt with in step 10.
+## Is there overdispersion in the dispersal data? If you do not yet know, choose FALSE and this will be dealt with in step 12.
 
 overdispersion = TRUE/FALSE
 
-# 8. Dealing with mortality in dispersal assay
 
-## note on mortality: everyone will deal with mortality during the dispersal assay in a slightly different way. If individuals are rows in your dataset, you may have a row that indicates "Survived" (Y/N) through the entire experiment. In this case, you can move to the 'loaddata' code chunk and "uncomment" the line of code there to filter out dead individuals after the dataset is loaded. If mesocosms are rows in your dataset, you may have a column indicating the number of individuals that died. In this case, dead individuals can be excluded directly in the dispersal formula (e.g., (Num.disp, TotalN-(Num.disp+Num.dead))).
+# 7. Dealing with mortality in dispersal assay
+
+## note on mortality: everyone will deal with mortality during the dispersal assay in a slightly different way. If individuals are rows in your dataset, you should have a row that indicates "Survived" (Y/N) through the entire experiment. In this case, set filter.dead = TRUE below. If mesocosms are rows in your dataset, you may have a column indicating the number of individuals that died. In this case, dead individuals can be excluded directly in the dispersal formula (e.g., (Num.disp, TotalN-(Num.disp+Num.dead))).
 
 ## Make sure to describe how you dealt with mortality in the methods below.
 
 ## If you are unsure how to handle mortality in your dataset, check with Celina.
 
+## Do rows represent individuals in the dataset and are there dead individuals that should be removed from the dispersal data?
 
-# 9. Model formulae
+filter.dead = TRUE/FALSE/NA # choose NA if this does not apply to your species
+
+
+# 8. Model formulae
 
 ## Formula for fitness: (fill in as appropriate)
 
@@ -110,7 +109,7 @@ fitness.formula <- "Fitness ~ Temp.treatment + other.fixed.effects + (1|random)"
 #### include as many random effects as appropriate
 #### Fitness can be normal or binary, including 0s and 1s or cbind(number.survived, number.dead)
 
-### If fitness is binary:
+### If fitness is binary: (ignore if fitness is not binary)
 
 ### What do Fitness = 0 and Fitness = 1 mean?
 
@@ -125,12 +124,14 @@ dispersal.formula <- "cbind(Num.disp, Num.nondisp) ~ Temp.treatment + other.fixe
 #### other.fixed.effects does not apply to every species; include as appropriate; fixed effects should be standardized
 #### include as many random effects as appropriate
 #### Num.disp/Num.nondisp can be replaced with column "Dispersed" with values 0 and 1, if individuals are rows in your dataset
+#### remember to deal with mortality directly in dispersl formula if appropriate
 
-# 10. Moderators
 
-## Collecting data on all proposed moderators; we will use a subset of these in the analysis
+# 9. Moderators
+
+## We are collecting data on all proposed moderators; we will use a subset of these in the analysis
 ## choose option on right hand side
-## see description of moderators and levels in analysis info doc
+## see description of moderators and levels in README.md in project repo
 
 taxonomic.group <- "arthropod/ciliate/microalgae"
 rearing.environment <- "commonT/treatmentT/field"
@@ -144,7 +145,7 @@ inbred <- "inbred line/mixed"
 disp.assay.duration <- 0.01/0.1/1/10 # order of magnitude for dispersal assay duration / generation time, i.e., approximate number of generations the dispersal assay lasted
 fitness.proxy.type <- "r/other"
 
-# 11. Fill out methods information below.
+# 10. Fill out methods information in text below.
 
 ```
 
@@ -172,9 +173,9 @@ Were specific individuals/phenotypes/stages selected for the experiment?
 
 ### Temperature treatments
 
-State the temperatures used for T~opt~, T~hot~, T~cold~, and explain how they were chosen.  
+State the temperatures used for Topt, Thot, Tcold, and explain how they were chosen.  
 
-State whether there was daily variation in temperature, and if so, describe (e.g., mean and standard deviation temperature for each treatment).  
+State whether there was daily variation in temperature, and if so, describe (e.g., mean and standard deviation of temperature for each treatment).  
 
 ### Phase 1: Fitness assay
 
@@ -185,7 +186,7 @@ Provide details about the methods for estimating the fitness proxy including:
 -	Replicates  
     - Specify number of experimental replicates  
     - Number of strains and number of replicates per strain  
-    - Indicate if experimental blocks were used and the blocking design (number of blocks, how many replicates of each treatment per block, time/space between blocks)  
+    - Indicate if experimental blocks were used and the blocking design (number of blocks, how many replicates of each treatment per block, time/space between blocks)
 -	Type and amount of food provided during experiment  
 - Starting density  
 -	Duration of fitness assay  
@@ -206,9 +207,9 @@ Provide details about the methods for estimating dispersal including:
     - time between birth and start of acclimation period  
     - duration of acclimation period  
     - timing and duration of dispersal assay  
--	Controlled variables: food (ad lib), water (ad lib if applicable), sex ratio  
+-	Controlled variables: food (ad lib?), water (ad lib? if applicable), sex ratio  
 - Phenotypes measured (activity, body condition, body size, etc.) and how they were estimated  
-- Whether individuals used in phase 2 were the same as used in phase 1 (note that the same individuals do NOT have to be used for phase 1 and phase 2)  
+- Whether individuals used in phase 2 were the same as used in phase 1 
 - Provide details on data collection including:  
     -	The sampling regime (time intervals between sampling).  
     -	Sampling method including whether individuals were marked and whether sampling was observed or automated. Please include validation if automated.  
@@ -218,21 +219,19 @@ Provide details about the methods for estimating dispersal including:
 
 ```{r instructions2, echo = F}
 
-# 12. Knit RMarkdown
+# 11. Knit RMarkdown
 
-## Now it is time to knit the RMarkdown document. Please knit to word so I can combine into one Supplement document.
+## Now it is time to knit the RMarkdown document. Open the render_script document in the species folder and run that script (see README.md for additional instructions). It will automatically write the files to the correct folders in the repository. Remember not to 'run all' in the RMarkdown. You will get an error.
 
-# 13. Check diagnostics
+# 12. Check diagnostics
 
-## The final section of the doc will be model diagnostics. Check if there are any issues and re-knit RMarkdown if necessary with different options (e.g., does fitness variable need to be transformed? Is there overdispersion in the dispersal data?)
+## The final section of the output doc will be model diagnostics. Check the output word doc (it will be in the 'Knitted_Markdowns' folder) for any issues and re-run the render_script if necessary after selecting different options in the RMarkdown (e.g., does the fitness variable need to be transformed? Is there overdispersion in the dispersal data?)
 
-## You should also check the word doc for warning messages for the mdoels (e.g., singularity in LMMs) that will print next to the results outputs, if any.
+## You should also check the word doc for warning messages for the models (e.g., singularity in mixed models). These (if there are any) will print in the knitted doc next to the model results.
 
 ## If problems persist, the way the analysis is done may have to be changed (check in with Celina).
 
 ## Note that the current default description of the diagnostics is: "There was no evidence for lack of fit for either the fitness or the dispersal model." Change this as needed.
-
-# 14. When diagnostics look good, push files to github (see github instructions).
 
 
 #############
@@ -245,23 +244,22 @@ Provide details about the methods for estimating dispersal including:
 
 ## Statistical Analysis
 
-```{r setup, include = F}
-
-knitr::opts_knit$set(root.dir = normalizePath(reading.path))
-```
-
 ```{r loaddata, echo = F}
+
+# Set reading and writing paths; Do not change these paths
+reading.path <- ("./")
+
+writing.path <- ("../outputs/")
 
 # load data file
 d_phase1 <- read.csv(paste("Phase1_fitness_", Genus, ".", species, ".csv", sep = ""))
 d_phase2 <- read.csv(paste("Phase2_dispersal_", Genus, ".", species, ".csv", sep = ""))
 
 d_phase1 <- within(d_phase1, Temp.treatment <- relevel(as.factor(Temp.treatment), ref = "opt"))
-
 d_phase2 <- within(d_phase2, Temp.treatment <- relevel(as.factor(Temp.treatment), ref = "opt"))
 
 d_phase2 <- d_phase2 %>%
-  { if (filter.dead) filter(., Survival == 1) else . }
+  { if (filter.dead) filter(., Survived == "Y") else . }
 
 ```
 
@@ -376,7 +374,7 @@ output_fitness_contrasts
 
 ### Does dispersal change with temperature (phase 2)?
 
-To estimate the effect of temperature treatment (a factor) on dispersal, we used a generalized linear mixed model with a binomial error structure and a logit link. Dispersal (the number of dispersers vs non-dispersers) was the response variable. We used the formula:
+`r ifelse(!overdispersion, print("To estimate the effect of temperature treatment (a factor) on dispersal, we used a generalized linear mixed model with a binomial error structure and a logit link. Dispersal (the number of dispersers vs non-dispersers) was the response variable. We used the formula:"), print("There was evidence of overdispersion in our dispersal data. Therefore, to estimate the effect of temperature treatment (a factor) on dispersal, we used a generalized linear mixed model with a negative binomial error structure. Dispersal (the number of dispersers vs non-dispersers) was the response variable. We used the formula:"))`  
 
 `r (print(dispersal.formula))`
 
@@ -502,6 +500,7 @@ write.table(output_dispersal_summary$coefficients, paste(writing.path, "output_d
 write.table(output_dispersal_emmeans$emmeans, paste(writing.path, "output_dispersal_emmeans_", Genus, ".", species, ".txt", sep = ""))
 
 write.table(output_dispersal_emmeans$contrasts, paste(writing.path, "output_dispersal_contrasts_", Genus, ".", species, ".txt", sep = ""))
+
 
 # moderator output
 
