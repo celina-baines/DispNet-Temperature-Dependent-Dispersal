@@ -30,20 +30,19 @@ library(DHARMa)
 
 # 3. Fill out information about your species below
 
-Genus = "Notonecta"
-species = "undulata"
-fitness.proxy = "Fecundity"
-low.temp = 16 #value of low temperature treatment in Celsius
-opt.temp = 26 #value of optimal temperature treatment in Celsius
-high.temp = 30 #value of high temperature treatment in Celsius
+Genus = "Genus"
+species = "species"
+fitness.proxy = "Population growth, r / Survival / Fecundity"
+low.temp = x #value of low temperature treatment in Celsius
+opt.temp = x #value of optimal temperature treatment in Celsius
+high.temp = x #value of high temperature treatment in Celsius
 
 
 # 4. Set paths
+#Do not change these
+reading.path <- ("./")
 
-## set path for reading files (folder that contains the raw data files)
-reading.path <- ("C:/Users/nikki/OneDrive - University of Toronto/PhD Research/Parasitism Content/Distributed Experiment/Distributed_Experiment/")
-## set path for writing files (folder where you want output text files to go)
-writing.path <- "C:/Users/nikki/OneDrive - University of Toronto/PhD Research/Parasitism Content/Distributed Experiment/Distributed_Experiment/outputs/" # make sure to end path with /
+writing.path <- ("../outputs/")
 
 # 5. Check that the data files have the following headers (order of columns is not important):
 
@@ -65,30 +64,26 @@ writing.path <- "C:/Users/nikki/OneDrive - University of Toronto/PhD Research/Pa
 ## Answer questions below about the fitness proxy
 
 ### Is your fitness variable binary? (choose one)
-fitness.binary = FALSE
+fitness.binary = TRUE/FALSE
 
 ### Is the fitness variable continuous normal (without transformation)? (choose one)
-fitness.normal = FALSE
+fitness.normal = TRUE/FALSE
 
 ### Is the fitness variable normal after transformation? (choose one; choose NA if you said "TRUE" to either question above)
-fitness.transformed.normal = TRUE
+fitness.transformed.normal = TRUE/FALSE/NA
 
 ## If fitness variable is continuous normal AFTER transformation, choose transformation used (just write it in if not on this list):
 
-transform.description <- "log(x+1)"
-fitness.transformation.function <- function(x) {return (log(x + 1))} # give transformation formula here; replace XYZ with transformation e.g., sqrt(x) or log(x + 1), etc., where x will be Fitness, below
+transform.description <- "sqrt/log/log10"
+fitness.transformation.function <- function(x) {return (XYZ(x))} # give transformation formula here; replace XYZ with transformation e.g., sqrt(x) or log(x + 1), etc., where x will be Fitness, below
 
 ## note: if fitness (or transformed fitness) does not have a binomial or normal distribution, check in with Celina.
 
 # 7. Structure of dispersal data
 
-## Are there dead individuals that should be removed from the dispersal data?
-
-filter.dead = TRUE
-
 ## Is there overdispersion in the dispersal data? If you do not yet know, choose FALSE and this will be dealt with in step 10.
 
-overdispersion = FALSE
+overdispersion = TRUE/FALSE
 
 # 8. Dealing with mortality in dispersal assay
 
@@ -103,7 +98,7 @@ overdispersion = FALSE
 
 ## Formula for fitness: (fill in as appropriate)
 
-fitness.formula <- "log(Fitness + 1) ~ Temp.treatment + (1|Block/Mesocosm)"
+fitness.formula <- "Fitness ~ Temp.treatment + other.fixed.effects + (1|random)"
 
 ### notes:
 #### TRANSFORM FITNESS VARIABLE (if needed) *WITHIN* THE FORMULA; doing it within the formula is important for contrasts below  
@@ -120,7 +115,7 @@ Fit1 <- "Died/Survived" # or fill in other
 
 ## Formula for dispersal: (fill in as appropriate)
   
-dispersal.formula <- "Dispersal ~ Temp.treatment + (1|Mesocosm)"
+dispersal.formula <- "cbind(Num.disp, Num.nondisp) ~ Temp.treatment + other.fixed.effects + (1|random)"
 
 ### notes
 #### other.fixed.effects does not apply to every species; include as appropriate; fixed effects should be standardized
@@ -133,17 +128,17 @@ dispersal.formula <- "Dispersal ~ Temp.treatment + (1|Mesocosm)"
 ## choose option on right hand side
 ## see description of moderators and levels in analysis info doc
 
-taxonomic.group <- "notonectidae"
-rearing.environment <- "field"
-comp.strength <- "moderate"
-source <- "field" # lab population or field caught
-habitat <- "aquatic"
-Tvariation <- "heterogenous"
-species.body.size <- 10 # mean body length in mm
-passive.dispersal <- "No"
-inbred <- "mixed"
-disp.assay.duration <- 0.01 # order of magnitude for dispersal assay duration / generation time, i.e., approximate number of generations the dispersal assay lasted
-fitness.proxy.type <- "other"
+taxonomic.group <- "arthropod/ciliate/microalgae"
+rearing.environment <- "commonT/treatmentT/field"
+comp.strength <- "low/moderate/high"
+source <- "lab/field" # lab population or field caught
+habitat <- "aquatic/terrestrial"
+Tvariation <- "homogenous/heterogenous"
+species.body.size <- x # mean body length in mm
+passive.dispersal <- "Yes/No"
+inbred <- "inbred line/mixed"
+disp.assay.duration <- 0.01/0.1/1/10 # order of magnitude for dispersal assay duration / generation time, i.e., approximate number of generations the dispersal assay lasted
+fitness.proxy.type <- "r/other"
 
 # 11. Fill out methods information below.
 
@@ -263,12 +258,23 @@ d_phase1 <- within(d_phase1, Temp.treatment <- relevel(as.factor(Temp.treatment)
 
 d_phase2 <- within(d_phase2, Temp.treatment <- relevel(as.factor(Temp.treatment), ref = "opt"))
 
-d_phase2 <- d_phase2 %>%
-  { if (filter.dead) filter(., Survival == 1) else . }
-
 #d_phase2 <- d_phase2 %>% filter(Survived == "Y") # exclude dead individuals if needed
 
 ```
+
+```{r writedata, echo = F}
+
+# load data file from github directory
+fitpath <- paste("Phase1_fitness_", Genus, ".", species, ".csv", sep = "") #specify file name for fitness
+disppath <- paste("Phase2_dispersal_", Genus, ".", species, ".csv", sep = "")
+
+data_path <- "../raw_data/"
+
+write.csv(d_phase1, paste(data_path, fitpath, sep = ""), row.names = FALSE)
+write.csv(d_phase2, paste(data_path, disppath, sep = ""), row.names = FALSE)
+
+```
+
 
 ### Does fitness change with temperature (phase 1)?
 
