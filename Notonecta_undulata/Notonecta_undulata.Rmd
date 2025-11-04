@@ -2,12 +2,9 @@
 title: "Temperature dependent dispersal: A distributed experiment"
 author: "researcher names here"
 output: 
-  word_document:
-    toc: true
-output_file: "../Knitted_Markdowns/Notonecta_undulata.docx"
+  word_document: default
 editor_options: 
   chunk_output_type: console
-  
 ---
 
 ```{r instructions, echo = F, warning = F}
@@ -536,8 +533,3 @@ write.table(output_dispersal_emmeans$contrasts, paste(writing.path, "output_disp
 write.table(d_moderator, paste(writing.path, "moderators_", Genus, ".", species, ".txt", sep = ""))
 
 ```
-
-#```{r markdownrender}
-setwd("../")  # move up one directory
-rmarkdown::render(paste(Genus, "_", species, "/", Genus, "_", species, ".Rmd", sep = ""), output_file = paste("Knitted_RMarkdowns/", Genus, "_", species,".docx", sep = ""))
-#```
