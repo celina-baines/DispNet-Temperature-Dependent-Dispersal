@@ -7,9 +7,9 @@ RMarkdown file "Species-specific methods and analysis" provides template for sup
 
 ### Using git/github
 
-We will share all files on github. Each species has its own folder in the github repository. Upload all your project materials including dataframes into your species folder. Fill out the RMarkdown in the species folder, then run the render_script.
+We will share all files on github. Each species has its own folder in the github repository. Upload all your project materials including data files into your species folder. Fill out the RMarkdown in the species folder, then run the render_script.
 
-Running the script will automatically save the fitness and dispersal data to the shared raw_data folder in the repo and knit the RMarkdown into the Knitted_Markdowns folder.
+Running the script will automatically save the fitness and dispersal data to the shared 'raw_data' folder in the repo, knit the RMarkdown into the 'Knitted_Markdowns' folder, and save model outputs to the 'outputs' folder for later meta-analysis.
 
 You should have received an invitation to join the repo on github.
 
@@ -19,11 +19,11 @@ If you are new to git/github, this is a great resource: https://happygitwithr.co
 
 1. Create a GitHub account: https://github.com/signup
 
-2. Go to and accept the GiHub repo to join.
+2. Join our GitHub repo by clickin the link in the invitation email.
 
-3. If you are new to GitHub, you will need to install git. To check to see if you already have git and install instructions for different operating instructions, please see: https://happygitwithr.com/install-git
+3. If you are new to GitHub, you will need to install git. To check to see if you already have git and to find installation instructions for different operating systems, please see: https://happygitwithr.com/install-git
 
-4. Connect the GitHub repo to R. Go to create a New Project -> Version Control -> Git. There is a field for a repository URL. Paste this link there: https://github.com/celina-baines/DispNet-Temperature-Dependent-Dispersal.You can specify the rest of the path of where the repo is stored locally.
+4. Connect the GitHub repo to R. Go to create a New Project -> Version Control -> Git. There is a field for a repository URL. Paste this link there: https://github.com/celina-baines/DispNet-Temperature-Dependent-Dispersal. You can specify where the repo will be stored locally.
 
 5. You will see a folder for each species in this project in the repo. Go to your species folder. You will see a RMarkdown file to edit. Read the instructions carefully and fill it out. 
 NOTE: You can make edits and collaborate with others. Be sure to make commits frequently to keep track of your work and push and pull changes regularly so everyone in your group is using the most updated versions. If you and a collaborator are updating the same file at the same time, there could be conflicts when the changes are pushed.
@@ -35,7 +35,7 @@ If there are issues with the RMarkdown file, you can push changes to the problem
 
 The RMarkdown file contains 1) a template for the methods for each species, to be filled in by each research group (feel free to add more information and more headers, as needed for your species) and 2) code to run the statistical analysis for each species. The code is designed to work for all the species/data structures we have in the study. At the beginning of the RMarkdown, you are asked to fill out information about the data structure for that species. Once that information is filled in, knitting the RMarkdown will run only the code that is appropriate for that species/data structure. (note: do not attempt to “run all” the code in R. You will get an error saying that some of the code can’t be run).
 
-You do not have to alter the RMarkdown except to fill in the information at the top. The goal is that we are consistent in how we are running the analysis. BUT, if you have a reason to change the code for the analysis, please do so. If you make a substantive change, please also change the description of the methods in the RMarkdown and flag the change for Celina.
+You do not have to alter the RMarkdown except to fill in the information at the top. The goal is that we are consistent in how we are running the analysis. BUT, if you have a reason to change the code for the analysis of your species, please do so. If you make a substantive change, please also change the description of the methods in the RMarkdown and flag the change for Celina.
 
 ### Estimating population growth, r
 
@@ -74,8 +74,7 @@ Below is the list of possible moderators, their description, and options to choo
 -Terrestrial  
 
 *Tvariation* = The amount of spatiotemporal variation in temperature that exists in the natural environment of the organism (note: for populations that have been housed in the lab for many generations, “natural environment” is probably the lab)
-- Homogenous = within the radius of the maximum dispersal distance of the organism, temperature is homogenous  
-- Heterogenous = within the radius of the maximum dispersal distance of the organism, temperature is at least somewhat heterogenous  
+- Homogenous = within the radius of the maximum dispersal distance of the organism, temperature is homogenous - Heterogenous = within the radius of the maximum dispersal distance of the organism, temperature is at least somewhat heterogenous  
 
 *Species.body.size* =	Species mean body length in mm	
 
