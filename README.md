@@ -7,7 +7,7 @@ RMarkdown file "Species-specific methods and analysis" provides template for sup
 
 ### Using git/github
 
-We will share all files on github. Each species has it's own folder in the github repository. Upload all your project materials including dataframes into your species folder. Fill out the RMarkdown in the species folder, then run the render_script.
+We will share all files on github. Each species has its own folder in the github repository. Upload all your project materials including dataframes into your species folder. Fill out the RMarkdown in the species folder, then run the render_script.
 
 Running the script will automatically save the fitness and dispersal data to the shared raw_data folder in the repo and knit the RMarkdown into the Knitted_Markdowns folder.
 
