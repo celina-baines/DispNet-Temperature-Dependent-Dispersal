@@ -10,7 +10,7 @@ editor_options:
 
 # INSTRUCTIONS FOR RESEARCHERS
 
-# Here, you'll find instructions and information to fill out about your species. Once you have finished following the instructions, simply knit (output Word document, please) and the appropriate analyses for your data will run automatically. Do not try to "run all" within R, you will get an error. You don't need to make any changes to the analysis outside of this code chunk, but feel free to do so if it's appropriate for your species. If you make substantive changes to either of the models, please flag it for Celina.
+# Here, you'll find instructions and information to fill out about your species. Once you have finished following the instructions, go to the render_script in your species folder and run the code - this will automatically knit a word document to the shared knitted markdowns folder. Do not try to "run all" within R, you will get an error. Knitting the document will only save it to your species folder, not add it to the shared folder. You don't need to make any changes to the analysis outside of this code chunk, but feel free to do so if it's appropriate for your species. If you make substantive changes to either of the models, please flag it for Celina.
 
 # 0. Add names of researchers who worked on this species to author list above
 
@@ -39,7 +39,7 @@ high.temp = x #value of high temperature treatment in Celsius
 
 
 # 4. Set paths
-#Do not change these
+#Do not change these paths
 reading.path <- ("./")
 
 writing.path <- ("../outputs/")
@@ -80,6 +80,10 @@ fitness.transformation.function <- function(x) {return (XYZ(x))} # give transfor
 ## note: if fitness (or transformed fitness) does not have a binomial or normal distribution, check in with Celina.
 
 # 7. Structure of dispersal data
+
+## Are there dead individuals that should be removed from the dispersal data?
+
+filter.dead = TRUE/FALSE
 
 ## Is there overdispersion in the dispersal data? If you do not yet know, choose FALSE and this will be dealt with in step 10.
 
@@ -254,22 +258,22 @@ d_phase2 <- read.csv(paste("Phase2_dispersal_", Genus, ".", species, ".csv", sep
 
 d_phase1 <- within(d_phase1, Temp.treatment <- relevel(as.factor(Temp.treatment), ref = "opt"))
 
-
-
 d_phase2 <- within(d_phase2, Temp.treatment <- relevel(as.factor(Temp.treatment), ref = "opt"))
 
-#d_phase2 <- d_phase2 %>% filter(Survived == "Y") # exclude dead individuals if needed
+d_phase2 <- d_phase2 %>%
+  { if (filter.dead) filter(., Survival == 1) else . }
 
 ```
 
 ```{r writedata, echo = F}
 
-# load data file from github directory
-fitpath <- paste("Phase1_fitness_", Genus, ".", species, ".csv", sep = "") #specify file name for fitness
+# specify fitness and dispersal file names
+fitpath <- paste("Phase1_fitness_", Genus, ".", species, ".csv", sep = "")
 disppath <- paste("Phase2_dispersal_", Genus, ".", species, ".csv", sep = "")
 
-data_path <- "../raw_data/"
+data_path <- "../raw_data/" #path to save the data is to the raw_data folder
 
+#save copy of final dfs used in this file to the raw_data folder
 write.csv(d_phase1, paste(data_path, fitpath, sep = ""), row.names = FALSE)
 write.csv(d_phase2, paste(data_path, disppath, sep = ""), row.names = FALSE)
 
