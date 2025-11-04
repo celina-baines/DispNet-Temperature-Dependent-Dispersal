@@ -1,7 +1,8 @@
 ---
 title: "Temperature dependent dispersal: A distributed experiment"
 author: "researcher names here"
-output: word_document
+output: 
+  word_document: default
 editor_options: 
   chunk_output_type: console
 ---
@@ -40,11 +41,9 @@ high.temp = 30 #value of high temperature treatment in Celsius
 
 # 4. Set paths
 
-## set path for reading files (folder that contains the raw data files)
-reading.path <- ("C:/Users/nikki/OneDrive - University of Toronto/PhD Research/Parasitism Content/Distributed Experiment/DispNet-Temperature-Dependent-Dispersal/Notonecta_undulata/")
-#reading.path <- ("./Notonecta_undulata/")
-## set path for writing files (folder where you want output text files to go)
-writing.path <- "C:/Users/nikki/OneDrive - University of Toronto/PhD Research/Parasitism Content/Distributed Experiment/DispNet-Temperature-Dependent-Dispersal/Notonecta_undulata/outputs/" # make sure to end path with /
+reading.path <- ("./")
+
+writing.path <- ("../outputs/")
 
 # 5. Check that the data files have the following headers (order of columns is not important):
 
@@ -150,6 +149,7 @@ fitness.proxy.type <- "other"
 
 ```
 
+
 # Supplementary methods for *`r (print(paste(Genus, species)))`*
 
 ## Study organism
@@ -250,8 +250,8 @@ Provide details about the methods for estimating dispersal including:
 ```{r setup, include = F}
 
 knitr::opts_knit$set(root.dir = normalizePath(reading.path))
-#knitr::opts_knit$set(root.dir = normalizePath(dir()))
 ```
+
 
 ```{r loaddata, echo = F}
 
@@ -259,14 +259,15 @@ knitr::opts_knit$set(root.dir = normalizePath(reading.path))
 d_phase1 <- read.csv(paste("Phase1_fitness_", Genus, ".", species, ".csv", sep = ""))
 d_phase2 <- read.csv(paste("Phase2_dispersal_", Genus, ".", species, ".csv", sep = ""))
 
+
 d_phase1 <- within(d_phase1, Temp.treatment <- relevel(as.factor(Temp.treatment), ref = "opt"))
-
-
 
 d_phase2 <- within(d_phase2, Temp.treatment <- relevel(as.factor(Temp.treatment), ref = "opt"))
 
+
+
 d_phase2 <- d_phase2 %>%
-  { if (filter.dead) filter(., Survival == 1) else . }
+ { if (filter.dead) filter(., Survival == 1) else . }
 
 #d_phase2 <- d_phase2 %>% filter(Survived == "Y") # exclude dead individuals if needed
 
@@ -275,17 +276,34 @@ d_phase2 <- d_phase2 %>%
 ```{r writedata, echo = F}
 
 # load data file from github directory
-folder <- paste("./", Genus, "_", species, "/", sep = "") #specify folder in git repo
 fitpath <- paste("Phase1_fitness_", Genus, ".", species, ".csv", sep = "") #specify file name for fitness
 disppath <- paste("Phase2_dispersal_", Genus, ".", species, ".csv", sep = "")
 
-fitdf <- read.csv(paste(folder, fitpath, sep = "")) #read in fitness file from github path
-dispdf <- read.csv(paste(folder, disppath, sep = "")) #read in dispersal file from github path
+data_path <- "../raw_data/"
 
-write.csv(fitdf, file = paste("./raw_data/", fitpath)) #copy the raw data csv to the raw data folder
-write.csv(dispdf, file = paste("./raw_data/", disppath))
+write.csv(d_phase1, paste(data_path, fitpath, sep = ""), row.names = FALSE)
+write.csv(d_phase2, paste(data_path, disppath, sep = ""), row.names = FALSE)
+
+#setwd(paste("./",folder, sep = ""))
+#folder <- paste("./", Genus, "_", species, "/", sep = "") #specify folder in git repo
+
+
+#fitdf <- read_csv(paste(fitpath)) #read in fitness file from github path
+#dispdf <- read_csv(paste(folder, disppath, sep = "")) #read in dispersal file from github path
+
+#fitdf <- read.csv("Phase1_fitness_Notonecta.undulata.csv") #read in fitness file from github path
+#dispdf <- read_csv(disppath) #read in dispersal file from github path
+
+#setwd("./raw_data/")
+
+#write.csv(d_phase1, "../raw_data/Notofit1.csv", row.names = FALSE) #copy the raw data csv to the raw data folder
+
+#write.csv(fitdf, file = paste("raw_data/", fitpath)) #copy the raw data csv to the raw data folder
+
+#write.csv(dispdf, file = paste("./raw_data/", disppath))
 
 ```
+
 
 
 ### Does fitness change with temperature (phase 1)?
@@ -340,13 +358,11 @@ output_fitness_contrasts <- output_fitness_emmeans$contrasts %>%
      summary(infer = TRUE)
 ```
 
-
 ```{r fitnesstablebinary, eval = fitness.binary, echo = F}
 
 fittable <- with(d_phase1, table(Temp.treatment, Fitness))
 knitr::kable(fittable, col.names = c(Fit0, Fit1),
  caption = paste("Table 1. Relationship between", tolower(fitness.proxy), "and temperature treatment.")) 
-
 
 ```
 
@@ -366,6 +382,7 @@ output_fitness_contrasts <- output_fitness_emmeans$contrasts %>%
      summary(infer = TRUE)
 
 ```
+
 
 #### Results for main effect of temperature on fitness
 ```{r fitnessresultsmaineffect, echo = F}
