@@ -7,11 +7,29 @@ RMarkdown file "Species-specific methods and analysis" provides template for sup
 
 ### Using git/github
 
-We will share all files on github. The RMarkdown is written so that if you upload your raw data files to the raw_data folder in the repo, knitting the RMarkdown will pull and push from the correct folders in the repo. You should have received an invitation to join the repo on github.
+We will share all files on github. Each species has it's own folder in the github repository. Upload all your project materials including dataframes into your species folder. Fill out the RMarkdown in the species folder, then run the render_script.
+
+Running the script will automatically save the fitness and dispersal data to the shared raw_data folder in the repo and knit the RMarkdown into the Knitted_Markdowns folder.
+
+You should have received an invitation to join the repo on github.
 
 If you are new to git/github, this is a great resource: https://happygitwithr.com/
 
-*[placeholder for git instructions]*
+*GitHub Instructions*
+
+1. Create a GitHub account: https://github.com/signup
+
+2. Go to and accept the GiHub repo to join.
+
+3. If you are new to GitHub, you will need to install git. To check to see if you already have git and install instructions for different operating instructions, please see: https://happygitwithr.com/install-git
+
+4. Connect the GitHub repo to R. Go to create a New Project -> Version Control -> Git. There is a field for a repository URL. Paste this link there: https://github.com/celina-baines/DispNet-Temperature-Dependent-Dispersal.You can specify the rest of the path of where the repo is stored locally.
+
+5. You will see a folder for each species in this project in the repo. Go to your species folder. You will see a RMarkdown file to edit. Read the instructions carefully and fill it out. 
+NOTE: You can make edits and collaborate with others. Be sure to make commits frequently to keep track of your work and push and pull changes regularly so everyone in your group is using the most updated versions. If you and a collaborator are updating the same file at the same time, there could be conflicts when the changes are pushed.
+
+If there are issues with the RMarkdown file, you can push changes to the problem-solving branch, this should create reproducible errors. If Celina is needed to help make changes to the file, send her an email so she knows to pull the document.
+
 
 ### Using the RMarkdown file
 
