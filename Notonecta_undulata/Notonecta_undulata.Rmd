@@ -44,7 +44,6 @@ high.temp = 30 #value of high temperature treatment in Celsius
 
 # 4. Set paths
 folder <- paste("./", Genus, "_", species, "/", sep = "") #specify folder in git repo#
-
 #setwd(paste("./",folder, sep = ""))
 #setwd("C:/Users/nikki/OneDrive - University of Toronto/PhD Research/Parasitism Content/Distributed Experiment/DispNet-Temperature-Dependent-Dispersal/")
 dir()
@@ -168,20 +167,6 @@ fitness.proxy.type <- "other"
 
 ```
 
-```{r writedata, echo = F}
-
-# load data file from github directory
-folder <- paste("./", Genus, "_", species, "/", sep = "") #specify folder in git repo
-fitpath <- paste("Phase1_fitness_", Genus, ".", species, ".csv", sep = "") #specify file name for fitness
-disppath <- paste("Phase2_dispersal_", Genus, ".", species, ".csv", sep = "")
-
-fitdf <- read.csv(paste(folder, fitpath, sep = "")) #read in fitness file from github path
-dispdf <- read.csv(paste(folder, disppath, sep = "")) #read in dispersal file from github path
-
-write.csv(fitdf, file = paste("./raw_data/", fitpath)) #copy the raw data csv to the raw data folder
-write.csv(dispdf, file = paste("./raw_data/", disppath))
-
-```
 
 # Supplementary methods for *`r (print(paste(Genus, species)))`*
 
@@ -297,6 +282,22 @@ d_phase2 <- within(d_phase2, Temp.treatment <- relevel(as.factor(Temp.treatment)
 
 ```
 
+```{r writedata, echo = F}
+
+# load data file from github directory
+#setwd(paste("./",folder, sep = ""))
+folder <- paste("./", Genus, "_", species, "/", sep = "") #specify folder in git repo
+fitpath <- paste("Phase1_fitness_", Genus, ".", species, ".csv", sep = "") #specify file name for fitness
+disppath <- paste("Phase2_dispersal_", Genus, ".", species, ".csv", sep = "")
+
+
+fitdf <- read.csv(paste(folder, fitpath, sep = "")) #read in fitness file from github path
+dispdf <- read.csv(paste(folder, disppath, sep = "")) #read in dispersal file from github path
+
+write.csv(fitdf, file = paste("./raw_data/", fitpath)) #copy the raw data csv to the raw data folder
+write.csv(dispdf, file = paste("./raw_data/", disppath))
+
+```
 
 
 ```{r setup, include = F}
