@@ -4,7 +4,7 @@ author: "researcher names here"
 output: 
   word_document:
     toc: true
-output_file: "../Knitted_RMarkdowns/Notonecta_undulata.docx"
+output_file: "../Knitted_Markdowns/Notonecta_undulata.docx"
 editor_options: 
   chunk_output_type: console
   
@@ -44,18 +44,20 @@ high.temp = 30 #value of high temperature treatment in Celsius
 
 # 4. Set paths
 folder <- paste("./", Genus, "_", species, "/", sep = "") #specify folder in git repo#
+
 #setwd(paste("./",folder, sep = ""))
 #setwd("C:/Users/nikki/OneDrive - University of Toronto/PhD Research/Parasitism Content/Distributed Experiment/DispNet-Temperature-Dependent-Dispersal/")
 dir()
 
 ## set path for reading files (folder that contains the raw data files)
-#reading.path <- ("C:/Users/nikki/OneDrive - University of Toronto/PhD Research/Parasitism Content/Distributed Experiment/DispNet-Temperature-Dependent-Dispersal/")
+reading.path <- ("C:/Users/nikki/OneDrive - University of Toronto/PhD Research/Parasitism Content/Distributed Experiment/DispNet-Temperature-Dependent-Dispersal/Notonecta_undulata/")
 
-reading.path <- ("./")
+#reading.path <- (paste("./", Genus, "_", species, "/", sep = ""))
+#reading.path <- ("./")
 
 writing.path <- ("C:/Users/nikki/OneDrive - University of Toronto/PhD Research/Parasitism Content/Distributed Experiment/DispNet-Temperature-Dependent-Dispersal/Notonecta_undulata/outputs/") # make sure to end path with /
 
-#writng.path <- ("./outputs/")
+#writng.path <- (paste("./",  Genus, "_", species, "/outputs/", sep = ""))
 
 # trying alternatives to reading and writing paths
   #not finding dfs from this directory
@@ -163,6 +165,21 @@ disp.assay.duration <- 0.01 # order of magnitude for dispersal assay duration / 
 fitness.proxy.type <- "other"
 
 # 11. Fill out methods information below.
+
+```
+
+```{r writedata, echo = F}
+
+# load data file from github directory
+folder <- paste("./", Genus, "_", species, "/", sep = "") #specify folder in git repo
+fitpath <- paste("Phase1_fitness_", Genus, ".", species, ".csv", sep = "") #specify file name for fitness
+disppath <- paste("Phase2_dispersal_", Genus, ".", species, ".csv", sep = "")
+
+fitdf <- read.csv(paste(folder, fitpath, sep = "")) #read in fitness file from github path
+dispdf <- read.csv(paste(folder, disppath, sep = "")) #read in dispersal file from github path
+
+write.csv(fitdf, file = paste("./raw_data/", fitpath)) #copy the raw data csv to the raw data folder
+write.csv(dispdf, file = paste("./raw_data/", disppath))
 
 ```
 
@@ -280,25 +297,13 @@ d_phase2 <- within(d_phase2, Temp.treatment <- relevel(as.factor(Temp.treatment)
 
 ```
 
+
+
 ```{r setup, include = F}
 
 knitr::opts_knit$set(root.dir = normalizePath(reading.path))
 #knitr::opts_knit$set(root.dir = normalizePath(dir()))
 ```
-
-#```{r writedata, echo = F}
-
-# load data file from github directory
-fitpath <- paste("Phase1_fitness_", Genus, ".", species, ".csv", sep = "") #specify file name for fitness
-disppath <- paste("Phase2_dispersal_", Genus, ".", species, ".csv", sep = "")
-
-fitdf <- read.csv(paste(folder, fitpath, sep = "")) #read in fitness file from github path
-dispdf <- read.csv(paste(folder, disppath, sep = "")) #read in dispersal file from github path
-
-write.csv(fitdf, file = paste("./raw_data/", fitpath)) #copy the raw data csv to the raw data folder
-write.csv(dispdf, file = paste("./raw_data/", disppath))
-
-#```
 
 
 ### Does fitness change with temperature (phase 1)?
