@@ -5,8 +5,6 @@ RMarkdown files "species_name.Rmd" provides the template for supplementary metho
 
 ## Instructions for researchers
 
-### Using git/github
-
 We will share all files on github. Each species has its own folder in the github repository. Upload all your project materials including data files into your species folder. Fill out the RMarkdown template (species_name.Rmd) in the species folder, then run the render_script.
 
 Running the script will automatically save the fitness and dispersal data to the shared 'raw_data' folder in the repo, knit the RMarkdown into the 'Knitted_Markdowns' folder, and save model outputs to the 'outputs' folder for later meta-analysis.
@@ -15,7 +13,7 @@ You should have received an invitation to join the repo on github.
 
 If you are new to git/github, this is a great resource: https://happygitwithr.com/
 
-*GitHub Instructions*
+### GitHub Instructions
 
 1. Create a GitHub account: https://github.com/signup
 
