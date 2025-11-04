@@ -1,0 +1,15 @@
+# Temperature-dependent dispersal: a distributed experiment
+
+# Methods
+## Statistical analysis
+
+### Model fitting
+All linear mixed models were fit using the ‘lmer’ function in the lme4 package (Bates et al. 2015). All generalized linear mixed models were fit using the ‘glmer’ function in the lme4 package.
+
+### Model diagnostics
+We checked model fit for both fitness and dispersal models using the ‘simulateResiduals’ function in the DHARMa package (Hartig 2024). This function creates residuals by simulating new data from the full fitted mixed model and generates a QQ plot of the residuals (to check for deviations from normality in the residuals) and a plot of residuals against predicted values (to check for homogeneity of residuals). It also conducts tests for uniformity on the simulated residuals, over (or under) dispersion, and extreme outliers.
+
+
+# Reference List
+Bates D, Maechler M, Bolker B, Walker S. (2015). Fitting linear mixed-effects models using lme4. Journal of Statistical Software, 67(1), 1-48. doi:10.18637/jss.v067.i01.
+Hartig F (2024). _DHARMa: Residual diagnostics for hierarchical (multi-level / mixed) regression models_. doi:10.32614/CRAN.package.DHARMa, <https://doi.org/10.32614/CRAN.package.DHARMa>
