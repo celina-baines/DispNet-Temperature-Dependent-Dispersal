@@ -1,6 +1,6 @@
 ---
 title: "Temperature dependent dispersal: A distributed experiment"
-author: "researcher names here"
+author: "Anna-Gaëlle De Groote, Siebe van Wunnik, Dries Bonte"
 output: word_document
 editor_options: 
   chunk_output_type: console
@@ -20,6 +20,8 @@ editor_options:
 # Phase1_fitness_Genus.species.csv
 # Phase2_dispersal_Genus.species.csv
 
+
+
 ## code below assumes .csv format (only in the code chunk named 'loaddata'; You can change this if you would rather not use .csv)
 
 
@@ -29,15 +31,16 @@ library(lme4)
 library(ggplot2)
 library(emmeans)
 library(DHARMa)
+library(glmmTMB)
 
 # 3. Fill out information about your species below
 
-Genus = "Genus"
-species = "species"
-fitness.proxy = "Population growth, r / Survival / Fecundity"
-low.temp = x #value of low temperature treatment in Celsius
-opt.temp = x #value of optimal temperature treatment in Celsius
-high.temp = x #value of high temperature treatment in Celsius
+Genus = "Tetranychus"
+species = "turkestani"
+fitness.proxy = "Population growth, r"
+low.temp = 24 #value of low temperature treatment in Celsius
+opt.temp = 30 #value of optimal temperature treatment in Celsius
+high.temp = 36 #value of high temperature treatment in Celsius
 
 
 # 4. Check that the data files have the following headers (order of columns is not important):
@@ -61,18 +64,18 @@ high.temp = x #value of high temperature treatment in Celsius
 ## Answer questions below about the fitness proxy
 
 ### Is your fitness variable binary? (choose one)
-fitness.binary = TRUE/FALSE
+fitness.binary = FALSE
 
 ### Is the fitness variable continuous normal (without transformation)? (choose one)
-fitness.normal = TRUE/FALSE
+fitness.normal = FALSE
 
 ### Is the fitness variable normal after transformation? (choose one; choose NA if you said "TRUE" to either question above)
-fitness.transformed.normal = TRUE/FALSE/NA
+fitness.transformed.normal = TRUE
 
 ## If fitness variable is continuous normal AFTER transformation, choose transformation used (just write it in if not on this list):
 
-transform.description <- "square-root/log/log10" # leave as-is if not applicable
-fitness.transformation.function <- function(x) {return (XYZ(x))} # give transformation formula here; replace XYZ with transformation e.g., sqrt(x) or log(x + 1), etc., where x will be Fitness, below
+transform.description <- "log" # leave as-is if not applicable
+fitness.transformation.function <- function(x) {return (sqrt(x))} # give transformation formula here; replace XYZ with transformation e.g., sqrt(x) or log(x + 1), etc., where x will be Fitness, below
 
 ## note: if fitness (or transformed fitness) does not have a binomial or normal distribution, check in with Celina.
 
@@ -81,7 +84,7 @@ fitness.transformation.function <- function(x) {return (XYZ(x))} # give transfor
 
 ## Is there overdispersion in the dispersal data? If you do not yet know, choose FALSE and this will be dealt with in step 12.
 
-overdispersion = TRUE/FALSE
+overdispersion = TRUE
 
 
 # 7. Dealing with mortality in dispersal assay
@@ -94,14 +97,17 @@ overdispersion = TRUE/FALSE
 
 ## Do rows represent individuals in the dataset and are there dead individuals that should be removed from the dispersal data?
 
-filter.dead = TRUE/FALSE/NA # choose NA if this does not apply to your species
+filter.dead = FALSE # choose NA if this does not apply to your species
+
+## Also filter out males!
+
 
 
 # 8. Model formulae
 
 ## Formula for fitness: (fill in as appropriate)
-
-fitness.formula <- "Fitness ~ Temp.treatment + other.fixed.effects + (1|random)"
+fitness.formula.zero <- zero ~ Temp.treatment + (1|dispersion_id)
+fitness.formula.pos <- Fitness ~ Temp.treatment + (1|dispersion_id)
 
 ### notes:
 #### TRANSFORM FITNESS VARIABLE (if needed) *WITHIN* THE FORMULA; doing it within the formula is important for contrasts below  
@@ -118,13 +124,13 @@ Fit1 <- "Died/Survived" # or fill in other
 
 ## Formula for dispersal: (fill in as appropriate)
   
-dispersal.formula <- "cbind(Num.disp, Num.nondisp) ~ Temp.treatment + other.fixed.effects + (1|random)"
-
+dispersal.formula.zero <- zero ~ Temp.treatment + (1|dispersion_id)
+dispersal.formula.pos <- cbind(Num.disp, Num.res) ~ Temp.treatment + (1|dispersion_id)
 ### notes
 #### other.fixed.effects does not apply to every species; include as appropriate; fixed effects should be standardized
 #### include as many random effects as appropriate
 #### Num.disp/Num.nondisp can be replaced with column "Dispersed" with values 0 and 1, if individuals are rows in your dataset
-#### remember to deal with mortality directly in dispersl formula if appropriate
+#### remember to deal with mortality directly in dispersal formula if appropriate
 
 
 # 9. Moderators
@@ -133,17 +139,17 @@ dispersal.formula <- "cbind(Num.disp, Num.nondisp) ~ Temp.treatment + other.fixe
 ## choose option on right hand side
 ## see description of moderators and levels in README.md in project repo
 
-taxonomic.group <- "arthropod/ciliate/microalgae"
-rearing.environment <- "commonT/treatmentT/field"
-comp.strength <- "low/moderate/high"
-source <- "lab/field" # lab population or field caught
-habitat <- "aquatic/terrestrial"
-Tvariation <- "homogenous/heterogenous"
-species.body.size <- x # mean body length in mm
-passive.dispersal <- "Yes/No"
-inbred <- "inbred line/mixed"
-disp.assay.duration <- 0.01/0.1/1/10 # order of magnitude for dispersal assay duration / generation time, i.e., approximate number of generations the dispersal assay lasted
-fitness.proxy.type <- "r/other"
+taxonomic.group <- "arthropod"
+rearing.environment <- "commonT"
+comp.strength <- "low"
+source <- "lab" # lab population or field caught
+habitat <- "terrestrial"
+Tvariation <- "heterogenous"
+species.body.size <- 0.5 # mean body length in mm
+passive.dispersal <- "Yes"
+inbred <- "inbred line"
+disp.assay.duration <- 1 # order of magnitude for dispersal assay duration / generation time, i.e., approximate number of generations the dispersal assay lasted
+fitness.proxy.type <- "r"
 
 # 10. Fill out methods information in text below.
 
@@ -152,68 +158,86 @@ fitness.proxy.type <- "r/other"
 # Supplementary methods for *`r (print(paste(Genus, species)))`*
 
 ## Study organism
-Name and strain/origin of species.  
 
-Provide basic life history information (aquatic/terrestrial, mode of dispersal, lifespan, etc.).  
+Tetranychus turkestani:
 
-Briefly describe what is known about the temperature range the species experiences (geographic range, seasonality, type of habitat, etc.) in its natural system or the history of the conditions it has experienced in the lab.  
+- Ras
 
-How were organisms sourced?  
--	Field caught: provide information on timing, geographic coordinates, type of habitat.  
--	Lab sourced: provide information on source.  
--	Provide license/ authorization numbers for catching animals in the field and/or doing experiments, where applicable. 
+#Provide basic life history information (aquatic/terrestrial, mode of dispersal, lifespan, etc.).  
 
-How were individuals/populations treated before the experiment?  
--	Rearing/holding conditions (temperature, food, light).  
--	How long were experimental subjects held before the experiment?  
+Terrestrial plant-feeding Acari,  cosmopolitan distribution, polyphageous, reproduce through arrhenotoky (haplodiploids), capable of diapause during winter, capable of both active and passive dispersal, lifespan between 2 and 4 weeks, capable of producing approximately 70 eggs during a lifetime.
 
-Were specific individuals/phenotypes/stages selected for the experiment?  
+#Briefly describe what is known about the temperature range the species experiences (geographic range, seasonality, type of habitat, etc.) in its natural system or the history of the conditions it has experienced in the lab.  
+
+Tetranychus urticae is a cosmopolitan species found worldwide in temperate, subtropical, and tropical regions. In its natural environment, it is most active during the warmer months, with populations typically peaking in spring and summer. It inhabits plant surfaces, especially the undersides of leaves, and is commonly associated with crops, ornamentals, and weeds. The species thrives in temperatures ranging from approximately 20–30°C, with optimal development occurring around 25–28°C. While it can tolerate brief periods of higher temperatures, extreme heat above 40°C or prolonged exposure to cold below 10°C significantly reduces survival and reproduction. In the lab, the species is maintained within its optimal temperature range on bean.
+
+
+#How were organisms sourced?  
+
+Field caught: line, location, original host plant
+
+- Ras: Rascafria, Spain. Strawberry
+
+
+#How were individuals/populations treated before the experiment?  
+
+- The mites were made isofemale lines, after which they were maintained under constant conditions as a stock. Food was ad libitum, temperature was kept at 24°C, and constant light.
+When were the lines collected:
+
+- Ras: 2022
+
+#Were specific individuals/phenotypes/stages selected for the experiment?  
+
+No Wolbacchia present (capable of skewing sex-ratio)
 
 ## Study design
 
 ### Temperature treatments
 
-State the temperatures used for Topt, Thot, Tcold, and explain how they were chosen.  
-
-State whether there was daily variation in temperature, and if so, describe (e.g., mean and standard deviation of temperature for each treatment).  
+- Tcold: 24°C; Sufficiently cold to be suboptimal, while still above diapause temperature and mites will still show activity and movement.
+- Topt: 30°C; Optimal temperature for spider mites, as here their generation time and number of offspring increases.
+- Thot: 36°C; Sufficiently hot to affect the spider mites, while not causing complete mortality.
 
 ### Phase 1: Fitness assay
 
-Describe the fitness proxy (growth rate, survival, body condition, reproductive output, etc.). If proxy is indirect (e.g., body condition), explain what is known about the relationship between the proxy and actual fitness in the species.  
+Fitness proxy: malthusian fitness = number of viable female offspring produced by one female. 
 
-Provide details about the methods for estimating the fitness proxy including:  
--	Physical details about the experimental setup including size/shape/volume of experimental arenas, substrate/medium of experimental arenas.  
+#-	Physical details about the experimental setup including size/shape/volume of experimental arenas, substrate/medium of experimental arenas.  
+
+- Adult females were kept in incubator at treatment temperature for 24 hours, after which they were placed on a bean leaf. Here, they were allowed to lay eggs for 24 hours. These eggs were controlled daily to check for hatching, and female hatched offspring were placed on a dispersal plate (2 patches). Here, they were allowed to lay eggs for four days on either of the bean leaf discs. These eggs were checked daily for hatching success and sex determination of the offspring. 
+
 -	Replicates  
-    - Specify number of experimental replicates  
-    - Number of strains and number of replicates per strain  
-    - Indicate if experimental blocks were used and the blocking design (number of blocks, how many replicates of each treatment per block, time/space between blocks)
--	Type and amount of food provided during experiment  
-- Starting density  
--	Duration of fitness assay  
--	Controlled variables: food (ad lib?), water (ad lib?), sex ratio  
-- Phenotypes measured (activity, body condition, body size, etc.) and how they were estimated  
+    - Three replication rounds
+    - Variable number of replicates per adult female: dependent on number of eggs laid
+    - Blocked on replication rounds
+-	Food was available ad libitum in the form of bean leaves. 
+- Starting density of one mite.  
+-	Fitness assay lasted until all eggs were hatched or visible defect
+-	Only females were used for the fitness assay 
+- Daily fecundity was estimated by dividing the number of hatched female offspring by the developmental time. 
 
 ### Phase 2: Dispersal assay
 
 Provide details about the methods for estimating dispersal including:  
--	Physical details about the experimental setup including size/shape/volume of experimental arenas, substrate/medium of experimental arenas, type of system (1 or 2 patches).  
+-	Adult females were kept in incubator at treatment temperature for 24 hours, after which they were placed on a bean leaf. Here, they were allowed to lay eggs for 24 hours. These eggs were controlled daily to check for hatching, and female hatched offspring were placed on a dispersal plate (2 patches). Here, they were allowed to lay eggs for four days on either of the bean leaf discs. These eggs were checked daily for hatching success and sex determination of the offspring. 
+
 -	Replicates  
-    - Specify number of experimental replicates  
-    - Number of strains and number of replicates per strain  
-    - Indicate if experimental blocks were used and the blocking design (number of blocks, how many replicates of each treatment per block, time/space between blocks)  
--	Type and amount of food provided during experiment  
-- Starting density  
+    - Three replication rounds
+    - Variable number of replicates per adult female: dependent on number of eggs laid
+    - Blocked on replication rounds
+-	Food was available ad libitum in the form of bean leaves. 
+- Starting density of one mite.
 -	Duration of dispersal assay including:  
-    - time between birth and start of acclimation period  
-    - duration of acclimation period  
-    - timing and duration of dispersal assay  
--	Controlled variables: food (ad lib?), water (ad lib? if applicable), sex ratio  
-- Phenotypes measured (activity, body condition, body size, etc.) and how they were estimated  
-- Whether individuals used in phase 2 were the same as used in phase 1 
+    - Parent already experienced treatment temperature  
+    - No acclimation period
+    - Dispersal assay lasted four days
+- Only females were used for the dispersal assay 
+- Dispersal was measured by calculating the number of eggs laid on the second patch compared to the total number of eggs laid.
+- Individuals used in phase 2 were the same as used in phase 1 
 - Provide details on data collection including:  
-    -	The sampling regime (time intervals between sampling).  
-    -	Sampling method including whether individuals were marked and whether sampling was observed or automated. Please include validation if automated.  
-- State whether mortality during the dispersal assay was recorded. Describe how mortality was handled for the statistical analysis (e.g., individuals that died during the dispersal assay were excluded from the analysis of dispersal).  
+    -	Daily sampling 
+    -	Sampling consisted of checking both patches and counting the number of eggs. 
+- Individuals that died during the dispersal assay were excluded from the analysis of dispersal.  
 
 
 
@@ -251,9 +275,29 @@ reading.path <- ("./")
 
 writing.path <- ("../outputs/")
 
+file_phase1 <- file.path(reading.path, paste0("Phase1_fitness_", Genus, ".", species, ".csv"))
+file_phase2 <- file.path(reading.path, paste0("Phase2_dispersal_", Genus, ".", species, ".csv"))
+
+# Load CSVs
+d_phase1 <- read.csv2(file_phase1, row.names = NULL, check.names = TRUE, stringsAsFactors = FALSE)
+d_phase2 <- read.csv2(file_phase2, row.names = NULL, check.names = TRUE, stringsAsFactors = FALSE)
+
 # load data file
-d_phase1 <- read.csv(paste("Phase1_fitness_", Genus, ".", species, ".csv", sep = ""))
-d_phase2 <- read.csv(paste("Phase2_dispersal_", Genus, ".", species, ".csv", sep = ""))
+d_phase1 <- read.csv2(
+  file.path(reading.path, paste("Phase1_fitness_", Genus, ".", species, ".csv", sep = "")),
+  row.names = NULL,
+  check.names = TRUE,
+  stringsAsFactors = FALSE
+)
+
+d_phase2 <- read.csv2(
+  file.path(reading.path, paste("Phase2_dispersal_", Genus, ".", species, ".csv", sep = "")),
+  row.names = NULL,
+  check.names = TRUE,
+  stringsAsFactors = FALSE
+)
+
+
 
 d_phase1 <- within(d_phase1, Temp.treatment <- relevel(as.factor(Temp.treatment), ref = "opt"))
 d_phase2 <- within(d_phase2, Temp.treatment <- relevel(as.factor(Temp.treatment), ref = "opt"))
@@ -275,6 +319,12 @@ data_path <- "../raw_data/" #path to save the data is to the raw_data folder
 write.csv(d_phase1, paste(data_path, fitpath, sep = ""), row.names = FALSE)
 write.csv(d_phase2, paste(data_path, disppath, sep = ""), row.names = FALSE)
 
+
+# Convert Fitness to numeric
+d_phase1 <- d_phase1[d_phase1$Fitness != "#N/A", ]
+d_phase1$Fitness <- gsub(",", ".", d_phase1$Fitness)
+d_phase1$Fitness <- as.numeric(d_phase1$Fitness)
+
 ```
 
 
@@ -285,7 +335,6 @@ write.csv(d_phase2, paste(data_path, disppath, sep = ""), row.names = FALSE)
 ```{r fitnessnormal, eval = fitness.normal, echo = F, fig.cap = paste("Figure 1. Histogram of fitness (", tolower(fitness.proxy), ") values.")}
 
 # histogram showing fitness proxy was normally distributed
-
 with(d_phase1, hist(Fitness, xlab = fitness.proxy, main = NULL))
 
 ```
@@ -313,21 +362,66 @@ ggplot(d_phase1, aes(x = Temp.treatment, y = Fitness, col = Temp.treatment))+
 
 `r ifelse(fitness.binary == T, print(paste("To estimate the effects of temperature (a factor) on fitness we used a generalized linear mixed model with a logit link and", tolower(fitness.proxy), "as the binary response variable. We used the formula:")), paste("To estimate the effects of temperature (a factor) on fitness, we used a linear mixed model with", tolower(fitness.proxy), "as the response variable. We used the formula:"))`  
 
-`r (print(fitness.formula))`
+`r deparse(fitness.formula.pos)`
 
 ```{r fitnessmodelnormal, eval = fitness.normal | fitness.transformed.normal, echo = F}
 
-# model testing effects of temperature on fitness
+d_phase1$zero <- d_phase1$Fitness == 0
 
-m_fitness <- lmer(fitness.formula, data = d_phase1)
+# --- 1. Zero part (logistic) ---
+m_fitness_zero <- glmmTMB(
+  fitness.formula.zero,
+  family = binomial(link="logit"),
+  data = d_phase1
+)
 
-# output results for overall model and pairwise comparisons
 
-output_fitness_Tempeffect <- anova(m_fitness)
-output_fitness_summary <- summary(m_fitness)
-output_fitness_emmeans <- emmeans(m_fitness, specs = pairwise ~ Temp.treatment, regrid = "response", adjust = "none")
-output_fitness_contrasts <- output_fitness_emmeans$contrasts %>%
-     summary(infer = TRUE)
+# ANOVA for zero part
+output_fitness_zero_Tempeffect <- drop1(m_fitness_zero, test = "Chisq")
+
+# Summary for zero part
+output_fitness_zero_summary <- summary(m_fitness_zero)
+
+# Pairwise comparisons for zero part (odds of producing any offspring)
+output_fitness_zero_emmeans <- emmeans(
+  m_fitness_zero,
+  specs = pairwise ~ Temp.treatment,
+  type = "response",       # back-transforms logit to probability
+  adjust = "none"
+)
+
+output_fitness_zero_contrasts <- output_fitness_zero_emmeans$contrasts %>%
+  summary(infer = TRUE)
+
+
+# --- 2. Positive part (Gamma) ---
+d_pos <- subset(d_phase1, Fitness > 0)
+m_fitness_pos <- glmmTMB(
+  fitness.formula.pos,
+  family = Gamma(link="log"),
+  data = d_pos
+)
+
+
+
+# ANOVA for positive part
+output_fitness_pos_Tempeffect <- drop1(m_fitness_pos, test = "Chisq")
+
+# Summary for positive part
+output_fitness_pos_summary <- summary(m_fitness_pos)
+
+# Pairwise comparisons for positive part
+output_fitness_pos_emmeans <- emmeans(
+  m_fitness_pos,
+  specs = pairwise ~ Temp.treatment,
+  type = "response",   # back-transform log-link to mean response
+  adjust = "none"
+)
+
+output_fitness_pos_contrasts <- output_fitness_pos_emmeans$contrasts %>%
+  summary(infer = TRUE)
+
+
 ```
 
 
@@ -357,26 +451,38 @@ output_fitness_contrasts <- output_fitness_emmeans$contrasts %>%
 
 ```
 
-#### Results for main effect of temperature on fitness
-```{r fitnessresultsmaineffect, echo = F}
-
-output_fitness_Tempeffect
-
-```
-
-#### Post-hoc pairwise contrasts: differences in fitness between temperature treatments
-```{r fitnessresultscontrasts, echo = F}
-
-output_fitness_contrasts
+#### Results for main effect of temperature on fitness for zero part
+```{r fitnessresultsmaineffect_zero, echo = F}
+# for zero part of fitness
+output_fitness_zero_Tempeffect
 
 ```
 
+#### Post-hoc pairwise contrasts: differences in fitness between temperature treatments for zero part
+```{r fitnessresultscontrasts_zero, echo = F}
+# for zero part of fitness
+output_fitness_zero_contrasts
 
+```
+
+#### Results for main effect of temperature on fitness for positive part
+```{r fitnessresultsmaineffect_pos, echo = F}
+# for positive part of fitness
+output_fitness_pos_Tempeffect
+
+```
+
+#### Post-hoc pairwise contrasts: differences in fitness between temperature treatments for positive part
+```{r fitnessresultscontrasts_pos, echo = F}
+# for positive part of fitness
+output_fitness_pos_contrasts
+
+```
 ### Does dispersal change with temperature (phase 2)?
 
 `r ifelse(!overdispersion, print("To estimate the effect of temperature treatment (a factor) on dispersal, we used a generalized linear mixed model with a binomial error structure and a logit link. Dispersal (the number of dispersers vs non-dispersers) was the response variable. We used the formula:"), print("There was evidence of overdispersion in our dispersal data. Therefore, to estimate the effect of temperature treatment (a factor) on dispersal, we used a generalized linear mixed model with a negative binomial error structure. Dispersal (the number of dispersers vs non-dispersers) was the response variable. We used the formula:"))`  
 
-`r (print(dispersal.formula))`
+`r deparse(dispersal.formula.pos)`
 
 
 ```{r dispersalmodelbinomial, eval = !overdispersion, echo = F}
@@ -397,44 +503,118 @@ output_dispersal_contrasts <- output_dispersal_emmeans$contrasts %>%
 
 ```{r dispersalmodelnegbinomial, eval = overdispersion, echo = F}
 
-# negative binomial model testing effects of temperature on dispersal
+# Convert characters to factors
+d_phase2$population <- factor(d_phase2$population)
+d_phase2$dispersion_id <- factor(d_phase2$dispersion_id)
+d_phase2$Num.res <- d_phase2$total.N - d_phase2$Num.disp
+d_phase2$dispersal_occurs <- as.numeric(d_phase2$Num.disp > 0)
 
-m_dispersal <- glmer.nb(dispersal.formula, data = d_phase2)
+d_phase2$zero <- d_phase2$Num.disp == 0
 
-# output results for overall model and pairwise comparisons
-output_dispersal_Tempeffect <- drop1(m_dispersal, test = "Chisq")
-output_dispersal_summary <- summary(m_dispersal)
-output_dispersal_emmeans <- emmeans(m_dispersal, specs = pairwise ~ Temp.treatment, type = "response", adjust = "none")
-output_dispersal_contrasts <- output_dispersal_emmeans$contrasts %>%
+# --- 1. Zero part (logistic) ---
+m_disp_zero <- glmmTMB(
+  dispersal.formula.zero,
+  family = binomial(link="logit"),
+  data = d_phase2
+)
+
+
+# ANOVA for zero part
+output_disp_zero_Tempeffect <- drop1(m_fitness_zero, test = "Chisq")
+
+# Summary for zero part
+output_disp_zero_summary <- summary(m_disp_zero)
+
+# Pairwise comparisons for zero part (odds of producing any offspring)
+output_disp_zero_emmeans <- emmeans(
+  m_disp_zero,
+  specs = pairwise ~ Temp.treatment,
+  type = "response",       # back-transforms logit to probability
+  adjust = "none"
+)
+
+output_disp_zero_contrasts <- output_disp_zero_emmeans$contrasts %>%
+  summary(infer = TRUE)
+
+
+# --- 2. Positive part (Gamma) ---
+d_pos_disp <- subset(d_phase2, Num.disp > 0)
+m_disp_pos <- glmmTMB(
+  dispersal.formula.pos,
+  family = binomial,
+  data = d_pos_disp
+)
+
+# ANOVA for positive part
+output_disp_pos_Tempeffect <- drop1(m_disp_pos, test = "Chisq")
+
+# Summary for positive part
+output_disp_pos_summary <- summary(m_disp_pos)
+
+# Pairwise comparisons for positive part
+output_disp_pos_emmeans <- emmeans(
+  m_disp_pos,
+  specs = pairwise ~ Temp.treatment,
+  type = "response",   # back-transform log-link to mean response
+  adjust = "none"
+)
+
+output_disp_pos_contrasts <- output_disp_pos_emmeans$contrasts %>%
   summary(infer = TRUE)
 
 ```
+
 
 ```{r dispersalplot, echo = F, warning = F, fig.cap = paste("Figure 1. Dispersal as a function of temperature treatment. low = ", low.temp, "C, opt = ", opt.temp, "C, high = ", high.temp, "C. Error bars represent 95% confidence intervals predicted from GLMM.")}
 
 # plot dispersal data
 
-ggplot(as.data.frame(output_dispersal_emmeans$emmeans), aes(x = Temp.treatment, y = prob, col = Temp.treatment))+
-  geom_point(size = 4)+
-  geom_errorbar(aes(ymin = asymp.LCL, ymax = asymp.UCL), width = 0)+
-  scale_x_discrete("Temperature treatment", limits = c("low", "opt", "high"))+
-  scale_y_continuous("Dispersal probability")+
-  scale_color_manual(values = c("darkgreen", "red", "blue"), guide = "none")+
+df_emmeans_zero <- as.data.frame(output_disp_zero_emmeans$emmeans)
+ggplot(df_emmeans_zero, aes(x = Temp.treatment, y = prob, col = Temp.treatment)) +
+  geom_point(size = 4) +
+  geom_errorbar(aes(ymin = asymp.LCL, ymax = asymp.UCL), width = 0) +
+  scale_x_discrete("Temperature treatment", limits = c("low", "opt", "high")) +
+  scale_y_continuous("Dispersal count") +
+  scale_color_manual(values = c("darkgreen", "red", "blue"), guide = "none") +
   theme_classic(base_size = 15)
 
+df_emmeans_pos <- as.data.frame(output_disp_pos_emmeans$emmeans)
+ggplot(df_emmeans_pos, aes(x = Temp.treatment, y = prob, col = Temp.treatment)) +
+  geom_point(size = 4) +
+  geom_errorbar(aes(ymin = asymp.LCL, ymax = asymp.UCL), width = 0) +
+  scale_x_discrete("Temperature treatment", limits = c("low", "opt", "high")) +
+  scale_y_continuous("Dispersal count") +
+  scale_color_manual(values = c("darkgreen", "red", "blue"), guide = "none") +
+  theme_classic(base_size = 15)
+
+
 ```
 
-#### Results for main effect of temperature on dispersal
-```{r dispersalresultsmaineffect, echo = F}
-
-output_dispersal_Tempeffect
+#### Results for main effect of temperature on dispersal for zero part
+```{r dispersalresultsmaineffect_zero, echo = F}
+# for zero part of dispersal
+output_disp_zero_Tempeffect
 
 ```
 
-#### Post-hoc pairwise contrasts: differences in dispersal between temperature treatments
-```{r dispersalresultscontrasts, echo = F}
+#### Post-hoc pairwise contrasts: differences in dispersal between temperature treatments for zero part
+```{r dispersalresultscontrasts_zero, echo = F}
+# for zero part of dispersal
+output_disp_zero_contrasts
 
-output_dispersal_contrasts
+```
+
+#### Results for main effect of temperature on dispersal for positive part
+```{r dispersalresultsmaineffect_pos, echo = F}
+# for positive part of dispersal
+output_disp_pos_Tempeffect
+
+```
+
+#### Post-hoc pairwise contrasts: differences in dispersal between temperature treatments for positive part
+```{r dispersalresultscontrasts_pos, echo = F}
+# for positive part of dispersal
+output_disp_pos_contrasts
 
 ```
 
@@ -442,21 +622,34 @@ output_dispersal_contrasts
 
 There was no evidence for lack of fit for either the fitness or the dispersal model.
 
-#### Diagnostic plots for fitness data
+#### Diagnostic plots for fitness data - zero part
 
-```{r modeldiagnosticsfitness, echo = F, fig.width = 8, fig.height = 7}
-
-diagnostic_fitness <- simulateResiduals(fittedModel = m_fitness)
-plot(diagnostic_fitness)
+```{r modeldiagnosticsfitness_zero, echo = F, fig.width = 8, fig.height = 7}
+diagnostic_fitness_zero <- simulateResiduals(fittedModel = m_fitness_zero)
+plot(diagnostic_fitness_zero)
 ```
 
-#### Diagnostic plots for dispersal data
 
-```{r modeldiagnosticsdispersal, echo = F, fig.width = 8, fig.height = 7}
+#### Diagnostic plots for fitness data - positive part
 
-diagnostic_dispersal <- simulateResiduals(fittedModel = m_dispersal)
-plot(diagnostic_dispersal)
+```{r modeldiagnosticsfitness_pos, echo = F, fig.width = 8, fig.height = 7}
+diagnostic_fitness_pos <- simulateResiduals(fittedModel = m_fitness_pos)
+plot(diagnostic_fitness_pos)
+```
 
+#### Diagnostic plots for dispersal data - zero part
+
+```{r modeldiagnosticsdispersal_zero, echo = F, fig.width = 8, fig.height = 7}
+diagnostic_dispersal_zero <- simulateResiduals(fittedModel = m_disp_zero)
+plot(diagnostic_dispersal_zero)
+```
+
+
+#### Diagnostic plots for dispersal data - positive part
+
+```{r modeldiagnosticsdispersal_pos, echo = F, fig.width = 8, fig.height = 7}
+diagnostic_dispersal_pos <- simulateResiduals(fittedModel = m_disp_pos)
+plot(diagnostic_dispersal_pos)
 ```
 
 ```{r moderators, echo = F}
@@ -479,27 +672,73 @@ d_moderator <- data.frame(
 ```
 
 ```{r writingoutputfiles, echo = F}
+# fitness output for zero
 
-# fitness output
+write.table(output_fitness_zero_Tempeffect, paste(writing.path, "output_zero_TempMain_", Genus, ".", species, ".txt", sep = ""))
 
-write.table(output_fitness_Tempeffect, paste(writing.path, "output_fitness_TempMain_", Genus, ".", species, ".txt", sep = ""))
+write.table(
+  output_fitness_zero_summary$coefficients$cond,
+  paste0(writing.path, "zero_summary_cond_", Genus, ".", species, ".txt"),
+  sep = "\t", row.names = TRUE, quote = FALSE
+)
 
-write.table(output_fitness_summary$coefficients, paste(writing.path, "output_fitness_Summary_", Genus, ".", species, ".txt", sep = ""))
+write.table(output_fitness_zero_emmeans$emmeans, paste(writing.path, "output_zero_emmeans_", Genus, ".", species, ".txt", sep = ""))
 
-write.table(output_fitness_emmeans$emmeans, paste(writing.path, "output_fitness_emmeans_", Genus, ".", species, ".txt", sep = ""))
+write.table(output_fitness_zero_emmeans$contrasts, paste(writing.path, "output_zero_contrasts_", Genus, ".", species, ".txt", sep = ""))
 
-write.table(output_fitness_emmeans$contrasts, paste(writing.path, "output_fitness_contrasts_", Genus, ".", species, ".txt", sep = ""))
+# fitness output for pos
 
+write.table(output_fitness_pos_Tempeffect, paste(writing.path, "output_pos_TempMain_", Genus, ".", species, ".txt", sep = ""))
 
-# dispersal output
+write.table(
+  output_fitness_pos_summary$coefficients$cond,
+  paste0(writing.path, "pos_summary_cond_", Genus, ".", species, ".txt"),
+  sep = "\t", row.names = TRUE, quote = FALSE
+)
 
-write.table(output_dispersal_Tempeffect, paste(writing.path, "output_dispersal_TempMain_", Genus, ".", species, ".txt", sep = ""))
+write.table(output_fitness_pos_emmeans$emmeans, paste(writing.path, "output_pos_emmeans_", Genus, ".", species, ".txt", sep = ""))
 
-write.table(output_dispersal_summary$coefficients, paste(writing.path, "output_dispersal_Summary_", Genus, ".", species, ".txt", sep = ""))
+write.table(output_fitness_pos_emmeans$contrasts, paste(writing.path, "output_pos_contrasts_", Genus, ".", species, ".txt", sep = ""))
 
-write.table(output_dispersal_emmeans$emmeans, paste(writing.path, "output_dispersal_emmeans_", Genus, ".", species, ".txt", sep = ""))
+# dispersal output for zero part
 
-write.table(output_dispersal_emmeans$contrasts, paste(writing.path, "output_dispersal_contrasts_", Genus, ".", species, ".txt", sep = ""))
+write.table(output_disp_zero_Tempeffect, paste(writing.path, "output_dispersal_TempMain_", Genus, ".", species, ".txt", sep = ""))
+
+write.table(
+  output_disp_zero_summary$coefficients$cond,
+  paste0(writing.path, "output_dispersal_Summary_cond_", Genus, ".", species, ".txt"),
+  sep = "\t", row.names = TRUE, quote = FALSE
+)
+
+write.table(
+  output_disp_zero_summary$coefficients$zi,
+  paste0(writing.path, "output_dispersal_Summary_zi_", Genus, ".", species, ".txt"),
+  sep = "\t", row.names = TRUE, quote = FALSE
+)
+
+write.table(output_disp_zero_emmeans$emmeans, paste(writing.path, "output_dispersal_emmeans_", Genus, ".", species, ".txt", sep = ""))
+
+write.table(output_disp_zero_emmeans$contrasts, paste(writing.path, "output_dispersal_contrasts_", Genus, ".", species, ".txt", sep = ""))
+
+# dispersal output for positive part
+
+write.table(output_disp_pos_Tempeffect, paste(writing.path, "output_dispersal_TempMain_", Genus, ".", species, ".txt", sep = ""))
+
+write.table(
+  output_disp_pos_summary$coefficients$cond,
+  paste0(writing.path, "output_dispersal_Summary_cond_", Genus, ".", species, ".txt"),
+  sep = "\t", row.names = TRUE, quote = FALSE
+)
+
+write.table(
+  output_disp_pos_summary$coefficients$zi,
+  paste0(writing.path, "output_dispersal_Summary_zi_", Genus, ".", species, ".txt"),
+  sep = "\t", row.names = TRUE, quote = FALSE
+)
+
+write.table(output_disp_pos_emmeans$emmeans, paste(writing.path, "output_dispersal_emmeans_", Genus, ".", species, ".txt", sep = ""))
+
+write.table(output_disp_pos_emmeans$contrasts, paste(writing.path, "output_dispersal_contrasts_", Genus, ".", species, ".txt", sep = ""))
 
 
 # moderator output
@@ -507,3 +746,4 @@ write.table(output_dispersal_emmeans$contrasts, paste(writing.path, "output_disp
 write.table(d_moderator, paste(writing.path, "moderators_", Genus, ".", species, ".txt", sep = ""))
 
 ```
+
