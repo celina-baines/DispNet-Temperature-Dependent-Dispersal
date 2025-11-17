@@ -1,6 +1,6 @@
 ---
 title: "Temperature dependent dispersal: A distributed experiment"
-author: "researcher names here"
+author: "Emelda Aceng, Silène Lartigue, Elodie Vercken"
 output: word_document
 editor_options: 
   chunk_output_type: console
@@ -32,12 +32,12 @@ library(DHARMa)
 
 # 3. Fill out information about your species below
 
-Genus = "Genus"
-species = "species"
-fitness.proxy = "Population growth, r / Survival / Fecundity"
-low.temp = x #value of low temperature treatment in Celsius
-opt.temp = x #value of optimal temperature treatment in Celsius
-high.temp = x #value of high temperature treatment in Celsius
+Genus = "Trichogramma"
+species = "cacoeciae"
+fitness.proxy = "Population growth"
+low.temp = 18 #value of low temperature treatment in Celsius
+opt.temp = 25 #value of optimal temperature treatment in Celsius
+high.temp = 30 #value of high temperature treatment in Celsius
 
 
 # 4. Check that the data files have the following headers (order of columns is not important):
@@ -61,13 +61,13 @@ high.temp = x #value of high temperature treatment in Celsius
 ## Answer questions below about the fitness proxy
 
 ### Is your fitness variable binary? (choose one)
-fitness.binary = TRUE/FALSE
+fitness.binary = FALSE
 
 ### Is the fitness variable continuous normal (without transformation)? (choose one)
-fitness.normal = TRUE/FALSE
+fitness.normal = TRUE
 
 ### Is the fitness variable normal after transformation? (choose one; choose NA if you said "TRUE" to either question above)
-fitness.transformed.normal = TRUE/FALSE/NA
+fitness.transformed.normal = NA
 
 ## If fitness variable is continuous normal AFTER transformation, choose transformation used (just write it in if not on this list):
 
@@ -81,7 +81,7 @@ fitness.transformation.function <- function(x) {return (XYZ(x))} # give transfor
 
 ## Is there overdispersion in the dispersal data? If you do not yet know, choose FALSE and this will be dealt with in step 12.
 
-overdispersion = TRUE/FALSE
+overdispersion = FALSE
 
 
 # 7. Dealing with mortality in dispersal assay
@@ -94,14 +94,14 @@ overdispersion = TRUE/FALSE
 
 ## Do rows represent individuals in the dataset and are there dead individuals that should be removed from the dispersal data?
 
-filter.dead = TRUE/FALSE/NA # choose NA if this does not apply to your species
+filter.dead = NA # choose NA if this does not apply to your species
 
 
 # 8. Model formulae
 
 ## Formula for fitness: (fill in as appropriate)
 
-fitness.formula <- "Fitness ~ Temp.treatment + other.fixed.effects + (1|random)"
+fitness.formula <- "Fitness ~ Temp.treatment + (1|Strain)"
 
 ### notes:
 #### TRANSFORM FITNESS VARIABLE (if needed) *WITHIN* THE FORMULA; doing it within the formula is important for contrasts below  
@@ -118,7 +118,7 @@ Fit1 <- "Died/Survived" # or fill in other
 
 ## Formula for dispersal: (fill in as appropriate)
   
-dispersal.formula <- "cbind(Num.disp, Num.nondisp) ~ Temp.treatment + other.fixed.effects + (1|random)"
+dispersal.formula <- "cbind(Num.disp, Num.nondisp) ~ Temp.treatment + (1|Strain)"
 
 ### notes
 #### other.fixed.effects does not apply to every species; include as appropriate; fixed effects should be standardized
@@ -133,17 +133,17 @@ dispersal.formula <- "cbind(Num.disp, Num.nondisp) ~ Temp.treatment + other.fixe
 ## choose option on right hand side
 ## see description of moderators and levels in README.md in project repo
 
-taxonomic.group <- "arthropod/ciliate/microalgae"
-rearing.environment <- "commonT/treatmentT/field"
-comp.strength <- "low/moderate/high"
-source <- "lab/field" # lab population or field caught
-habitat <- "aquatic/terrestrial"
-Tvariation <- "homogenous/heterogenous"
-species.body.size <- x # mean body length in mm
-passive.dispersal <- "Yes/No"
-inbred <- "inbred line/mixed"
-disp.assay.duration <- 0.01/0.1/1/10 # order of magnitude for dispersal assay duration / generation time, i.e., approximate number of generations the dispersal assay lasted
-fitness.proxy.type <- "r/other"
+taxonomic.group <- "arthropod"
+rearing.environment <- "treatmentT"
+comp.strength <- "moderate"
+source <- "lab" # lab population or field caught
+habitat <- "terrestrial"
+Tvariation <- "heterogenous"
+species.body.size <- 1 # mean body length in mm
+passive.dispersal <- "Yes"
+inbred <- "inbred line"
+disp.assay.duration <- 1 # order of magnitude for dispersal assay duration / generation time, i.e., approximate number of generations the dispersal assay lasted
+fitness.proxy.type <- "r"
 
 # 10. Fill out methods information in text below.
 
@@ -152,69 +152,31 @@ fitness.proxy.type <- "r/other"
 # Supplementary methods for *`r (print(paste(Genus, species)))`*
 
 ## Study organism
-Name and strain/origin of species.  
+Trichogramma cacoeciae
+Trichogramma are minute parasitic wasps belonging to the order Hymenoptera. They are oophagous endoparasitoid, meaning they lay their eggs inside the eggs of other insects, particularly those of Lepidopteran species. The developing Trichogramma larvae consumes the host egg from within, ultimately killing it. Trichogramma are widely used as biological model organisms, and most of what is known about their ecology comes either from lab-rearing assays or field studies in agricultural environments. From those, it appears that Trichogramma disperse at short distances (within-plant scale, less than a few meters) by walking, and at longer-distances (between-plants scales, from 10 to 100 meters) with a combination of active flight and passive wind-borne dispersal.
+Trichogramma cacoeciea is an asexual species (consisting entirely of females) present over all continental Europe. A comparative study on T. cacoeciae populations sampled along an altitudinal and a longitudinal gradient in Southern France showed that these populations display local adaptation regarding their thermal environments (i.e., variation in thermal tolerance indices, winter survival, diapause frequency).  
 
-Provide basic life history information (aquatic/terrestrial, mode of dispersal, lifespan, etc.).  
+For this study we used three populations of T. cacoeciae collected from three French regions (Essonne : 48°27'36.0"N 2°29'24.0"E ; Savoie: 45°33'00.0"N 6°37'48.0"E ; Alpes-de-Haute-Provence: 43°57'36.0"N 6°30'00.0"E) between 2015 and 2017. These populations were sourced from the CRB EP-Coll, a Biological Resource Center for egg parasitoids hosted at the Institut Sophia Agrobiotech (ISA), in which they have been maintained at 18°C since their sampling in the field (i.e., between 150-200 generations). Prior to the experiment, we reared all strains for three generations under common garden conditions (20 °C, 70% RH, L: D 16:8), using sterilized eggs of Ephestia kuehniella as host material. Egg sterilization was assured by UV-irradiation (15 minutes under UV light), preventing the host embryo from developing and thus eliminating competition for the parasitoid larvae, while keeping the eggs viable for parasitism. 
 
-Briefly describe what is known about the temperature range the species experiences (geographic range, seasonality, type of habitat, etc.) in its natural system or the history of the conditions it has experienced in the lab.  
-
-How were organisms sourced?  
--	Field caught: provide information on timing, geographic coordinates, type of habitat.  
--	Lab sourced: provide information on source.  
--	Provide license/ authorization numbers for catching animals in the field and/or doing experiments, where applicable. 
-
-How were individuals/populations treated before the experiment?  
--	Rearing/holding conditions (temperature, food, light).  
--	How long were experimental subjects held before the experiment?  
-
-Were specific individuals/phenotypes/stages selected for the experiment?  
 
 ## Study design
 
 ### Temperature treatments
 
-State the temperatures used for Topt, Thot, Tcold, and explain how they were chosen.  
-
-State whether there was daily variation in temperature, and if so, describe (e.g., mean and standard deviation of temperature for each treatment).  
+We chose the three temperature treatments based on recommendations from the CRB EP-Coll. The optimal temperature was set at 25°C, which allows fast development with no adverse effects on fecundity or survival. The low temperature was set at 18°C, to keep development time compatible with the requirements of an experiment over several generations. The high temperature was set at 30°C, above which individual survival becomes severely compromised.  
+All rearings and experiments were done within climatic chambers (Panasonic MLR-352H), with constant temperature settings, a 16h photoperiod and 70% relative humidity. Climatic chambers allow for a variation of +/- 1°C from the set point, and replicates were moved daily within chambers to smooth out any micro-variations of temperature from bottom to top shelf.
+Temperature treaments were initiated by exposing host eggs (sterilized E. kuehiella eggs) to the freshly emerged Trichogramma adults from the stock population at 20°C for 72 hours. After 72 hours’ exposure to parasitism, eggs were transferred into fresh tubes and distributed into the three temperature treatments, with 12 replicates of each Trichogramma population in each treatment. The eggs were maintained at each temperature until adult emergence, and each replicate population was then used to assess either fecundity or dispersal (i.e., 6 replicates for each combination of trait x strain x temperature).
 
 ### Phase 1: Fitness assay
+Fitness was estimated as the number of offspring surviving until adult emergence frelative to the initial density of adults, which is a close proxy to per capita growth rate in the case of an asexual species like T. cacoeciae.
 
-Describe the fitness proxy (growth rate, survival, body condition, reproductive output, etc.). If proxy is indirect (e.g., body condition), explain what is known about the relationship between the proxy and actual fitness in the species.  
-
-Provide details about the methods for estimating the fitness proxy including:  
--	Physical details about the experimental setup including size/shape/volume of experimental arenas, substrate/medium of experimental arenas.  
--	Replicates  
-    - Specify number of experimental replicates  
-    - Number of strains and number of replicates per strain  
-    - Indicate if experimental blocks were used and the blocking design (number of blocks, how many replicates of each treatment per block, time/space between blocks)
--	Type and amount of food provided during experiment  
-- Starting density  
--	Duration of fitness assay  
--	Controlled variables: food (ad lib?), water (ad lib?), sex ratio  
-- Phenotypes measured (activity, body condition, body size, etc.) and how they were estimated  
+Each experimental replicate consisted of a batch of parasitized host eggs (250 +/- 50) from the stock population (see above) set into a plastic vial (5 cm diameter, 10 cm height) with unlimited honey drops and let to develop at each temperature treatment (8-18 days after transfer, depending on temperature). 24h after adult emergence, non-limiting host eggs were provided and left to parasitize for 72 hours. Eggs were then isolated into glass vials (1 cm diameter, 4 cm height) under the same conditions and temperature treatments for one week, allowing for parasitoid larvae to develop enough to blacken the host egg, allowing the visual identification of successfully parasitized eggs.
+Parasitized eggs turn black at the end of the pupation stage, when adult development is complete and is very highly correlated with actual emergence rate (r>0.98). Black eggs were counted automatically using a Nikon D750 camera equipped with an AF-S Micro NIKKOR 60 mm 1:2.8 G ED macro lens. The camera was mounted on a fixed stand at a height of 28 cm above the egg strips, and images were captured at a resolution of 6016 × 4016 pixels. Lighting was provided by diffuse LED panel from below and on both sides to avoid reflections and shadows, ensuring even illumination across the egg strip surface. Egg counts were performed using AutoCodi, an Imageji macro developed locally at ISA, adapted from the existing CodiCount tool (Perez et al., 2017). Per capita growth rate was calculated by dividing the number of black eggs at the end of the development period divided by the number of black eggs initially assigned to each replicate from the stock population.
 
 ### Phase 2: Dispersal assay
+Dispersal was estimated with a 2-patch system, and calculated as the proportion of offspring surviving into adult emergence that were laid in the "dispersal patch" relative to the "emergence patch". This measure reflects effective dispersal, as the relative contribution of dispersers and non-dispersers to the next generation.
 
-Provide details about the methods for estimating dispersal including:  
--	Physical details about the experimental setup including size/shape/volume of experimental arenas, substrate/medium of experimental arenas, type of system (1 or 2 patches).  
--	Replicates  
-    - Specify number of experimental replicates  
-    - Number of strains and number of replicates per strain  
-    - Indicate if experimental blocks were used and the blocking design (number of blocks, how many replicates of each treatment per block, time/space between blocks)  
--	Type and amount of food provided during experiment  
-- Starting density  
--	Duration of dispersal assay including:  
-    - time between birth and start of acclimation period  
-    - duration of acclimation period  
-    - timing and duration of dispersal assay  
--	Controlled variables: food (ad lib?), water (ad lib? if applicable), sex ratio  
-- Phenotypes measured (activity, body condition, body size, etc.) and how they were estimated  
-- Whether individuals used in phase 2 were the same as used in phase 1 
-- Provide details on data collection including:  
-    -	The sampling regime (time intervals between sampling).  
-    -	Sampling method including whether individuals were marked and whether sampling was observed or automated. Please include validation if automated.  
-- State whether mortality during the dispersal assay was recorded. Describe how mortality was handled for the statistical analysis (e.g., individuals that died during the dispersal assay were excluded from the analysis of dispersal).  
-
+Similarly to the fitness assay, each experimental replicate consisted of a batch of parasitized host eggs (250 +/- 50) from the stock population set into a plastic vial (5 cm diameter, 10 cm height) with unlimited honey drops and let to develop at each temperature treatment. 24h after emergence, the emergence tube was connected to another plastic vial of the same dimensions (arrival tube) with a see-through 40 cm long plastic pipe (5 mm of internal diameter, large enough for species of less than a millimeter in size). Each tube was provided with non-limiting number of host eggs that were left to parasitize for 72 hours. Eggs were then isolated into glass vials (1 cm diameter, 4 cm height) under the same conditions and temperature treatments for one week, until the parasitized eggs turned black and could be counted. The same method for automatic egg counting as for the fitness assay was used.
 
 
 ```{r instructions2, echo = F}
