@@ -1,56 +1,55 @@
-Temp.treatment Temp.value Strain Num.nondisp Num.disp
-low 18 S 1229 144
-low 18 S 1445 49
-low 18 S 1165 38
-low 18 S 1345 36
-low 18 S 772 152
-low 18 S 836 31
-low 18 E 478 51
-low 18 E 263 36
-low 18 E 1726 86
-low 18 E 441 87
-low 18 E 1808 91
-low 18 E 1262 194
-low 18 AHP 97 12
-low 18 AHP 142 5
-low 18 AHP 121 7
-low 18 AHP 224 104
-low 18 AHP 438 236
-low 18 AHP 7 469
-opt 25 S 1393 437
-opt 25 S 1416 359
-opt 25 S 1187 381
-opt 25 S 1328 103
-opt 25 S 1130 1183
-opt 25 S 1311 1239
-opt 25 E 788 0
-opt 25 E 1025 165
-opt 25 E 1069 22
-opt 25 E 929 192
-opt 25 E 1398 101
-opt 25 E 1886 81
-opt 25 AHP 1784 45
-opt 25 AHP 1243 1
-opt 25 AHP 1771 112
-opt 25 AHP 1440 123
-opt 25 AHP 1287 104
-opt 25 AHP 1754 127
-high 30 E 1444 404
-high 30 E 1103 76
-high 30 E 1123 165
-high 30 E 1129 145
-high 30 E 1357 224
-high 30 E 1333 613
-high 30 S 1100 248
-high 30 S 1434 7
-high 30 S 1221 41
-high 30 S 1625 14
-high 30 S 1476 78
-high 30 S 1360 111
-high 30 AHP 1375 403
-high 30 AHP 1410 270
-high 30 AHP 1496 446
-high 30 AHP 1488 18
-high 30 AHP 1517 400
-
-high 30 AHP 1708 37
+Temp.treatment,Temp.value,Strain,Num.nondisp,Num.disp
+low,18,S,1229,144
+low,18,S,1445,49
+low,18,S,1165,38
+low,18,S,1345,36
+low,18,S,772,152
+low,18,S,836,31
+low,18,E,478,51
+low,18,E,263,36
+low,18,E,1726,86
+low,18,E,441,87
+low,18,E,1808,91
+low,18,E,1262,194
+low,18,AHP,97,12
+low,18,AHP,142,5
+low,18,AHP,121,7
+low,18,AHP,224,104
+low,18,AHP,438,236
+low,18,AHP,7,469
+opt,25,S,1393,437
+opt,25,S,1416,359
+opt,25,S,1187,381
+opt,25,S,1328,103
+opt,25,S,1130,1183
+opt,25,S,1311,1239
+opt,25,E,788,0
+opt,25,E,1025,165
+opt,25,E,1069,22
+opt,25,E,929,192
+opt,25,E,1398,101
+opt,25,E,1886,81
+opt,25,AHP,1784,45
+opt,25,AHP,1243,1
+opt,25,AHP,1771,112
+opt,25,AHP,1440,123
+opt,25,AHP,1287,104
+opt,25,AHP,1754,127
+high,30,E,1444,404
+high,30,E,1103,76
+high,30,E,1123,165
+high,30,E,1129,145
+high,30,E,1357,224
+high,30,E,1333,613
+high,30,S,1100,248
+high,30,S,1434,7
+high,30,S,1221,41
+high,30,S,1625,14
+high,30,S,1476,78
+high,30,S,1360,111
+high,30,AHP,1375,403
+high,30,AHP,1410,270
+high,30,AHP,1496,446
+high,30,AHP,1488,18
+high,30,AHP,1517,400
+high,30,AHP,1708,37
