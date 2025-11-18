@@ -1,0 +1,665 @@
+﻿species;population;round;colour;Temp.treatment;Temp.value;plate;dispersion_id;gender_egg_wave_1;days_until_adult;place_adult_female;n_eggs_on_A;n_eggs_on_bridge;Num.disp;total.N;n_survivors;n_males_egg_wave_2;n_females_egg_wave_2;Issue;Fitness;fitness_with_disp
+T. urticae;Beis C ;A;G;low;24;Beis C  24 A;1;female;10;A;20;0;0;20;18;6;12;;1,2;0
+T. urticae;Beis C ;A;G;low;24;Beis C  24 A;/;male;11;;;;;;;;;;#N/A;#N/A
+T. urticae;Beis C ;A;G;low;24;Beis C  24 A;/;male;11;;;;;;;;;;#N/A;#N/A
+T. urticae;Beis C ;A;G;low;24;Beis C  24 A;/;male;10;;;;;;;;;;#N/A;#N/A
+T. urticae;Beis C ;A;G;low;24;Beis C  24 A;/;male;10;;;;;;;;;;#N/A;#N/A
+T. urticae;Beis C ;A;G;opt;30;Beis C  30 A;1;female;9;B;21;0;6;27;26;4;22;;2,444444444;0,543209877
+T. urticae;Beis C ;A;G;opt;30;Beis C  30 A;2;female;9;On cotton next to B;0;0;0;0;0;0;0;;0;#N/A
+T. urticae;Beis C ;A;G;opt;30;Beis C  30 A;3;female;9;On cotton next to B;23;0;0;23;20;4;16;;1,777777778;0
+T. urticae;Beis C ;A;G;opt;30;Beis C  30 A;4;female;9;Death on A;0;0;0;0;0;0;0;;0;#N/A
+T. urticae;Beis C ;A;G;opt;30;Beis C  30 A;5;female;9;weg???;29;0;0;29;32;10;22;Survival hoger dan #eggs;2,444444444;0
+T. urticae;Beis C ;A;G;opt;30;Beis C  30 A;6;female;9;A;21;0;0;21;20;4;16;;1,777777778;0
+T. urticae;Beis C ;A;G;opt;30;Beis C  30 A;7;female;9;weg???;0;0;0;0;0;0;0;;0;#N/A
+T. urticae;Beis C ;A;G;opt;30;Beis C  30 A;/;male;9;;;;;;;;;;#N/A;#N/A
+T. urticae;Beis C ;A;G;opt;30;Beis C  30 A;/;male;9;;;;;;;;;;#N/A;#N/A
+T. urticae;Beis C ;A;G;opt;30;Beis C  30 A;/;male;9;;;;;;;;;;#N/A;#N/A
+T. urticae;Beis C ;A;G;opt;30;Beis C  30 A;/;male;9;;;;;;;;;;#N/A;#N/A
+T. urticae;Beis C ;A;G;opt;30;Beis C  30 A;/;male;9;;;;;;;;;;#N/A;#N/A
+T. urticae;Beis C ;A;G;opt;30;Beis C  30 A;/;male;9;;;;;;;;;;#N/A;#N/A
+T. urticae;Beis C ;A;G;high;36;Beis C  36 A;1;female;9;A;10;0;0;10;0;0;0;;0;0
+T. urticae;Beis C ;A;G;high;36;Beis C  36 A;2;female;9;On cotton next to A;0;0;0;0;0;0;0;;0;#N/A
+T. urticae;Beis C ;A;G;high;36;Beis C  36 A;3;female;9;On cotton next to A;0;0;0;0;0;0;0;;0;#N/A
+T. urticae;Beis C ;A;G;high;36;Beis C  36 A;4;female;9;B;0;0;0;0;0;0;0;;0;#N/A
+T. urticae;Beis C ;A;G;high;36;Beis C  36 A;5;female;9;A;13;0;0;13;0;0;0;;0;0
+T. urticae;Beis C ;A;G;high;36;Beis C  36 A;/;male;9;;;;;;;;;;#N/A;#N/A
+T. urticae;Beis C ;A;G;high;36;Beis C  36 A;/;male;9;;;;;;;;;;#N/A;#N/A
+T. urticae;Lux;A;G;low;24;Lux 24 A;1;female;11;A;27;0;0;27;12;6;6;;0,545454545;0
+T. urticae;Lux;A;G;low;24;Lux 24 A;2;female;11;A;33;0;0;33;11;6;5;;0,454545455;0
+T. urticae;Lux;A;G;low;24;Lux 24 A;/;male;10;;;;;;;;;;#N/A;#N/A
+T. urticae;Lux;A;G;low;24;Lux 24 A;/;male;10;;;;;;;;;;#N/A;#N/A
+T. urticae;Lux;A;G;opt;30;Lux 30 A;1;female;9;On cotton next to bridge;16;0;0;16;8;1;7;;0,777777778;0
+T. urticae;Lux;A;G;opt;30;Lux 30 A;/;male;9;;;;;;;;;;#N/A;#N/A
+T. urticae;Lux;A;G;opt;30;Lux 30 A;/;male;9;;;;;;;;;;#N/A;#N/A
+T. urticae;Lux;A;G;opt;30;Lux 30 A;/;male;9;;;;;;;;;;#N/A;#N/A
+T. urticae;Lux;A;G;high;36;Lux 36 A;/;male;7;;;;;;;;;;#N/A;#N/A
+T. urticae;Lux;A;G;high;36;Lux 36 A;/;male;7;;;;;;;;;;#N/A;#N/A
+T. urticae;Lux;A;G;high;36;Lux 36 A;/;male;7;;;;;;;;;;#N/A;#N/A
+T. urticae;Lux;A;G;high;36;Lux 36 A;/;male;7;;;;;;;;;;#N/A;#N/A
+T. urticae;Lux;A;G;high;36;Lux 36 A;/;male;7;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;A;G;low;24;Led-5 24 A;1;female;10;On cotton next to A;1;0;0;1;1;1;0;;0;0
+T. urticae;Led-5;A;G;low;24;Led-5 24 A;2;female;10;On cotton next to A;2;0;0;2;0;0;0;;0;0
+T. urticae;Led-5;A;G;low;24;Led-5 24 A;3;female;10; A;30;0;0;30;14;1;13;2 adult females on leaf;1,3;0
+T. urticae;Led-5;A;G;low;24;Led-5 24 A;4;female;10;weg??? ;2;0;0;2;0;0;0;;0;0
+T. urticae;Led-5;A;G;low;24;Led-5 24 A;5;female;10;weg???;0;0;0;0;0;0;0;;0;#N/A
+T. urticae;Led-5;A;G;low;24;Led-5 24 A;/;male;10;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;A;G;low;24;Led-5 24 A;/;male;10;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;A;G;low;24;Led-5 24 A;/;male;10;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;A;G;low;24;Led-5 24 A;/;male;10;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;A;G;low;24;Led-5 24 A;/;male;10;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;A;G;low;24;Led-5 24 A;/;male;10;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;A;G;low;24;Led-5 24 A;12;female;11;A;35;0;0;35;4;3;1;;0,090909091;0
+T. urticae;Led-5;A;G;low;24;Led-5 24 A;13;female;11;On cotton next to A;0;0;0;0;0;0;0;;0;#N/A
+T. urticae;Led-5;A;G;opt;30;Led-5 30 A;1;female;9;weg???;1;0;0;1;13;3;10;Survival hoger dan #eggs;1,111111111;0
+T. urticae;Led-5;A;G;opt;30;Led-5 30 A;2;female;9;B;5;0;4;9;9;3;6;;0,666666667;0,296296296
+T. urticae;Led-5;A;G;opt;30;Led-5 30 A;3;female;9;A;40;0;0;40;35;12;23;;2,555555556;0
+T. urticae;Led-5;A;G;opt;30;Led-5 30 A;4;female;9;A;42;0;0;42;32;5;27;;3;0
+T. urticae;Led-5;A;G;opt;30;Led-5 30 A;5;female;9;Death on A;27;0;0;27;23;5;18;;2;0
+T. urticae;Led-5;A;G;opt;30;Led-5 30 A;6;female;9;A;27;0;0;27;21;2;19;;2,111111111;0
+T. urticae;Led-5;A;G;opt;30;Led-5 30 A;7;female;9;A;45;0;0;45;37;6;31;;3,444444444;0
+T. urticae;Led-5;A;G;opt;30;Led-5 30 A;8;female;9;A;21;0;0;21;9;6;3;;0,333333333;0
+T. urticae;Led-5;A;G;opt;30;Led-5 30 A;9;female;9;On cotton next to bridge;0;0;0;0;0;0;0;;0;#N/A
+T. urticae;Led-5;A;G;opt;30;Led-5 30 A;10;female;9;On cotton next to A;19;0;0;19;9;1;8;;0,888888889;0
+T. urticae;Led-5;A;G;opt;30;Led-5 30 A;11;female;9;B;36;0;0;36;7;1;6;;0,666666667;0
+T. urticae;Led-5;A;G;opt;30;Led-5 30 A;12;female;9;A;19;0;0;19;19;4;15;;1,666666667;0
+T. urticae;Led-5;A;G;opt;30;Led-5 30 A;13;female;9;A;14;0;0;14;21;6;15;Survival hoger dan #eggs;1,666666667;0
+T. urticae;Led-5;A;G;opt;30;Led-5 30 A;14;female;9;A;34;0;0;34;31;6;25;;2,777777778;0
+T. urticae;Led-5;A;G;opt;30;Led-5 30 A;/;male;9;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;A;G;opt;30;Led-5 30 A;/;male;9;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;A;G;opt;30;Led-5 30 A;/;male;9;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;A;G;opt;30;Led-5 30 A;/;male;9;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;A;G;opt;30;Led-5 30 A;/;male;9;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;A;G;opt;30;Led-5 30 A;/;male;9;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;A;G;opt;30;Led-5 30 A;/;male;9;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;A;G;opt;30;Led-5 30 A;/;male;9;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;A;G;high;36;Led-5 36 A;1;female;9;Death on A;0;0;0;0;0;0;0;;0;#N/A
+T. urticae;Led-5;A;G;high;36;Led-5 36 A;2;female;9;A;22;0;0;22;21;8;13;;1,444444444;0
+T. urticae;Led-5;A;G;high;36;Led-5 36 A;3;female;9;On cotton next to A;5;0;0;5;5;3;2;;0,222222222;0
+T. urticae;Led-5;A;G;high;36;Led-5 36 A;4;female;9;Death on A;0;0;0;0;0;0;0;;0;#N/A
+T. urticae;Led-5;A;G;high;36;Led-5 36 A;5;female;9;On cotton next to B;2;0;0;2;1;1;0;;0;0
+T. urticae;Led-5;A;G;high;36;Led-5 36 A;6;female;9;On cotton next to B;0;0;0;0;0;0;0;;0;#N/A
+T. urticae;Led-5;A;G;high;36;Led-5 36 A;7;female;9;Death on A;0;0;0;0;0;0;0;;0;#N/A
+T. urticae;Led-5;A;G;high;36;Led-5 36 A;8;female;9;A;0;0;0;0;0;0;0;;0;#N/A
+T. urticae;Led-5;A;G;high;36;Led-5 36 A;9;female;9;Death on A;11;0;0;11;10;6;4;;0,444444444;0
+T. urticae;Led-5;A;G;high;36;Led-5 36 A;10;female;9;Death on B;0;0;0;0;0;0;0;;0;#N/A
+T. urticae;Led-5;A;G;high;36;Led-5 36 A;/;female;9;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;A;G;high;36;Led-5 36 A;/;male;9;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;A;G;high;36;Led-5 36 A;/;male;9;;;;;;;;;;#N/A;#N/A
+T. urticae;Mar;A;G;low;24;Mar 24 A;1;female;10;Death on A;0;0;0;0;0;0;0;;0;#N/A
+T. urticae;Mar;A;G;low;24;Mar 24 A;/;male;10;;;;;;;;;;#N/A;#N/A
+T. urticae;Mar;A;G;low;24;Mar 24 A;/;male;10;;;;;;;;;;#N/A;#N/A
+T. urticae;Mar;A;G;low;24;Mar 24 A;/;male;10;;;;;;;;;;#N/A;#N/A
+T. urticae;Mar;A;G;low;24;Mar 24 A;/;male;10;;;;;;;;;;#N/A;#N/A
+T. urticae;Mar;A;G;low;24;Mar 24 A;/;male;11;;;;;;;;;;#N/A;#N/A
+T. urticae;Mar;A;G;low;24;Mar 24 A;7;female;11;A;12;0;0;12;7;6;1;;0,090909091;0
+T. urticae;Mar;A;G;low;24;Mar 24 A;8;female;11;B;18;0;10;28;21;3;18;;1,636363636;0,584415584
+T. urticae;Mar;A;G;low;24;Mar 24 A;9;female;11;A;15;0;0;15;10;3;7;;0,636363636;0
+T. urticae;Mar;A;G;low;24;Mar 24 A;10;female;11;Weg???;0;0;0;0;0;0;0;;0;#N/A
+T. urticae;Mar;A;G;opt;30;Mar 30 A;1;female;8;A;0;0;0;0;0;0;0;;0;#N/A
+T. urticae;Mar;A;G;opt;30;Mar 30 A;2;female;8;A;8;0;0;8;0;0;0;;0;0
+T. urticae;Mar;A;G;opt;30;Mar 30 A;3;female;8;A;0;0;0;0;0;0;0;;0;#N/A
+T. urticae;Mar;A;G;opt;30;Mar 30 A;/;male;8;;;;;;;;;;#N/A;#N/A
+T. urticae;Mar;A;G;opt;30;Mar 30 A;/;male;8;;;;;;;;;;#N/A;#N/A
+T. urticae;Mar;A;G;opt;30;Mar 30 A;/;male;8;;;;;;;;;;#N/A;#N/A
+T. urticae;Mar;A;G;opt;30;Mar 30 A;/;male;8;;;;;;;;;;#N/A;#N/A
+T. urticae;Mar;A;G;opt;30;Mar 30 A;/;male;8;;;;;;;;;;#N/A;#N/A
+T. urticae;Mar;A;G;opt;30;Mar 30 A;/;male;8;;;;;;;;;;#N/A;#N/A
+T. urticae;Mar;A;G;opt;30;Mar 30 A;/;male;8;;;;;;;;;;#N/A;#N/A
+T. urticae;Mar;A;G;opt;30;Mar 30 A;/;male;8;;;;;;;;;;#N/A;#N/A
+T. urticae;Mar;A;G;opt;30;Mar 30 A;/;male;8;;;;;;;;;;#N/A;#N/A
+T. urticae;Mar;A;G;opt;30;Mar 30 A;/;male;8;;;;;;;;;;#N/A;#N/A
+T. urticae;Mar;A;G;opt;30;Mar 30 A;/;male;8;;;;;;;;;;#N/A;#N/A
+T. urticae;Beis C ;B;G;low;24;Beis C  24 B;1;female;11;A;15;0;0;15;14;6;8;;0,727272727;0
+T. urticae;Beis C ;B;G;low;24;Beis C  24 B;2;female;11;B;8;0;10;18;13;1;12;;1,090909091;0,606060606
+T. urticae;Beis C ;B;G;low;24;Beis C  24 B;3;female;11;A;21;0;0;21;18;4;14;;1,272727273;0
+T. urticae;Beis C ;B;G;low;24;Beis C  24 B;4;female;11;Death on A;0;0;0;0;0;0;0;;0;#N/A
+T. urticae;Beis C ;B;G;low;24;Beis C  24 B;5;female;14;A;7;0;0;7;0;0;0;;0;0
+T. urticae;Beis C ;B;G;low;24;Beis C  24 B;6;female;14;A;10;0;0;10;5;5;0;;0;0
+T. urticae;Beis C ;B;G;low;24;Beis C  24 B;7;female;14;A;11;0;0;11;8;8;0;;0;0
+T. urticae;Beis C ;B;G;low;24;Beis C  24 B;8;female;14;A;3;0;0;3;1;1;0;;0;0
+T. urticae;Beis C ;B;G;low;24;Beis C  24 B;9;female;14;A;2;0;0;2;1;1;0;;0;0
+T. urticae;Beis C ;B;G;low;24;Beis C  24 B;10;female;14;A ;1;0;0;1;1;1;0;vervelling aanwezig, was nog niet volwassen on moment on dispresie werd gezet;0;0
+T. urticae;Beis C ;B;G;low;24;Beis C  24 B;11;female;14;weg???;7;0;0;7;0;0;0;;0;0
+T. urticae;Beis C ;B;G;low;24;Beis C  24 B;12;female;14;weg???;0;0;0;0;0;0;0;;0;#N/A
+T. urticae;Beis C ;B;G;low;24;Beis C  24 B;/;female;15;;;;;;;;;;#N/A;#N/A
+T. urticae;Beis C ;B;G;low;24;Beis C  24 B;/;female;15;;;;;;;;;;#N/A;#N/A
+T. urticae;Beis C ;B;G;low;24;Beis C  24 B;/;female;15;;;;;;;;;;#N/A;#N/A
+T. urticae;Beis C ;B;G;low;24;Beis C  24 B;/;female;13;;;;;;;;;;#N/A;#N/A
+T. urticae;Beis C ;B;G;low;24;Beis C  24 B;/;female;13;;;;;;;;;;#N/A;#N/A
+T. urticae;Beis C ;B;G;low;24;Beis C  24 B;/;female;13;;;;;;;;;;#N/A;#N/A
+T. urticae;Beis C ;B;G;low;24;Beis C  24 B;/;female;13;;;;;;;;;;#N/A;#N/A
+T. urticae;Beis C ;B;G;low;24;Beis C  24 B;/;male;13;;;;;;;;;;#N/A;#N/A
+T. urticae;Beis C ;B;G;low;24;Beis C  24 B;/;male;11;;;;;;;;;;#N/A;#N/A
+T. urticae;Beis C ;B;G;low;24;Beis C  24 B;/;male;11;;;;;;;;;;#N/A;#N/A
+T. urticae;Beis C ;B;G;low;24;Beis C  24 B;/;female;12;;;;;;;;;;#N/A;#N/A
+T. urticae;Beis C ;B;G;low;24;Beis C  24 B;/;female;12;;;;;;;;;;#N/A;#N/A
+T. urticae;Beis C ;B;G;opt;30;Beis C  30 B;1;female;6;A ;0;0;0;0;0;0;0;vervelling aanwezig, was nog niet volwassen on moment on dispresie werd gezet;0;#N/A
+T. urticae;Beis C ;B;G;opt;30;Beis C  30 B;2;female;6;On cotton next to A;0;0;0;0;0;0;0;vervelling aanwezig, was nog niet volwassen on moment on dispresie werd gezet;0;#N/A
+T. urticae;Beis C ;B;G;opt;30;Beis C  30 B;3;female;6;Death on A;0;0;0;0;0;0;0;vervelling aanwezig, was nog niet volwassen on moment on dispresie werd gezet;0;#N/A
+T. urticae;Beis C ;B;G;opt;30;Beis C  30 B;4;female;6;A ;8;0;0;8;4;4;0;vervelling aanwezig, was nog niet volwassen on moment on dispresie werd gezet;0;0
+T. urticae;Beis C ;B;G;opt;30;Beis C  30 B;5;female;6;A ;12;0;0;12;1;1;0;vervelling aanwezig, was nog niet volwassen on moment on dispresie werd gezet;0;0
+T. urticae;Beis C ;B;G;opt;30;Beis C  30 B;6;female;6;weg???;0;0;0;0;0;0;0;vervelling aanwezig, was nog niet volwassen on moment on dispresie werd gezet;0;#N/A
+T. urticae;Beis C ;B;G;opt;30;Beis C  30 B;7;female;6;A;12;0;0;12;10;10;0;vervelling aanwezig, was nog niet volwassen on moment on dispresie werd gezet;0;0
+T. urticae;Beis C ;B;G;opt;30;Beis C  30 B;8;female;6;A;12;0;0;12;3;3;0;vervelling aanwezig, was nog niet volwassen on moment on dispresie werd gezet;0;0
+T. urticae;Beis C ;B;G;opt;30;Beis C  30 B;9;female;6;A;23;0;0;23;17;17;0;vervelling aanwezig, was nog niet volwassen on moment on dispresie werd gezet;0;0
+T. urticae;Beis C ;B;G;opt;30;Beis C  30 B;10;female;6;A;13;0;0;13;10;10;0;vervelling aanwezig, was nog niet volwassen on moment on dispresie werd gezet;0;0
+T. urticae;Beis C ;B;G;opt;30;Beis C  30 B;11;female;6;A;20;0;0;20;15;15;0;vervelling aanwezig, was nog niet volwassen on moment on dispresie werd gezet;0;0
+T. urticae;Beis C ;B;G;opt;30;Beis C  30 B;12;female;6;A;17;0;0;17;9;9;0;vervelling aanwezig, was nog niet volwassen on moment on dispresie werd gezet;0;0
+T. urticae;Beis C ;B;G;opt;30;Beis C  30 B;13;female;8;A;27;0;0;27;21;21;0;;0;0
+T. urticae;Beis C ;B;G;opt;30;Beis C  30 B;14;female;8;A ;0;0;0;0;0;0;0;vervelling aanwezig, was nog niet volwassen on moment on dispresie werd gezet;0;#N/A
+T. urticae;Beis C ;B;G;opt;30;Beis C  30 B;15;female;10;A;4;0;0;4;3;3;0;;0;0
+T. urticae;Beis C ;B;G;opt;30;Beis C  30 B;16;female;10;Death on A;1;0;0;1;1;0;1;;0,1;0
+T. urticae;Beis C ;B;G;opt;30;Beis C  30 B;17;female;10;A;12;0;0;12;11;9;2;;0,2;0
+T. urticae;Beis C ;B;G;opt;30;Beis C  30 B;18;female;10;A;8;0;0;8;7;1;6;;0,6;0
+T. urticae;Beis C ;B;G;opt;30;Beis C  30 B;19;female;10;A;10;0;0;10;9;9;0;;0;0
+T. urticae;Beis C ;B;G;opt;30;Beis C  30 B;20;female;10;B;13;0;6;19;14;14;0;;0;0
+T. urticae;Beis C ;B;G;opt;30;Beis C  30 B;21;female;10;A;16;0;0;16;14;14;0;;0;0
+T. urticae;Beis C ;B;G;opt;30;Beis C  30 B;22;female;10;B;2;0;11;13;9;9;0;;0;0
+T. urticae;Beis C ;B;G;opt;30;Beis C  30 B;/;female;11;;;;;;;;;;#N/A;#N/A
+T. urticae;Beis C ;B;G;opt;30;Beis C  30 B;/;female;11;;;;;;;;;;#N/A;#N/A
+T. urticae;Beis C ;B;G;opt;30;Beis C  30 B;/;female;11;;;;;;;;;;#N/A;#N/A
+T. urticae;Beis C ;B;G;opt;30;Beis C  30 B;/;female;11;;;;;;;;;;#N/A;#N/A
+T. urticae;Beis C ;B;G;opt;30;Beis C  30 B;/;female;11;;;;;;;;;;#N/A;#N/A
+T. urticae;Beis C ;B;G;opt;30;Beis C  30 B;/;female;11;;;;;;;;;;#N/A;#N/A
+T. urticae;Beis C ;B;G;opt;30;Beis C  30 B;/;female;11;;;;;;;;;;#N/A;#N/A
+T. urticae;Beis C ;B;G;opt;30;Beis C  30 B;/;female;11;;;;;;;;;;#N/A;#N/A
+T. urticae;Beis C ;B;G;opt;30;Beis C  30 B;/;female;11;;;;;;;;;;#N/A;#N/A
+T. urticae;Beis C ;B;G;opt;30;Beis C  30 B;/;female;11;;;;;;;;;;#N/A;#N/A
+T. urticae;Beis C ;B;G;opt;30;Beis C  30 B;/;female;11;;;;;;;;;;#N/A;#N/A
+T. urticae;Beis C ;B;G;opt;30;Beis C  30 B;/;female;8;;;;;;;;;;#N/A;#N/A
+T. urticae;Beis C ;B;G;opt;30;Beis C  30 B;/;male;8;;;;;;;;;;#N/A;#N/A
+T. urticae;Beis C ;B;G;opt;30;Beis C  30 B;/;male;8;;;;;;;;;;#N/A;#N/A
+T. urticae;Beis C ;B;G;opt;30;Beis C  30 B;/;male;10;;;;;;;;;;#N/A;#N/A
+T. urticae;Beis C ;B;G;opt;30;Beis C  30 B;/;male;10;;;;;;;;;;#N/A;#N/A
+T. urticae;Beis C ;B;G;opt;30;Beis C  30 B;/;male;10;;;;;;;;;;#N/A;#N/A
+T. urticae;Beis C ;B;G;opt;30;Beis C  30 B;/;male;10;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;B;G;low;24;Led-5 24 B;1;female;9;B;6;0;4;10;2;0;2;;0,222222222;0,088888889
+T. urticae;Led-5;B;G;low;24;Led-5 24 B;2;female;9;A;17;0;0;17;4;1;3;;0,333333333;0
+T. urticae;Led-5;B;G;low;24;Led-5 24 B;3;female;9;A;28;0;0;28;18;3;15;;1,666666667;0
+T. urticae;Led-5;B;G;low;24;Led-5 24 B;4;female;9;A;26;0;0;26;8;1;7;;0,777777778;0
+T. urticae;Led-5;B;G;low;24;Led-5 24 B;5;female;9;A;29;0;0;29;0;0;0;;0;0
+T. urticae;Led-5;B;G;low;24;Led-5 24 B;6;female;9;A;27;0;0;27;3;2;1;;0,111111111;0
+T. urticae;Led-5;B;G;low;24;Led-5 24 B;7;female;9;B;0;0;17;17;0;0;0;;0;0
+T. urticae;Led-5;B;G;low;24;Led-5 24 B;8;female;9;A;1;0;0;1;9;6;3;Survival hoger dan #eggs;0,333333333;0
+T. urticae;Led-5;B;G;low;24;Led-5 24 B;9;female;9;B;28;0;0;28;17;4;13;;1,444444444;0
+T. urticae;Led-5;B;G;low;24;Led-5 24 B;10;female;10;On cotton next to A;0;0;0;0;0;0;0;;0;#N/A
+T. urticae;Led-5;B;G;low;24;Led-5 24 B;11;female;10;A;25;0;0;25;12;6;6;;0,6;0
+T. urticae;Led-5;B;G;low;24;Led-5 24 B;12;female;10;On cotton next to A;0;0;0;0;0;0;0;;0;#N/A
+T. urticae;Led-5;B;G;low;24;Led-5 24 B;13;female;10;On bridge;31;0;0;31;14;8;6;;0,6;0
+T. urticae;Led-5;B;G;low;24;Led-5 24 B;14;female;10;On cotton next to A;2;0;1;3;5;3;2;Survival hoger dan #eggs;0,2;0,066666667
+T. urticae;Led-5;B;G;low;24;Led-5 24 B;15;female;10;A;6;0;0;6;6;4;2;;0,2;0
+T. urticae;Led-5;B;G;low;24;Led-5 24 B;16;female;10;B;11;0;8;19;12;5;7;;0,7;0,294736842
+T. urticae;Led-5;B;G;low;24;Led-5 24 B;17;female;10;On cotton next to A;16;0;0;16;15;6;9;;0,9;0
+T. urticae;Led-5;B;G;low;24;Led-5 24 B;18;female;10;B;24;0;5;29;26;5;21;;2,1;0,362068966
+T. urticae;Led-5;B;G;low;24;Led-5 24 B;19;female;10;A;32;0;0;32;28;5;23;;2,3;0
+T. urticae;Led-5;B;G;low;24;Led-5 24 B;20;female;10;A;29;0;0;29;25;7;18;;1,8;0
+T. urticae;Led-5;B;G;low;24;Led-5 24 B;21;female;11;weg???;10;0;14;24;15;6;9;;0,818181818;0,477272727
+T. urticae;Led-5;B;G;low;24;Led-5 24 B;22;female;11;weg???;16;0;0;16;9;5;4;;0,363636364;0
+T. urticae;Led-5;B;G;low;24;Led-5 24 B;/;female;11;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;B;G;low;24;Led-5 24 B;/;male;9;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;B;G;low;24;Led-5 24 B;/;male;9;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;B;G;low;24;Led-5 24 B;/;male;9;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;B;G;low;24;Led-5 24 B;/;male;9;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;B;G;low;24;Led-5 24 B;/;male;9;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;B;G;low;24;Led-5 24 B;/;male;10;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;B;G;low;24;Led-5 24 B;/;male;10;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;B;G;low;24;Led-5 24 B;/;male;10;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;B;G;low;24;Led-5 24 B;/;female;10;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;B;G;low;24;Led-5 24 B;/;female;10;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;B;G;low;24;Led-5 24 B;/;female;10;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;B;G;low;24;Led-5 24 B;/;female;10;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;B;G;low;24;Led-5 24 B;/;female;10;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;B;G;low;24;Led-5 24 B;/;female;10;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;B;G;low;24;Led-5 24 B;/;female;10;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;B;G;low;24;Led-5 24 B;/;female;10;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;B;G;opt;30;Led-5 30 B;1;female;6;B;12;0;23;35;16;4;12;;2;1,314285714
+T. urticae;Led-5;B;G;opt;30;Led-5 30 B;2;female;6;A;26;0;0;26;9;0;9;;1,5;0
+T. urticae;Led-5;B;G;opt;30;Led-5 30 B;3;female;6;Death on A;0;0;0;0;0;0;0;;0;#N/A
+T. urticae;Led-5;B;G;opt;30;Led-5 30 B;4;female;6;weg???;18;0;0;18;4;1;3;;0,5;0
+T. urticae;Led-5;B;G;opt;30;Led-5 30 B;5;female;6;A;47;0;0;47;22;10;12;;2;0
+T. urticae;Led-5;B;G;opt;30;Led-5 30 B;6;female;6;A;42;0;0;42;18;0;18;;3;0
+T. urticae;Led-5;B;G;opt;30;Led-5 30 B;7;female;6;A;27;0;0;27;11;0;11;;1,833333333;0
+T. urticae;Led-5;B;G;opt;30;Led-5 30 B;8;female;6;A;24;0;0;24;13;5;8;;1,333333333;0
+T. urticae;Led-5;B;G;opt;30;Led-5 30 B;9;female;6;Death on A;9;0;0;9;2;1;1;;0,166666667;0
+T. urticae;Led-5;B;G;opt;30;Led-5 30 B;10;female;6;A;41;0;0;41;14;3;11;;1,833333333;0
+T. urticae;Led-5;B;G;opt;30;Led-5 30 B;11;female;6;A;0;0;0;0;0;0;0;;0;#N/A
+T. urticae;Led-5;B;G;opt;30;Led-5 30 B;12;female;6;Death on A;0;0;0;0;0;0;0;;0;#N/A
+T. urticae;Led-5;B;G;opt;30;Led-5 30 B;13;female;6;Death on A;0;0;0;0;0;0;0;;0;#N/A
+T. urticae;Led-5;B;G;opt;30;Led-5 30 B;14;female;6;On cotton next to A;27;0;0;27;17;1;16;;2,666666667;0
+T. urticae;Led-5;B;G;opt;30;Led-5 30 B;15;female;6;A;18;0;0;18;6;6;0;;0;0
+T. urticae;Led-5;B;G;opt;30;Led-5 30 B;16;female;6;On cotton next to A;0;0;0;0;0;0;0;;0;#N/A
+T. urticae;Led-5;B;G;opt;30;Led-5 30 B;17;female;7;Death on A;0;0;0;0;0;0;0;;0;#N/A
+T. urticae;Led-5;B;G;opt;30;Led-5 30 B;18;female;7;A;28;0;0;28;17;5;12;;1,714285714;0
+T. urticae;Led-5;B;G;opt;30;Led-5 30 B;19;female;7;B;12;0;0;12;5;0;5;;0,714285714;0
+T. urticae;Led-5;B;G;opt;30;Led-5 30 B;20;female;7;A;21;0;1;22;9;3;6;;0,857142857;0,038961039
+T. urticae;Led-5;B;G;opt;30;Led-5 30 B;/;female;6;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;B;G;opt;30;Led-5 30 B;/;female;7;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;B;G;opt;30;Led-5 30 B;/;female;7;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;B;G;opt;30;Led-5 30 B;/;female;7;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;B;G;opt;30;Led-5 30 B;/;female;7;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;B;G;opt;30;Led-5 30 B;/;female;7;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;B;G;opt;30;Led-5 30 B;/;female;7;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;B;G;opt;30;Led-5 30 B;/;female;7;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;B;G;opt;30;Led-5 30 B;/;female;7;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;B;G;opt;30;Led-5 30 B;/;female;7;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;B;G;opt;30;Led-5 30 B;/;female;7;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;B;G;opt;30;Led-5 30 B;/;female;7;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;B;G;opt;30;Led-5 30 B;/;female;7;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;B;G;opt;30;Led-5 30 B;/;female;7;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;B;G;opt;30;Led-5 30 B;/;female;7;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;B;G;opt;30;Led-5 30 B;/;female;7;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;B;G;opt;30;Led-5 30 B;/;female;7;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;B;G;opt;30;Led-5 30 B;/;female;7;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;B;G;opt;30;Led-5 30 B;/;female;7;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;B;G;opt;30;Led-5 30 B;/;female;7;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;B;G;opt;30;Led-5 30 B;/;female;7;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;B;G;opt;30;Led-5 30 B;/;female;7;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;B;G;opt;30;Led-5 30 B;/;female;7;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;B;G;opt;30;Led-5 30 B;/;female;7;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;B;G;opt;30;Led-5 30 B;/;female;7;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;B;G;opt;30;Led-5 30 B;/;female;7;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;B;G;opt;30;Led-5 30 B;/;female;7;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;B;G;opt;30;Led-5 30 B;/;female;7;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;B;G;opt;30;Led-5 30 B;/;female;7;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;B;G;opt;30;Led-5 30 B;/;female;7;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;B;G;opt;30;Led-5 30 B;/;male;6;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;B;G;opt;30;Led-5 30 B;/;male;6;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;B;G;opt;30;Led-5 30 B;/;male;6;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;B;G;opt;30;Led-5 30 B;/;male;6;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;B;G;opt;30;Led-5 30 B;/;male;6;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;B;G;opt;30;Led-5 30 B;/;male;6;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;B;G;opt;30;Led-5 30 B;/;male;6;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;B;G;opt;30;Led-5 30 B;/;male;6;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;B;G;opt;30;Led-5 30 B;/;male;6;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;B;G;opt;30;Led-5 30 B;/;male;6;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;B;G;opt;30;Led-5 30 B;/;male;6;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;B;G;opt;30;Led-5 30 B;/;male;6;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;B;G;opt;30;Led-5 30 B;/;male;6;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;B;G;opt;30;Led-5 30 B;/;male;6;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;B;G;opt;30;Led-5 30 B;/;male;7;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;B;G;opt;30;Led-5 30 B;/;male;7;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;B;G;high;36;Led-5 36 B;1;female;6;On cotton next to A;1;0;0;1;1;1;0;;0;0
+T. urticae;Led-5;B;G;high;36;Led-5 36 B;2;female;6;On cotton next to A;0;0;0;0;0;0;0;;0;#N/A
+T. urticae;Led-5;B;G;high;36;Led-5 36 B;3;female;6;On cotton next to A;0;0;0;0;0;0;0;;0;#N/A
+T. urticae;Led-5;B;G;high;36;Led-5 36 B;4;female;6;Death on A;1;0;0;1;0;0;0;;0;0
+T. urticae;Led-5;B;G;high;36;Led-5 36 B;5;female;6;Death on A;14;0;0;14;1;1;0;;0;0
+T. urticae;Led-5;B;G;high;36;Led-5 36 B;6;female;7;A;7;0;0;7;1;1;0;;0;0
+T. urticae;Led-5;B;G;high;36;Led-5 36 B;7;female;7;A;10;0;0;10;1;0;1;;0,142857143;0
+T. urticae;Led-5;B;G;high;36;Led-5 36 B;8;female;7;On cotton next to A;0;0;0;0;0;0;0;;0;#N/A
+T. urticae;Led-5;B;G;high;36;Led-5 36 B;/;female;6;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;B;G;high;36;Led-5 36 B;/;male;6;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;B;G;high;36;Led-5 36 B;/;male;6;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;B;G;high;36;Led-5 36 B;/;male;7;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;B;G;high;36;Led-5 36 B;/;male;7;;;;;;;;;;#N/A;#N/A
+T. urticae;Lux;B;G;low;24;Lux 24 B;1;female;10;Death on A;0;0;0;0;0;0;0;;0;#N/A
+T. urticae;Lux;B;G;low;24;Lux 24 B;2;female;10;A;22;0;0;22;2;0;2;;0,2;0
+T. urticae;Lux;B;G;low;24;Lux 24 B;3;female;11;B;0;0;8;8;1;1;0;;0;0
+T. urticae;Lux;B;G;low;24;Lux 24 B;4;female;11;B;1;0;23;24;11;4;7;;0,636363636;0,609848485
+T. urticae;Lux;B;G;low;24;Lux 24 B;5;female;11;weg???;1;0;0;1;0;0;0;;0;0
+T. urticae;Lux;B;G;low;24;Lux 24 B;6;female;11;On cotton next to A;0;0;0;0;0;0;0;;0;#N/A
+T. urticae;Lux;B;G;low;24;Lux 24 B;7;female;11;A;9;0;0;9;0;0;0;2 adult females on leaf;0;0
+T. urticae;Lux;B;G;low;24;Lux 24 B;8;female;11;weg??? ;0;0;0;0;0;0;0;;0;#N/A
+T. urticae;Lux;B;G;low;24;Lux 24 B;/;male;11;;;;;;;;;;#N/A;#N/A
+T. urticae;Lux;B;G;low;24;Lux 24 B;/;male;11;;;;;;;;;;#N/A;#N/A
+T. urticae;Lux;B;G;low;24;Lux 24 B;/;male;10;;;;;;;;;;#N/A;#N/A
+T. urticae;Lux;B;G;low;24;Lux 24 B;/;male;10;;;;;;;;;;#N/A;#N/A
+T. urticae;Lux;B;G;low;24;Lux 24 B;/;male;10;;;;;;;;;;#N/A;#N/A
+T. urticae;Lux;B;G;opt;30;Lux 30 B;1;female;6;Death on A;22;0;0;22;4;2;2;;0,333333333;0
+T. urticae;Lux;B;G;opt;30;Lux 30 B;2;female;7;A;27;0;0;27;1;1;0;;0;0
+T. urticae;Lux;B;G;opt;30;Lux 30 B;3;female;7;A;13;0;0;13;1;1;0;;0;0
+T. urticae;Lux;B;G;opt;30;Lux 30 B;4;female;7;A;19;0;0;19;2;2;0;;0;0
+T. urticae;Lux;B;G;opt;30;Lux 30 B;5;female;7;B;0;0;1;1;0;0;0;;0;0
+T. urticae;Lux;B;G;opt;30;Lux 30 B;6;female;8;A;11;0;0;11;2;2;0;;0;0
+T. urticae;Lux;B;G;opt;30;Lux 30 B;/;male;6;;;;;;;;;;#N/A;#N/A
+T. urticae;Lux;B;G;opt;30;Lux 30 B;/;male;7;;;;;;;;;;#N/A;#N/A
+T. urticae;Mar;B;G;low;24;Mar 24 B;1;female;10;A;19;0;0;19;0;0;0;;0;0
+T. urticae;Mar;B;G;low;24;Mar 24 B;2;female;10;On cotton next to A;0;0;0;0;0;0;0;;0;#N/A
+T. urticae;Mar;B;G;low;24;Mar 24 B;3;female;10;A;1;0;0;1;0;0;0;;0;0
+T. urticae;Mar;B;G;low;24;Mar 24 B;4;female;10;weg???;0;0;0;0;0;0;0;;0;#N/A
+T. urticae;Mar;B;G;low;24;Mar 24 B;5;female;10;On cotton next to A;8;0;0;8;0;0;0;;0;0
+T. urticae;Mar;B;G;low;24;Mar 24 B;6;female;10;On cotton next to A;0;0;0;0;0;0;0;;0;#N/A
+T. urticae;Mar;B;G;low;24;Mar 24 B;7;female;10;A;0;0;0;0;0;0;0;;0;#N/A
+T. urticae;Mar;B;G;low;24;Mar 24 B;8;female;10;A;6;0;0;6;4;4;0;;0;0
+T. urticae;Mar;B;G;low;24;Mar 24 B;9;female;11;A;33;0;0;33;26;26;0;;0;0
+T. urticae;Mar;B;G;low;24;Mar 24 B;10;female;11;A;2;0;0;2;1;1;0;;0;0
+T. urticae;Mar;B;G;low;24;Mar 24 B;11;female;11;A;10;0;0;10;0;0;0;;0;0
+T. urticae;Mar;B;G;low;24;Mar 24 B;12;female;11;A;12;0;0;12;0;0;0;;0;0
+T. urticae;Mar;B;G;low;24;Mar 24 B;/;female;14;;;;;;;;;;#N/A;#N/A
+T. urticae;Mar;B;G;low;24;Mar 24 B;/;female;12;;;;;;;;;;#N/A;#N/A
+T. urticae;Mar;B;G;low;24;Mar 24 B;/;male;9;;;;;;;;;;#N/A;#N/A
+T. urticae;Mar;B;G;low;24;Mar 24 B;/;male;9;;;;;;;;;;#N/A;#N/A
+T. urticae;Mar;B;G;opt;30;Mar 30 B;1;female;6;Death on A;27;0;0;27;16;5;11;;1,833333333;0
+T. urticae;Mar;B;G;opt;30;Mar 30 B;2;female;6;A;30;0;0;30;16;4;12;;2;0
+T. urticae;Mar;B;G;opt;30;Mar 30 B;3;female;7;Death on A;0;0;0;0;0;0;0;;0;#N/A
+T. urticae;Mar;B;G;opt;30;Mar 30 B;4;female;7;A;11;0;0;11;10;0;10;;1,428571429;0
+T. urticae;Mar;B;G;opt;30;Mar 30 B;5;female;7;A;0;0;0;0;0;0;0;;0;#N/A
+T. urticae;Mar;B;G;opt;30;Mar 30 B;6;female;7;B;12;0;0;12;8;1;7;;1;0
+T. urticae;Mar;B;G;opt;30;Mar 30 B;7;female;7;B;0;0;3;3;1;1;0;;0;0
+T. urticae;Mar;B;G;opt;30;Mar 30 B;8;female;9;A;6;0;0;6;2;2;0;;0;0
+T. urticae;Mar;B;G;opt;30;Mar 30 B;9;female;11;A;5;0;0;5;0;0;0;;0;0
+T. urticae;Mar;B;G;opt;30;Mar 30 B;10;female;11;Death on A;0;0;0;0;0;0;0;;0;#N/A
+T. urticae;Mar;B;G;opt;30;Mar 30 B;11;female;11;A;1;0;0;1;0;0;0;;0;0
+T. urticae;Mar;B;G;opt;30;Mar 30 B;/;female;6;;;;;;;;;;#N/A;#N/A
+T. urticae;Mar;B;G;opt;30;Mar 30 B;/;male;6;;;;;;;;;;#N/A;#N/A
+T. urticae;Mar;B;G;opt;30;Mar 30 B;/;male;6;;;;;;;;;;#N/A;#N/A
+T. urticae;Mar;B;G;opt;30;Mar 30 B;/;male;6;;;;;;;;;;#N/A;#N/A
+T. urticae;Mar;B;G;opt;30;Mar 30 B;/;male;6;;;;;;;;;;#N/A;#N/A
+T. urticae;Mar;B;G;opt;30;Mar 30 B;/;male;6;;;;;;;;;;#N/A;#N/A
+T. urticae;Mar;B;G;opt;30;Mar 30 B;/;male;7;;;;;;;;;;#N/A;#N/A
+T. urticae;Mar;B;G;opt;30;Mar 30 B;/;female;12;;;;;;;;;;#N/A;#N/A
+T. urticae;Mar;B;G;opt;30;Mar 30 B;/;female;12;;;;;;;;;;#N/A;#N/A
+T. urticae;Mar;B;G;opt;30;Mar 30 B;/;female;12;;;;;;;;;;#N/A;#N/A
+T. urticae;Mar;B;G;high;36;Mar 36 B;1;female;6;A;0;0;0;0;0;0;0;;0;#N/A
+T. urticae;Mar;B;G;high;36;Mar 36 B;2;female;6;A;0;0;0;0;0;0;0;;0;#N/A
+T. urticae;Mar;B;G;high;36;Mar 36 B;3;female;6;A;9;0;0;9;5;5;0;;0;0
+T. urticae;Mar;B;G;high;36;Mar 36 B;4;female;6;weg???;0;0;0;0;0;0;0;;0;#N/A
+T. urticae;Mar;B;G;high;36;Mar 36 B;5;female;6;A;0;0;0;0;0;0;0;;0;#N/A
+T. urticae;Mar;B;G;high;36;Mar 36 B;/;female;8;;;;;;;;;;#N/A;#N/A
+T. urticae;Mar;B;G;high;36;Mar 36 B;/;male;6;;;;;;;;;;#N/A;#N/A
+T. urticae;Mar;B;G;high;36;Mar 36 B;/;male;6;;;;;;;;;;#N/A;#N/A
+T. urticae;Beis C ;C;G;low;24;Beis C  24 C;/;male;11;;;;;;;;;;#N/A;#N/A
+T. urticae;Beis C ;C;G;opt;30;Beis C  30 C;1;female;7;B;0;0;0;0;0;0;0;;0;#N/A
+T. urticae;Beis C ;C;G;opt;30;Beis C  30 C;2;female;7;A;30;0;0;30;25;25;0;;0;0
+T. urticae;Beis C ;C;G;opt;30;Beis C  30 C;/;male;6;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;C;G;low;24;Led-5 24 C;1;female;9;A;25;0;0;25;0;0;0;;0;0
+T. urticae;Led-5;C;G;low;24;Led-5 24 C;2;female;9;A;21;0;0;21;4;4;0;;0;0
+T. urticae;Led-5;C;G;low;24;Led-5 24 C;3;female;9;A;23;0;0;23;6;3;3;;0,333333333;0
+T. urticae;Led-5;C;G;low;24;Led-5 24 C;4;female;9;Death on A;16;0;0;16;5;0;5;;0,555555556;0
+T. urticae;Led-5;C;G;low;24;Led-5 24 C;5;female;9;A;19;0;0;19;7;1;6;;0,666666667;0
+T. urticae;Led-5;C;G;low;24;Led-5 24 C;6;female;9;B;18;0;6;24;12;1;11;;1,222222222;0,305555556
+T. urticae;Led-5;C;G;low;24;Led-5 24 C;7;female;9;A;22;0;0;22;13;10;3;;0,333333333;0
+T. urticae;Led-5;C;G;low;24;Led-5 24 C;8;female;9;B;12;0;9;21;15;2;13;;1,444444444;0,619047619
+T. urticae;Led-5;C;G;low;24;Led-5 24 C;9;female;9;A;14;0;6;20;16;4;12;;1,333333333;0,4
+T. urticae;Led-5;C;G;low;24;Led-5 24 C;10;female;9;Death on A;0;0;0;0;0;0;0;;0;#N/A
+T. urticae;Led-5;C;G;low;24;Led-5 24 C;11;female;9;A;24;0;0;24;16;5;11;;1,222222222;0
+T. urticae;Led-5;C;G;low;24;Led-5 24 C;12;female;9;A;31;0;0;31;18;7;11;;1,222222222;0
+T. urticae;Led-5;C;G;low;24;Led-5 24 C;13;female;10;Death on A;15;0;0;15;0;0;0;Leaves were dry => survival lower?;0;0
+T. urticae;Led-5;C;G;low;24;Led-5 24 C;14;female;10;A;23;0;0;23;3;3;0;Leaves were dry => survival lower?;0;0
+T. urticae;Led-5;C;G;low;24;Led-5 24 C;15;female;10;A;30;0;0;30;7;6;1;Leaves were dry => survival lower?;0,1;0
+T. urticae;Led-5;C;G;low;24;Led-5 24 C;16;female;10;A;16;0;0;16;2;1;1;Leaves were dry => survival lower?;0,1;0
+T. urticae;Led-5;C;G;low;24;Led-5 24 C;/;male;9;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;C;G;low;24;Led-5 24 C;/;male;9;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;C;G;low;24;Led-5 24 C;/;female;10;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;C;G;low;24;Led-5 24 C;/;female;10;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;C;G;low;24;Led-5 24 C;/;female;10;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;C;G;low;24;Led-5 24 C;/;female;10;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;C;G;low;24;Led-5 24 C;/;female;10;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;C;G;low;24;Led-5 24 C;/;female;10;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;C;G;low;24;Led-5 24 C;/;female;10;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;C;G;low;24;Led-5 24 C;/;female;10;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;C;G;low;24;Led-5 24 C;/;female;10;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;C;G;low;24;Led-5 24 C;/;female;10;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;C;G;low;24;Led-5 24 C;/;male;10;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;C;G;opt;30;Led-5 30 C;1;female;6;weg???;46;0;0;46;20;6;14;;2,333333333;0
+T. urticae;Led-5;C;G;opt;30;Led-5 30 C;2;female;6;A;45;0;0;45;24;5;19;;3,166666667;0
+T. urticae;Led-5;C;G;opt;30;Led-5 30 C;3;female;6;A;54;0;0;54;30;1;29;;4,833333333;0
+T. urticae;Led-5;C;G;opt;30;Led-5 30 C;4;female;6;A;54;0;0;54;21;21;0;;0;0
+T. urticae;Led-5;C;G;opt;30;Led-5 30 C;5;female;6;A;43;0;0;43;25;3;22;;3,666666667;0
+T. urticae;Led-5;C;G;opt;30;Led-5 30 C;6;female;6;Death on A;0;0;0;0;0;0;0;;0;#N/A
+T. urticae;Led-5;C;G;opt;30;Led-5 30 C;7;female;6;A;47;0;0;47;25;4;21;;3,5;0
+T. urticae;Led-5;C;G;opt;30;Led-5 30 C;8;female;6;B;0;0;46;46;31;7;24;;4;4
+T. urticae;Led-5;C;G;opt;30;Led-5 30 C;9;female;7;weg???;6;0;0;6;5;3;2;;0,285714286;0
+T. urticae;Led-5;C;G;opt;30;Led-5 30 C;10;female;7;B;0;0;36;36;14;6;8;;1,142857143;1,142857143
+T. urticae;Led-5;C;G;opt;30;Led-5 30 C;11;female;7;weg???;0;0;0;0;0;0;0;;0;#N/A
+T. urticae;Led-5;C;G;opt;30;Led-5 30 C;12;female;7;A;35;0;0;35;8;2;6;;0,857142857;0
+T. urticae;Led-5;C;G;opt;30;Led-5 30 C;13;female;7;A;24;0;0;24;13;1;12;;1,714285714;0
+T. urticae;Led-5;C;G;opt;30;Led-5 30 C;14;female;7;A;33;0;0;33;27;7;20;;2,857142857;0
+T. urticae;Led-5;C;G;opt;30;Led-5 30 C;15;female;7;A;24;0;0;24;15;3;12;;1,714285714;0
+T. urticae;Led-5;C;G;opt;30;Led-5 30 C;16;female;7;B;28;0;5;33;18;4;14;;2;0,303030303
+T. urticae;Led-5;C;G;opt;30;Led-5 30 C;/;male;6;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;C;G;opt;30;Led-5 30 C;/;male;6;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;C;G;opt;30;Led-5 30 C;/;male;6;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;C;G;opt;30;Led-5 30 C;/;female;7;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;C;G;opt;30;Led-5 30 C;/;female;7;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;C;G;opt;30;Led-5 30 C;/;female;7;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;C;G;opt;30;Led-5 30 C;/;female;7;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;C;G;opt;30;Led-5 30 C;/;female;7;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;C;G;opt;30;Led-5 30 C;/;female;7;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;C;G;opt;30;Led-5 30 C;/;female;7;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;C;G;opt;30;Led-5 30 C;/;female;7;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;C;G;opt;30;Led-5 30 C;/;female;7;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;C;G;opt;30;Led-5 30 C;/;female;7;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;C;G;opt;30;Led-5 30 C;/;female;7;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;C;G;opt;30;Led-5 30 C;/;female;7;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;C;G;opt;30;Led-5 30 C;/;female;7;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;C;G;opt;30;Led-5 30 C;/;female;7;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;C;G;opt;30;Led-5 30 C;/;female;7;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;C;G;opt;30;Led-5 30 C;/;female;7;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;C;G;opt;30;Led-5 30 C;/;female;7;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;C;G;opt;30;Led-5 30 C;/;female;7;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;C;G;opt;30;Led-5 30 C;/;female;7;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;C;G;opt;30;Led-5 30 C;/;male;7;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;C;G;opt;30;Led-5 30 C;/;male;7;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;C;G;opt;30;Led-5 30 C;/;male;7;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;C;G;opt;30;Led-5 30 C;/;male;7;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;C;G;opt;30;Led-5 30 C;/;male;8;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;C;G;opt;30;Led-5 30 C;/;female;8;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;C;G;opt;30;Led-5 30 C;/;female;8;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;C;G;opt;30;Led-5 30 C;/;female;8;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;C;G;high;36;Led-5 36 C;1;female;7;On cotton next to B;3;0;1;4;2;2;0;;0;0
+T. urticae;Led-5;C;G;high;36;Led-5 36 C;2;female;7;weg???;0;0;0;0;0;0;0;;0;#N/A
+T. urticae;Led-5;C;G;high;36;Led-5 36 C;3;female;7;A;9;0;0;9;1;1;0;;0;0
+T. urticae;Led-5;C;G;high;36;Led-5 36 C;4;female;7;A;1;0;0;1;1;1;0;;0;0
+T. urticae;Led-5;C;G;high;36;Led-5 36 C;5;female;8;Death on A;0;0;0;0;0;0;0;;0;#N/A
+T. urticae;Led-5;C;G;high;36;Led-5 36 C;6;female;8;Death on A;0;0;0;0;0;0;0;;0;#N/A
+T. urticae;Led-5;C;G;high;36;Led-5 36 C;7;female;9;On cotton next to A;0;0;0;0;0;0;0;;0;#N/A
+T. urticae;Led-5;C;G;high;36;Led-5 36 C;8;female;9;Death on A;0;0;0;0;0;0;0;;0;#N/A
+T. urticae;Led-5;C;G;high;36;Led-5 36 C;9;female;9;On cotton next to A;0;0;0;0;0;0;0;;0;#N/A
+T. urticae;Led-5;C;G;high;36;Led-5 36 C;10;female;9;On cotton next to A;0;0;0;0;0;0;0;;0;#N/A
+T. urticae;Led-5;C;G;high;36;Led-5 36 C;11;female;9;On cotton next to A;0;0;0;0;0;0;0;;0;#N/A
+T. urticae;Led-5;C;G;high;36;Led-5 36 C;12;female;11;Death on A;0;0;0;0;0;0;0;;0;#N/A
+T. urticae;Led-5;C;G;high;36;Led-5 36 C;/;male;6;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;C;G;high;36;Led-5 36 C;/;male;7;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;C;G;high;36;Led-5 36 C;/;male;9;;;;;;;;;;#N/A;#N/A
+T. urticae;Lux;C;G;low;24;Lux 24 C;1;female;9;A;1;0;0;1;1;1;0;vervelling aanwezig, was nog niet volwassen on moment on dispresie werd gezet;0;0
+T. urticae;Lux;C;G;low;24;Lux 24 C;2;female;11;On cotton next to A;0;0;0;0;0;0;0;;0;#N/A
+T. urticae;Lux;C;G;low;24;Lux 24 C;3;female;11;A;18;0;0;18;8;7;1;;0,090909091;0
+T. urticae;Lux;C;G;low;24;Lux 24 C;4;female;11;A;1;0;0;1;0;0;0;;0;0
+T. urticae;Lux;C;G;low;24;Lux 24 C;5;female;12;A;1;0;0;1;0;0;0;;0;0
+T. urticae;Lux;C;G;low;24;Lux 24 C;/;male;10;;;;;;;;;;#N/A;#N/A
+T. urticae;Lux;C;G;low;24;Lux 24 C;/;male;10;;;;;;;;;;#N/A;#N/A
+T. urticae;Lux;C;G;low;24;Lux 24 C;/;male;10;;;;;;;;;;#N/A;#N/A
+T. urticae;Lux;C;G;opt;30;Lux 30 C;1;female;7;On cotton next to A;29;0;0;29;19;9;10;;1,428571429;0
+T. urticae;Lux;C;G;opt;30;Lux 30 C;2;female;7;A;32;0;0;32;18;2;16;;2,285714286;0
+T. urticae;Lux;C;G;opt;30;Lux 30 C;3;female;7;On cotton next to A;32;0;0;32;13;6;7;;1;0
+T. urticae;Lux;C;G;opt;30;Lux 30 C;4;female;7;On cotton next to A;9;0;0;9;7;2;5;;0,714285714;0
+T. urticae;Lux;C;G;opt;30;Lux 30 C;5;female;7;A;3;0;0;3;3;1;2;;0,285714286;0
+T. urticae;Lux;C;G;opt;30;Lux 30 C;6;female;7;Death on A;0;0;0;0;0;0;0;;0;#N/A
+T. urticae;Lux;C;G;opt;30;Lux 30 C;7;female;7;A;17;0;0;17;2;0;2;;0,285714286;0
+T. urticae;Lux;C;G;opt;30;Lux 30 C;8;female;7;A;19;0;0;19;4;2;2;;0,285714286;0
+T. urticae;Lux;C;G;opt;30;Lux 30 C;9;female;7;A;28;0;0;28;5;2;3;;0,428571429;0
+T. urticae;Lux;C;G;opt;30;Lux 30 C;/;male;6;;;;;;;;;;#N/A;#N/A
+T. urticae;Lux;C;G;opt;30;Lux 30 C;/;female;7;;;;;;;;;;#N/A;#N/A
+T. urticae;Lux;C;G;opt;30;Lux 30 C;/;male;7;;;;;;;;;;#N/A;#N/A
+T. urticae;Lux;C;G;opt;30;Lux 30 C;/;male;7;;;;;;;;;;#N/A;#N/A
+T. urticae;Lux;C;G;opt;30;Lux 30 C;/;male;7;;;;;;;;;;#N/A;#N/A
+T. urticae;Lux;C;G;opt;30;Lux 30 C;/;male;7;;;;;;;;;;#N/A;#N/A
+T. urticae;Lux;C;G;opt;30;Lux 30 C;/;male;8;;;;;;;;;;#N/A;#N/A
+T. urticae;Lux;C;G;high;36;Lux 36 C;1;female;7;Death on A;0;0;0;0;0;0;0;;0;#N/A
+T. urticae;Lux;C;G;high;36;Lux 36 C;2;female;7;A;9;0;0;9;0;0;0;;0;0
+T. urticae;Lux;C;G;high;36;Lux 36 C;3;female;7;weg???;4;0;0;4;0;0;0;;0;0
+T. urticae;Lux;C;G;high;36;Lux 36 C;4;female;7;A;8;0;0;8;0;0;0;;0;0
+T. urticae;Lux;C;G;high;36;Lux 36 C;5;female;9;Death on A;0;0;0;0;0;0;0;;0;#N/A
+T. urticae;Lux;C;G;high;36;Lux 36 C;6;female;9;Death on A;0;0;0;0;0;0;0;;0;#N/A
+T. urticae;Lux;C;G;high;36;Lux 36 C;7;female;10;A;1;0;0;1;0;0;0;;0;0
+T. urticae;Lux;C;G;high;36;Lux 36 C;/;male;6;;;;;;;;;;#N/A;#N/A
+T. urticae;Mar;C;G;low;24;Mar 24 C;1;female;12;A;5;0;0;5;0;0;0;Leaves were dry => survival lower?;0;0
+T. urticae;Mar;C;G;low;24;Mar 24 C;2;female;12;A;0;0;0;0;2;2;0;;0;#N/A
+T. urticae;Mar;C;G;low;24;Mar 24 C;3;female;13;A;6;0;0;6;0;0;0;;0;0
+T. urticae;Mar;C;G;low;24;Mar 24 C;4;female;13;A;2;0;0;2;0;0;0;;0;0
+T. urticae;Mar;C;G;low;24;Mar 24 C;/;male;8;;;;;;;;;;#N/A;#N/A
+T. urticae;Mar;C;G;low;24;Mar 24 C;/;male;9;;;;;;;;;;#N/A;#N/A
+T. urticae;Mar;C;G;low;24;Mar 24 C;/;male;10;;;;;;;;;;#N/A;#N/A
+T. urticae;Mar;C;G;low;24;Mar 24 C;/;male;10;;;;;;;;;;#N/A;#N/A
+T. urticae;Mar;C;G;low;24;Mar 24 C;/;male;10;;;;;;;;;;#N/A;#N/A
+T. urticae;Mar;C;G;opt;30;Mar 30 C;1;female;7;A;0;0;0;0;0;0;0;;0;#N/A
+T. urticae;Mar;C;G;opt;30;Mar 30 C;2;female;7;A;14;0;0;14;15;5;10;;1,428571429;0
+T. urticae;Mar;C;G;opt;30;Mar 30 C;3;female;7;A;1;0;0;1;0;0;0;;0;0
+T. urticae;Mar;C;G;opt;30;Mar 30 C;4;female;7;A;12;0;0;12;8;2;6;;0,857142857;0
+T. urticae;Mar;C;G;opt;30;Mar 30 C;5;female;7;Death on A;0;0;0;0;0;0;0;;0;#N/A
+T. urticae;Mar;C;G;opt;30;Mar 30 C;6;female;7;Death on A;6;0;0;6;3;1;2;;0,285714286;0
+T. urticae;Mar;C;G;opt;30;Mar 30 C;7;female;7;A;4;0;0;4;3;1;2;;0,285714286;0
+T. urticae;Mar;C;G;opt;30;Mar 30 C;/;male;7;;;;;;;;;;#N/A;#N/A
+T. urticae;Mar;C;G;opt;30;Mar 30 C;/;male;7;;;;;;;;;;#N/A;#N/A
+T. urticae;Mar;C;G;high;36;Mar 36 C;1;female;7;A;0;0;0;0;0;0;0;;0;#N/A
+T. urticae;Mar;C;G;high;36;Mar 36 C;2;female;8;A;0;0;0;0;0;0;0;;0;#N/A
+T. urticae;Mar;C;G;high;36;Mar 36 C;/;male;5;;;;;;;;;;#N/A;#N/A
+T. urticae;Mar;C;G;high;36;Mar 36 C;/;male;5;;;;;;;;;;#N/A;#N/A
+T. urticae;Mar;C;G;high;36;Mar 36 C;/;male;5;;;;;;;;;;#N/A;#N/A
+T. urticae;Mar;C;G;high;36;Mar 36 C;/;male;6;;;;;;;;;;#N/A;#N/A
+T. urticae;Mar;C;G;high;36;Mar 36 C;/;male;6;;;;;;;;;;#N/A;#N/A
+T. urticae;Mar;C;G;high;36;Mar 36 C;/;male;6;;;;;;;;;;#N/A;#N/A
+T. urticae;Mar;C;G;high;36;Mar 36 C;/;male;6;;;;;;;;;;#N/A;#N/A
+T. urticae;Mar;C;G;high;36;Mar 36 C;/;male;6;;;;;;;;;;#N/A;#N/A
+T. urticae;Mar;C;G;high;36;Mar 36 C;/;male;7;;;;;;;;;;#N/A;#N/A
+T. urticae;Beis C ;D;G;opt;30;Beis C  30 D;1;female;6;A;21;0;0;21;16;10;6;;1;0
+T. urticae;Beis C ;D;G;opt;30;Beis C  30 D;2;female;7;A;40;0;0;40;26;7;19;;2,714285714;0
+T. urticae;Beis C ;D;G;opt;30;Beis C  30 D;3;female;7;A;29;0;0;29;22;7;15;;2,142857143;0
+T. urticae;Beis C ;D;G;opt;30;Beis C  30 D;4;female;7;A;35;0;0;35;26;6;20;;2,857142857;0
+T. urticae;Beis C ;D;G;opt;30;Beis C  30 D;5;female;7;A;23;0;0;23;17;4;13;;1,857142857;0
+T. urticae;Beis C ;D;G;opt;30;Beis C  30 D;6;female;7;weg???;11;0;0;11;7;0;7;;1;0
+T. urticae;Beis C ;D;G;opt;30;Beis C  30 D;7;female;7;A;42;0;0;42;33;9;24;;3,428571429;0
+T. urticae;Beis C ;D;G;opt;30;Beis C  30 D;8;female;9;weg???;37;0;0;37;25;5;20;;2,222222222;0
+T. urticae;Beis C ;D;G;opt;30;Beis C  30 D;/;male;6;;;;;;;;;;#N/A;#N/A
+T. urticae;Beis C ;D;G;opt;30;Beis C  30 D;/;male;7;;;;;;;;;;#N/A;#N/A
+T. urticae;Beis C ;D;G;opt;30;Beis C  30 D;/;male;7;;;;;;;;;;#N/A;#N/A
+T. urticae;Beis C ;D;G;opt;30;Beis C  30 D;/;male;9;;;;;;;;;;#N/A;#N/A
+T. urticae;Beis C ;D;G;high;36;Beis C  36 D;1;female;8;A;3;0;0;3;0;0;0;;0;0
+T. urticae;Beis C ;D;G;high;36;Beis C  36 D;2;female;10;On cotton next to B;0;0;0;0;0;0;0;;0;#N/A
+T. urticae;Beis C ;D;G;high;36;Beis C  36 D;3;female;11;Death on A;0;0;0;0;0;0;0;;0;#N/A
+T. urticae;Beis C ;D;G;high;36;Beis C  36 D;4;female;12;On cotton next to A;0;0;0;0;0;0;0;;0;#N/A
+T. urticae;Beis C ;D;G;high;36;Beis C  36 D;/;male;6;;;;;;;;;;#N/A;#N/A
+T. urticae;Beis C ;D;G;high;36;Beis C  36 D;/;male;8;;;;;;;;;;#N/A;#N/A
+T. urticae;Beis C ;D;G;high;36;Beis C  36 D;/;male;13;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;D;G;low;24;Led-5 24 D;1;female;11;B;2;0;29;31;20;20;0;;0;0
+T. urticae;Led-5;D;G;low;24;Led-5 24 D;2;female;11;On cotton next to A;16;0;0;16;11;11;0;;0;0
+T. urticae;Led-5;D;G;low;24;Led-5 24 D;/;male;10;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;D;G;opt;30;Led-5 30 D;1;female;9;On cotton next to A;1;0;0;1;1;1;0;;0;0
+T. urticae;Led-5;D;G;opt;30;Led-5 30 D;2;female;9;A;32;0;0;32;20;20;0;;0;0
+T. urticae;Led-5;D;G;high;36;Led-5 36 D;/;female;5;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;D;G;high;36;Led-5 36 D;/;male;5;;;;;;;;;;#N/A;#N/A
+T. urticae;Led-5;D;G;high;36;Led-5 36 D;/;male;6;;;;;;;;;;#N/A;#N/A
+T. urticae;Lux;D;G;low;24;Lux 24 D;1;female;10;A;16;0;0;16;10;4;6;;0,6;0
+T. urticae;Lux;D;G;low;24;Lux 24 D;2;female;10;weg???;0;0;0;0;0;0;0;;0;#N/A
+T. urticae;Lux;D;G;low;24;Lux 24 D;3;female;11;A;1;0;0;1;1;1;0;;0;0
+T. urticae;Lux;D;G;low;24;Lux 24 D;4;female;11;A;0;0;0;0;0;0;0;;0;#N/A
+T. urticae;Lux;D;G;low;24;Lux 24 D;5;female;11;A;1;0;0;1;0;0;0;;0;0
+T. urticae;Lux;D;G;low;24;Lux 24 D;6;female;11;On cotton next to A;20;0;0;20;9;4;5;;0,454545455;0
+T. urticae;Lux;D;G;low;24;Lux 24 D;7;female;11;A;11;0;0;11;6;1;5;;0,454545455;0
+T. urticae;Lux;D;G;low;24;Lux 24 D;8;female;11;On cotton next to A;0;0;0;0;0;0;0;;0;#N/A
+T. urticae;Lux;D;G;low;24;Lux 24 D;9;female;11;A;1;0;0;1;0;0;0;;0;0
+T. urticae;Lux;D;G;low;24;Lux 24 D;10;female;11;On bridge;1;0;0;1;0;0;0;;0;0
+T. urticae;Lux;D;G;low;24;Lux 24 D;11;female;11;On cotton next to A;0;0;13;13;6;3;3;;0,272727273;0,272727273
+T. urticae;Lux;D;G;low;24;Lux 24 D;12;female;11;B;12;0;1;13;6;3;3;;0,272727273;0,020979021
+T. urticae;Lux;D;G;low;24;Lux 24 D;13;female;12;A;4;0;0;4;3;3;0;;0;0
+T. urticae;Lux;D;G;low;24;Lux 24 D;/;male;10;;;;;;;;;;#N/A;#N/A
+T. urticae;Lux;D;G;low;24;Lux 24 D;/;male;10;;;;;;;;;;#N/A;#N/A
+T. urticae;Lux;D;G;low;24;Lux 24 D;/;male;10;;;;;;;;;;#N/A;#N/A
+T. urticae;Lux;D;G;low;24;Lux 24 D;/;male;10;;;;;;;;;;#N/A;#N/A
+T. urticae;Lux;D;G;low;24;Lux 24 D;/;male;10;;;;;;;;;;#N/A;#N/A
+T. urticae;Lux;D;G;low;24;Lux 24 D;/;male;10;;;;;;;;;;#N/A;#N/A
+T. urticae;Lux;D;G;low;24;Lux 24 D;/;male;10;;;;;;;;;;#N/A;#N/A
+T. urticae;Lux;D;G;low;24;Lux 24 D;/;male;10;;;;;;;;;;#N/A;#N/A
+T. urticae;Lux;D;G;low;24;Lux 24 D;/;male;10;;;;;;;;;;#N/A;#N/A
+T. urticae;Lux;D;G;low;24;Lux 24 D;/;male;11;;;;;;;;;;#N/A;#N/A
+T. urticae;Lux;D;G;low;24;Lux 24 D;/;male;11;;;;;;;;;;#N/A;#N/A
+T. urticae;Lux;D;G;low;24;Lux 24 D;/;male;11;;;;;;;;;;#N/A;#N/A
+T. urticae;Lux;D;G;opt;30;Lux 30 D;1;female;7;B;12;0;2;14;7;4;3;;0,428571429;0,06122449
+T. urticae;Lux;D;G;opt;30;Lux 30 D;2;female;7;A;23;0;0;23;9;3;6;;0,857142857;0
+T. urticae;Lux;D;G;opt;30;Lux 30 D;3;female;7;A;9;0;0;9;4;2;2;;0,285714286;0
+T. urticae;Lux;D;G;opt;30;Lux 30 D;4;female;7;A;5;0;0;5;2;1;1;;0,142857143;0
+T. urticae;Lux;D;G;opt;30;Lux 30 D;5;female;7;A;2;0;0;2;2;1;1;;0,142857143;0
+T. urticae;Lux;D;G;opt;30;Lux 30 D;6;female;7;On cotton next to A;1;0;0;1;0;0;0;;0;0
+T. urticae;Lux;D;G;opt;30;Lux 30 D;7;female;7;B;8;0;5;13;5;2;3;;0,428571429;0,164835165
+T. urticae;Lux;D;G;opt;30;Lux 30 D;8;female;7;A;19;0;0;19;11;3;8;;1,142857143;0
+T. urticae;Lux;D;G;opt;30;Lux 30 D;9;female;7;Death on A;3;0;0;3;1;0;1;;0,142857143;0
+T. urticae;Lux;D;G;opt;30;Lux 30 D;10;female;7;A;2;0;0;2;1;0;1;;0,142857143;0
+T. urticae;Lux;D;G;opt;30;Lux 30 D;11;female;7;Death on A;0;0;0;0;0;0;0;;0;#N/A
+T. urticae;Lux;D;G;opt;30;Lux 30 D;12;female;7;A;18;0;0;18;7;3;4;;0,571428571;0
+T. urticae;Lux;D;G;opt;30;Lux 30 D;13;female;7;A;16;0;13;29;19;8;11;;1,571428571;0,704433498
+T. urticae;Lux;D;G;opt;30;Lux 30 D;14;female;7;B;3;0;9;12;11;5;6;;0,857142857;0,642857143
+T. urticae;Lux;D;G;opt;30;Lux 30 D;15;female;7;A;3;0;0;3;3;3;0;;0;0
+T. urticae;Lux;D;G;opt;30;Lux 30 D;16;female;8;A;13;0;0;13;9;9;0;;0;0
+T. urticae;Lux;D;G;opt;30;Lux 30 D;17;female;8;A;24;0;0;24;16;16;0;;0;0
+T. urticae;Lux;D;G;opt;30;Lux 30 D;18;female;8;A;19;0;0;19;13;13;0;;0;0
+T. urticae;Lux;D;G;opt;30;Lux 30 D;/;male;6;;;;;;;;;;#N/A;#N/A
+T. urticae;Lux;D;G;opt;30;Lux 30 D;/;male;6;;;;;;;;;;#N/A;#N/A
+T. urticae;Lux;D;G;opt;30;Lux 30 D;/;male;7;;;;;;;;;;#N/A;#N/A
+T. urticae;Lux;D;G;opt;30;Lux 30 D;/;male;7;;;;;;;;;;#N/A;#N/A
+T. urticae;Lux;D;G;opt;30;Lux 30 D;/;male;7;;;;;;;;;;#N/A;#N/A
+T. urticae;Lux;D;G;high;36;Lux 36 D;1;female;10;On cotton next to A;0;0;0;0;0;0;0;;0;#N/A
+T. urticae;Lux;D;G;high;36;Lux 36 D;2;female;10;On cotton next to A;6;0;0;6;0;0;0;;0;0
+T. urticae;Lux;D;G;high;36;Lux 36 D;3;female;10;Death on A;0;0;0;0;0;0;0;;0;#N/A
+T. urticae;Lux;D;G;high;36;Lux 36 D;4;female;11;A;0;0;0;0;0;0;0;;0;#N/A
+T. urticae;Lux;D;G;high;36;Lux 36 D;5;female;11;A;0;0;0;0;0;0;0;;0;#N/A
+T. urticae;Lux;D;G;high;36;Lux 36 D;6;female;12;On cotton next to A;0;0;0;0;0;0;0;;0;#N/A
+T. urticae;Mar;D;G;low;24;Mar 24 D;1;female;10;A;24;0;0;24;18;3;15;;1,5;0
+T. urticae;Mar;D;G;low;24;Mar 24 D;2;female;10;weg???;2;0;0;2;2;2;0;;0;0
+T. urticae;Mar;D;G;low;24;Mar 24 D;3;female;10;A ;18;0;0;18;12;2;10;2 adult females on leaf;1;0
+T. urticae;Mar;D;G;low;24;Mar 24 D;4;female;10;B;4;0;18;22;11;3;8;;0,8;0,654545455
+T. urticae;Mar;D;G;low;24;Mar 24 D;5;female;11;A;27;0;0;27;12;12;0;;0;0
+T. urticae;Mar;D;G;low;24;Mar 24 D;6;female;11;A;26;0;0;26;5;5;0;;0;0
+T. urticae;Mar;D;G;low;24;Mar 24 D;7;female;11;A;4;0;0;4;7;7;0;;0;0
+T. urticae;Mar;D;G;low;24;Mar 24 D;8;female;11;B;0;0;26;26;10;10;0;;0;0
+T. urticae;Mar;D;G;low;24;Mar 24 D;/;male;9;;;;;;;;;;#N/A;#N/A
+T. urticae;Mar;D;G;low;24;Mar 24 D;/;male;10;;;;;;;;;;#N/A;#N/A
+T. urticae;Mar;D;G;low;24;Mar 24 D;/;male;10;;;;;;;;;;#N/A;#N/A
+T. urticae;Mar;D;G;opt;30;Mar 30 D;1;female;6;weg???;2;0;0;2;1;1;0;;0;0
+T. urticae;Mar;D;G;opt;30;Mar 30 D;2;female;6;weg???;0;0;22;22;11;3;8;;1,333333333;1,333333333
+T. urticae;Mar;D;G;opt;30;Mar 30 D;3;female;6;weg???;12;0;1;13;9;2;7;;1,166666667;0,08974359
+T. urticae;Mar;D;G;opt;30;Mar 30 D;4;female;6;weg???;10;0;0;10;8;2;6;;1;0
+T. urticae;Mar;D;G;opt;30;Mar 30 D;5;female;6;B;39;0;4;43;30;8;22;;3,666666667;0,341085271
+T. urticae;Mar;D;G;opt;30;Mar 30 D;6;female;7;A;2;0;0;2;0;0;0;;0;0
+T. urticae;Mar;D;G;opt;30;Mar 30 D;7;female;7;weg???;22;0;0;22;13;3;10;;1,428571429;0
+T. urticae;Mar;D;G;opt;30;Mar 30 D;8;female;7;A;9;0;0;9;2;1;1;;0,142857143;0
+T. urticae;Mar;D;G;opt;30;Mar 30 D;9;female;7;A;36;0;0;36;28;6;22;;3,142857143;0
+T. urticae;Mar;D;G;opt;30;Mar 30 D;10;female;7;B;1;0;13;14;13;2;11;;1,571428571;1,459183673
+T. urticae;Mar;D;G;opt;30;Mar 30 D;11;female;7;B;40;0;12;52;36;14;22;;3,142857143;0,725274725
+T. urticae;Mar;D;G;opt;30;Mar 30 D;12;female;7;A;0;0;0;0;0;0;0;;0;#N/A
+T. urticae;Mar;D;G;opt;30;Mar 30 D;13;female;7;weg???;34;0;8;42;28;10;18;;2,571428571;0,489795918
+T. urticae;Mar;D;G;opt;30;Mar 30 D;14;female;7;B;45;0;1;46;37;10;27;;3,857142857;0,083850932
+T. urticae;Mar;D;G;opt;30;Mar 30 D;15;female;7;B;11;0;6;17;17;5;12;;1,714285714;0,605042017
+T. urticae;Mar;D;G;opt;30;Mar 30 D;16;female;7;On cotton next to A;0;0;0;0;0;0;0;;0;#N/A
+T. urticae;Mar;D;G;opt;30;Mar 30 D;17;female;8;A;0;0;0;0;0;0;0;;0;#N/A
+T. urticae;Mar;D;G;opt;30;Mar 30 D;/;female;6;;;;;;;;;;#N/A;#N/A
+T. urticae;Mar;D;G;opt;30;Mar 30 D;/;female;7;;;;;;;;;;#N/A;#N/A
+T. urticae;Mar;D;G;opt;30;Mar 30 D;/;female;7;;;;;;;;;;#N/A;#N/A
+T. urticae;Mar;D;G;opt;30;Mar 30 D;/;female;7;;;;;;;;;;#N/A;#N/A
+T. urticae;Mar;D;G;opt;30;Mar 30 D;/;female;7;;;;;;;;;;#N/A;#N/A
+T. urticae;Mar;D;G;opt;30;Mar 30 D;/;female;7;;;;;;;;;;#N/A;#N/A
+T. urticae;Mar;D;G;opt;30;Mar 30 D;/;female;7;;;;;;;;;;#N/A;#N/A
+T. urticae;Mar;D;G;opt;30;Mar 30 D;/;female;7;;;;;;;;;;#N/A;#N/A
+T. urticae;Mar;D;G;opt;30;Mar 30 D;/;female;7;;;;;;;;;;#N/A;#N/A
+T. urticae;Mar;D;G;opt;30;Mar 30 D;/;female;7;;;;;;;;;;#N/A;#N/A
+T. urticae;Mar;D;G;opt;30;Mar 30 D;/;female;7;;;;;;;;;;#N/A;#N/A
+T. urticae;Mar;D;G;opt;30;Mar 30 D;/;female;7;;;;;;;;;;#N/A;#N/A
+T. urticae;Mar;D;G;opt;30;Mar 30 D;/;male;6;;;;;;;;;;#N/A;#N/A
+T. urticae;Mar;D;G;opt;30;Mar 30 D;/;male;6;;;;;;;;;;#N/A;#N/A
+T. urticae;Mar;D;G;opt;30;Mar 30 D;/;male;6;;;;;;;;;;#N/A;#N/A
+T. urticae;Mar;D;G;opt;30;Mar 30 D;/;male;6;;;;;;;;;;#N/A;#N/A
+T. urticae;Mar;D;G;opt;30;Mar 30 D;/;male;6;;;;;;;;;;#N/A;#N/A
+T. urticae;Mar;D;G;opt;30;Mar 30 D;/;male;6;;;;;;;;;;#N/A;#N/A
+T. urticae;Mar;D;G;opt;30;Mar 30 D;/;male;6;;;;;;;;;;#N/A;#N/A
+T. urticae;Mar;D;G;opt;30;Mar 30 D;/;male;6;;;;;;;;;;#N/A;#N/A
+T. urticae;Mar;D;G;opt;30;Mar 30 D;/;male;6;;;;;;;;;;#N/A;#N/A
+T. urticae;Mar;D;G;opt;30;Mar 30 D;/;male;7;;;;;;;;;;#N/A;#N/A
+T. urticae;Mar;D;G;opt;30;Mar 30 D;/;male;7;;;;;;;;;;#N/A;#N/A
+T. urticae;Mar;D;G;opt;30;Mar 30 D;/;male;7;;;;;;;;;;#N/A;#N/A
+T. urticae;Mar;D;G;opt;30;Mar 30 D;/;male;8;;;;;;;;;;#N/A;#N/A
+T. urticae;Mar;D;G;high;36;Mar 36 D;1;female;5;A;3;0;0;3;0;0;0;;0;0
+T. urticae;Mar;D;G;high;36;Mar 36 D;2;female;5;A;0;0;0;0;0;0;0;;0;#N/A
+T. urticae;Mar;D;G;high;36;Mar 36 D;3;female;6;A;8;0;0;8;4;4;0;;0;0
+T. urticae;Mar;D;G;high;36;Mar 36 D;4;female;6;A;4;0;0;4;1;1;0;;0;0
+T. urticae;Mar;D;G;high;36;Mar 36 D;5;female;6;On cotton next to A;0;0;0;0;0;0;0;;0;#N/A
+T. urticae;Mar;D;G;high;36;Mar 36 D;6;female;6;A;0;0;0;0;0;0;0;;0;#N/A
+T. urticae;Mar;D;G;high;36;Mar 36 D;7;female;6;A;0;0;0;0;0;0;0;;0;#N/A
+T. urticae;Mar;D;G;high;36;Mar 36 D;8;female;7;A;7;0;0;7;0;0;0;;0;0
+T. urticae;Mar;D;G;high;36;Mar 36 D;9;female;7;Death on A;0;0;0;0;0;0;0;;0;#N/A
+T. urticae;Mar;D;G;high;36;Mar 36 D;10;female;7;Death on B;0;0;0;0;0;0;0;;0;#N/A
+T. urticae;Mar;D;G;high;36;Mar 36 D;11;female;7;weg???;0;0;0;0;0;0;0;;0;#N/A
+T. urticae;Mar;D;G;high;36;Mar 36 D;/;male;5;;;;;;;;;;#N/A;#N/A
+T. urticae;Mar;D;G;high;36;Mar 36 D;/;male;5;;;;;;;;;;#N/A;#N/A
+T. urticae;Mar;D;G;high;36;Mar 36 D;/;male;5;;;;;;;;;;#N/A;#N/A
+T. urticae;Mar;D;G;high;36;Mar 36 D;/;male;5;;;;;;;;;;#N/A;#N/A
+T. urticae;Mar;D;G;high;36;Mar 36 D;/;male;5;;;;;;;;;;#N/A;#N/A
+T. urticae;Mar;D;G;high;36;Mar 36 D;/;male;8;;;;;;;;;;#N/A;#N/A

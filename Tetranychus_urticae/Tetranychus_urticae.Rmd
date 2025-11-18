@@ -36,7 +36,7 @@ library(glmmTMB)
 # 3. Fill out information about your species below
 
 Genus = "Tetranychus"
-species = "turkestani"
+species = "urticae"
 fitness.proxy = "Population growth, r"
 low.temp = 24 #value of low temperature treatment in Celsius
 opt.temp = 30 #value of optimal temperature treatment in Celsius
@@ -74,7 +74,7 @@ fitness.transformed.normal = TRUE
 
 ## If fitness variable is continuous normal AFTER transformation, choose transformation used (just write it in if not on this list):
 
-transform.description <- "log" # leave as-is if not applicable
+transform.description <- "sqrt" # leave as-is if not applicable
 fitness.transformation.function <- function(x) {return (sqrt(x))} # give transformation formula here; replace XYZ with transformation e.g., sqrt(x) or log(x + 1), etc., where x will be Fitness, below
 
 ## note: if fitness (or transformed fitness) does not have a binomial or normal distribution, check in with Celina.
@@ -106,8 +106,8 @@ filter.dead = FALSE # choose NA if this does not apply to your species
 # 8. Model formulae
 
 ## Formula for fitness: (fill in as appropriate)
-fitness.formula.zero <- zero ~ Temp.treatment + (1|dispersion_id)
-fitness.formula.pos <- Fitness ~ Temp.treatment + (1|dispersion_id)
+fitness.formula.zero <- zero ~ Temp.treatment + population + (1|dispersion_id)
+fitness.formula.pos <- Fitness ~ Temp.treatment + population + (1|dispersion_id)
 
 ### notes:
 #### TRANSFORM FITNESS VARIABLE (if needed) *WITHIN* THE FORMULA; doing it within the formula is important for contrasts below  
@@ -124,8 +124,8 @@ Fit1 <- "Died/Survived" # or fill in other
 
 ## Formula for dispersal: (fill in as appropriate)
   
-dispersal.formula.zero <- zero ~ Temp.treatment + (1|dispersion_id)
-dispersal.formula.pos <- cbind(Num.disp, Num.res) ~ Temp.treatment + (1|dispersion_id)
+dispersal.formula.zero <- zero ~ Temp.treatment + population + (1|dispersion_id)
+dispersal.formula.pos <- cbind(Num.disp, Num.res) ~ Temp.treatment + population + (1|dispersion_id)
 ### notes
 #### other.fixed.effects does not apply to every species; include as appropriate; fixed effects should be standardized
 #### include as many random effects as appropriate
@@ -159,9 +159,12 @@ fitness.proxy.type <- "r"
 
 ## Study organism
 
-Tetranychus turkestani:
+Tetranychus urticae:
 
-- Ras
+- Beis C 
+- Led-5 
+- Lux 
+- Mar 
 
 #Provide basic life history information (aquatic/terrestrial, mode of dispersal, lifespan, etc.).  
 
@@ -176,7 +179,10 @@ Tetranychus urticae is a cosmopolitan species found worldwide in temperate, subt
 
 Field caught: line, location, original host plant
 
-- Ras: Rascafria, Spain. Strawberry
+- Beis C: Brugge, Belgium. Solomon's seal
+- Led-5: Ghent, Belgium. Strawberry
+- Lux: Mullerthal, Luxembourg. Mallow
+- Mar: Paris, France. Greater celandine
 
 
 #How were individuals/populations treated before the experiment?  
@@ -184,7 +190,10 @@ Field caught: line, location, original host plant
 - The mites were made isofemale lines, after which they were maintained under constant conditions as a stock. Food was ad libitum, temperature was kept at 24°C, and constant light.
 When were the lines collected:
 
-- Ras: 2022
+- Beis C: 2020
+- Led-5: 2023
+- Lux: 2023
+- Mar: 2023
 
 #Were specific individuals/phenotypes/stages selected for the experiment?  
 
@@ -202,6 +211,7 @@ No Wolbacchia present (capable of skewing sex-ratio)
 
 Fitness proxy: malthusian fitness = number of viable female offspring produced by one female. 
 
+  
 #-	Physical details about the experimental setup including size/shape/volume of experimental arenas, substrate/medium of experimental arenas.  
 
 - Adult females were kept in incubator at treatment temperature for 24 hours, after which they were placed on a bean leaf. Here, they were allowed to lay eggs for 24 hours. These eggs were controlled daily to check for hatching, and female hatched offspring were placed on a dispersal plate (2 patches). Here, they were allowed to lay eggs for four days on either of the bean leaf discs. These eggs were checked daily for hatching success and sex determination of the offspring. 
@@ -218,7 +228,6 @@ Fitness proxy: malthusian fitness = number of viable female offspring produced b
 
 ### Phase 2: Dispersal assay
 
-Provide details about the methods for estimating dispersal including:  
 -	Adult females were kept in incubator at treatment temperature for 24 hours, after which they were placed on a bean leaf. Here, they were allowed to lay eggs for 24 hours. These eggs were controlled daily to check for hatching, and female hatched offspring were placed on a dispersal plate (2 patches). Here, they were allowed to lay eggs for four days on either of the bean leaf discs. These eggs were checked daily for hatching success and sex determination of the offspring. 
 
 -	Replicates  
@@ -403,7 +412,6 @@ m_fitness_pos <- glmmTMB(
 )
 
 
-
 # ANOVA for positive part
 output_fitness_pos_Tempeffect <- drop1(m_fitness_pos, test = "Chisq")
 
@@ -544,6 +552,7 @@ m_disp_pos <- glmmTMB(
   family = binomial,
   data = d_pos_disp
 )
+
 
 # ANOVA for positive part
 output_disp_pos_Tempeffect <- drop1(m_disp_pos, test = "Chisq")

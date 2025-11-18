@@ -1,0 +1,609 @@
+﻿species;population;round;colour;Temp.treatment;Temp.value;plate;dispersion_id;gender_egg_wave_1;days_until_adult;place_adult_female;n_eggs_on_A;n_eggs_on_bridge;Num.disp;total.N;n_survivors;n_males_egg_wave_2;n_females_egg_wave_2;Issue;Fitness;fitness_with_disp
+T. cinnabarinus;Trio;A;R;opt;30;Trio 30 A;/;male;9;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Trio;A;R;opt;30;Trio 30 A;/;male;9;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Trio;A;R;opt;30;Trio 30 A;/;male;9;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Sioure;A;R;low;24;Sioure 24 A;1;female;10;On cotton next to bridge;0;0;0;0;0;0;0;;0;#N/A
+T. cinnabarinus;Sioure;A;R;low;24;Sioure 24 A;2;female;10;Death on A;0;0;0;0;0;0;0;;0;#N/A
+T. cinnabarinus;Sioure;A;R;low;24;Sioure 24 A;3;female;11;A;24;0;0;24;20;2;18;;1,636363636;0
+T. cinnabarinus;Sioure;A;R;low;24;Sioure 24 A;4;female;12;On cotton next to B;4;0;0;4;4;1;3;;0,25;0
+T. cinnabarinus;Sioure;A;R;low;24;Sioure 24 A;5;female;13;A;25;0;0;25;22;4;18;;1,384615385;0
+T. cinnabarinus;Sioure;A;R;low;24;Sioure 24 A;/;male;11;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Sioure;A;R;low;24;Sioure 24 A;/;male;10;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Sioure;A;R;low;24;Sioure 24 A;/;male;10;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Köln-3;A;R;low;24;Köln-3 24 A;/;male;7;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Köln-3;A;R;low;24;Köln-3 24 A;/;male;9;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Köln-3;A;R;low;24;Köln-3 24 A;/;male;9;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Köln-3;A;R;low;24;Köln-3 24 A;/;male;10;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Köln-3;A;R;low;24;Köln-3 24 A;/;male;10;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Köln-3;A;R;low;24;Köln-3 24 A;/;male;10;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Köln-3;A;R;low;24;Köln-3 24 A;/;male;10;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Köln-3;A;R;opt;30;Köln-3 30 A;/;male;7;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Köln-3;A;R;opt;30;Köln-3 30 A;/;male;7;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Köln-3;A;R;opt;30;Köln-3 30 A;/;male;7;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Köln-3;A;R;opt;30;Köln-3 30 A;/;male;7;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Köln-3;A;R;opt;30;Köln-3 30 A;/;male;7;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Köln-3;A;R;opt;30;Köln-3 30 A;/;male;7;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Köln-3;A;R;opt;30;Köln-3 30 A;/;male;7;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Köln-3;A;R;opt;30;Köln-3 30 A;/;male;7;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Köln-3;A;R;opt;30;Köln-3 30 A;/;male;7;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Köln-3;A;R;opt;30;Köln-3 30 A;/;male;7;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Köln-3;A;R;opt;30;Köln-3 30 A;11;female;7;A;50;0;0;50;35;27;8;;1,142857143;0
+T. cinnabarinus;Merc-1;A;R;low;24;Merc-1 24 A;1;female;10;B ;0;0;0;0;0;0;0;vervelling aanwezig, was nog niet volwassen on moment on dispresie werd gezet;0;#N/A
+T. cinnabarinus;Merc-1;A;R;low;24;Merc-1 24 A;/;male;10;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Merc-1;A;R;low;24;Merc-1 24 A;/;male;10;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Merc-1;A;R;low;24;Merc-1 24 A;/;male;10;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Merc-1;A;R;low;24;Merc-1 24 A;/;male;10;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Merc-1;A;R;low;24;Merc-1 24 A;6;female;11;On cotton next to A;3;0;0;3;3;2;1;;0,090909091;0
+T. cinnabarinus;Merc-1;A;R;low;24;Merc-1 24 A;7;female;11;A;20;0;0;20;18;4;14;;1,272727273;0
+T. cinnabarinus;Merc-1;A;R;low;24;Merc-1 24 A;8;female;11;B;0;0;25;25;17;5;12;;1,090909091;1,090909091
+T. cinnabarinus;Merc-1;A;R;low;24;Merc-1 24 A;/;male;11;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Merc-1;A;R;low;24;Merc-1 24 A;/;male;11;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Merc-1;A;R;low;24;Merc-1 24 A;/;male;11;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Merc-1;A;R;low;24;Merc-1 24 A;/;male;11;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Merc-1;A;R;opt;30;Merc-1 30 A;1;female;9;A;5;0;0;5;5;1;4;;0,444444444;0
+T. cinnabarinus;Merc-1;A;R;opt;30;Merc-1 30 A;2;female;9;A;28;0;0;28;20;5;15;;1,666666667;0
+T. cinnabarinus;Merc-1;A;R;opt;30;Merc-1 30 A;3;female;9;B;1;0;30;31;16;4;12;;1,333333333;1,290322581
+T. cinnabarinus;Merc-1;A;R;opt;30;Merc-1 30 A;4;female;9;A;18;0;0;18;3;0;3;;0,333333333;0
+T. cinnabarinus;Merc-1;A;R;opt;30;Merc-1 30 A;5;female;9;A;0;0;0;0;0;0;0;;0;#N/A
+T. cinnabarinus;Merc-1;A;R;opt;30;Merc-1 30 A;6;female;9;A;1;0;0;1;1;0;1;;0,111111111;0
+T. cinnabarinus;Merc-1;A;R;opt;30;Merc-1 30 A;7;female;9;A;6;0;0;6;0;0;0;;0;0
+T. cinnabarinus;Merc-1;A;R;opt;30;Merc-1 30 A;/;male;9;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Merc-1;A;R;opt;30;Merc-1 30 A;/;male;9;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Merc-1;A;R;opt;30;Merc-1 30 A;/;male;9;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Merc-1;A;R;opt;30;Merc-1 30 A;/;male;9;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Merc-1;A;R;opt;30;Merc-1 30 A;/;male;9;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Merc-1;A;R;opt;30;Merc-1 30 A;/;male;9;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Merc-1;A;R;opt;30;Merc-1 30 A;/;male;9;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Pora;A;R;opt;30;Pora 30 A;1;female;9;weg???;0;0;0;0;0;0;0;;0;#N/A
+T. cinnabarinus;Pora;A;R;opt;30;Pora 30 A;2;female;9;Death on A;0;0;0;0;0;0;0;;0;#N/A
+T. cinnabarinus;Pora;A;R;opt;30;Pora 30 A;3;female;9;A;7;0;0;7;0;0;0;;0;0
+T. cinnabarinus;Pora;A;R;opt;30;Pora 30 A;4;female;9;Death on A;10;0;0;10;1;1;0;;0;0
+T. cinnabarinus;Pora;A;R;opt;30;Pora 30 A;5;female;9;Death on A;9;0;0;9;7;2;5;;0,555555556;0
+T. cinnabarinus;Pora;A;R;opt;30;Pora 30 A;6;female;9;A;2;0;0;2;2;1;1;;0,111111111;0
+T. cinnabarinus;Pora;A;R;opt;30;Pora 30 A;7;female;9;A;14;0;0;14;13;3;10;;1,111111111;0
+T. cinnabarinus;Pora;A;R;opt;30;Pora 30 A;8;female;9;A;8;0;0;8;6;1;5;;0,555555556;0
+T. cinnabarinus;Pora;A;R;opt;30;Pora 30 A;9;female;9;B;5;0;6;11;3;0;3;;0,333333333;0,181818182
+T. cinnabarinus;Pora;A;R;opt;30;Pora 30 A;10;female;9;A;10;0;0;10;7;2;5;;0,555555556;0
+T. cinnabarinus;Pora;A;R;opt;30;Pora 30 A;/;male;9;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Pora;A;R;opt;30;Pora 30 A;/;male;9;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Pora;A;R;opt;30;Pora 30 A;/;male;9;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Köln-3;B;R;low;24;Köln-3 24 B;1;female;10;A;26;0;0;26;0;0;0;;0;0
+T. cinnabarinus;Köln-3;B;R;low;24;Köln-3 24 B;2;female;14;weg???;14;0;3;17;0;0;0;;0;0
+T. cinnabarinus;Köln-3;B;R;low;24;Köln-3 24 B;3;female;14;weg???;23;0;0;23;18;18;0;;0;0
+T. cinnabarinus;Köln-3;B;R;low;24;Köln-3 24 B;4;female;14;A;21;0;0;21;12;12;0;;0;0
+T. cinnabarinus;Köln-3;B;R;low;24;Köln-3 24 B;/;male;10;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Köln-3;B;R;low;24;Köln-3 24 B;/;male;10;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Köln-3;B;R;low;24;Köln-3 24 B;/;male;14;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Köln-3;B;R;opt;30;Köln-3 30 B;1;female;6;A;0;0;0;0;0;0;0;;0;#N/A
+T. cinnabarinus;Köln-3;B;R;opt;30;Köln-3 30 B;/;female;7;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Köln-3;B;R;opt;30;Köln-3 30 B;/;male;6;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Köln-3;B;R;opt;30;Köln-3 30 B;/;male;6;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Köln-3;B;R;opt;30;Köln-3 30 B;/;male;6;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Köln-3;B;R;opt;30;Köln-3 30 B;/;male;6;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Köln-3;B;R;opt;30;Köln-3 30 B;/;male;6;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Köln-3;B;R;opt;30;Köln-3 30 B;/;male;6;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Köln-3;B;R;opt;30;Köln-3 30 B;/;male;7;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Köln-3;B;R;high;36;Köln-3 36 B;/;male;9;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Köln-3;B;R;high;36;Köln-3 36 B;/;male;6;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Köln-3;B;R;high;36;Köln-3 36 B;/;male;8;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Köln-3;B;R;high;36;Köln-3 36 B;/;male;8;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Köln-3;B;R;high;36;Köln-3 36 B;/;male;8;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Merc-1;B;R;low;24;Merc-1 24 B;1;female;10;Death on A;0;0;0;0;0;0;0;;0;#N/A
+T. cinnabarinus;Merc-1;B;R;low;24;Merc-1 24 B;2;female;10;On cotton next to A;0;0;0;0;0;0;0;;0;#N/A
+T. cinnabarinus;Merc-1;B;R;low;24;Merc-1 24 B;3;female;10;A;15;0;0;15;15;3;12;;1,2;0
+T. cinnabarinus;Merc-1;B;R;low;24;Merc-1 24 B;4;female;10;A;25;0;0;25;18;6;12;;1,2;0
+T. cinnabarinus;Merc-1;B;R;low;24;Merc-1 24 B;5;female;10;A;19;0;0;19;16;4;12;;1,2;0
+T. cinnabarinus;Merc-1;B;R;low;24;Merc-1 24 B;6;female;10;A;19;0;0;19;15;5;10;;1;0
+T. cinnabarinus;Merc-1;B;R;low;24;Merc-1 24 B;7;female;10;A;22;0;0;22;15;3;12;;1,2;0
+T. cinnabarinus;Merc-1;B;R;low;24;Merc-1 24 B;8;female;10;On cotton next to A;7;0;0;7;4;2;2;;0,2;0
+T. cinnabarinus;Merc-1;B;R;low;24;Merc-1 24 B;9;female;11;A;25;0;0;25;10;1;9;;0,818181818;0
+T. cinnabarinus;Merc-1;B;R;low;24;Merc-1 24 B;10;female;11;A;28;0;0;28;18;18;0;;0;0
+T. cinnabarinus;Merc-1;B;R;low;24;Merc-1 24 B;11;female;11;A;31;0;0;31;16;16;0;;0;0
+T. cinnabarinus;Merc-1;B;R;low;24;Merc-1 24 B;12;female;11;B;1;1;29;31;15;15;0;;0;0
+T. cinnabarinus;Merc-1;B;R;low;24;Merc-1 24 B;/;female;11;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Merc-1;B;R;low;24;Merc-1 24 B;/;male;9;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Merc-1;B;R;low;24;Merc-1 24 B;/;female;10;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Merc-1;B;R;low;24;Merc-1 24 B;/;female;10;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Merc-1;B;R;low;24;Merc-1 24 B;/;female;10;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Merc-1;B;R;low;24;Merc-1 24 B;/;female;10;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Merc-1;B;R;low;24;Merc-1 24 B;/;female;10;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Merc-1;B;R;low;24;Merc-1 24 B;/;female;10;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Merc-1;B;R;low;24;Merc-1 24 B;/;female;10;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Merc-1;B;R;low;24;Merc-1 24 B;/;female;10;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Merc-1;B;R;low;24;Merc-1 24 B;/;female;10;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Merc-1;B;R;low;24;Merc-1 24 B;/;female;10;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Merc-1;B;R;low;24;Merc-1 24 B;/;male;10;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Merc-1;B;R;low;24;Merc-1 24 B;/;male;10;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Merc-1;B;R;low;24;Merc-1 24 B;/;male;10;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Merc-1;B;R;low;24;Merc-1 24 B;/;male;10;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Merc-1;B;R;low;24;Merc-1 24 B;/;male;10;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Merc-1;B;R;low;24;Merc-1 24 B;/;male;10;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Merc-1;B;R;low;24;Merc-1 24 B;/;male;10;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Merc-1;B;R;low;24;Merc-1 24 B;/;male;10;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Merc-1;B;R;opt;30;Merc-1 30 B;1;female;6;A;35;0;0;35;16;4;12;;2;0
+T. cinnabarinus;Merc-1;B;R;opt;30;Merc-1 30 B;2;female;7;Death on A;27;0;0;27;4;4;0;;0;0
+T. cinnabarinus;Merc-1;B;R;opt;30;Merc-1 30 B;3;female;7;A;23;0;0;23;11;2;9;;1,285714286;0
+T. cinnabarinus;Merc-1;B;R;opt;30;Merc-1 30 B;4;female;7;A;22;0;0;22;13;5;8;;1,142857143;0
+T. cinnabarinus;Merc-1;B;R;opt;30;Merc-1 30 B;5;female;7;A;24;0;0;24;10;1;9;;1,285714286;0
+T. cinnabarinus;Merc-1;B;R;opt;30;Merc-1 30 B;6;female;7;Death on A;0;0;0;0;0;0;0;;0;#N/A
+T. cinnabarinus;Merc-1;B;R;opt;30;Merc-1 30 B;7;female;7;A;0;0;0;0;0;0;0;;0;#N/A
+T. cinnabarinus;Merc-1;B;R;opt;30;Merc-1 30 B;8;female;7;A;19;0;0;19;0;0;0;;0;0
+T. cinnabarinus;Merc-1;B;R;opt;30;Merc-1 30 B;9;female;7;weg???;0;0;0;0;0;0;0;;0;#N/A
+T. cinnabarinus;Merc-1;B;R;opt;30;Merc-1 30 B;10;female;8;On cotton next to A;0;0;0;0;0;0;0;;0;#N/A
+T. cinnabarinus;Merc-1;B;R;opt;30;Merc-1 30 B;11;female;9;A;0;0;0;0;0;0;0;;0;#N/A
+T. cinnabarinus;Merc-1;B;R;opt;30;Merc-1 30 B;12;female;9;A;0;0;0;0;0;0;0;;0;#N/A
+T. cinnabarinus;Merc-1;B;R;opt;30;Merc-1 30 B;/;male;6;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Merc-1;B;R;opt;30;Merc-1 30 B;/;male;6;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Merc-1;B;R;opt;30;Merc-1 30 B;/;male;6;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Merc-1;B;R;opt;30;Merc-1 30 B;/;male;7;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Merc-1;B;R;opt;30;Merc-1 30 B;/;male;7;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Merc-1;B;R;opt;30;Merc-1 30 B;/;male;7;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Merc-1;B;R;opt;30;Merc-1 30 B;/;male;10;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Pora;B;R;low;24;Pora 24 B;1;female;10;A;9;0;15;24;19;5;14;;1,4;0,875
+T. cinnabarinus;Pora;B;R;low;24;Pora 24 B;2;female;10;On bridge;21;0;0;21;19;6;13;;1,3;0
+T. cinnabarinus;Pora;B;R;low;24;Pora 24 B;3;female;10;A;12;0;8;20;13;0;13;;1,3;0,52
+T. cinnabarinus;Pora;B;R;low;24;Pora 24 B;4;female;10;B;9;0;13;22;15;3;12;;1,2;0,709090909
+T. cinnabarinus;Pora;B;R;low;24;Pora 24 B;5;female;10;B;14;0;6;20;19;5;14;;1,4;0,42
+T. cinnabarinus;Pora;B;R;low;24;Pora 24 B;6;female;10;On cotton next to A;11;0;0;11;12;2;10;Survival hoger dan #eggs;1;0
+T. cinnabarinus;Pora;B;R;low;24;Pora 24 B;7;female;11;A;26;0;4;30;16;2;14;;1,272727273;0,16969697
+T. cinnabarinus;Pora;B;R;low;24;Pora 24 B;8;female;11;A;2;0;0;2;1;1;0;;0;0
+T. cinnabarinus;Pora;B;R;low;24;Pora 24 B;9;female;11;B;15;0;2;17;9;9;0;;0;0
+T. cinnabarinus;Pora;B;R;low;24;Pora 24 B;10;female;11;B;24;0;4;28;20;3;17;;1,545454545;0,220779221
+T. cinnabarinus;Pora;B;R;low;24;Pora 24 B;11;female;11;;;;;;;;;;0;#N/A
+T. cinnabarinus;Pora;B;R;low;24;Pora 24 B;/;female;11;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Pora;B;R;low;24;Pora 24 B;/;female;11;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Pora;B;R;low;24;Pora 24 B;/;female;11;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Pora;B;R;low;24;Pora 24 B;/;female;11;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Pora;B;R;low;24;Pora 24 B;/;female;11;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Pora;B;R;low;24;Pora 24 B;/;female;11;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Pora;B;R;low;24;Pora 24 B;/;female;11;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Pora;B;R;low;24;Pora 24 B;/;male;9;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Pora;B;R;low;24;Pora 24 B;/;male;9;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Pora;B;R;low;24;Pora 24 B;/;male;9;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Pora;B;R;low;24;Pora 24 B;/;male;9;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Pora;B;R;low;24;Pora 24 B;/;male;9;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Pora;B;R;low;24;Pora 24 B;/;male;9;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Pora;B;R;low;24;Pora 24 B;/;male;9;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Pora;B;R;low;24;Pora 24 B;/;male;9;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Pora;B;R;low;24;Pora 24 B;/;male;10;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Pora;B;R;low;24;Pora 24 B;/;male;10;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Pora;B;R;low;24;Pora 24 B;/;male;10;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Pora;B;R;low;24;Pora 24 B;/;male;10;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Pora;B;R;low;24;Pora 24 B;/;male;10;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Pora;B;R;low;24;Pora 24 B;/;male;10;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Pora;B;R;low;24;Pora 24 B;/;female;10;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Pora;B;R;low;24;Pora 24 B;/;female;10;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Pora;B;R;low;24;Pora 24 B;/;female;10;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Pora;B;R;low;24;Pora 24 B;/;female;10;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Pora;B;R;opt;30;Pora 30 B;1;female;6;A;16;0;0;16;5;0;5;;0,833333333;0
+T. cinnabarinus;Pora;B;R;opt;30;Pora 30 B;2;female;6;On cotton next to A;20;0;0;20;8;2;6;;1;0
+T. cinnabarinus;Pora;B;R;opt;30;Pora 30 B;3;female;6;Death on A;5;0;0;5;0;0;0;;0;0
+T. cinnabarinus;Pora;B;R;opt;30;Pora 30 B;4;female;6;A;22;0;0;22;12;12;0;;0;0
+T. cinnabarinus;Pora;B;R;opt;30;Pora 30 B;5;female;6;B;37;0;5;42;24;3;21;;3,5;0,416666667
+T. cinnabarinus;Pora;B;R;opt;30;Pora 30 B;6;female;6;B;20;0;2;22;12;0;12;;2;0,181818182
+T. cinnabarinus;Pora;B;R;opt;30;Pora 30 B;7;female;6;A;11;0;0;11;6;2;4;;0,666666667;0
+T. cinnabarinus;Pora;B;R;opt;30;Pora 30 B;8;female;6;A;1;0;0;1;1;0;1;;0,166666667;0
+T. cinnabarinus;Pora;B;R;opt;30;Pora 30 B;9;female;6;A;17;0;0;17;8;3;5;;0,833333333;0
+T. cinnabarinus;Pora;B;R;opt;30;Pora 30 B;10;female;6;weg???;15;0;0;15;9;9;0;;0;0
+T. cinnabarinus;Pora;B;R;opt;30;Pora 30 B;11;female;6;A;4;0;0;4;2;1;1;;0,166666667;0
+T. cinnabarinus;Pora;B;R;opt;30;Pora 30 B;12;female;6;A;11;0;0;11;9;9;0;;0;0
+T. cinnabarinus;Pora;B;R;opt;30;Pora 30 B;13;female;7;Death on A;5;0;0;5;3;0;3;;0,428571429;0
+T. cinnabarinus;Pora;B;R;opt;30;Pora 30 B;14;female;7;A;18;0;0;18;1;1;0;;0;0
+T. cinnabarinus;Pora;B;R;opt;30;Pora 30 B;15;female;7;Death on A;21;0;0;21;7;4;3;;0,428571429;0
+T. cinnabarinus;Pora;B;R;opt;30;Pora 30 B;16;female;7;B;14;0;12;26;9;0;9;;1,285714286;0,593406593
+T. cinnabarinus;Pora;B;R;opt;30;Pora 30 B;17;female;7;A;22;0;0;22;12;4;8;;1,142857143;0
+T. cinnabarinus;Pora;B;R;opt;30;Pora 30 B;18;female;7;A;21;0;0;21;14;4;10;;1,428571429;0
+T. cinnabarinus;Pora;B;R;opt;30;Pora 30 B;19;female;7;A;11;0;0;11;5;5;0;;0;0
+T. cinnabarinus;Pora;B;R;opt;30;Pora 30 B;20;female;7;A;21;0;0;21;16;16;0;;0;0
+T. cinnabarinus;Pora;B;R;opt;30;Pora 30 B;21;female;7;A;13;0;0;13;8;8;0;;0;0
+T. cinnabarinus;Pora;B;R;opt;30;Pora 30 B;22;female;9;A;26;0;0;26;0;0;0;;0;0
+T. cinnabarinus;Pora;B;R;opt;30;Pora 30 B;/;male;6;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Pora;B;R;opt;30;Pora 30 B;/;male;6;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Pora;B;R;opt;30;Pora 30 B;/;male;6;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Pora;B;R;opt;30;Pora 30 B;/;male;7;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Pora;B;R;opt;30;Pora 30 B;/;male;7;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Pora;B;R;opt;30;Pora 30 B;/;male;7;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Pora;B;R;high;36;Pora 36 B;1;female;5;Death on A;0;0;0;0;0;0;0;;0;#N/A
+T. cinnabarinus;Pora;B;R;high;36;Pora 36 B;2;female;5;On cotton next to A;0;0;0;0;0;0;0;;0;#N/A
+T. cinnabarinus;Pora;B;R;high;36;Pora 36 B;3;female;5;B;0;0;0;0;0;0;0;;0;#N/A
+T. cinnabarinus;Pora;B;R;high;36;Pora 36 B;4;female;5;On cotton next to A;0;0;0;0;0;0;0;;0;#N/A
+T. cinnabarinus;Pora;B;R;high;36;Pora 36 B;5;female;6;On cotton next to A;0;0;0;0;0;0;0;;0;#N/A
+T. cinnabarinus;Pora;B;R;high;36;Pora 36 B;6;female;6;Death on A;0;0;0;0;0;0;0;;0;#N/A
+T. cinnabarinus;Pora;B;R;high;36;Pora 36 B;7;female;6;On cotton next to A;0;1;0;1;0;0;0;;0;0
+T. cinnabarinus;Pora;B;R;high;36;Pora 36 B;8;female;6;On cotton next to A;0;0;0;0;0;0;0;;0;#N/A
+T. cinnabarinus;Pora;B;R;high;36;Pora 36 B;/;female;6;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Pora;B;R;high;36;Pora 36 B;/;male;5;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Pora;B;R;high;36;Pora 36 B;/;male;5;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Pora;B;R;high;36;Pora 36 B;/;male;5;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Pora;B;R;high;36;Pora 36 B;/;male;5;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Pora;B;R;high;36;Pora 36 B;/;male;5;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Pora;B;R;high;36;Pora 36 B;/;male;5;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Pora;B;R;high;36;Pora 36 B;/;male;6;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Pora;B;R;high;36;Pora 36 B;/;male;6;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Pora;B;R;high;36;Pora 36 B;/;male;7;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Sioure;B;R;low;24;Sioure 24 B;1;female;14;A;5;0;27;32;25;5;20;;1,428571429;1,205357143
+T. cinnabarinus;Sioure;B;R;low;24;Sioure 24 B;2;female;14;On cotton next to A;0;0;0;0;0;0;0;;0;#N/A
+T. cinnabarinus;Sioure;B;R;low;24;Sioure 24 B;/;female;13;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Sioure;B;R;low;24;Sioure 24 B;/;female;13;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Sioure;B;R;low;24;Sioure 24 B;/;female;13;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Sioure;B;R;low;24;Sioure 24 B;/;male;13;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Sioure;B;R;opt;30;Sioure 30 B;1;female;7;B;19;0;2;21;17;2;15;;2,142857143;0,204081633
+T. cinnabarinus;Sioure;B;R;opt;30;Sioure 30 B;2;female;7;A;40;0;0;40;21;4;17;;2,428571429;0
+T. cinnabarinus;Sioure;B;R;opt;30;Sioure 30 B;3;female;7;A;46;0;0;46;26;7;19;;2,714285714;0
+T. cinnabarinus;Sioure;B;R;opt;30;Sioure 30 B;4;female;7;A;40;0;0;40;30;6;24;;3,428571429;0
+T. cinnabarinus;Sioure;B;R;opt;30;Sioure 30 B;5;female;7;B;18;0;1;19;12;3;9;;1,285714286;0,067669173
+T. cinnabarinus;Sioure;B;R;opt;30;Sioure 30 B;6;female;7;A;3;0;4;7;3;2;1;;0,142857143;0,081632653
+T. cinnabarinus;Sioure;B;R;opt;30;Sioure 30 B;7;female;7;A;1;0;0;1;0;0;0;;0;0
+T. cinnabarinus;Sioure;B;R;opt;30;Sioure 30 B;8;female;7;A;36;0;0;36;21;9;12;;1,714285714;0
+T. cinnabarinus;Sioure;B;R;opt;30;Sioure 30 B;9;female;8;A;11;0;0;11;8;4;4;;0,5;0
+T. cinnabarinus;Sioure;B;R;opt;30;Sioure 30 B;10;female;9;A;0;0;0;0;0;0;0;;0;#N/A
+T. cinnabarinus;Sioure;B;R;opt;30;Sioure 30 B;/;male;6;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Sioure;B;R;opt;30;Sioure 30 B;/;male;6;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Sioure;B;R;opt;30;Sioure 30 B;/;male;7;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Sioure;B;R;opt;30;Sioure 30 B;/;male;7;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Sioure;B;R;opt;30;Sioure 30 B;/;male;7;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Sioure;B;R;opt;30;Sioure 30 B;/;male;7;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Sioure;B;R;opt;30;Sioure 30 B;/;male;7;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Sioure;B;R;opt;30;Sioure 30 B;/;male;7;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Sioure;B;R;opt;30;Sioure 30 B;/;male;7;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Sioure;B;R;opt;30;Sioure 30 B;/;male;7;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Sioure;B;R;opt;30;Sioure 30 B;/;male;7;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Trio;B;R;low;24;Trio 24 B;1;female;11;A;23;0;0;23;5;5;0;;0;0
+T. cinnabarinus;Trio;B;R;low;24;Trio 24 B;2;female;11;On cotton next to A;0;0;0;0;0;0;0;;0;#N/A
+T. cinnabarinus;Trio;B;R;low;24;Trio 24 B;3;female;11;A;0;0;0;0;0;0;0;;0;#N/A
+T. cinnabarinus;Trio;B;R;low;24;Trio 24 B;4;female;11;;;;;;;;;;0;#N/A
+T. cinnabarinus;Trio;B;R;low;24;Trio 24 B;/;male;10;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Trio;B;R;low;24;Trio 24 B;/;male;10;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Trio;B;R;opt;30;Trio 30 B;1;female;7;A;23;0;0;23;6;0;6;;0,857142857;0
+T. cinnabarinus;Trio;B;R;opt;30;Trio 30 B;2;female;7;A;10;0;0;10;3;0;3;;0,428571429;0
+T. cinnabarinus;Trio;B;R;opt;30;Trio 30 B;3;female;8;A;10;0;0;10;3;0;3;;0,375;0
+T. cinnabarinus;Trio;B;R;opt;30;Trio 30 B;4;female;8;A;12;0;0;12;0;0;0;;0;0
+T. cinnabarinus;Trio;B;R;opt;30;Trio 30 B;5;female;8;A;10;0;0;10;0;0;0;;0;0
+T. cinnabarinus;Trio;B;R;opt;30;Trio 30 B;6;female;9;A;17;0;0;17;3;3;0;;0;0
+T. cinnabarinus;Trio;B;R;opt;30;Trio 30 B;7;female;9;A;11;0;0;11;0;0;0;;0;0
+T. cinnabarinus;Trio;B;R;opt;30;Trio 30 B;/;male;6;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Trio;B;R;opt;30;Trio 30 B;/;male;7;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Trio;B;R;opt;30;Trio 30 B;/;male;7;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Trio;B;R;opt;30;Trio 30 B;/;male;7;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Trio;B;R;opt;30;Trio 30 B;/;male;8;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Trio;B;R;opt;30;Trio 30 B;/;male;8;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Trio;B;R;opt;30;Trio 30 B;/;male;8;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Trio;B;R;opt;30;Trio 30 B;/;male;8;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Trio;B;R;opt;30;Trio 30 B;/;male;8;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Trio;B;R;opt;30;Trio 30 B;/;male;8;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Trio;B;R;opt;30;Trio 30 B;/;male;9;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Trio;B;R;opt;30;Trio 30 B;/;male;9;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Trio;B;R;opt;30;Trio 30 B;/;male;9;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Trio;B;R;opt;30;Trio 30 B;/;male;9;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Trio;B;R;opt;30;Trio 30 B;/;male;9;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Trio;B;R;high;36;Trio 36 B;1;female;6;On cotton next to bridge;1;0;0;1;0;0;0;;0;0
+T. cinnabarinus;Trio;B;R;high;36;Trio 36 B;2;female;6;Death on A;0;0;0;0;0;0;0;;0;#N/A
+T. cinnabarinus;Trio;B;R;high;36;Trio 36 B;3;female;6;Death on A;0;0;0;0;0;0;0;;0;#N/A
+T. cinnabarinus;Trio;B;R;high;36;Trio 36 B;4;female;6;Death on A;0;0;0;0;0;0;0;;0;#N/A
+T. cinnabarinus;Trio;B;R;high;36;Trio 36 B;5;female;6;weg???;0;0;0;0;0;0;0;;0;#N/A
+T. cinnabarinus;Trio;B;R;high;36;Trio 36 B;6;female;6;weg???;0;0;0;0;0;0;0;;0;#N/A
+T. cinnabarinus;Trio;B;R;high;36;Trio 36 B;7;female;6;weg???;0;0;0;0;0;0;0;;0;#N/A
+T. cinnabarinus;Trio;B;R;high;36;Trio 36 B;8;female;6;weg???;0;0;0;0;0;0;0;;0;#N/A
+T. cinnabarinus;Trio;B;R;high;36;Trio 36 B;9;female;7;Death on A;0;0;0;0;0;0;0;;0;#N/A
+T. cinnabarinus;Trio;B;R;high;36;Trio 36 B;/;female;7;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Trio;B;R;high;36;Trio 36 B;/;male;6;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Trio;B;R;high;36;Trio 36 B;/;male;8;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Köln-3;C;R;low;24;Köln-3 24 C;1;female;10;On cotton next to A;18;0;0;18;3;3;0;;0;0
+T. cinnabarinus;Köln-3;C;R;low;24;Köln-3 24 C;2;female;10;A;16;0;0;16;8;8;0;;0;0
+T. cinnabarinus;Köln-3;C;R;low;24;Köln-3 24 C;3;female;10;A;17;0;0;17;10;10;0;;0;0
+T. cinnabarinus;Köln-3;C;R;low;24;Köln-3 24 C;4;female;10;On cotton next to A;15;0;0;15;13;12;1;;0,1;0
+T. cinnabarinus;Köln-3;C;R;low;24;Köln-3 24 C;/;male;8;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Köln-3;C;R;low;24;Köln-3 24 C;/;male;8;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Köln-3;C;R;low;24;Köln-3 24 C;/;male;9;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Köln-3;C;R;low;24;Köln-3 24 C;/;male;9;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Köln-3;C;R;low;24;Köln-3 24 C;/;male;9;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Köln-3;C;R;low;24;Köln-3 24 C;/;male;9;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Köln-3;C;R;low;24;Köln-3 24 C;/;male;9;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Köln-3;C;R;low;24;Köln-3 24 C;/;male;9;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Köln-3;C;R;low;24;Köln-3 24 C;/;male;9;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Köln-3;C;R;low;24;Köln-3 24 C;/;male;9;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Köln-3;C;R;low;24;Köln-3 24 C;/;male;9;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Köln-3;C;R;low;24;Köln-3 24 C;/;male;9;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Köln-3;C;R;low;24;Köln-3 24 C;/;male;10;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Köln-3;C;R;low;24;Köln-3 24 C;/;male;10;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Köln-3;C;R;low;24;Köln-3 24 C;/;male;10;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Köln-3;C;R;low;24;Köln-3 24 C;/;male;10;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Köln-3;C;R;low;24;Köln-3 24 C;/;male;11;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Köln-3;C;R;opt;30;Köln-3 30 C;1;female;6;A;0;0;0;0;0;0;0;;0;#N/A
+T. cinnabarinus;Köln-3;C;R;opt;30;Köln-3 30 C;2;female;6;A;38;0;0;38;32;32;0;;0;0
+T. cinnabarinus;Köln-3;C;R;opt;30;Köln-3 30 C;3;female;6;Death on A;0;0;0;0;0;0;0;;0;#N/A
+T. cinnabarinus;Köln-3;C;R;opt;30;Köln-3 30 C;4;female;6;Death on A;0;0;0;0;0;0;0;;0;#N/A
+T. cinnabarinus;Köln-3;C;R;opt;30;Köln-3 30 C;5;female;7;A;17;0;0;17;17;17;0;;0;0
+T. cinnabarinus;Köln-3;C;R;opt;30;Köln-3 30 C;/;male;6;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Köln-3;C;R;opt;30;Köln-3 30 C;/;male;6;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Köln-3;C;R;opt;30;Köln-3 30 C;/;male;6;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Köln-3;C;R;opt;30;Köln-3 30 C;/;male;6;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Köln-3;C;R;opt;30;Köln-3 30 C;/;male;6;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Köln-3;C;R;opt;30;Köln-3 30 C;/;male;6;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Köln-3;C;R;opt;30;Köln-3 30 C;/;male;6;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Köln-3;C;R;opt;30;Köln-3 30 C;/;male;6;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Köln-3;C;R;opt;30;Köln-3 30 C;/;male;7;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Köln-3;C;R;opt;30;Köln-3 30 C;/;male;7;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Köln-3;C;R;opt;30;Köln-3 30 C;/;male;7;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Köln-3;C;R;opt;30;Köln-3 30 C;/;male;7;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Köln-3;C;R;opt;30;Köln-3 30 C;/;male;7;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Köln-3;C;R;opt;30;Köln-3 30 C;/;male;7;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Köln-3;C;R;opt;30;Köln-3 30 C;/;male;7;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Köln-3;C;R;high;36;Köln-3 36 C;1;female;4;A;0;0;0;0;0;0;0;;0;#N/A
+T. cinnabarinus;Köln-3;C;R;high;36;Köln-3 36 C;2;female;4;A;0;0;0;0;0;0;0;;0;#N/A
+T. cinnabarinus;Köln-3;C;R;high;36;Köln-3 36 C;3;female;4;A;0;0;0;0;0;0;0;;0;#N/A
+T. cinnabarinus;Köln-3;C;R;high;36;Köln-3 36 C;4;female;5;A;0;0;0;0;0;0;0;;0;#N/A
+T. cinnabarinus;Köln-3;C;R;high;36;Köln-3 36 C;5;female;5;A;0;0;0;0;0;0;0;;0;#N/A
+T. cinnabarinus;Köln-3;C;R;high;36;Köln-3 36 C;6;female;5;A;0;0;0;0;0;0;0;;0;#N/A
+T. cinnabarinus;Köln-3;C;R;high;36;Köln-3 36 C;7;female;5;Death on A;0;0;0;0;0;0;0;;0;#N/A
+T. cinnabarinus;Köln-3;C;R;high;36;Köln-3 36 C;8;female;5;A;0;0;0;0;0;0;0;;0;#N/A
+T. cinnabarinus;Köln-3;C;R;high;36;Köln-3 36 C;9;female;5;Death on bridge;0;0;0;0;0;0;0;;0;#N/A
+T. cinnabarinus;Köln-3;C;R;high;36;Köln-3 36 C;10;female;5;A;0;0;0;0;0;0;0;;0;#N/A
+T. cinnabarinus;Köln-3;C;R;high;36;Köln-3 36 C;11;female;6;A;0;0;0;0;0;0;0;;0;#N/A
+T. cinnabarinus;Köln-3;C;R;high;36;Köln-3 36 C;12;female;6;Death on A;0;0;0;0;0;0;0;;0;#N/A
+T. cinnabarinus;Köln-3;C;R;high;36;Köln-3 36 C;/;male;4;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Köln-3;C;R;high;36;Köln-3 36 C;/;male;4;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Köln-3;C;R;high;36;Köln-3 36 C;/;male;4;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Köln-3;C;R;high;36;Köln-3 36 C;/;male;4;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Köln-3;C;R;high;36;Köln-3 36 C;/;male;4;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Köln-3;C;R;high;36;Köln-3 36 C;/;male;5;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Köln-3;C;R;high;36;Köln-3 36 C;/;male;5;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Köln-3;C;R;high;36;Köln-3 36 C;/;male;5;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Köln-3;C;R;high;36;Köln-3 36 C;/;male;5;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Köln-3;C;R;high;36;Köln-3 36 C;/;male;5;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Köln-3;C;R;high;36;Köln-3 36 C;/;male;5;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Köln-3;C;R;high;36;Köln-3 36 C;/;male;5;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Köln-3;C;R;high;36;Köln-3 36 C;/;male;5;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Köln-3;C;R;high;36;Köln-3 36 C;/;male;5;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Köln-3;C;R;high;36;Köln-3 36 C;/;male;6;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Merc-1;C;R;low;24;Merc-1 24 C;1;female;10;A;16;0;0;16;9;2;7;;0,7;0
+T. cinnabarinus;Merc-1;C;R;low;24;Merc-1 24 C;2;female;10;A;10;0;0;10;7;3;4;;0,4;0
+T. cinnabarinus;Merc-1;C;R;low;24;Merc-1 24 C;3;female;10;A;16;0;0;16;12;3;9;;0,9;0
+T. cinnabarinus;Merc-1;C;R;low;24;Merc-1 24 C;4;female;10;A;18;0;0;18;9;3;6;;0,6;0
+T. cinnabarinus;Merc-1;C;R;low;24;Merc-1 24 C;5;female;10;A;8;0;0;8;3;3;0;;0;0
+T. cinnabarinus;Merc-1;C;R;low;24;Merc-1 24 C;6;female;11;A;18;0;0;18;10;10;0;;0;0
+T. cinnabarinus;Merc-1;C;R;low;24;Merc-1 24 C;7;female;11;Death on A;12;0;0;12;2;2;0;;0;0
+T. cinnabarinus;Merc-1;C;R;low;24;Merc-1 24 C;8;female;11;A;16;0;0;16;3;3;0;;0;0
+T. cinnabarinus;Merc-1;C;R;low;24;Merc-1 24 C;9;female;11;A;18;0;0;18;3;3;0;;0;0
+T. cinnabarinus;Merc-1;C;R;low;24;Merc-1 24 C;10;female;12;A;9;0;0;9;5;4;1;;0,083333333;0
+T. cinnabarinus;Merc-1;C;R;low;24;Merc-1 24 C;11;female;12;A;22;0;0;22;5;5;0;;0;0
+T. cinnabarinus;Merc-1;C;R;low;24;Merc-1 24 C;/;male;10;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Merc-1;C;R;low;24;Merc-1 24 C;/;male;10;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Merc-1;C;R;low;24;Merc-1 24 C;/;male;10;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Merc-1;C;R;low;24;Merc-1 24 C;/;male;12;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Merc-1;C;R;opt;30;Merc-1 30 C;1;female;6;A;31;0;0;31;5;5;0;;0;0
+T. cinnabarinus;Merc-1;C;R;opt;30;Merc-1 30 C;2;female;6;A;31;0;0;31;23;23;0;;0;0
+T. cinnabarinus;Merc-1;C;R;opt;30;Merc-1 30 C;3;female;6;A;34;0;0;34;24;19;5;;0,833333333;0
+T. cinnabarinus;Merc-1;C;R;opt;30;Merc-1 30 C;4;female;6;A;41;0;0;41;22;22;0;;0;0
+T. cinnabarinus;Merc-1;C;R;opt;30;Merc-1 30 C;5;female;6;A;47;0;0;47;19;19;0;;0;0
+T. cinnabarinus;Merc-1;C;R;opt;30;Merc-1 30 C;6;female;7;B;25;0;17;42;30;30;0;;0;0
+T. cinnabarinus;Merc-1;C;R;opt;30;Merc-1 30 C;7;female;7;A;38;0;0;38;20;8;12;;1,714285714;0
+T. cinnabarinus;Merc-1;C;R;opt;30;Merc-1 30 C;8;female;7;A;33;0;0;33;13;13;0;;0;0
+T. cinnabarinus;Merc-1;C;R;opt;30;Merc-1 30 C;9;female;7;On cotton next to A;27;0;0;27;9;4;5;;0,714285714;0
+T. cinnabarinus;Merc-1;C;R;opt;30;Merc-1 30 C;10;female;7;B;0;0;41;41;24;11;13;;1,857142857;1,857142857
+T. cinnabarinus;Merc-1;C;R;opt;30;Merc-1 30 C;11;female;7;A;18;0;0;18;9;6;3;;0,428571429;0
+T. cinnabarinus;Merc-1;C;R;opt;30;Merc-1 30 C;12;female;7;B;0;0;2;2;1;0;1;;0,142857143;0,142857143
+T. cinnabarinus;Merc-1;C;R;opt;30;Merc-1 30 C;13;female;7;A;36;0;0;36;19;19;0;;0;0
+T. cinnabarinus;Merc-1;C;R;opt;30;Merc-1 30 C;14;female;7;A;29;0;0;29;20;7;13;;1,857142857;0
+T. cinnabarinus;Merc-1;C;R;opt;30;Merc-1 30 C;15;female;7;A;28;0;0;28;0;0;0;;0;0
+T. cinnabarinus;Merc-1;C;R;opt;30;Merc-1 30 C;16;female;7;A;10;0;0;10;0;0;0;;0;0
+T. cinnabarinus;Merc-1;C;R;opt;30;Merc-1 30 C;/;female;7;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Merc-1;C;R;opt;30;Merc-1 30 C;/;female;7;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Merc-1;C;R;opt;30;Merc-1 30 C;/;male;7;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Pora;C;R;low;24;Pora 24 C;1;female;8;Death on A;10;0;0;10;9;9;0;;0;0
+T. cinnabarinus;Pora;C;R;low;24;Pora 24 C;2;female;9;On cotton next to A;0;0;0;0;0;0;0;;0;#N/A
+T. cinnabarinus;Pora;C;R;low;24;Pora 24 C;3;female;9;A;14;0;0;14;4;1;3;Leaves were dry => survival lower?;0,333333333;0
+T. cinnabarinus;Pora;C;R;low;24;Pora 24 C;4;female;10;B;9;0;15;24;2;2;0;Leaves were dry => survival lower?;0;0
+T. cinnabarinus;Pora;C;R;low;24;Pora 24 C;5;female;10;A;23;0;0;23;1;1;0;Leaves were dry => survival lower?;0;0
+T. cinnabarinus;Pora;C;R;low;24;Pora 24 C;6;female;10;A;28;0;0;28;2;0;2;Leaves were dry => survival lower?;0,2;0
+T. cinnabarinus;Pora;C;R;low;24;Pora 24 C;7;female;10;A;26;0;0;26;0;0;0;Leaves were dry => survival lower?;0;0
+T. cinnabarinus;Pora;C;R;low;24;Pora 24 C;8;female;10;On cotton next to bridge;4;0;0;4;0;0;0;Leaves were dry => survival lower?;0;0
+T. cinnabarinus;Pora;C;R;low;24;Pora 24 C;9;female;10;On cotton next to A;8;0;0;8;0;0;0;Leaves were dry => survival lower?;0;0
+T. cinnabarinus;Pora;C;R;low;24;Pora 24 C;10;female;10;Death on A;1;0;0;1;0;0;0;Leaves were dry => survival lower?;0;0
+T. cinnabarinus;Pora;C;R;low;24;Pora 24 C;11;female;10;A;22;0;0;22;11;11;0;;0;0
+T. cinnabarinus;Pora;C;R;low;24;Pora 24 C;12;female;10;A;17;0;0;17;6;6;0;;0;0
+T. cinnabarinus;Pora;C;R;low;24;Pora 24 C;13;female;10;A;20;0;0;20;1;1;0;Leaves were dry => survival lower?;0;0
+T. cinnabarinus;Pora;C;R;low;24;Pora 24 C;14;female;10;A;23;0;0;23;3;2;1;Leaves were dry => survival lower?;0,1;0
+T. cinnabarinus;Pora;C;R;low;24;Pora 24 C;15;female;10;A;28;0;0;28;5;5;0;Leaves were dry => survival lower?;0;0
+T. cinnabarinus;Pora;C;R;low;24;Pora 24 C;16;female;10;A;26;0;0;26;1;1;0;Leaves were dry => survival lower?;0;0
+T. cinnabarinus;Pora;C;R;low;24;Pora 24 C;/;male;8;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Pora;C;R;low;24;Pora 24 C;/;male;9;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Pora;C;R;low;24;Pora 24 C;/;male;9;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Pora;C;R;low;24;Pora 24 C;/;female;10;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Pora;C;R;low;24;Pora 24 C;/;female;10;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Pora;C;R;low;24;Pora 24 C;/;female;10;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Pora;C;R;low;24;Pora 24 C;/;female;10;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Pora;C;R;low;24;Pora 24 C;/;female;10;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Pora;C;R;low;24;Pora 24 C;/;female;10;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Pora;C;R;low;24;Pora 24 C;/;female;10;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Pora;C;R;low;24;Pora 24 C;/;female;10;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Pora;C;R;low;24;Pora 24 C;/;female;10;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Pora;C;R;low;24;Pora 24 C;/;female;10;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Pora;C;R;low;24;Pora 24 C;/;female;10;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Pora;C;R;low;24;Pora 24 C;/;female;10;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Pora;C;R;low;24;Pora 24 C;/;male;10;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Pora;C;R;opt;30;Pora 30 C;1;female;5;A;23;0;0;23;12;3;9;;1,8;0
+T. cinnabarinus;Pora;C;R;opt;30;Pora 30 C;2;female;5;B;24;0;11;35;31;31;0;;0;0
+T. cinnabarinus;Pora;C;R;opt;30;Pora 30 C;3;female;5;Death on A;6;0;0;6;12;12;0;;0;0
+T. cinnabarinus;Pora;C;R;opt;30;Pora 30 C;4;female;6;A;39;0;0;39;23;23;0;;0;0
+T. cinnabarinus;Pora;C;R;opt;30;Pora 30 C;5;female;6;A;39;0;0;39;24;24;0;;0;0
+T. cinnabarinus;Pora;C;R;opt;30;Pora 30 C;6;female;6;A;60;0;0;60;32;32;0;;0;0
+T. cinnabarinus;Pora;C;R;opt;30;Pora 30 C;7;female;6;Death on A;10;0;0;10;10;10;0;;0;0
+T. cinnabarinus;Pora;C;R;opt;30;Pora 30 C;8;female;6;A;52;0;0;52;22;22;0;;0;0
+T. cinnabarinus;Pora;C;R;opt;30;Pora 30 C;9;female;6;On cotton next to bridge;33;0;0;33;23;23;0;;0;0
+T. cinnabarinus;Pora;C;R;opt;30;Pora 30 C;10;female;6;A;41;0;0;41;20;20;0;;0;0
+T. cinnabarinus;Pora;C;R;opt;30;Pora 30 C;11;female;6;B;0;0;46;46;21;21;0;;0;0
+T. cinnabarinus;Pora;C;R;opt;30;Pora 30 C;12;female;6;A;35;0;0;35;14;14;0;;0;0
+T. cinnabarinus;Pora;C;R;opt;30;Pora 30 C;13;female;6;A;48;0;0;48;14;14;0;;0;0
+T. cinnabarinus;Pora;C;R;opt;30;Pora 30 C;14;female;6;Death on A;0;0;0;0;0;0;0;;0;#N/A
+T. cinnabarinus;Pora;C;R;opt;30;Pora 30 C;15;female;6;A;44;0;0;44;6;6;0;;0;0
+T. cinnabarinus;Pora;C;R;opt;30;Pora 30 C;16;female;6;A;50;0;0;50;14;14;0;;0;0
+T. cinnabarinus;Pora;C;R;opt;30;Pora 30 C;17;female;6;A;25;0;0;25;17;17;0;;0;0
+T. cinnabarinus;Pora;C;R;opt;30;Pora 30 C;18;female;6;A;27;0;0;27;11;11;0;;0;0
+T. cinnabarinus;Pora;C;R;opt;30;Pora 30 C;19;female;6;A;24;0;0;24;18;18;0;;0;0
+T. cinnabarinus;Pora;C;R;opt;30;Pora 30 C;/;male;5;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Pora;C;R;high;36;Pora 36 C;1;female;5;B;6;0;0;6;2;2;0;;0;0
+T. cinnabarinus;Pora;C;R;high;36;Pora 36 C;2;female;6;A;0;0;0;0;0;0;0;;0;#N/A
+T. cinnabarinus;Sioure;C;R;low;24;Sioure 24 C;1;female;10;A;22;0;0;22;12;6;6;;0,6;0
+T. cinnabarinus;Sioure;C;R;low;24;Sioure 24 C;2;female;10;A;31;0;0;31;22;4;18;;1,8;0
+T. cinnabarinus;Sioure;C;R;low;24;Sioure 24 C;3;female;10;B;0;0;29;29;17;4;13;;1,3;1,3
+T. cinnabarinus;Sioure;C;R;low;24;Sioure 24 C;4;female;10;A;24;0;0;24;10;6;4;;0,4;0
+T. cinnabarinus;Sioure;C;R;low;24;Sioure 24 C;5;female;10;On cotton next to B;11;0;0;11;2;2;0;Leaves were dry => survival lower?;0;0
+T. cinnabarinus;Sioure;C;R;low;24;Sioure 24 C;6;female;10;A;4;0;0;4;1;1;0;Leaves were dry => survival lower?;0;0
+T. cinnabarinus;Sioure;C;R;low;24;Sioure 24 C;7;female;10;A;22;0;0;22;1;0;1;Leaves were dry => survival lower?;0,1;0
+T. cinnabarinus;Sioure;C;R;low;24;Sioure 24 C;8;female;10;Death on A;0;0;0;0;0;0;0;;0;#N/A
+T. cinnabarinus;Sioure;C;R;low;24;Sioure 24 C;9;female;10;A;28;0;0;28;19;8;11;;1,1;0
+T. cinnabarinus;Sioure;C;R;low;24;Sioure 24 C;10;female;10;On cotton next to A;3;0;0;3;3;1;2;;0,2;0
+T. cinnabarinus;Sioure;C;R;low;24;Sioure 24 C;11;female;11;A;22;0;0;22;19;18;1;;0,090909091;0
+T. cinnabarinus;Sioure;C;R;low;24;Sioure 24 C;12;female;11;A;27;0;0;27;12;12;0;;0;0
+T. cinnabarinus;Sioure;C;R;low;24;Sioure 24 C;/;male;9;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Sioure;C;R;low;24;Sioure 24 C;/;male;10;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Sioure;C;R;low;24;Sioure 24 C;/;male;10;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Sioure;C;R;low;24;Sioure 24 C;/;female;10;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Sioure;C;R;opt;30;Sioure 30 C;1;female;6;A;42;0;0;42;29;11;18;;3;0
+T. cinnabarinus;Sioure;C;R;opt;30;Sioure 30 C;2;female;7;A;36;0;0;36;30;7;23;;3,285714286;0
+T. cinnabarinus;Sioure;C;R;opt;30;Sioure 30 C;3;female;7;B;37;0;1;38;25;4;21;;3;0,078947368
+T. cinnabarinus;Sioure;C;R;opt;30;Sioure 30 C;4;female;7;On cotton next to B;0;0;30;30;26;7;19;;2,714285714;2,714285714
+T. cinnabarinus;Sioure;C;R;opt;30;Sioure 30 C;5;female;7;B;30;0;4;34;30;8;22;;3,142857143;0,369747899
+T. cinnabarinus;Sioure;C;R;opt;30;Sioure 30 C;6;female;7;A;28;0;1;29;26;8;18;;2,571428571;0,088669951
+T. cinnabarinus;Sioure;C;R;opt;30;Sioure 30 C;7;female;7;A;50;0;0;50;43;8;35;;5;0
+T. cinnabarinus;Sioure;C;R;opt;30;Sioure 30 C;8;female;7;On cotton next to B;22;0;0;22;21;4;17;;2,428571429;0
+T. cinnabarinus;Sioure;C;R;opt;30;Sioure 30 C;9;female;9;A;21;0;0;21;15;15;0;;0;0
+T. cinnabarinus;Sioure;C;R;opt;30;Sioure 30 C;/;male;6;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Sioure;C;R;opt;30;Sioure 30 C;/;female;7;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Sioure;C;R;opt;30;Sioure 30 C;/;male;7;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Sioure;C;R;opt;30;Sioure 30 C;/;male;9;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Sioure;C;R;high;36;Sioure 36 C;1;female;9;weg???;0;0;0;0;0;0;0;;0;#N/A
+T. cinnabarinus;Sioure;C;R;high;36;Sioure 36 C;2;female;10;weg???;0;0;0;0;0;0;0;;0;#N/A
+T. cinnabarinus;Sioure;C;R;high;36;Sioure 36 C;/;male;7;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Trio;C;R;low;24;Trio 24 C;1;female;12;B;0;0;23;23;8;7;1;;0,083333333;0,083333333
+T. cinnabarinus;Trio;C;R;low;24;Trio 24 C;2;female;13;weg???;0;0;0;0;0;0;0;;0;#N/A
+T. cinnabarinus;Trio;C;R;low;24;Trio 24 C;/;male;11;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Trio;C;R;low;24;Trio 24 C;/;male;11;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Trio;C;R;opt;30;Trio 30 C;1;female;7;Death on A;25;0;0;25;5;5;0;;0;0
+T. cinnabarinus;Trio;C;R;opt;30;Trio 30 C;2;female;7;A;24;0;0;24;3;3;0;;0;0
+T. cinnabarinus;Trio;C;R;opt;30;Trio 30 C;3;female;8;A;32;0;0;32;7;7;0;;0;0
+T. cinnabarinus;Trio;C;R;opt;30;Trio 30 C;4;female;8;B;0;0;28;28;6;6;0;;0;0
+T. cinnabarinus;Trio;C;R;opt;30;Trio 30 C;5;female;8;A;13;0;0;13;5;5;0;;0;0
+T. cinnabarinus;Trio;C;R;opt;30;Trio 30 C;6;female;9;A;14;0;0;14;6;6;0;;0;0
+T. cinnabarinus;Trio;C;R;opt;30;Trio 30 C;/;male;7;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Trio;C;R;opt;30;Trio 30 C;/;male;8;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Trio;C;R;opt;30;Trio 30 C;/;male;9;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Köln-3;D;R;low;24;Köln-3 24 D;1;female;10;A;6;0;0;6;2;1;1;;0,1;0
+T. cinnabarinus;Köln-3;D;R;low;24;Köln-3 24 D;2;female;10;A;28;0;0;28;22;22;0;;0;0
+T. cinnabarinus;Köln-3;D;R;low;24;Köln-3 24 D;3;female;11;A;0;0;0;0;0;0;0;;0;#N/A
+T. cinnabarinus;Köln-3;D;R;low;24;Köln-3 24 D;/;male;9;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Köln-3;D;R;low;24;Köln-3 24 D;/;male;9;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Köln-3;D;R;opt;30;Köln-3 30 D;1;female;8;A;23;0;0;23;9;9;0;;0;0
+T. cinnabarinus;Köln-3;D;R;opt;30;Köln-3 30 D;2;female;8;A;14;0;0;14;0;0;0;;0;0
+T. cinnabarinus;Köln-3;D;R;opt;30;Köln-3 30 D;3;female;11;A;18;0;0;18;13;13;0;;0;0
+T. cinnabarinus;Köln-3;D;R;opt;30;Köln-3 30 D;/;male;7;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Köln-3;D;R;opt;30;Köln-3 30 D;/;male;7;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Köln-3;D;R;opt;30;Köln-3 30 D;/;male;7;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Köln-3;D;R;opt;30;Köln-3 30 D;/;male;7;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Köln-3;D;R;opt;30;Köln-3 30 D;/;male;8;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Merc-1;D;R;low;24;Merc-1 24 D;1;female;11;On cotton next to B;0;0;9;9;4;1;3;;0,272727273;0,272727273
+T. cinnabarinus;Merc-1;D;R;low;24;Merc-1 24 D;2;female;11;Death on A;9;0;0;9;7;0;7;;0,636363636;0
+T. cinnabarinus;Merc-1;D;R;low;24;Merc-1 24 D;3;female;11;weg???;0;0;11;11;12;1;11;;1;1
+T. cinnabarinus;Merc-1;D;R;low;24;Merc-1 24 D;4;female;11;A;0;0;0;0;0;0;0;;0;#N/A
+T. cinnabarinus;Merc-1;D;R;low;24;Merc-1 24 D;5;female;11;B;0;0;19;19;9;2;7;;0,636363636;0,636363636
+T. cinnabarinus;Merc-1;D;R;low;24;Merc-1 24 D;6;female;11;A;17;0;0;17;11;4;7;;0,636363636;0
+T. cinnabarinus;Merc-1;D;R;low;24;Merc-1 24 D;7;female;12;A;19;0;0;19;12;12;0;;0;0
+T. cinnabarinus;Merc-1;D;R;low;24;Merc-1 24 D;/;male;10;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Merc-1;D;R;low;24;Merc-1 24 D;/;male;11;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Merc-1;D;R;low;24;Merc-1 24 D;/;male;11;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Merc-1;D;R;opt;30;Merc-1 30 D;1;female;6;A;22;0;0;22;16;4;12;;2;0
+T. cinnabarinus;Merc-1;D;R;opt;30;Merc-1 30 D;2;female;7;A;25;0;0;25;14;2;12;;1,714285714;0
+T. cinnabarinus;Merc-1;D;R;opt;30;Merc-1 30 D;3;female;7;A;44;0;0;44;20;5;15;;2,142857143;0
+T. cinnabarinus;Merc-1;D;R;opt;30;Merc-1 30 D;4;female;7;A;40;0;0;40;19;7;12;;1,714285714;0
+T. cinnabarinus;Merc-1;D;R;opt;30;Merc-1 30 D;5;female;7;B;22;0;2;24;8;2;6;;0,857142857;0,071428571
+T. cinnabarinus;Merc-1;D;R;opt;30;Merc-1 30 D;6;female;7;A;4;0;14;18;8;1;7;;1;0,777777778
+T. cinnabarinus;Merc-1;D;R;opt;30;Merc-1 30 D;7;female;7;On cotton next to A;1;0;0;1;1;1;0;;0;0
+T. cinnabarinus;Merc-1;D;R;opt;30;Merc-1 30 D;8;female;7;A;30;0;0;30;16;4;12;;1,714285714;0
+T. cinnabarinus;Merc-1;D;R;opt;30;Merc-1 30 D;9;female;7;A;4;1;0;5;0;0;0;;0;0
+T. cinnabarinus;Merc-1;D;R;opt;30;Merc-1 30 D;10;female;7;A;37;0;0;37;9;3;6;;0,857142857;0
+T. cinnabarinus;Merc-1;D;R;opt;30;Merc-1 30 D;11;female;7;A;38;0;0;38;22;8;14;;2;0
+T. cinnabarinus;Merc-1;D;R;opt;30;Merc-1 30 D;12;female;7;B;1;0;39;40;27;7;20;;2,857142857;2,785714286
+T. cinnabarinus;Merc-1;D;R;opt;30;Merc-1 30 D;13;female;7;Death on A;15;0;0;15;10;3;7;;1;0
+T. cinnabarinus;Merc-1;D;R;opt;30;Merc-1 30 D;14;female;7;B;0;0;33;33;16;2;14;;2;2
+T. cinnabarinus;Merc-1;D;R;opt;30;Merc-1 30 D;/;male;6;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Merc-1;D;R;opt;30;Merc-1 30 D;/;male;6;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Merc-1;D;R;opt;30;Merc-1 30 D;/;male;7;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Merc-1;D;R;opt;30;Merc-1 30 D;/;male;7;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Pora;D;R;low;24;Pora 24 D;1;female;10;weg???;0;0;0;0;0;0;0;;0;#N/A
+T. cinnabarinus;Pora;D;R;low;24;Pora 24 D;2;female;10;On cotton next to A;0;0;0;0;0;0;0;;0;#N/A
+T. cinnabarinus;Pora;D;R;low;24;Pora 24 D;3;female;10;weg???;0;0;0;0;0;0;0;;0;#N/A
+T. cinnabarinus;Pora;D;R;low;24;Pora 24 D;4;female;10;weg???;0;0;0;0;0;0;0;;0;#N/A
+T. cinnabarinus;Pora;D;R;low;24;Pora 24 D;5;female;11;A;4;0;0;4;1;1;0;;0;0
+T. cinnabarinus;Pora;D;R;low;24;Pora 24 D;6;female;11;A;4;0;0;4;0;0;0;;0;0
+T. cinnabarinus;Pora;D;R;low;24;Pora 24 D;7;female;11;A;1;0;0;1;0;0;0;;0;0
+T. cinnabarinus;Pora;D;R;low;24;Pora 24 D;8;female;11;A;30;0;0;30;17;17;0;;0;0
+T. cinnabarinus;Pora;D;R;low;24;Pora 24 D;/;male;10;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Pora;D;R;low;24;Pora 24 D;/;female;10;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Pora;D;R;opt;30;Pora 30 D;1;female;6;weg???;12;0;0;12;7;5;2;;0,333333333;0
+T. cinnabarinus;Pora;D;R;opt;30;Pora 30 D;2;female;6;A;34;0;0;34;18;18;0;;0;0
+T. cinnabarinus;Pora;D;R;opt;30;Pora 30 D;3;female;6;Death on B;1;0;4;5;7;3;4;;0,666666667;0,533333333
+T. cinnabarinus;Pora;D;R;opt;30;Pora 30 D;4;female;6;weg???;18;0;0;18;11;4;7;;1,166666667;0
+T. cinnabarinus;Pora;D;R;opt;30;Pora 30 D;5;female;6;A;20;0;0;20;16;4;12;;2;0
+T. cinnabarinus;Pora;D;R;opt;30;Pora 30 D;6;female;6;A;16;0;0;16;9;9;0;;0;0
+T. cinnabarinus;Pora;D;R;opt;30;Pora 30 D;7;female;6;A;18;0;0;18;6;4;2;;0,333333333;0
+T. cinnabarinus;Pora;D;R;opt;30;Pora 30 D;8;female;6;A;24;0;0;24;10;10;0;;0;0
+T. cinnabarinus;Pora;D;R;opt;30;Pora 30 D;9;female;7;B;24;0;6;30;16;3;13;;1,857142857;0,371428571
+T. cinnabarinus;Pora;D;R;opt;30;Pora 30 D;/;female;6;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Pora;D;R;opt;30;Pora 30 D;/;female;6;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Pora;D;R;opt;30;Pora 30 D;/;male;6;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Pora;D;R;opt;30;Pora 30 D;/;male;6;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Pora;D;R;opt;30;Pora 30 D;/;male;7;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Pora;D;R;high;36;Pora 36 D;1;female;6;weg???;2;0;0;2;2;2;0;;0;0
+T. cinnabarinus;Pora;D;R;high;36;Pora 36 D;2;female;7;weg???;0;0;0;0;0;0;0;;0;#N/A
+T. cinnabarinus;Sioure;D;R;low;24;Sioure 24 D;1;female;11;A;21;0;0;21;13;2;11;;1;0
+T. cinnabarinus;Sioure;D;R;low;24;Sioure 24 D;2;female;11;On cotton next to A;27;0;0;27;23;3;20;;1,818181818;0
+T. cinnabarinus;Sioure;D;R;low;24;Sioure 24 D;3;female;11;weg???;10;0;0;10;2;1;1;;0,090909091;0
+T. cinnabarinus;Sioure;D;R;low;24;Sioure 24 D;/;male;10;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Sioure;D;R;low;24;Sioure 24 D;/;male;10;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Sioure;D;R;low;24;Sioure 24 D;/;male;11;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Sioure;D;R;opt;30;Sioure 30 D;1;female;8;A;7;0;0;7;3;3;0;;0;0
+T. cinnabarinus;Sioure;D;R;opt;30;Sioure 30 D;/;male;13;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Trio;D;R;low;24;Trio 24 D;1;female;11;A;13;0;0;13;3;0;3;;0,272727273;0
+T. cinnabarinus;Trio;D;R;low;24;Trio 24 D;2;female;11;A;3;0;0;3;3;1;2;;0,181818182;0
+T. cinnabarinus;Trio;D;R;low;24;Trio 24 D;3;female;11;A;0;0;0;0;1;0;1;;0,090909091;#N/A
+T. cinnabarinus;Trio;D;R;low;24;Trio 24 D;4;female;11;A;12;0;0;12;4;1;3;;0,272727273;0
+T. cinnabarinus;Trio;D;R;low;24;Trio 24 D;5;female;11;A;17;0;0;17;7;2;5;;0,454545455;0
+T. cinnabarinus;Trio;D;R;low;24;Trio 24 D;6;female;11;weg???;20;0;0;20;6;0;6;;0,545454545;0
+T. cinnabarinus;Trio;D;R;low;24;Trio 24 D;7;female;11;A;10;0;0;10;0;0;0;;0;0
+T. cinnabarinus;Trio;D;R;low;24;Trio 24 D;8;female;11;A;5;0;0;5;3;2;1;;0,090909091;0
+T. cinnabarinus;Trio;D;R;low;24;Trio 24 D;9;female;11;A;0;0;0;0;0;0;0;;0;#N/A
+T. cinnabarinus;Trio;D;R;low;24;Trio 24 D;10;female;11;A;7;0;0;7;0;0;0;;0;0
+T. cinnabarinus;Trio;D;R;low;24;Trio 24 D;11;female;11;A;13;0;0;13;0;0;0;;0;0
+T. cinnabarinus;Trio;D;R;low;24;Trio 24 D;12;female;11;A;7;0;0;7;1;0;1;;0,090909091;0
+T. cinnabarinus;Trio;D;R;low;24;Trio 24 D;/;female;11;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Trio;D;R;low;24;Trio 24 D;/;male;11;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Trio;D;R;low;24;Trio 24 D;/;male;11;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Trio;D;R;low;24;Trio 24 D;/;male;11;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Trio;D;R;low;24;Trio 24 D;/;male;11;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Trio;D;R;low;24;Trio 24 D;/;male;11;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Trio;D;R;low;24;Trio 24 D;/;male;11;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Trio;D;R;low;24;Trio 24 D;/;male;11;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Trio;D;R;low;24;Trio 24 D;/;male;11;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Trio;D;R;low;24;Trio 24 D;/;male;12;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Trio;D;R;low;24;Trio 24 D;/;male;12;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Trio;D;R;opt;30;Trio 30 D;1;female;6;A;24;0;0;24;0;0;0;;0;0
+T. cinnabarinus;Trio;D;R;opt;30;Trio 30 D;2;female;6;A;14;0;0;14;1;1;0;;0;0
+T. cinnabarinus;Trio;D;R;opt;30;Trio 30 D;3;female;7;A;25;0;0;25;9;0;9;;1,285714286;0
+T. cinnabarinus;Trio;D;R;opt;30;Trio 30 D;4;female;7;A;32;0;0;32;9;1;8;;1,142857143;0
+T. cinnabarinus;Trio;D;R;opt;30;Trio 30 D;5;female;7;Death on A;1;0;0;1;1;1;0;;0;0
+T. cinnabarinus;Trio;D;R;opt;30;Trio 30 D;6;female;7;A;14;0;0;14;2;2;0;;0;0
+T. cinnabarinus;Trio;D;R;opt;30;Trio 30 D;7;female;7;B;0;0;9;9;2;2;0;;0;0
+T. cinnabarinus;Trio;D;R;opt;30;Trio 30 D;8;female;7;A;26;0;0;26;5;1;4;;0,571428571;0
+T. cinnabarinus;Trio;D;R;opt;30;Trio 30 D;9;female;7;A;4;0;0;4;0;0;0;;0;0
+T. cinnabarinus;Trio;D;R;opt;30;Trio 30 D;10;female;7;A;17;0;0;17;6;2;4;;0,571428571;0
+T. cinnabarinus;Trio;D;R;opt;30;Trio 30 D;11;female;7;A;31;0;0;31;8;0;8;;1,142857143;0
+T. cinnabarinus;Trio;D;R;opt;30;Trio 30 D;12;female;7;On cotton next to A;0;0;0;0;0;0;0;;0;#N/A
+T. cinnabarinus;Trio;D;R;opt;30;Trio 30 D;13;female;8;A;0;0;0;0;0;0;0;;0;#N/A
+T. cinnabarinus;Trio;D;R;opt;30;Trio 30 D;14;female;8;A;2;0;0;2;0;0;0;;0;0
+T. cinnabarinus;Trio;D;R;opt;30;Trio 30 D;15;female;8;Death on A;0;0;0;0;0;0;0;;0;#N/A
+T. cinnabarinus;Trio;D;R;opt;30;Trio 30 D;16;female;8;Death on A;0;0;0;0;0;0;0;;0;#N/A
+T. cinnabarinus;Trio;D;R;opt;30;Trio 30 D;/;female;7;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Trio;D;R;opt;30;Trio 30 D;/;male;7;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Trio;D;R;opt;30;Trio 30 D;/;male;8;;;;;;;;;;#N/A;#N/A
+T. cinnabarinus;Trio;D;R;high;36;Trio 36 D;1;female;7;Death on A;0;0;0;0;0;0;0;;0;#N/A
