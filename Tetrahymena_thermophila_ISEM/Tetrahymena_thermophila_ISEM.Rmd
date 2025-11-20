@@ -1,6 +1,6 @@
 ---
 title: "Temperature dependent dispersal: A distributed experiment"
-author: "researcher names here"
+author: "Peter Kamal & Emanuel A. Fronhofer"
 output: word_document
 editor_options: 
   chunk_output_type: console
@@ -32,12 +32,12 @@ library(DHARMa)
 
 # 3. Fill out information about your species below
 
-Genus = "Genus"
-species = "species"
-fitness.proxy = "Population growth, r / Survival / Fecundity"
-low.temp = x #value of low temperature treatment in Celsius
-opt.temp = x #value of optimal temperature treatment in Celsius
-high.temp = x #value of high temperature treatment in Celsius
+Genus = "Tetrahymena"
+species = "thermophila_ISEM"
+fitness.proxy = "r"
+low.temp = 20 #value of low temperature treatment in Celsius
+opt.temp = 36 #value of optimal temperature treatment in Celsius
+high.temp = 38 #value of high temperature treatment in Celsius
 
 
 # 4. Check that the data files have the following headers (order of columns is not important):
@@ -61,18 +61,18 @@ high.temp = x #value of high temperature treatment in Celsius
 ## Answer questions below about the fitness proxy
 
 ### Is your fitness variable binary? (choose one)
-fitness.binary = TRUE/FALSE
+fitness.binary = FALSE
 
 ### Is the fitness variable continuous normal (without transformation)? (choose one)
-fitness.normal = TRUE/FALSE
+fitness.normal = TRUE
 
 ### Is the fitness variable normal after transformation? (choose one; choose NA if you said "TRUE" to either question above)
-fitness.transformed.normal = TRUE/FALSE/NA
+fitness.transformed.normal = NA
 
 ## If fitness variable is continuous normal AFTER transformation, choose transformation used (just write it in if not on this list):
 
 transform.description <- "square-root/log/log10" # leave as-is if not applicable
-fitness.transformation.function <- function(x) {return (XYZ(x))} # give transformation formula here; replace XYZ with transformation e.g., sqrt(x) or log(x + 1), etc., where x will be Fitness, below
+fitness.transformation.function <- function(x) {return (x)} # give transformation formula here; replace XYZ with transformation e.g., sqrt(x) or log(x + 1), etc., where x will be Fitness, below
 
 ## note: if fitness (or transformed fitness) does not have a binomial or normal distribution, check in with Celina.
 
@@ -81,7 +81,7 @@ fitness.transformation.function <- function(x) {return (XYZ(x))} # give transfor
 
 ## Is there overdispersion in the dispersal data? If you do not yet know, choose FALSE and this will be dealt with in step 12.
 
-overdispersion = TRUE/FALSE
+overdispersion = FALSE
 
 
 # 7. Dealing with mortality in dispersal assay
@@ -94,14 +94,14 @@ overdispersion = TRUE/FALSE
 
 ## Do rows represent individuals in the dataset and are there dead individuals that should be removed from the dispersal data?
 
-filter.dead = TRUE/FALSE/NA # choose NA if this does not apply to your species
+filter.dead = FALSE # choose NA if this does not apply to your species
 
 
 # 8. Model formulae
 
 ## Formula for fitness: (fill in as appropriate)
 
-fitness.formula <- "Fitness ~ Temp.treatment + other.fixed.effects + (1|random)"
+fitness.formula <- "Fitness ~ Temp.treatment + (1|Replicate)"
 
 ### notes:
 #### TRANSFORM FITNESS VARIABLE (if needed) *WITHIN* THE FORMULA; doing it within the formula is important for contrasts below  
@@ -118,7 +118,7 @@ Fit1 <- "Died/Survived" # or fill in other
 
 ## Formula for dispersal: (fill in as appropriate)
   
-dispersal.formula <- "cbind(Num.disp, Num.nondisp) ~ Temp.treatment + other.fixed.effects + (1|random)"
+dispersal.formula <- "cbind(Num.disp, Num.nondisp) ~ Temp.treatment + (1|Replicate)"
 
 ### notes
 #### other.fixed.effects does not apply to every species; include as appropriate; fixed effects should be standardized
@@ -133,17 +133,17 @@ dispersal.formula <- "cbind(Num.disp, Num.nondisp) ~ Temp.treatment + other.fixe
 ## choose option on right hand side
 ## see description of moderators and levels in README.md in project repo
 
-taxonomic.group <- "arthropod/ciliate/microalgae"
-rearing.environment <- "commonT/treatmentT/field"
-comp.strength <- "low/moderate/high"
-source <- "lab/field" # lab population or field caught
-habitat <- "aquatic/terrestrial"
-Tvariation <- "homogenous/heterogenous"
-species.body.size <- x # mean body length in mm
-passive.dispersal <- "Yes/No"
-inbred <- "inbred line/mixed"
-disp.assay.duration <- 0.01/0.1/1/10 # order of magnitude for dispersal assay duration / generation time, i.e., approximate number of generations the dispersal assay lasted
-fitness.proxy.type <- "r/other"
+taxonomic.group <- "ciliate"
+rearing.environment <- "commonT"
+comp.strength <- "moderate"
+source <- "lab" # lab population or field caught
+habitat <- "aquatic"
+Tvariation <- "homogenous"
+species.body.size <- 0.05 # mean body length in mm
+passive.dispersal <- "No"
+inbred <- "inbred line"
+disp.assay.duration <- 1 # order of magnitude for dispersal assay duration / generation time, i.e., approximate number of generations the dispersal assay lasted
+fitness.proxy.type <- "r"
 
 # 10. Fill out methods information in text below.
 
@@ -152,68 +152,37 @@ fitness.proxy.type <- "r/other"
 # Supplementary methods for *`r (print(paste(Genus, species)))`*
 
 ## Study organism
-Name and strain/origin of species.  
 
-Provide basic life history information (aquatic/terrestrial, mode of dispersal, lifespan, etc.).  
-
-Briefly describe what is known about the temperature range the species experiences (geographic range, seasonality, type of habitat, etc.) in its natural system or the history of the conditions it has experienced in the lab.  
-
-How were organisms sourced?  
--	Field caught: provide information on timing, geographic coordinates, type of habitat.  
--	Lab sourced: provide information on source.  
--	Provide license/ authorization numbers for catching animals in the field and/or doing experiments, where applicable. 
-
-How were individuals/populations treated before the experiment?  
--	Rearing/holding conditions (temperature, food, light).  
--	How long were experimental subjects held before the experiment?  
-
-Were specific individuals/phenotypes/stages selected for the experiment?  
+* **Name and strain of species:** *Tetrahymena thermophila* (strain SB3539)
+* **Basic life history:** Aquatic protist, active dispersal via swimming, generation time of ~ 4 hours
+* **Temperature range:** Lives originally in streams, ponds and lakes on the Atlantic coast of North America. Our strain has been kept in stock for at least six years (around 13,000 generations) at 20$^\circ$C.
+* **Source:** Cornell Tetrahymena Stock Center
+* **Holding conditions before experiment**: For each experiment, we used individuals from our running batch cultures, kept at 20$^\circ$C in a dark incubator in sterile medium made up of mineral water, ground lettuce, and the bacterial species *Serratia fonticola*. The medium was filtered to provide homogeneous spatial structure within the vessel. Whenever we add medium to a batch culture or a test tube, that medium is enriched with a three-day old culture of the bacterium *Serratia fonticola* at a ratio of 9:1 (medium:bacteria). No further selection for the experimental individuals was conducted. 
 
 ## Study design
 
 ### Temperature treatments
 
-State the temperatures used for Topt, Thot, Tcold, and explain how they were chosen.  
-
-State whether there was daily variation in temperature, and if so, describe (e.g., mean and standard deviation of temperature for each treatment).  
+State the temperatures used for Topt, Thot, Tcold, and explain how they were chosen: We used Topt = 36C, Thot = 38C, and Tcold = 20C. Tcold is the culture temperature, Topt is the temperature at which the growth rate is maximal, Thot is the temperature at which some growth is still possible, but it is on the descending flank of the TPC. There was no daily variation in temperature. 
 
 ### Phase 1: Fitness assay
 
-Describe the fitness proxy (growth rate, survival, body condition, reproductive output, etc.). If proxy is indirect (e.g., body condition), explain what is known about the relationship between the proxy and actual fitness in the species.  
-
-Provide details about the methods for estimating the fitness proxy including:  
--	Physical details about the experimental setup including size/shape/volume of experimental arenas, substrate/medium of experimental arenas.  
--	Replicates  
-    - Specify number of experimental replicates  
-    - Number of strains and number of replicates per strain  
-    - Indicate if experimental blocks were used and the blocking design (number of blocks, how many replicates of each treatment per block, time/space between blocks)
--	Type and amount of food provided during experiment  
-- Starting density  
--	Duration of fitness assay  
--	Controlled variables: food (ad lib?), water (ad lib?), sex ratio  
-- Phenotypes measured (activity, body condition, body size, etc.) and how they were estimated  
+* **Fitness proxy:** Maximum growth rate per replicate and temperature, estimated as suggested with the easy linear fit in the growth rates package based on time series data at different temperatures starting from low densities (~100 individuals per ml).
+* **Experimental setup:** Experiments were conducted in plastic vials (Sarstedt), filled with 20ml of the bacterized medium described above and kept in dark incubators.
+* **Replication:** 5 experimental replicates per temperature. To avoid pseudoreplication, we switched incubators randomly every two days.
+* **Food provided:** Every two days, we replenished 10% of the culture with fresh medium that was enriched with bacteria at the same 9:1 ratio.
+* **Duration**: The experiment lasted 9 days (until the populations at the coldest temperature had reached carrying capacity).
+* **Phenotypic assays:** We measured densities and phenotypes by recording videos under a stereoscope and analyzing those videos with the `bemovi` software. That yielded (apart from densities) measurements of cell size as well as swimming speed.
 
 ### Phase 2: Dispersal assay
 
-Provide details about the methods for estimating dispersal including:  
--	Physical details about the experimental setup including size/shape/volume of experimental arenas, substrate/medium of experimental arenas, type of system (1 or 2 patches).  
--	Replicates  
-    - Specify number of experimental replicates  
-    - Number of strains and number of replicates per strain  
-    - Indicate if experimental blocks were used and the blocking design (number of blocks, how many replicates of each treatment per block, time/space between blocks)  
--	Type and amount of food provided during experiment  
-- Starting density  
--	Duration of dispersal assay including:  
-    - time between birth and start of acclimation period  
-    - duration of acclimation period  
-    - timing and duration of dispersal assay  
--	Controlled variables: food (ad lib?), water (ad lib? if applicable), sex ratio  
-- Phenotypes measured (activity, body condition, body size, etc.) and how they were estimated  
-- Whether individuals used in phase 2 were the same as used in phase 1 
-- Provide details on data collection including:  
-    -	The sampling regime (time intervals between sampling).  
-    -	Sampling method including whether individuals were marked and whether sampling was observed or automated. Please include validation if automated.  
-- State whether mortality during the dispersal assay was recorded. Describe how mortality was handled for the statistical analysis (e.g., individuals that died during the dispersal assay were excluded from the analysis of dispersal).  
+* **Setup: ** We conducted the experiment in the same plastic vials filled with 20ml of total culture medium, but now as a 2-patch system connected by a 7cm long silicon tube that we could close with plastic clamps. We consider this silicone tube to be hostile due to the lack of oxygen (which *Tetrahymena* are very sensitive to). 
+* **Dispersal: ** We measured emigration rates by opening the connections between origin and target patch, closing them again after 3 hours, and sampling in both patches. We estimated dispersal rate as the ratio of individuals in the target patch to the total number of individuals in both patches combined.
+* **Replication: ** We replicated each dispersal trial at each temperature 5 times (yielding 15 total experimental units). Individuals were not the same as the ones used in the fitness assay, but came from the same clonal population as above. All five replicates of each temperature were assayed at the same time in the same incubator.
+* **Inoculation: ** We used the fitness assay to determine which inoculation density would produce the highest variation in estimated fitness across temperatures (see below). We chose a density of 1,500 individuals per ml, which is between 25 and 50% of K for all temperatures. In the morning of the experiment, we measured our stock and determined the necessary amount to add to a 20ml tube to reach this density. Accordingly, we inoculated the origin patch with 5ml of *Tetrahymena* stock and 15ml of bacterized medium (see above), and the target patch with 20ml of bacterized medium.
+* **Timing: ** We estimate *Tetrahymena's* generation time to be roughly 4 hours. Therefore, we let the cultures acclimate with the gates closed in the incubator for 45 minutes, and then opened the gates for 3 hours, after which we closed them and sampled.
+* **Sampling and phenotyping: ** As before, we sampled out of the cultures and recorded videos under a stereoscope, which gave us both density and phenotypic estimates. To reduce sampling error given the possible low densities in the target patch, we used the mean across three technical replicates for each sample.
+* **Mortality: ** was not recorded.
 
 
 
@@ -456,7 +425,6 @@ plot(diagnostic_fitness)
 
 diagnostic_dispersal <- simulateResiduals(fittedModel = m_dispersal)
 plot(diagnostic_dispersal)
-
 ```
 
 ```{r moderators, echo = F}
