@@ -101,7 +101,7 @@ filter.dead = FALSE # choose NA if this does not apply to your species
 
 ## Formula for fitness: (fill in as appropriate)
 
-fitness.formula <- "Fitness ~ Temp.treatment + (1|Replicate)"
+fitness.formula <- "Fitness ~ Temp.treatment" # changed by Celina: removed random effect
 
 ### notes:
 #### TRANSFORM FITNESS VARIABLE (if needed) *WITHIN* THE FORMULA; doing it within the formula is important for contrasts below  
@@ -280,7 +280,7 @@ ggplot(d_phase1, aes(x = Temp.treatment, y = Fitness, col = Temp.treatment))+
 
 ```
 
-`r ifelse(fitness.binary == T, print(paste("To estimate the effects of temperature (a factor) on fitness we used a generalized linear mixed model with a logit link and", tolower(fitness.proxy), "as the binary response variable. We used the formula:")), paste("To estimate the effects of temperature (a factor) on fitness, we used a linear mixed model with", tolower(fitness.proxy), "as the response variable. We used the formula:"))`  
+`r ifelse(fitness.binary == T, print(paste("To estimate the effects of temperature (a factor) on fitness we used a generalized linear mixed model with a logit link and", tolower(fitness.proxy), "as the binary response variable. We used the formula:")), paste("To estimate the effects of temperature (a factor) on fitness, we used linear regression with", tolower(fitness.proxy), "as the response variable. We used the formula:"))`  
 
 `r (print(fitness.formula))`
 
@@ -288,7 +288,7 @@ ggplot(d_phase1, aes(x = Temp.treatment, y = Fitness, col = Temp.treatment))+
 
 # model testing effects of temperature on fitness
 
-m_fitness <- lmer(fitness.formula, data = d_phase1)
+m_fitness <- lm(fitness.formula, data = d_phase1)
 
 # output results for overall model and pairwise comparisons
 
