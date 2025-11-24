@@ -151,6 +151,19 @@ fitness.proxy.type <- "r/other"
 
 # Supplementary methods for *`r (print(paste(Genus, species)))`*
 
+## Author contributions
+Possible categories:
+- conceptualization  
+- statistical analysis  
+- methodology (design of methodology)  
+- investigation/conduct experiment  
+- funding acquisition  
+- writing (original draft, supplement)
+- list others as needed  
+
+## Acknowledgements
+Research assistants, funding sources, etc.
+
 ## Study organism
 Name and strain/origin of species.  
 
