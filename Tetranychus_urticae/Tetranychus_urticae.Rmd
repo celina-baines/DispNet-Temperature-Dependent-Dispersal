@@ -157,6 +157,18 @@ fitness.proxy.type <- "r"
 
 # Supplementary methods for *`r (print(paste(Genus, species)))`*
 
+## Author contributions
+
+- Anna-Gaëlle De Groote (A.D.G.): conduct experiment
+- Siebe van Wunnik (S.v.W.): statistical analysis, writing
+- Dries Bonte (D.B.): conceptualization, methodology, funding acquisition
+
+## Acknowledegements
+
+We thank Nicky Wybouw for providing access to the spider mite populations used in this study.
+
+Funding for S.v.W. and D.B. was provided by the FWO research network EVENET (W001322N). Additional support for S.v.W. was obtained through FWO grant G020524N.
+
 ## Study organism
 
 Tetranychus urticae:
