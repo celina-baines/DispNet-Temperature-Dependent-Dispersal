@@ -72,7 +72,7 @@ fitness.transformed.normal = TRUE/FALSE/NA
 ## If fitness variable is continuous normal AFTER transformation, choose transformation used (just write it in if not on this list):
 
 transform.description <- "square-root/log/log10" # leave as-is if not applicable
-fitness.transformation.function <- function(x) {return (XYZ(x))} # give transformation formula here; replace XYZ with transformation e.g., sqrt(x) or log(x + 1), etc., where x will be Fitness, below
+fitness.transformation.function <- function(x) {return (log(x))} # give transformation formula here; replace "log" with transformation used e.g., sqrt(x) or log(x + 1), etc., where x will be Fitness, below
 
 ## note: if fitness (or transformed fitness) does not have a binomial or normal distribution, check in with Celina.
 
@@ -94,7 +94,7 @@ overdispersion = TRUE/FALSE
 
 ## Do rows represent individuals in the dataset and are there dead individuals that should be removed from the dispersal data?
 
-filter.dead = TRUE/FALSE/NA # choose NA if this does not apply to your species
+filter.dead = FALSE # choose FALSE if this does not apply to your species
 
 
 # 8. Model formulae
@@ -150,6 +150,19 @@ fitness.proxy.type <- "r/other"
 ```
 
 # Supplementary methods for *`r (print(paste(Genus, species)))`*
+
+## Author contributions
+Possible categories:
+- conceptualization  
+- statistical analysis  
+- methodology (design of methodology)  
+- investigation/conduct experiment  
+- funding acquisition  
+- writing (original draft, supplement)
+- list others as needed  
+
+## Acknowledgements
+Research assistants, funding sources, etc.
 
 ## Study organism
 Name and strain/origin of species.  
