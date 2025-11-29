@@ -35,9 +35,9 @@ library(DHARMa)
 Genus = "Tetrahymena"
 species = "thermophila"
 fitness.proxy = "Population growth, r"
-low.temp = x #value of low temperature treatment in Celsius
+low.temp = 23 #value of low temperature treatment in Celsius
 opt.temp = x #value of optimal temperature treatment in Celsius
-high.temp = x #value of high temperature treatment in Celsius
+high.temp = 39 #value of high temperature treatment in Celsius
 
 
 # 4. Check that the data files have the following headers (order of columns is not important):
