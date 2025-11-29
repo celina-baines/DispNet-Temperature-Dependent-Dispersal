@@ -1,6 +1,6 @@
 ---
 title: "Temperature dependent dispersal: A distributed experiment"
-author: "researcher names here"
+author: "Nicolas Schtickzelle"
 output: word_document
 editor_options: 
   chunk_output_type: console
@@ -32,9 +32,9 @@ library(DHARMa)
 
 # 3. Fill out information about your species below
 
-Genus = "Genus"
-species = "species"
-fitness.proxy = "Population growth, r / Survival / Fecundity"
+Genus = "Tetrahymena"
+species = "thermophila"
+fitness.proxy = "Population growth, r"
 low.temp = x #value of low temperature treatment in Celsius
 opt.temp = x #value of optimal temperature treatment in Celsius
 high.temp = x #value of high temperature treatment in Celsius
@@ -61,7 +61,7 @@ high.temp = x #value of high temperature treatment in Celsius
 ## Answer questions below about the fitness proxy
 
 ### Is your fitness variable binary? (choose one)
-fitness.binary = TRUE/FALSE
+fitness.binary = FALSE
 
 ### Is the fitness variable continuous normal (without transformation)? (choose one)
 fitness.normal = TRUE/FALSE
