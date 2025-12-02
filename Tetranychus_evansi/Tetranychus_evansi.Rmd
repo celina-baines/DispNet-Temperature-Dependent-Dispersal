@@ -284,9 +284,9 @@ Note that here I used as ref the control temperature. This was changed, so that 
 
 ```{r loaddata, echo = F}
 # Set reading and writing paths; Do not change these paths
-reading.path <- ("./Tetranychus_evansi/")
+reading.path <- ("./")
 
-writing.path <- ("./outputs/")
+writing.path <- ("../outputs/")
 
 # load data file
 d_phase1 <- read.csv(paste(reading.path, "Phase1_fitness_", Genus, ".", species, ".csv", sep = ""))
@@ -306,7 +306,7 @@ d_phase2 <- d_phase2 %>%
 fitpath <- paste("Phase1_fitness_", Genus, ".", species, ".csv", sep = "")
 disppath <- paste("Phase2_dispersal_", Genus, ".", species, ".csv", sep = "")
 
-data_path <- "./raw_data/" #path to save the data is to the raw_data folder
+data_path <- "../raw_data/" #path to save the data is to the raw_data folder
 
 #save copy of final dfs used in this file to the raw_data folder
 write.csv(d_phase1, paste(data_path, fitpath, sep = ""), row.names = FALSE)
