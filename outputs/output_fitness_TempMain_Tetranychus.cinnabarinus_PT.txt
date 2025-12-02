@@ -1,0 +1,2 @@
+"npar" "Sum Sq" "Mean Sq" "F value"
+"Temp.treatment" 2 3167.83564021045 1583.91782010522 16.4002547995513
