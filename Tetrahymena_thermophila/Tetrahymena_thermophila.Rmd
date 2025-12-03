@@ -35,8 +35,8 @@ library(DHARMa)
 Genus = "Tetrahymena"
 species = "thermophila"
 fitness.proxy = "Population growth, r"
-low.temp = 23 #value of low temperature treatment in Celsius
-opt.temp = x #value of optimal temperature treatment in Celsius
+low.temp = 15 #value of low temperature treatment in Celsius
+opt.temp = 31 #value of optimal temperature treatment in Celsius
 high.temp = 39 #value of high temperature treatment in Celsius
 
 
@@ -64,10 +64,10 @@ high.temp = 39 #value of high temperature treatment in Celsius
 fitness.binary = FALSE
 
 ### Is the fitness variable continuous normal (without transformation)? (choose one)
-fitness.normal = TRUE/FALSE
+fitness.normal = TRUE
 
 ### Is the fitness variable normal after transformation? (choose one; choose NA if you said "TRUE" to either question above)
-fitness.transformed.normal = TRUE/FALSE/NA
+fitness.transformed.normal = NA
 
 ## If fitness variable is continuous normal AFTER transformation, choose transformation used (just write it in if not on this list):
 
@@ -81,7 +81,7 @@ fitness.transformation.function <- function(x) {return (log(x))} # give transfor
 
 ## Is there overdispersion in the dispersal data? If you do not yet know, choose FALSE and this will be dealt with in step 12.
 
-overdispersion = TRUE/FALSE
+overdispersion = FALSE
 
 
 # 7. Dealing with mortality in dispersal assay
@@ -124,7 +124,7 @@ dispersal.formula <- "cbind(Num.disp, Num.nondisp) ~ Temp.treatment + other.fixe
 #### other.fixed.effects does not apply to every species; include as appropriate; fixed effects should be standardized
 #### include as many random effects as appropriate
 #### Num.disp/Num.nondisp can be replaced with column "Dispersed" with values 0 and 1, if individuals are rows in your dataset
-#### remember to deal with mortality directly in dispersl formula if appropriate
+#### remember to deal with mortality directly in dispersal formula if appropriate
 
 
 # 9. Moderators
@@ -133,17 +133,20 @@ dispersal.formula <- "cbind(Num.disp, Num.nondisp) ~ Temp.treatment + other.fixe
 ## choose option on right hand side
 ## see description of moderators and levels in README.md in project repo
 
-taxonomic.group <- "arthropod/ciliate/microalgae"
-rearing.environment <- "commonT/treatmentT/field"
-comp.strength <- "low/moderate/high"
-source <- "lab/field" # lab population or field caught
-habitat <- "aquatic/terrestrial"
-Tvariation <- "homogenous/heterogenous"
-species.body.size <- x # mean body length in mm
-passive.dispersal <- "Yes/No"
+taxonomic.group <- "ciliate"
+rearing.environment <- "commonT"
+comp.strength <- "moderate"
+source <- "lab" # lab population or field caught
+habitat <- "aquatic"
+Tvariation <- "homogenous"
+species.body.size <- 0.05 # mean body length in mm
+passive.dispersal <- "No"
+
+## ? for Celina: do you consider an strain (isogenic line) as inbred ? Because our strains have been created from 1 cell isolated from the field. But there are many Tetrahymena strains that were creating by inbreeding among close lines int he lab.
 inbred <- "inbred line/mixed"
-disp.assay.duration <- 0.01/0.1/1/10 # order of magnitude for dispersal assay duration / generation time, i.e., approximate number of generations the dispersal assay lasted
-fitness.proxy.type <- "r/other"
+
+disp.assay.duration <- 1 # order of magnitude for dispersal assay duration / generation time, i.e., approximate number of generations the dispersal assay lasted
+fitness.proxy.type <- "r"
 
 # 10. Fill out methods information in text below.
 
@@ -152,59 +155,35 @@ fitness.proxy.type <- "r/other"
 # Supplementary methods for *`r (print(paste(Genus, species)))`*
 
 ## Author contributions
-Possible categories:
-- conceptualization  
-- statistical analysis  
-- methodology (design of methodology)  
-- investigation/conduct experiment  
-- funding acquisition  
-- writing (original draft, supplement)
-- list others as needed  
+N.S. : conceptualization, methodology, conduct experiment, statistical analysis and visualization, writing, funding acquisition, project administration
 
 ## Acknowledgements
-Research assistants, funding sources, etc.
+N.S. thanks Julie Jadoul for general culture and laboratory maintenance and Julie Jadoul and Michaëlla Dacek for helping with conducting the experiment.
 
 ## Study organism
-Name and strain/origin of species.  
+*Tetrahymena thermophila* is a unicellular ciliate eukaryote whose natural habitat is freshwater ponds and streams in the east regions of North America where it feeds on aggregates of bacteria and dissolved nutrients. It actively disperses via swimming and has a generation time of c. 8h in our lab conditions. It lives originally in streams, ponds and lakes on the Atlantic coast of North America, where it disperses actively. As biological repliactes, we used five strains (D3, D13, D16, D19, D21), i.e. isogenic lines of cells bearing a single genotype, that differ in various phenotypic traits; they were originally collected in the field by F.P. Doerder from 2003 to 2009. Upon their arrival in our lab, they were cryoconserved in liquid nitrogen. Stock cultures from this experiment were thawed and maintained for a few months (at 23°C 14:10 day/night light cycle) in an axenic PPYE liquid medium (2% of Proteose Peptone and 0.2% of Yeast Extract, diluted in ultrapure water, referred to as “1X medium” for its standard resource concentration); cultures were reinoculated into new medium every 10 days on average. All culture manipulations were performed under a laminar flow hood to maintain their axenic condition (Schtickzelle et al., 2009).
 
-Provide basic life history information (aquatic/terrestrial, mode of dispersal, lifespan, etc.).  
-
-Briefly describe what is known about the temperature range the species experiences (geographic range, seasonality, type of habitat, etc.) in its natural system or the history of the conditions it has experienced in the lab.  
-
-How were organisms sourced?  
--	Field caught: provide information on timing, geographic coordinates, type of habitat.  
--	Lab sourced: provide information on source.  
--	Provide license/ authorization numbers for catching animals in the field and/or doing experiments, where applicable. 
-
-How were individuals/populations treated before the experiment?  
--	Rearing/holding conditions (temperature, food, light).  
--	How long were experimental subjects held before the experiment?  
-
-Were specific individuals/phenotypes/stages selected for the experiment?  
 
 ## Study design
 
 ### Temperature treatments
+As temperature treatments, we used Tcold = 15°C, Topt = 31°C, and Thot = 39°C. Tcold is the standard culture temperature, Topt is around the temperature at which the growth rate is maximal (which differs among strains: Jacob et al. 2018), Thot is the temperature at which some growth is still possible, but it is on the descending side of the temperature performance curve, just below lethal temperature (40 to 42°C according to the strain). There was no daily variation in temperature. Due to logistic constraints, each temperature was allocated to one incubator (Sanyo MIR-554); the temperature of each of the 3 incubators was monitored every 5 min over the duration experiment to confirm temperature treatments were stable and accurate.
 
-State the temperatures used for Topt, Thot, Tcold, and explain how they were chosen.  
-
-State whether there was daily variation in temperature, and if so, describe (e.g., mean and standard deviation of temperature for each treatment).  
 
 ### Phase 1: Fitness assay
+As a fitness proxy, we used maximum growth rate (r), i.e. the exponential population growth observed of a population starting from very low density. For each of the 3 temperatures, we established two biological replicate cultures of each of the 5 strains, and inoculated two wells (technical replicates) of a 24 well plate (Greiner 662102) with 2 ml of 0.3X culture medium and 100µl of stock culture. We recorded population growth, using optical density measurements (OD at 550nm, using a Biotek Synergy H1 multiplate reader: Jacob et al. 2018) as a cell density proxy, regularly over a period of 23 days maximum (where the populations at 15°C were declining after reaching and maintaining carrying capacity for some time). One plate was used for each temperature and each plate contained 4 wells with medium only used a blank to correct OD. For every read, the OD was the average of 9 measurements spread as a grid over the well area. 
 
-Describe the fitness proxy (growth rate, survival, body condition, reproductive output, etc.). If proxy is indirect (e.g., body condition), explain what is known about the relationship between the proxy and actual fitness in the species.  
+Growth curves (i.e. time series of OD) were first cleaned for obvious outliers (e.g. due to a bubble at the surface of the liquid culture that biased the value upwards) by discarding values that were higher than 110 of the maximum observed OD. Then, they were truncated after the stationary phase by cutting the time series after the last time where OD was above 90% of the median of the highest 5 OD values in the curve. Maximum growth rate (r) was then calculated for each growth curve separately as the maximum linear slope of the temporal increase of the log-transformed optical density with the easy linear fit in the `growthrates` package.  
 
-Provide details about the methods for estimating the fitness proxy including:  
--	Physical details about the experimental setup including size/shape/volume of experimental arenas, substrate/medium of experimental arenas.  
--	Replicates  
-    - Specify number of experimental replicates  
-    - Number of strains and number of replicates per strain  
-    - Indicate if experimental blocks were used and the blocking design (number of blocks, how many replicates of each treatment per block, time/space between blocks)
--	Type and amount of food provided during experiment  
-- Starting density  
--	Duration of fitness assay  
--	Controlled variables: food (ad lib?), water (ad lib?), sex ratio  
-- Phenotypes measured (activity, body condition, body size, etc.) and how they were estimated  
+
+
+
+
+????- Phenotypes measured (activity, body condition, body size, etc.) and how they were estimated  
+
+
+
+
 
 ### Phase 2: Dispersal assay
 
