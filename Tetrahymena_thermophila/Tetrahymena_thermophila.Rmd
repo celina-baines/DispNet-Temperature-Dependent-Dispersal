@@ -176,7 +176,7 @@ As a fitness proxy, we used maximum growth rate (r), i.e. the exponential popula
 Growth curves (i.e. time series of OD) were first cleaned for obvious outliers (e.g. due to a bubble at the surface of the liquid culture that biased the value upwards) by discarding values that were higher than 110 of the maximum observed OD. Then, they were truncated after the stationary phase by cutting the time series after the last time where OD was above 90% of the median of the highest 5 OD values in the curve. Maximum growth rate (r) was then calculated for each growth curve separately as the maximum linear slope of the temporal increase of the log-transformed optical density with the easy linear fit in the `growthrates` package.  
 
 
-
+  
 
 
 ????- Phenotypes measured (activity, body condition, body size, etc.) and how they were estimated  
