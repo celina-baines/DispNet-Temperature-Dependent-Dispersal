@@ -1,0 +1,2 @@
+"Species" "Taxonomic.group" "Rearing.environment" "Competition.strength" "Source" "Habitat" "Temperature.variation" "Species.mean.body.size" "Passive.dispersal" "Inbred.or.Mixed" "Dispersal.assay.duration" "Fitness.proxy.type"
+"1" "Tetrahymena thermophila" "ciliate" "commonT" "moderate" "lab" "aquatic" "homogenous" 0.05 "No" "inbred line" 1 "r"

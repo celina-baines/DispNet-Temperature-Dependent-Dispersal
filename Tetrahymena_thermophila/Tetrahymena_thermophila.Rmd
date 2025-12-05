@@ -101,7 +101,7 @@ filter.dead = FALSE # choose FALSE if this does not apply to your species
 
 ## Formula for fitness: (fill in as appropriate)
 
-fitness.formula <- "Fitness ~ Temp.treatment + other.fixed.effects + (1|random)"
+fitness.formula <- "Fitness ~ Temp.treatment + (1|Strain)"
 
 ### notes:
 #### TRANSFORM FITNESS VARIABLE (if needed) *WITHIN* THE FORMULA; doing it within the formula is important for contrasts below  
@@ -118,7 +118,7 @@ Fit1 <- "Died/Survived" # or fill in other
 
 ## Formula for dispersal: (fill in as appropriate)
   
-dispersal.formula <- "cbind(Num.disp, Num.nondisp) ~ Temp.treatment + other.fixed.effects + (1|random)"
+dispersal.formula <- "cbind(Num.disp, Num.nondisp) ~ Temp.treatment + (1|Strain)"
 
 ### notes
 #### other.fixed.effects does not apply to every species; include as appropriate; fixed effects should be standardized
@@ -141,9 +141,7 @@ habitat <- "aquatic"
 Tvariation <- "homogenous"
 species.body.size <- 0.05 # mean body length in mm
 passive.dispersal <- "No"
-
-## ? for Celina: do you consider an strain (isogenic line) as inbred ? Because our strains have been created from 1 cell isolated from the field. But there are many Tetrahymena strains that were creating by inbreeding among close lines int he lab.
-inbred <- "inbred line/mixed"
+inbred <- "inbred line"
 
 disp.assay.duration <- 1 # order of magnitude for dispersal assay duration / generation time, i.e., approximate number of generations the dispersal assay lasted
 fitness.proxy.type <- "r"
@@ -155,59 +153,38 @@ fitness.proxy.type <- "r"
 # Supplementary methods for *`r (print(paste(Genus, species)))`*
 
 ## Author contributions
+
 N.S. : conceptualization, methodology, conduct experiment, statistical analysis and visualization, writing, funding acquisition, project administration
 
 ## Acknowledgements
+
 N.S. thanks Julie Jadoul for general culture and laboratory maintenance and Julie Jadoul and Michaëlla Dacek for helping with conducting the experiment.
 
 ## Study organism
-*Tetrahymena thermophila* is a unicellular ciliate eukaryote whose natural habitat is freshwater ponds and streams in the east regions of North America where it feeds on aggregates of bacteria and dissolved nutrients. It actively disperses via swimming and has a generation time of c. 8h in our lab conditions. It lives originally in streams, ponds and lakes on the Atlantic coast of North America, where it disperses actively. As biological repliactes, we used five strains (D3, D13, D16, D19, D21), i.e. isogenic lines of cells bearing a single genotype, that differ in various phenotypic traits; they were originally collected in the field by F.P. Doerder from 2003 to 2009. Upon their arrival in our lab, they were cryoconserved in liquid nitrogen. Stock cultures from this experiment were thawed and maintained for a few months (at 23°C 14:10 day/night light cycle) in an axenic PPYE liquid medium (2% of Proteose Peptone and 0.2% of Yeast Extract, diluted in ultrapure water, referred to as “1X medium” for its standard resource concentration); cultures were reinoculated into new medium every 10 days on average. All culture manipulations were performed under a laminar flow hood to maintain their axenic condition (Schtickzelle et al., 2009).
 
+*Tetrahymena thermophila* is a unicellular ciliate eukaryote whose natural habitat is freshwater ponds and streams in the east regions of North America where it feeds on aggregates of bacteria and dissolved nutrients. It actively disperses via swimming and has a generation time of c. 8h in our lab conditions. It lives originally in streams, ponds and lakes on the Atlantic coast of North America, where it disperses actively. As biological replicates, we used five strains (D3, D13, D16, D19, D21), i.e. isogenic lines of cells bearing a single genotype, that differ in various phenotypic traits; they were originally collected in the field by F.P. Doerder from 2003 to 2009. Upon their arrival in our lab, they were cryoconserved in liquid nitrogen. Stock cultures from this experiment were thawed and maintained for a few months (at 23°C 14:10 day/night light cycle) in an axenic PPYE liquid medium (2% of Proteose Peptone and 0.2% of Yeast Extract, diluted in ultrapure water, referred to as “1X medium” for its standard resource concentration); cultures were reinoculated into new medium every 10 days on average. All culture manipulations were performed under a laminar flow hood to maintain their axenic condition (Schtickzelle et al., 2009).
 
 ## Study design
 
+For each of the 5 strains, we established two different mother cultures that were cultured independently from each other over a few weeks, so 10 mother cultures in total. The experiment (both phase 1 and 2 below) followed a factorial design with 3 temperatures, 5 strains and 2 biological replicates, so 30 experimental populations in total.
+
 ### Temperature treatments
+
 As temperature treatments, we used Tcold = 15°C, Topt = 31°C, and Thot = 39°C. Tcold is the standard culture temperature, Topt is around the temperature at which the growth rate is maximal (which differs among strains: Jacob et al. 2018), Thot is the temperature at which some growth is still possible, but it is on the descending side of the temperature performance curve, just below lethal temperature (40 to 42°C according to the strain). There was no daily variation in temperature. Due to logistic constraints, each temperature was allocated to one incubator (Sanyo MIR-554); the temperature of each of the 3 incubators was monitored every 5 min over the duration experiment to confirm temperature treatments were stable and accurate.
 
-
 ### Phase 1: Fitness assay
-As a fitness proxy, we used maximum growth rate (r), i.e. the exponential population growth observed of a population starting from very low density. For each of the 3 temperatures, we established two biological replicate cultures of each of the 5 strains, and inoculated two wells (technical replicates) of a 24 well plate (Greiner 662102) with 2 ml of 0.3X culture medium and 100µl of stock culture. We recorded population growth, using optical density measurements (OD at 550nm, using a Biotek Synergy H1 multiplate reader: Jacob et al. 2018) as a cell density proxy, regularly over a period of 23 days maximum (where the populations at 15°C were declining after reaching and maintaining carrying capacity for some time). One plate was used for each temperature and each plate contained 4 wells with medium only used a blank to correct OD. For every read, the OD was the average of 9 measurements spread as a grid over the well area. 
 
-Growth curves (i.e. time series of OD) were first cleaned for obvious outliers (e.g. due to a bubble at the surface of the liquid culture that biased the value upwards) by discarding values that were higher than 110 of the maximum observed OD. Then, they were truncated after the stationary phase by cutting the time series after the last time where OD was above 90% of the median of the highest 5 OD values in the curve. Maximum growth rate (r) was then calculated for each growth curve separately as the maximum linear slope of the temporal increase of the log-transformed optical density with the easy linear fit in the `growthrates` package.  
+As a fitness proxy, we used maximum growth rate (r), i.e. the exponential population growth observed of a population starting from very low density. For each of the 30 experimental populations, we inoculated two wells (technical replicates to accommodate for potential culture contamination) of a 24 well plate (Greiner 662102) with 2 ml of 0.3X culture medium and 100 µl of mother culture. We recorded population growth, using optical density measurements (OD at 550nm, using a Biotek Synergy H1 multiplate reader: Jacob et al. 2018) as a cell density proxy, regularly over a period of 23 days maximum (where the populations at 15°C were declining after reaching and maintaining carrying capacity for some time). One plate was used for each temperature and each plate contained 4 wells with medium only used a blank to correct OD. Each of the 3 plates was placed at its experimental temperature except for a few minutes when an OD read \<was peromed on the multiplate reader. For every read, the OD value was the average of 9 measurements spread as a grid over the well area. During the experiment, we monitored populations for a sudden sharp increase in OD, and in these cases checked for bacterial contamination under the microscope. Contaminated populations were discarded and their monitoring was stopped; this never happened during the exponential growth phase that is analysed.
 
+Growth curves (i.e. time series of OD) were first cleaned for obvious outliers (e.g. due to a bubble at the surface of the liquid culture that biased the value upwards) by discarding values that were higher than 110 of the maximum observed OD. Then, they were truncated after the stationary phase by cutting the time series after the last time where OD was above 90% of the median of the highest 5 OD values in the curve. Maximum growth rate (r) was then calculated for each growth curve separately as the maximum linear slope of the temporal increase of the log-transformed optical density with the easy linear fit in the `growthrates` package.
 
-  
-
-
-????- Phenotypes measured (activity, body condition, body size, etc.) and how they were estimated  
-
-
-
-
+???? - Phenotypes measured (activity, body condition, body size, etc.) and how they were estimated
 
 ### Phase 2: Dispersal assay
 
-Provide details about the methods for estimating dispersal including:  
--	Physical details about the experimental setup including size/shape/volume of experimental arenas, substrate/medium of experimental arenas, type of system (1 or 2 patches).  
--	Replicates  
-    - Specify number of experimental replicates  
-    - Number of strains and number of replicates per strain  
-    - Indicate if experimental blocks were used and the blocking design (number of blocks, how many replicates of each treatment per block, time/space between blocks)  
--	Type and amount of food provided during experiment  
-- Starting density  
--	Duration of dispersal assay including:  
-    - time between birth and start of acclimation period  
-    - duration of acclimation period  
-    - timing and duration of dispersal assay  
--	Controlled variables: food (ad lib?), water (ad lib? if applicable), sex ratio  
-- Phenotypes measured (activity, body condition, body size, etc.) and how they were estimated  
-- Whether individuals used in phase 2 were the same as used in phase 1 
-- Provide details on data collection including:  
-    -	The sampling regime (time intervals between sampling).  
-    -	Sampling method including whether individuals were marked and whether sampling was observed or automated. Please include validation if automated.  
-- State whether mortality during the dispersal assay was recorded. Describe how mortality was handled for the statistical analysis (e.g., individuals that died during the dispersal assay were excluded from the analysis of dispersal).  
+To quantify dispersal, we used standard two-patch microcosms consisting of two habitat patches (1.5 ml standard microtubes) connected by a corridor (4 mm internal diameter silicon pipe, 2.5 cm long) and filled with growth medium (Schtickzelle et al. 2009); one system was used for each of the 30 experimental populations. The dispersal system was filled prior to the experiments with 3 ml of 0.3X medium through one tube to ensure fluid transition between the tubes, and then closed by placing a clamp in the middle of the connecting pipe. To start the experiment, a specific volume from the corresponding mother culture was placed into the “start” tube of the system so that the population was at a 100.000 cells/ml. The tube content was then homogenized to encourage cells to move freely throughout the start tube and the dispersal system placed in the incubator at its experimental temperature. After 1.5 h of acclimation, the clamp closing the connecting pipe was removed and cells could freely disperse between the two tubes for 4 hours. The 30 dispersal systems were launched at a 5 min interval to ensure the 1.5 h + 4 h was strictly respected for each system. At the end of 5.5 h, the dispersal system was closed and a series of measures extracted for the “start” and “target” tubes using a digital image analysis procedure, which allows estimation of cell densities and several phenotypic traits in an objective and automated manner. To do so, five independent samples were taken from each tube after culture homogenization, and each loaded in a chamber of a counting slide (Kima, Italy); for each chamber, a dark field image was taken using a Canon EOS 5D Mark II mounted on a Nikon Eclipse 50i microscope. Images were then treated and segmented using Fiji software (Version 1.47, Schneider et al. 2012) to identify individual cells and extract measures. This workflow, containing several data cleaning steps to eliminate artefacts, has been carefully validated and extensively optimized to produce accurate and repeatable results (see details and measures of error rates in Pennekamp and Schtickzelle (2013)).
 
-
+???? - Phenotypes measured (activity, body condition, body size, etc.) and how they were estimated
 
 ```{r instructions2, echo = F}
 
@@ -269,7 +246,6 @@ write.csv(d_phase2, paste(data_path, disppath, sep = ""), row.names = FALSE)
 
 ```
 
-
 ### Does fitness change with temperature (phase 1)?
 
 `r ifelse(fitness.transformed.normal == TRUE, print(paste(fitness.proxy, " was not normally distributed so we ", transform.description, "-transformed it. The transformed variable followed a normal distribution.", sep = "")), ifelse(fitness.normal == TRUE, print(paste(fitness.proxy, "was normally distributed.")), print(paste("The fitness proxy,", tolower(fitness.proxy), ", was a binary variable."))))`
@@ -281,7 +257,6 @@ write.csv(d_phase2, paste(data_path, disppath, sep = ""), row.names = FALSE)
 with(d_phase1, hist(Fitness, xlab = fitness.proxy, main = NULL))
 
 ```
-
 
 ```{r transformedfitnessnormal, eval = fitness.transformed.normal, echo = F, fig.cap = paste("Figure 1. Histogram of", transform.description, "-transformed", tolower(fitness.proxy), "values.")}
 
@@ -303,7 +278,7 @@ ggplot(d_phase1, aes(x = Temp.treatment, y = Fitness, col = Temp.treatment))+
 
 ```
 
-`r ifelse(fitness.binary == T, print(paste("To estimate the effects of temperature (a factor) on fitness we used a generalized linear mixed model with a logit link and", tolower(fitness.proxy), "as the binary response variable. We used the formula:")), paste("To estimate the effects of temperature (a factor) on fitness, we used a linear mixed model with", tolower(fitness.proxy), "as the response variable. We used the formula:"))`  
+`r ifelse(fitness.binary == T, print(paste("To estimate the effects of temperature (a factor) on fitness we used a generalized linear mixed model with a logit link and", tolower(fitness.proxy), "as the binary response variable. We used the formula:")), paste("To estimate the effects of temperature (a factor) on fitness, we used a linear mixed model with", tolower(fitness.proxy), "as the response variable. We used the formula:"))`
 
 `r (print(fitness.formula))`
 
@@ -322,7 +297,6 @@ output_fitness_contrasts <- output_fitness_emmeans$contrasts %>%
      summary(infer = TRUE)
 ```
 
-
 ```{r fitnesstablebinary, eval = fitness.binary, echo = F}
 
 fittable <- with(d_phase1, table(Temp.treatment, Fitness))
@@ -331,7 +305,6 @@ knitr::kable(fittable, col.names = c(Fit0, Fit1),
 
 
 ```
-
 
 ```{r fitnessmodelbinary, eval = fitness.binary, echo = F}
 
@@ -350,6 +323,7 @@ output_fitness_contrasts <- output_fitness_emmeans$contrasts %>%
 ```
 
 #### Results for main effect of temperature on fitness
+
 ```{r fitnessresultsmaineffect, echo = F}
 
 output_fitness_Tempeffect
@@ -357,19 +331,18 @@ output_fitness_Tempeffect
 ```
 
 #### Post-hoc pairwise contrasts: differences in fitness between temperature treatments
+
 ```{r fitnessresultscontrasts, echo = F}
 
 output_fitness_contrasts
 
 ```
 
-
 ### Does dispersal change with temperature (phase 2)?
 
-`r ifelse(!overdispersion, print("To estimate the effect of temperature treatment (a factor) on dispersal, we used a generalized linear mixed model with a binomial error structure and a logit link. Dispersal (the number of dispersers vs non-dispersers) was the response variable. We used the formula:"), print("There was evidence of overdispersion in our dispersal data. Therefore, to estimate the effect of temperature treatment (a factor) on dispersal, we used a generalized linear mixed model with a negative binomial error structure. Dispersal (the number of dispersers vs non-dispersers) was the response variable. We used the formula:"))`  
+`r ifelse(!overdispersion, print("To estimate the effect of temperature treatment (a factor) on dispersal, we used a generalized linear mixed model with a binomial error structure and a logit link. Dispersal (the number of dispersers vs non-dispersers) was the response variable. We used the formula:"), print("There was evidence of overdispersion in our dispersal data. Therefore, to estimate the effect of temperature treatment (a factor) on dispersal, we used a generalized linear mixed model with a negative binomial error structure. Dispersal (the number of dispersers vs non-dispersers) was the response variable. We used the formula:"))`
 
 `r (print(dispersal.formula))`
-
 
 ```{r dispersalmodelbinomial, eval = !overdispersion, echo = F}
 
@@ -417,6 +390,7 @@ ggplot(as.data.frame(output_dispersal_emmeans$emmeans), aes(x = Temp.treatment, 
 ```
 
 #### Results for main effect of temperature on dispersal
+
 ```{r dispersalresultsmaineffect, echo = F}
 
 output_dispersal_Tempeffect
@@ -424,6 +398,7 @@ output_dispersal_Tempeffect
 ```
 
 #### Post-hoc pairwise contrasts: differences in dispersal between temperature treatments
+
 ```{r dispersalresultscontrasts, echo = F}
 
 output_dispersal_contrasts
