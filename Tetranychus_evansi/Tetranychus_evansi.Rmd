@@ -101,7 +101,7 @@ filter.dead = FALSE # choose NA if this does not apply to your species
 
 ## Formula for fitness: (fill in as appropriate)
 
-fitness.formula <- "Fitness ~ Temp.treatment" # The fecundity experiment was done in one block
+fitness.formula <- "sqrt(Fitness) ~ Temp.treatment" # The fecundity experiment was done in one block
 
 ### notes:
 #### TRANSFORM FITNESS VARIABLE (if needed) *WITHIN* THE FORMULA; doing it within the formula is important for contrasts below  
