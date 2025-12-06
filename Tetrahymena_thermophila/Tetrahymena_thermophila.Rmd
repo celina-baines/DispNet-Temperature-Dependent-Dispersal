@@ -154,11 +154,12 @@ fitness.proxy.type <- "r"
 
 ## Author contributions
 
-N.S. : conceptualization, methodology, conduct experiment, statistical analysis and visualization, writing, funding acquisition, project administration
+N.S.: conceptualization, methodology, conduct experiment, statistical analysis and visualization, writing, funding acquisition, project administration
 
 ## Acknowledgements
 
 N.S. thanks Julie Jadoul for general culture and laboratory maintenance and Julie Jadoul and Michaëlla Dacek for helping with conducting the experiment.
+This work was supported by F.R.S.-FNRS grants to N.S. (EQP U.N035.16 and PDR T.0211.19) and from UCLouvain (ARC 18-23/095: DIVERCE).
 
 ## Study organism
 
@@ -178,13 +179,11 @@ As a fitness proxy, we used maximum growth rate (r), i.e. the exponential popula
 
 Growth curves (i.e. time series of OD) were first cleaned for obvious outliers (e.g. due to a bubble at the surface of the liquid culture that biased the value upwards) by discarding values that were higher than 110 of the maximum observed OD. Then, they were truncated after the stationary phase by cutting the time series after the last time where OD was above 90% of the median of the highest 5 OD values in the curve. Maximum growth rate (r) was then calculated for each growth curve separately as the maximum linear slope of the temporal increase of the log-transformed optical density with the easy linear fit in the `growthrates` package.
 
-???? - Phenotypes measured (activity, body condition, body size, etc.) and how they were estimated
 
 ### Phase 2: Dispersal assay
 
 To quantify dispersal, we used standard two-patch microcosms consisting of two habitat patches (1.5 ml standard microtubes) connected by a corridor (4 mm internal diameter silicon pipe, 2.5 cm long) and filled with growth medium (Schtickzelle et al. 2009); one system was used for each of the 30 experimental populations. The dispersal system was filled prior to the experiments with 3 ml of 0.3X medium through one tube to ensure fluid transition between the tubes, and then closed by placing a clamp in the middle of the connecting pipe. To start the experiment, a specific volume from the corresponding mother culture was placed into the “start” tube of the system so that the population was at a 100.000 cells/ml. The tube content was then homogenized to encourage cells to move freely throughout the start tube and the dispersal system placed in the incubator at its experimental temperature. After 1.5 h of acclimation, the clamp closing the connecting pipe was removed and cells could freely disperse between the two tubes for 4 hours. The 30 dispersal systems were launched at a 5 min interval to ensure the 1.5 h + 4 h was strictly respected for each system. At the end of 5.5 h, the dispersal system was closed and a series of measures extracted for the “start” and “target” tubes using a digital image analysis procedure, which allows estimation of cell densities and several phenotypic traits in an objective and automated manner. To do so, five independent samples were taken from each tube after culture homogenization, and each loaded in a chamber of a counting slide (Kima, Italy); for each chamber, a dark field image was taken using a Canon EOS 5D Mark II mounted on a Nikon Eclipse 50i microscope. Images were then treated and segmented using Fiji software (Version 1.47, Schneider et al. 2012) to identify individual cells and extract measures. This workflow, containing several data cleaning steps to eliminate artefacts, has been carefully validated and extensively optimized to produce accurate and repeatable results (see details and measures of error rates in Pennekamp and Schtickzelle (2013)).
 
-???? - Phenotypes measured (activity, body condition, body size, etc.) and how they were estimated
 
 ```{r instructions2, echo = F}
 
