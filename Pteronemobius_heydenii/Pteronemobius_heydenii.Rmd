@@ -206,11 +206,11 @@ Dispersal was assessed for each individual as a 0/1 (1=dispersed) outcome, exclu
 
 ## Author contributions
 
-Nicolas Mouret:  Methodology, Statistical analysis, Investigation
-Julien Cote: Conceptualization, Methodology,  Investigation
-Delphine Legrand: Conceptualization, Methodology,  Investigation
-Pau Molina-Vila: Conceptualization, Methodology
-Elvire Bestion: Conceptualization, Methodology, Statistical analysis, Investigation, Writing, Funding Acquisition
+* Nicolas Mouret:  Methodology, Statistical analysis, Investigation
+* Julien Cote: Conceptualization, Methodology,  Investigation
+* Delphine Legrand: Conceptualization, Methodology,  Investigation
+* Pau Molina-Vila: Conceptualization, Methodology
+* Elvire Bestion: Conceptualization, Methodology, Statistical analysis, Investigation, Writing, Funding Acquisition
 
 ## Acknowledgements
 
