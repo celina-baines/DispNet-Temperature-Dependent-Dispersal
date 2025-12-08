@@ -1,9 +1,12 @@
 ---
 title: "Temperature dependent dispersal: A distributed experiment"
-author: "researcher names here"
+author: "Sarah Elliott, Chloe Guicharnaud, Celina Baines"
 output: word_document
 editor_options: 
   chunk_output_type: console
+  markdown: 
+    wrap: 72
+bibliography: references.bib
 ---
 
 ```{r instructions, echo = F, warning = F}
@@ -32,12 +35,12 @@ library(DHARMa)
 
 # 3. Fill out information about your species below
 
-Genus = "Genus"
-species = "species"
-fitness.proxy = "Population growth, r / Survival / Fecundity"
-low.temp = x #value of low temperature treatment in Celsius
-opt.temp = x #value of optimal temperature treatment in Celsius
-high.temp = x #value of high temperature treatment in Celsius
+Genus = "Folsomia"
+species = "candida"
+fitness.proxy = "Population growth, r"
+low.temp = 18 #value of low temperature treatment in Celsius
+opt.temp = 22 #value of optimal temperature treatment in Celsius
+high.temp = 26 #value of high temperature treatment in Celsius
 
 
 # 4. Check that the data files have the following headers (order of columns is not important):
@@ -61,18 +64,18 @@ high.temp = x #value of high temperature treatment in Celsius
 ## Answer questions below about the fitness proxy
 
 ### Is your fitness variable binary? (choose one)
-fitness.binary = TRUE/FALSE
+fitness.binary = FALSE
 
 ### Is the fitness variable continuous normal (without transformation)? (choose one)
-fitness.normal = TRUE/FALSE
+fitness.normal = TRUE
 
 ### Is the fitness variable normal after transformation? (choose one; choose NA if you said "TRUE" to either question above)
-fitness.transformed.normal = TRUE/FALSE/NA
+fitness.transformed.normal = NA
 
 ## If fitness variable is continuous normal AFTER transformation, choose transformation used (just write it in if not on this list):
 
 transform.description <- "square-root/log/log10" # leave as-is if not applicable
-fitness.transformation.function <- function(x) {return (XYZ(x))} # give transformation formula here; replace XYZ with transformation e.g., sqrt(x) or log(x + 1), etc., where x will be Fitness, below
+fitness.transformation.function <- function(x) {return (x)} # give transformation formula here; replace "log" with transformation used e.g., sqrt(x) or log(x + 1), etc., where x will be Fitness, below
 
 ## note: if fitness (or transformed fitness) does not have a binomial or normal distribution, check in with Celina.
 
@@ -81,7 +84,7 @@ fitness.transformation.function <- function(x) {return (XYZ(x))} # give transfor
 
 ## Is there overdispersion in the dispersal data? If you do not yet know, choose FALSE and this will be dealt with in step 12.
 
-overdispersion = TRUE/FALSE
+overdispersion = FALSE
 
 
 # 7. Dealing with mortality in dispersal assay
@@ -94,14 +97,14 @@ overdispersion = TRUE/FALSE
 
 ## Do rows represent individuals in the dataset and are there dead individuals that should be removed from the dispersal data?
 
-filter.dead = TRUE/FALSE/NA # choose NA if this does not apply to your species
+filter.dead = FALSE # choose FALSE if this does not apply to your species
 
 
 # 8. Model formulae
 
 ## Formula for fitness: (fill in as appropriate)
 
-fitness.formula <- "Fitness ~ Temp.treatment + other.fixed.effects + (1|random)"
+fitness.formula <- "Fitness ~ Temp.treatment"
 
 ### notes:
 #### TRANSFORM FITNESS VARIABLE (if needed) *WITHIN* THE FORMULA; doing it within the formula is important for contrasts below  
@@ -118,7 +121,7 @@ Fit1 <- "Died/Survived" # or fill in other
 
 ## Formula for dispersal: (fill in as appropriate)
   
-dispersal.formula <- "cbind(Num.disp, Num.nondisp) ~ Temp.treatment + other.fixed.effects + (1|random)"
+dispersal.formula <- "cbind(Num.disp, Num.nondisp) ~ Temp.treatment + (1|Group) + (1|Block)"
 
 ### notes
 #### other.fixed.effects does not apply to every species; include as appropriate; fixed effects should be standardized
@@ -133,17 +136,17 @@ dispersal.formula <- "cbind(Num.disp, Num.nondisp) ~ Temp.treatment + other.fixe
 ## choose option on right hand side
 ## see description of moderators and levels in README.md in project repo
 
-taxonomic.group <- "arthropod/ciliate/microalgae"
-rearing.environment <- "commonT/treatmentT/field"
-comp.strength <- "low/moderate/high"
-source <- "lab/field" # lab population or field caught
-habitat <- "aquatic/terrestrial"
-Tvariation <- "homogenous/heterogenous"
-species.body.size <- x # mean body length in mm
-passive.dispersal <- "Yes/No"
-inbred <- "inbred line/mixed"
-disp.assay.duration <- 0.01/0.1/1/10 # order of magnitude for dispersal assay duration / generation time, i.e., approximate number of generations the dispersal assay lasted
-fitness.proxy.type <- "r/other"
+taxonomic.group <- "arthropod"
+rearing.environment <- "commonT"
+comp.strength <- "low"
+source <- "lab" # lab population or field caught
+habitat <- "terrestrial"
+Tvariation <- "homogenous"
+species.body.size <- 3 # mean body length in mm
+passive.dispersal <- "No"
+inbred <- "inbred line"
+disp.assay.duration <- 1 # order of magnitude for dispersal assay duration / generation time, i.e., approximate number of generations the dispersal assay lasted
+fitness.proxy.type <- "r"
 
 # 10. Fill out methods information in text below.
 
@@ -151,71 +154,44 @@ fitness.proxy.type <- "r/other"
 
 # Supplementary methods for *`r (print(paste(Genus, species)))`*
 
+## Author contributions
+
+Conceptualization: Celina Baines, Chloe Guicharnaud   
+Statistical analysis: Sarah Elliott, Chloe Guicharnaud   
+Methodology (design of methodology): Sarah Elliott, Chloe Guicharnaud,
+Celina Baines   
+Investigation/conduct experiment: Sarah Elliott, Chloe Guicharnaud   
+Funding acquisition: Celina Baines  
+Writing (original draft, supplement): Sarah Elliott, Celina Baines   
+Writing (review and editing): Chloe Guicharnaud
+
 ## Study organism
-Name and strain/origin of species.  
 
-Provide basic life history information (aquatic/terrestrial, mode of dispersal, lifespan, etc.).  
-
-Briefly describe what is known about the temperature range the species experiences (geographic range, seasonality, type of habitat, etc.) in its natural system or the history of the conditions it has experienced in the lab.  
-
-How were organisms sourced?  
--	Field caught: provide information on timing, geographic coordinates, type of habitat.  
--	Lab sourced: provide information on source.  
--	Provide license/ authorization numbers for catching animals in the field and/or doing experiments, where applicable. 
-
-How were individuals/populations treated before the experiment?  
--	Rearing/holding conditions (temperature, food, light).  
--	How long were experimental subjects held before the experiment?  
-
-Were specific individuals/phenotypes/stages selected for the experiment?  
+|      *Folsomia candida* Willem 1902 is a terrestrial arthropod present in soils across the globe. The average body size is 1.5-3.0mm at adult stages [@fountain2005] and they use active crawling as their dispersal mode. The species is generally short-lived with an average lifespan of 110 days at 20 °C and reaching sexual maturity around 10-25 days [@roeben2023]. The species reproduces asexually through parthenogenesis where embryos can develop from an unfertilized egg [@fountain2005]. 
+|      For this experiment, we used individuals that were from an initial stock population sourced from the Soil Toxicology Laboratory at Environment of Climate Change Canada in November 2024. Populations were kept within a climatic chamber with conditions of 20 °C, 70 % Relative Humidity (RH), and 16:8 L:D cycle. Sub-populations from the initial stock were kept inside plastic containers filled with substrate consisting of plaster of Paris and charcoal (at an 8:1 ratio), which acts as artificial soil. In the laboratory, their diet consists of granulated bakers dried yeast. Water and food were replenished once per week as needed to ensure food supply was constant and organisms wouldn’t desiccate. 
+|      Organisms used in the experiment were age-matched approximately a month prior to the start of the experiment during which they were kept within containers with substrate at 20 °C, 70 % Relative Humidity (RH), and 16:8 L:D cycle. Food and water were replenished once per week as needed. As traits related to dispersal are dependent on age and development stage in this system, age-matching was done to ensure *F. candida* were of the same age and instar at the start of an experiment. To do so, approximately 100 individuals were placed in
+a clean container with a layer of substrate and left for 3 days.
+Following a three-day egg-laying period, all adults were removed with
+the eggs remaining. The eggs can hatch, grow and can be used
+approximately one month after the initial adults were added.
 
 ## Study design
 
 ### Temperature treatments
 
-State the temperatures used for Topt, Thot, Tcold, and explain how they were chosen.  
-
-State whether there was daily variation in temperature, and if so, describe (e.g., mean and standard deviation of temperature for each treatment).  
+|      For this experiment, T~opt~= 22°C, T~hot~ = 26°C, and T~cold~ = 18°C. The optimal temperature was chosen based off literature which estimates the optimal temperature to be approximately 21°C [@snider2017]. A pilot was conducted to choose temperatures for T~hot~ and T~cold~. For the pilot, temperatures ranging from 14-26°C with increments of 2°C were tested using number of offspring as a proxy for fitness. No temperatures above 26°C were chosen because eggs lose viability at 28°C [@fountain2005]. To assess number of offspring as a proxy for population growth, mesocosms were adjusted to each temperature and stock containers were added to each mesocosm a week prior to the start date. Five age matched individuals were placed in each replicate and allowed an egg laying period of three days. Following this period, adults were removed and populations of new adults were counted after approximately one month. From this we concluded 18 and 26 would be appropriate temperatures for T~cold~ and T~hot~. Temperatures varied slightly around the three means of temperature treatments (18,22 and 26°C) with deviations of ± 1°C across all replicates and blocks.
 
 ### Phase 1: Fitness assay
 
-Describe the fitness proxy (growth rate, survival, body condition, reproductive output, etc.). If proxy is indirect (e.g., body condition), explain what is known about the relationship between the proxy and actual fitness in the species.  
-
-Provide details about the methods for estimating the fitness proxy including:  
--	Physical details about the experimental setup including size/shape/volume of experimental arenas, substrate/medium of experimental arenas.  
--	Replicates  
-    - Specify number of experimental replicates  
-    - Number of strains and number of replicates per strain  
-    - Indicate if experimental blocks were used and the blocking design (number of blocks, how many replicates of each treatment per block, time/space between blocks)
--	Type and amount of food provided during experiment  
-- Starting density  
--	Duration of fitness assay  
--	Controlled variables: food (ad lib?), water (ad lib?), sex ratio  
-- Phenotypes measured (activity, body condition, body size, etc.) and how they were estimated  
+|      For phase 1 of the experiment, we assessed growth rate as a proxy for fitness. We used 3D printed habitat nodes that have a round arena with a diameter of 3cm across. The arena has a layer of substrate and possible connections to other nodes. For this phase, all connections were blocked by cording fit to size of the connection holes. Water reservoirs are located at the base of the habitat nodes and were filled with 2 mL twice per week, an amount that previously has been demonstrated to be the optimal level of moisture. The water reservoir has holes which allows the substrate to absorb the water through capillary action. This prevents inconsistent water levels and reduces daily moisture variation. Additionally, petri dishes were placed on top of the nodes to maintain a constant humidity and to keep individuals within their respective node.   
+|      Phase 1 was conducted in a climatic chamber set at 18°C, with consistent humidity and light cycle, similar to rearing conditions. The chamber had five spatially separated benches that were approximately 1 meter apart from each other and each bench could fit three mesocosms, therefore one from each treatment was placed on the bench to homogenize temperture treatments within the chamber. Mesocosms for 22°C and 26°C were fitted with heat mats along both sides and all mesocosms had a layer of insulation surrounding it. Mesocosm lids were constructed using a wooden frame and a semi-transparent plastic to ensure similar light conditions.   
+|      Each mesocosm had three replicate nodes within it, and nodes remained in their respective mesocosm for the entirety of the experiment. No variance in fitness was attributed to mesocosms so the linear mixed model was simplified to a linear model. For acclimation, stock containers were added to each temperature treatment one week prior to the start of the experiment. At the start of the experiment, a total of 10 acclimated individuals were randomly added to each habitat node along with 2 pellets of food per node and water. Twice per week, old food was removed, and food (2+ pellets) and water (2 ml) were replenished. During the maintenance of the nodes, dead individuals were removed and noted, and pictures of nodes were taken so population size could be counted. Phase 1 of the experiment lasted a total of 28 days, which was based on the pilot and generation time of the lowest temperature group. The organism reproduces asexually, so no consideration was given to sex ratios, and no phenotypes were measured as a variable. 
 
 ### Phase 2: Dispersal assay
-
-Provide details about the methods for estimating dispersal including:  
--	Physical details about the experimental setup including size/shape/volume of experimental arenas, substrate/medium of experimental arenas, type of system (1 or 2 patches).  
--	Replicates  
-    - Specify number of experimental replicates  
-    - Number of strains and number of replicates per strain  
-    - Indicate if experimental blocks were used and the blocking design (number of blocks, how many replicates of each treatment per block, time/space between blocks)  
--	Type and amount of food provided during experiment  
-- Starting density  
--	Duration of dispersal assay including:  
-    - time between birth and start of acclimation period  
-    - duration of acclimation period  
-    - timing and duration of dispersal assay  
--	Controlled variables: food (ad lib?), water (ad lib? if applicable), sex ratio  
-- Phenotypes measured (activity, body condition, body size, etc.) and how they were estimated  
-- Whether individuals used in phase 2 were the same as used in phase 1 
-- Provide details on data collection including:  
-    -	The sampling regime (time intervals between sampling).  
-    -	Sampling method including whether individuals were marked and whether sampling was observed or automated. Please include validation if automated.  
-- State whether mortality during the dispersal assay was recorded. Describe how mortality was handled for the statistical analysis (e.g., individuals that died during the dispersal assay were excluded from the analysis of dispersal).  
-
-
+  
+|      For Phase 2 of the experiment, we assessed dispersal of *F. candida* with discrete, two-node systems. We used the same 3D printed habitat patches as Phase 1; except we connected two nodes using clear Tygon tubing that was 8cm in length. Phase 2 was conducted in the same climatic chamber and mesocosms as Phase 1, but phase 2 took place shortly after phase 1 was conducted. For Phase 2, each mesocosm had three replicate two-node systems within it, and landscapes remained in their respective mesocosm for the entirety of the experiment.  
+|      At the start of the experiment, a total of 100 acclimated and age-matched individuals were randomly added to each initial habitat node along with 6 pellets of yeast per initial node, 2 pellets of yeast per secondary node and 2 mL of water in every node. Twice per week, old food was removed, and food (6 and 2 pellets respectively) and water (2 mL) were replenished. Four days prior to phase 2, age matched stock populations that were different from those used in phase 1 were put in temperature regulated mesocosms to acclimate. Age-matched individuals were used because dispersal traits and ability in this system are correlated with age and body size. 
+|      Phase 2 lasted 10 days, which was based on egg generation time in the highest temperature in order to prevent various density related effects on dispersal. Three times per week dispersal data was collected, where dispersers in the second node were counted, photographed and removed. Initial nodes were also photographed to collect population sizes throughout the experiment. Dead individuals were not removed from initial nodes during the experiment. However, we removed any individuals that died in the tubing to prevent mould impeding dispersal. The organism reproduces asexually, so no consideration was given to sex ratios, and no phenotypes were measured as a variable.
 
 ```{r instructions2, echo = F}
 
@@ -277,7 +253,6 @@ write.csv(d_phase2, paste(data_path, disppath, sep = ""), row.names = FALSE)
 
 ```
 
-
 ### Does fitness change with temperature (phase 1)?
 
 `r ifelse(fitness.transformed.normal == TRUE, print(paste(fitness.proxy, " was not normally distributed so we ", transform.description, "-transformed it. The transformed variable followed a normal distribution.", sep = "")), ifelse(fitness.normal == TRUE, print(paste(fitness.proxy, "was normally distributed.")), print(paste("The fitness proxy,", tolower(fitness.proxy), ", was a binary variable."))))`
@@ -289,7 +264,6 @@ write.csv(d_phase2, paste(data_path, disppath, sep = ""), row.names = FALSE)
 with(d_phase1, hist(Fitness, xlab = fitness.proxy, main = NULL))
 
 ```
-
 
 ```{r transformedfitnessnormal, eval = fitness.transformed.normal, echo = F, fig.cap = paste("Figure 1. Histogram of", transform.description, "-transformed", tolower(fitness.proxy), "values.")}
 
@@ -311,7 +285,7 @@ ggplot(d_phase1, aes(x = Temp.treatment, y = Fitness, col = Temp.treatment))+
 
 ```
 
-`r ifelse(fitness.binary == T, print(paste("To estimate the effects of temperature (a factor) on fitness we used a generalized linear mixed model with a logit link and", tolower(fitness.proxy), "as the binary response variable. We used the formula:")), paste("To estimate the effects of temperature (a factor) on fitness, we used a linear mixed model with", tolower(fitness.proxy), "as the response variable. We used the formula:"))`  
+`r ifelse(fitness.binary == T, print(paste("To estimate the effects of temperature (a factor) on fitness we used a generalized linear mixed model with a logit link and", tolower(fitness.proxy), "as the binary response variable. We used the formula:")), paste("To estimate the effects of temperature (a factor) on fitness, we used a linear model with", tolower(fitness.proxy), "as the response variable. We used the formula:"))`
 
 `r (print(fitness.formula))`
 
@@ -319,7 +293,7 @@ ggplot(d_phase1, aes(x = Temp.treatment, y = Fitness, col = Temp.treatment))+
 
 # model testing effects of temperature on fitness
 
-m_fitness <- lmer(fitness.formula, data = d_phase1)
+m_fitness <- lm(fitness.formula, data = d_phase1)
 
 # output results for overall model and pairwise comparisons
 
@@ -330,7 +304,6 @@ output_fitness_contrasts <- output_fitness_emmeans$contrasts %>%
      summary(infer = TRUE)
 ```
 
-
 ```{r fitnesstablebinary, eval = fitness.binary, echo = F}
 
 fittable <- with(d_phase1, table(Temp.treatment, Fitness))
@@ -339,7 +312,6 @@ knitr::kable(fittable, col.names = c(Fit0, Fit1),
 
 
 ```
-
 
 ```{r fitnessmodelbinary, eval = fitness.binary, echo = F}
 
@@ -358,6 +330,7 @@ output_fitness_contrasts <- output_fitness_emmeans$contrasts %>%
 ```
 
 #### Results for main effect of temperature on fitness
+
 ```{r fitnessresultsmaineffect, echo = F}
 
 output_fitness_Tempeffect
@@ -365,19 +338,18 @@ output_fitness_Tempeffect
 ```
 
 #### Post-hoc pairwise contrasts: differences in fitness between temperature treatments
+
 ```{r fitnessresultscontrasts, echo = F}
 
 output_fitness_contrasts
 
 ```
 
-
 ### Does dispersal change with temperature (phase 2)?
 
-`r ifelse(!overdispersion, print("To estimate the effect of temperature treatment (a factor) on dispersal, we used a generalized linear mixed model with a binomial error structure and a logit link. Dispersal (the number of dispersers vs non-dispersers) was the response variable. We used the formula:"), print("There was evidence of overdispersion in our dispersal data. Therefore, to estimate the effect of temperature treatment (a factor) on dispersal, we used a generalized linear mixed model with a negative binomial error structure. Dispersal (the number of dispersers vs non-dispersers) was the response variable. We used the formula:"))`  
+`r ifelse(!overdispersion, print("To estimate the effect of temperature treatment (a factor) on dispersal, we used a generalized linear mixed model with a binomial error structure and a logit link. Dispersal (the number of dispersers vs non-dispersers) was the response variable. We used the formula:"), print("There was evidence of overdispersion in our dispersal data. Therefore, to estimate the effect of temperature treatment (a factor) on dispersal, we used a generalized linear mixed model with a negative binomial error structure. Dispersal (the number of dispersers vs non-dispersers) was the response variable. We used the formula:"))`
 
 `r (print(dispersal.formula))`
-
 
 ```{r dispersalmodelbinomial, eval = !overdispersion, echo = F}
 
@@ -425,6 +397,7 @@ ggplot(as.data.frame(output_dispersal_emmeans$emmeans), aes(x = Temp.treatment, 
 ```
 
 #### Results for main effect of temperature on dispersal
+
 ```{r dispersalresultsmaineffect, echo = F}
 
 output_dispersal_Tempeffect
@@ -432,6 +405,7 @@ output_dispersal_Tempeffect
 ```
 
 #### Post-hoc pairwise contrasts: differences in dispersal between temperature treatments
+
 ```{r dispersalresultscontrasts, echo = F}
 
 output_dispersal_contrasts
@@ -440,7 +414,8 @@ output_dispersal_contrasts
 
 ### Model Diagnostics
 
-There was no evidence for lack of fit for either the fitness or the dispersal model.
+There was no evidence for lack of fit for either the fitness or the
+dispersal model.
 
 #### Diagnostic plots for fitness data
 
@@ -507,3 +482,4 @@ write.table(output_dispersal_emmeans$contrasts, paste(writing.path, "output_disp
 write.table(d_moderator, paste(writing.path, "moderators_", Genus, ".", species, ".txt", sep = ""))
 
 ```
+## References
