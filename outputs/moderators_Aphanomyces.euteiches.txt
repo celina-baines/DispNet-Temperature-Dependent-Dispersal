@@ -1,0 +1,2 @@
+"Species" "Taxonomic.group" "Rearing.environment" "Competition.strength" "Source" "Habitat" "Temperature.variation" "Species.mean.body.size" "Passive.dispersal" "Inbred.or.Mixed" "Dispersal.assay.duration" "Fitness.proxy.type"
+"1" "Aphanomyces euteiches" "oomycete" "commonT" "low" "lab" "aquatic/terrestrial" "homogenous/heterogenous" NA "Yes/No" "inbred line/mixed" 0.01 "r"
