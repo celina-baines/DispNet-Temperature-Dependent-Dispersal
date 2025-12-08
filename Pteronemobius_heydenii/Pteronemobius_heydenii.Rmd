@@ -1,8 +1,10 @@
 ---
-title: "Temperature dependent dispersal: A distributed experiment"
-author: "researcher names here"
-output: word_document
-editor_options: 
+title: 'Temperature dependent dispersal: A distributed experiment'
+author: "Nicolas Mouret, Julien Cote, Delphine Legrand, Pau Molina-Vila, Elvire Bestion"
+output:
+  html_document:
+    df_print: paged
+editor_options:
   chunk_output_type: console
 ---
 
@@ -32,12 +34,12 @@ library(DHARMa)
 
 # 3. Fill out information about your species below
 
-Genus = "Genus"
-species = "species"
-fitness.proxy = "Population growth, r / Survival / Fecundity"
-low.temp = x #value of low temperature treatment in Celsius
-opt.temp = x #value of optimal temperature treatment in Celsius
-high.temp = x #value of high temperature treatment in Celsius
+Genus = "Pteronemobius"
+species = "heydenii"
+fitness.proxy = "Survival"
+opt.temp = 18 #value of optimal temperature treatment in Celsius
+medium.high.temp = 22 #value of high temperature treatment in Celsius
+high.temp = 26 #value of high temperature treatment in Celsius
 
 
 # 4. Check that the data files have the following headers (order of columns is not important):
@@ -61,18 +63,18 @@ high.temp = x #value of high temperature treatment in Celsius
 ## Answer questions below about the fitness proxy
 
 ### Is your fitness variable binary? (choose one)
-fitness.binary = TRUE/FALSE
+fitness.binary = TRUE
 
 ### Is the fitness variable continuous normal (without transformation)? (choose one)
-fitness.normal = TRUE/FALSE
+fitness.normal = FALSE
 
 ### Is the fitness variable normal after transformation? (choose one; choose NA if you said "TRUE" to either question above)
-fitness.transformed.normal = TRUE/FALSE/NA
+fitness.transformed.normal = FALSE
 
 ## If fitness variable is continuous normal AFTER transformation, choose transformation used (just write it in if not on this list):
 
 transform.description <- "square-root/log/log10" # leave as-is if not applicable
-fitness.transformation.function <- function(x) {return (XYZ(x))} # give transformation formula here; replace XYZ with transformation e.g., sqrt(x) or log(x + 1), etc., where x will be Fitness, below
+fitness.transformation.function <- function(x) {return (log(x))} # give transformation formula here; replace XYZ with transformation e.g., sqrt(x) or log(x + 1), etc., where x will be Fitness, below
 
 ## note: if fitness (or transformed fitness) does not have a binomial or normal distribution, check in with Celina.
 
@@ -81,7 +83,7 @@ fitness.transformation.function <- function(x) {return (XYZ(x))} # give transfor
 
 ## Is there overdispersion in the dispersal data? If you do not yet know, choose FALSE and this will be dealt with in step 12.
 
-overdispersion = TRUE/FALSE
+overdispersion = FALSE
 
 
 # 7. Dealing with mortality in dispersal assay
@@ -94,14 +96,14 @@ overdispersion = TRUE/FALSE
 
 ## Do rows represent individuals in the dataset and are there dead individuals that should be removed from the dispersal data?
 
-filter.dead = TRUE/FALSE/NA # choose NA if this does not apply to your species
+filter.dead = TRUE # choose NA if this does not apply to your species
 
 
 # 8. Model formulae
 
 ## Formula for fitness: (fill in as appropriate)
 
-fitness.formula <- "Fitness ~ Temp.treatment + other.fixed.effects + (1|random)"
+fitness.formula <- "Fitness ~ Temp.treatment  + (1|Mesocosm)"
 
 ### notes:
 #### TRANSFORM FITNESS VARIABLE (if needed) *WITHIN* THE FORMULA; doing it within the formula is important for contrasts below  
@@ -113,12 +115,12 @@ fitness.formula <- "Fitness ~ Temp.treatment + other.fixed.effects + (1|random)"
 
 ### What do Fitness = 0 and Fitness = 1 mean?
 
-Fit0 <- "Died/Survived" # or fill in other
-Fit1 <- "Died/Survived" # or fill in other
+Fit0 <- "Died" # or fill in other
+Fit1 <- "Survived" # or fill in other
 
 ## Formula for dispersal: (fill in as appropriate)
   
-dispersal.formula <- "cbind(Num.disp, Num.nondisp) ~ Temp.treatment + other.fixed.effects + (1|random)"
+dispersal.formula <- "Dispersed ~ Temp.treatment  + (1|Mesocosm)"
 
 ### notes
 #### other.fixed.effects does not apply to every species; include as appropriate; fixed effects should be standardized
@@ -133,17 +135,17 @@ dispersal.formula <- "cbind(Num.disp, Num.nondisp) ~ Temp.treatment + other.fixe
 ## choose option on right hand side
 ## see description of moderators and levels in README.md in project repo
 
-taxonomic.group <- "arthropod/ciliate/microalgae"
-rearing.environment <- "commonT/treatmentT/field"
-comp.strength <- "low/moderate/high"
-source <- "lab/field" # lab population or field caught
-habitat <- "aquatic/terrestrial"
-Tvariation <- "homogenous/heterogenous"
-species.body.size <- x # mean body length in mm
-passive.dispersal <- "Yes/No"
-inbred <- "inbred line/mixed"
-disp.assay.duration <- 0.01/0.1/1/10 # order of magnitude for dispersal assay duration / generation time, i.e., approximate number of generations the dispersal assay lasted
-fitness.proxy.type <- "r/other"
+taxonomic.group <- "arthropod"
+rearing.environment <- "field"
+comp.strength <- "low"
+source <- "field" # lab population or field caught
+habitat <- "terrestrial"
+Tvariation <- "heterogenous"
+species.body.size <- 6 # mean body length in mm
+passive.dispersal <- "No"
+inbred <- "mixed"
+disp.assay.duration <- 0.01 # order of magnitude for dispersal assay duration / generation time, i.e., approximate number of generations the dispersal assay lasted
+fitness.proxy.type <- "other"
 
 # 10. Fill out methods information in text below.
 
@@ -152,70 +154,67 @@ fitness.proxy.type <- "r/other"
 # Supplementary methods for *`r (print(paste(Genus, species)))`*
 
 ## Study organism
-Name and strain/origin of species.  
 
-Provide basic life history information (aquatic/terrestrial, mode of dispersal, lifespan, etc.).  
+**Name and strain/origin of species.**  
 
-Briefly describe what is known about the temperature range the species experiences (geographic range, seasonality, type of habitat, etc.) in its natural system or the history of the conditions it has experienced in the lab.  
+*Pteronemobius heydenii* were captured from semi-natural enclosures situated in Southern France (the Metatron, Ariège, France, 43°01ʹ N, 1°05ʹ E, Legrand et al 2012). 
 
-How were organisms sourced?  
--	Field caught: provide information on timing, geographic coordinates, type of habitat.  
--	Lab sourced: provide information on source.  
--	Provide license/ authorization numbers for catching animals in the field and/or doing experiments, where applicable. 
 
-How were individuals/populations treated before the experiment?  
--	Rearing/holding conditions (temperature, food, light).  
--	How long were experimental subjects held before the experiment?  
+**Life history information**
 
-Were specific individuals/phenotypes/stages selected for the experiment?  
+*Pteronemobius heydenii* are terrestrial Orthopteran of the Trigonidiidae family, widely distributed in Europe.
+Crickets are found in humid habitats. 
+Individuals hibernate as nymphs, and adults can be encountered from May to September in Romania (Iorgu et Iorgu 2008).
+A test by the authors using individuals from the source populations and increasing temperature gradually degree by degree in a water bath until death gave a CTmax of 40.8°C +/- 2.17 SD (personal communication).
+
+**How were the organisms sourced**
+
+The 6 species used by our group for the experiment (i.e. experiments on the isopods *Armadillidium vulgare* and *Philoscia muscorum*, the spiders *Pardosa sp* and *Pisaura mirabilis*, and the crickets *Gryllus campestris* and *Pteronemobius heydenii*) were sourced from arthropod communities present in the Metatron, an ensemble of 10 × 10 m semi-natural mesocosms fully enclosed by tarpaulin and fine-meshed nets (Ariège, France, 43°01ʹ N, 1°05ʹ E; Legrand et al. 2012). Mesocosms act as mini-ecosystems, with diverse natural vegetation (39 ± 9 plant species per mesocosm), invertebrate communities (37 ± 4 insect families per mesocosm) and thermal micro-habitats (shaded, dense and diverse vegetation, hides, sun-battered rocks, and logs and small ponds; Bestion et al., 2015). The vegetation is representative of humid grasslands. 
+We collected arthropods from the 6 species beginning of September 2025 for the fitness experiment (except for Pteronemobius that was collected in a second round beginning of October 2025), aiming to collect 6 individuals per mesocosm in the mesocosms in which the focal species was present in sufficient abundance (hence, not all mesocosms were sampled, and the identity of the mesocosms sampled could vary depending on the species). Individuals for the dispersal experiments were captured in three separate round (first round, end of September 2025, *Armadillidium vulgare* and *Gryllus campestris*, second round, beggining of October 2025, *Pardosa sp* and *Pisaura mirabilis*, and third round, end of October 2025, *Pteronemobius heydenii* and *Philoscia muscorum*). For the dispersal experiment, we aimed at capturing 15 individuals per mesocosms in the mesocosms in which the focal species was present in sufficient abundance. Because the individuals for the fitness experiment were captured at a different time from the individuals for the dispersal experiment, and because the number of individuals captured for the dispersal experiment was higher than from the fitness experiment, the number and identity of mesocosms in which individuals were captured for the two experiments could vary.
 
 ## Study design
 
 ### Temperature treatments
 
-State the temperatures used for Topt, Thot, Tcold, and explain how they were chosen.  
-
-State whether there was daily variation in temperature, and if so, describe (e.g., mean and standard deviation of temperature for each treatment).  
+We ran all arthropod experiments from our group (i.e. experiments on the isopods *Armadillidium vulgare* and *Philoscia muscorum*, the spiders *Pardosa sp* and *Pisaura mirabilis*, and the crickets *Gryllus campestris* and *Pteronemobius heydenii*) at three temperatures, 18, 22 and 26°C. Temperatures were maintained constant (no daily variation) during the experiment. 
+Temperature treatments were chosen as a compromise between the different species,  as limited experimental room led all species to be treated at the same three temperatures. Thus, depending on the species, we may have missed the low or the high part of the thermal performance curve. Thus, instead of the low, opt, high treatment, some species may have low, medium.low and opt treatment, some opt, medium.high and high treatment.
 
 ### Phase 1: Fitness assay
 
-Describe the fitness proxy (growth rate, survival, body condition, reproductive output, etc.). If proxy is indirect (e.g., body condition), explain what is known about the relationship between the proxy and actual fitness in the species.  
+We studied survival as a function of temperature. 
+Beginning of October 2025, we captured 65  crickets from 11 semi-natural mesocosms (the Metatron), and brought them to the laboratory to study survival. Individuals were weighted, and then kept individually in 50 ml falcon tubes with a pierced lid, with a piece of humid cotton and dandelion leaves.
+The assays were run inside 3 incubators (Aqualitik thermostatic cabinets, 544 L), in which temperature was set at either 18, 22 or 26°C and light (a light bulb Zoomed Reptisun 5.0 UVB) was set on a 12:12 timer.
+Once a week, the cotton was re-humidified, and fresh dandelion leaves were added.
 
-Provide details about the methods for estimating the fitness proxy including:  
--	Physical details about the experimental setup including size/shape/volume of experimental arenas, substrate/medium of experimental arenas.  
--	Replicates  
-    - Specify number of experimental replicates  
-    - Number of strains and number of replicates per strain  
-    - Indicate if experimental blocks were used and the blocking design (number of blocks, how many replicates of each treatment per block, time/space between blocks)
--	Type and amount of food provided during experiment  
-- Starting density  
--	Duration of fitness assay  
--	Controlled variables: food (ad lib?), water (ad lib?), sex ratio  
-- Phenotypes measured (activity, body condition, body size, etc.) and how they were estimated  
+Survival for all six species was checked twice a week from beginning of September to end of November. Further, individuals from all species were weighted after two and six weeks, and for spiders also after eleven weeks. Timing of death varied among species, with for instance *Pteronemobius heydenii* loosing over half of its individuals after 29 days of treatment, while it took 52 days to *Philoscia muscorum*, 80 days to *Armadillidium vulgare* to reach the same amount of deaths, and crickets *Gryllus campestris* only reached 41 % of mortality at the end of the experiment, while spiders *Pardosa sp* and *Pisaura mirabilis* reached even lower number of deaths, with respectively 21 % (18 out of 87 individuals) and 11 % (7 out of 63 individuals) of mortality.
+Because of the variation in mortality over time, we decided to choose a cut-off date at which the individuals of a given species had reached at least 40 % of overall mortality to calculate fitness as survival, which allowed to treat all crickets and isopods the same. For the two spiders, because the mortality was very low, we decided to pick weight change as a fitness proxy.
+Hence, for *Pteronemobius heydenii*, the cut-off chosen led survival to be measured at 23 days of treatment.
 
 ### Phase 2: Dispersal assay
 
-Provide details about the methods for estimating dispersal including:  
--	Physical details about the experimental setup including size/shape/volume of experimental arenas, substrate/medium of experimental arenas, type of system (1 or 2 patches).  
--	Replicates  
-    - Specify number of experimental replicates  
-    - Number of strains and number of replicates per strain  
-    - Indicate if experimental blocks were used and the blocking design (number of blocks, how many replicates of each treatment per block, time/space between blocks)  
--	Type and amount of food provided during experiment  
-- Starting density  
--	Duration of dispersal assay including:  
-    - time between birth and start of acclimation period  
-    - duration of acclimation period  
-    - timing and duration of dispersal assay  
--	Controlled variables: food (ad lib?), water (ad lib? if applicable), sex ratio  
-- Phenotypes measured (activity, body condition, body size, etc.) and how they were estimated  
-- Whether individuals used in phase 2 were the same as used in phase 1 
-- Provide details on data collection including:  
-    -	The sampling regime (time intervals between sampling).  
-    -	Sampling method including whether individuals were marked and whether sampling was observed or automated. Please include validation if automated.  
-- State whether mortality during the dispersal assay was recorded. Describe how mortality was handled for the statistical analysis (e.g., individuals that died during the dispersal assay were excluded from the analysis of dispersal).  
+Dispersal assays were ran in 33 dispersal systems constituted by a plastic container (39*28*28 cm) connected to a 8 cm diameter plastic tube of total length 320 cm and composed of three tubes connected by U connectors, and ending in a pitfall trap (glass jar). The plastic tubes are cut in their length with a 3cm-large windows covered in insect net. 
+The systems are filled with ground (organic compost), and departure patches contain dandelion leaves and a shelter made of eggg cardboard. During the acclimation phase, corridors are closed by insect-proof net.
+
+The systems are lighted by neon lights (Zoomed Reptisun 5.0 UVB) on on a timer between 8:00 and 17:00.
+Systems are set in three temperature-controlled rooms, at either 18, 22 or 26°C.
+
+Isopods were captured from Metatron mesocosms end of October 2025 (~15 individuals per mesocosm in 11 mesocosms), acclimated to the laboratory for a few days, then we created 33 populations (11 populations per temperatures) the dispersal systems. We created populations of 5 individuals provening from the same Metatron mesocosm per dispersal system.
+
+Once populations were created in the dispersal systems, we left individuals to acclimatize to the departure patches for a day, then opened the corridors and monitored dispersal for 11 days, capturing dispersing individuals in the pitfall traps twice a day. During this period, systems (departure patches+ corridors) were sprayed with water daily. At the end of the dispersal experiment, we recaptured surviving and dead individuals.
+Dispersal was assessed for each individual as a 0/1 (1=dispersed) outcome, excluding dead or missing individuals.
 
 
+## Author contributions
+
+Nicolas Mouret:  Methodology, Statistical analysis, Investigation
+Julien Cote: Conceptualization, Methodology,  Investigation
+Delphine Legrand: Conceptualization, Methodology,  Investigation
+Pau Molina-Vila: Conceptualization, Methodology
+Elvire Bestion: Conceptualization, Methodology, Statistical analysis, Investigation, Writing, Funding Acquisition
+
+## Acknowledgements
+
+We are thankful to Mireia Alonso-Pont and Laure Olazcuaga for punctual help building the dispersal systems. This work was supported by funding from the Agence Nationale de la Recherche to EB (ANR-23-CE02-0009-01) and by LABEX TULIP (ANR-10-LABX-0041).
 
 ```{r instructions2, echo = F}
 
@@ -299,13 +298,13 @@ with(d_phase1, hist(fitness.transformation.function(Fitness), xlab = paste(trans
 
 ```
 
-```{r fitnessplotnormal, eval = fitness.normal | fitness.transformed.normal, echo = F, message = F, fig.cap = paste("Figure 2. Boxplot of fitness (", tolower(fitness.proxy), "), as a function of temperature treatment. low = ", low.temp, "C, opt = ", opt.temp, "C, high = ", high.temp, "C.")}
+```{r fitnessplotnormal, eval = fitness.normal | fitness.transformed.normal, echo = F, message = F, fig.cap = paste("Figure 2. Boxplot of fitness (", tolower(fitness.proxy), "), as a function of temperature treatment. opt = ", opt.temp, "C, medium.high = ", medium.high.temp, "C, high = ", high.temp, "C.")}
 
 # plot fitness data
 
 ggplot(d_phase1, aes(x = Temp.treatment, y = Fitness, col = Temp.treatment))+
   geom_boxplot()+
-  scale_x_discrete("Temperature treatment", limits = c("low", "opt", "high"))+
+  scale_x_discrete("Temperature treatment", limits = c("opt", "medium.high", "high"))+
   scale_color_manual(values = c("darkgreen", "red", "blue"), guide = "none")+
   theme_classic(base_size = 15)
 
@@ -410,14 +409,14 @@ output_dispersal_contrasts <- output_dispersal_emmeans$contrasts %>%
 
 ```
 
-```{r dispersalplot, echo = F, warning = F, fig.cap = paste("Figure 1. Dispersal as a function of temperature treatment. low = ", low.temp, "C, opt = ", opt.temp, "C, high = ", high.temp, "C. Error bars represent 95% confidence intervals predicted from GLMM.")}
+```{r dispersalplot, echo = F, warning = F, fig.cap = paste("Figure 1. Dispersal as a function of temperature treatment. opt = ", opt.temp, "C, medium.high = ", medium.high.temp, "C, high = ", high.temp, "C. Error bars represent 95% confidence intervals predicted from GLMM.")}
 
 # plot dispersal data
 
 ggplot(as.data.frame(output_dispersal_emmeans$emmeans), aes(x = Temp.treatment, y = prob, col = Temp.treatment))+
   geom_point(size = 4)+
   geom_errorbar(aes(ymin = asymp.LCL, ymax = asymp.UCL), width = 0)+
-  scale_x_discrete("Temperature treatment", limits = c("low", "opt", "high"))+
+  scale_x_discrete("Temperature treatment", limits = c("opt", "medium.high", "high"))+
   scale_y_continuous("Dispersal probability")+
   scale_color_manual(values = c("darkgreen", "red", "blue"), guide = "none")+
   theme_classic(base_size = 15)
