@@ -1658,24 +1658,63 @@ Legrand</h4>
 <h1>Supplementary methods for <em>Aphanomyces euteiches</em></h1>
 <div id="study-organism" class="section level2">
 <h2>Study organism</h2>
-<p>Name and strain/origin of species.</p>
-<p>Provide basic life history information (aquatic/terrestrial, mode of
-dispersal, lifespan, etc.).</p>
-<p>Briefly describe what is known about the temperature range the
-species experiences (geographic range, seasonality, type of habitat,
-etc.) in its natural system or the history of the conditions it has
-experienced in the lab.</p>
-<p>How were organisms sourced?<br />
-- Field caught: provide information on timing, geographic coordinates,
-type of habitat.<br />
-- Lab sourced: provide information on source.<br />
-- Provide license/ authorization numbers for catching animals in the
-field and/or doing experiments, where applicable.</p>
-<p>How were individuals/populations treated before the experiment?<br />
-- Rearing/holding conditions (temperature, food, light).<br />
-- How long were experimental subjects held before the experiment?</p>
-<p>Were specific individuals/phenotypes/stages selected for the
-experiment?</p>
+<p><strong>Name and strain/origin of species</strong></p>
+<p><em>Aphanomyces euteiches</em> Drechsler, strains RB84 and FIfi46</p>
+<p><strong>Life history information</strong></p>
+<p><em>Aphanomyces euteiches</em> is an oomycete pathogen causing the
+root rot disease in legumes and was recognized as one of the most
+damaging soil-borne pathogens on peas (Gaulin et al., 2007). It was
+first recognized as the causal agent of destructive pea root-rot in
+North America in the 1920s and was formally described by Drechsler in
+1925 (Jones &amp; Drechsler, 1925). Then, it was recorded in many other
+pea-growing regions worldwide - Europe (notably France and Norway ),
+Canada and other parts of North America, Australia, New Zealand and
+Japan.</p>
+<p>The life cycle of A. euteiches includes asexual and sexual stages
+that occur only in soil, allow an efficient dissemination and
+conservation of the parasite and rely on a plant host (Gaulin et al.,
+2007). First, filamentous hyphae emerging either from germinated sexual
+non-motile oospore (resistant structure produced after reproduction,
+able to survive in soil for decades, which disperse in a passive way
+mainly with agricultural practices) or from encysted asexual motile
+zoospores can explore soils to colonize roots. Second, the biflagellate
+zoospores can swim in the search of a potential infection site. Once
+found, the cell loses its motile flagella, synthesizes a cell wall and
+develops a hypha that penetrates the root tissue. A successful infection
+relies on the versatility of dispersal structures to perceive diverse
+stimuli like plant roots, soil particles, humidity and temperature
+variation, or the presence of other rhizospheric microorganisms (Gaulin
+et al., 2007).</p>
+<p>This soilborne pathogen has been recorded mostly in the north
+hemisphere in cool and wet soils. The optimal temperature for the
+disease development (root rots) in artificial condition is comprised
+between 15°C-16°C and 28°C-30°C (Jones &amp; Drechsler, 1925; Papavizas
+and Ayers, 1974).</p>
+<p><strong>How were the organisms sourced</strong></p>
+<p>The Ae FIFi46 strain was isolated in June 2020 from the Itä Uusimaa
+region (south-east Finland, detailed coordinates not available) from
+20-25cm depth soil samples (Kälin et al., 2022). This strain was baited
+using the susceptible pea cultivar Linnea as described by Olofsson
+(1967).</p>
+<p>The Ae RB84 strain was isolated from Riec-sur-Bélon (Brittany,
+Finistère, France) from infected pea field.</p>
+<p>For FIFi46: Department of Forest Mycology and Plant Pathology,
+Swedish University of Agricultural Sciences, Uppsala, Sweden For RB84:
+Terres Inovia, Le Rheu, France and IGEPP, INRAE, Institut Agro, Univ
+Rennes, Le Rheu, France.</p>
+<p>A. euteiches isolates are stored long term as mycelium grown on 1.7%
+corn meal agar (CMA) (Sigma-Aldrich), at 10°C in the dark. Fresh
+mycelial subcultures are produced from these long-term storage plates
+before the experiment. Fresh mycelial is grown for a week on
+petri-dishes plates (Ø 9 cm) filled with 1.7% CMA (20 mL) at 22°C in the
+dark. Zoospore production was done from this fresh mycelial material as
+followed: twenty plugs (0.5mm) were incubated (dark, 22°C, 48 hrs) in 20
+ml of PG media (2% bactopeptone, 0.4% glucose). The plugs were 4 times
+washed in Volvic® water (30ml) every two hours, before incubation
+(overnight at 22°C in dark) in Volvic® (10ml).</p>
+<p>Zoospores were produced the day of the experiment from a seven-days
+old mycelium culture.</p>
+<p>Dispersal was measured in zoospores (biflagellate motile cells).</p>
 </div>
 <div id="study-design" class="section level2">
 <h2>Study design</h2>
@@ -1693,15 +1732,26 @@ is still enough cells to detect dispersal. This led to choose 14, 22 and
 <p>We studied population growth rate as a fitness proxy. We measured
 growth rate by absorbance on 12 technical replicates per temperature,
 over 16 days of experiment.</p>
-<p>The experiments were done in PolEko SmartPro incubators. Oomycetes
-were <strong>prepared XXXXXXXX</strong> On the day of the experiment, 12
-wells of a 96 well plate were filled with 250 ul of PG medium and 10 ul
-of oomycetes inoculate for each temperature. The other wells were filled
-with medium, and the reservoirs filled with 12 ml of pure water to limit
-evaporation during the experiment. Plates were placed in PolEko SmartPro
-incubators at the three chosen temperatures on a 12:12 light:dark cycle.
-Absorbance was measured at 600 nm to measure growth rate thrice then
-twice a day for 16 days with a TECAN Infinite M200 Pro reader.</p>
+<p>The experiments were done in PolEko SmartPro incubators.</p>
+<p>Five days before the experiment, oomycetes were prepared by taking
+thirty plugs (diameter 0.5 mm) from a seven-days-old mycelium (growth on
+Corn Meal Agar plate at 22°C in the dark) and incubated (dark, 22°C, 48
+hours) in 50 ml of PG media (2% bactopeptone, 0.4 % glucose). The plugs
+were washed 4 times in Volvic water (100 ml) every two hours, before
+incubation (overnight at 22°C in the dark) in 30 ml of volvic water.</p>
+<p>On the day of the experiment, 12 wells of a 96 well plate were filled
+with 250 ul of PG medium and 10 ul of oomycetes inoculate for each
+temperature. The other wells were filled with medium, and the reservoirs
+filled with 12 ml of pure water to limit evaporation during the
+experiment. Plates were placed in PolEko SmartPro incubators at the
+three chosen temperatures on a 12:12 light:dark cycle. Absorbance was
+measured at 600 nm to measure growth rate thrice then twice a day for 16
+days with a TECAN Infinite M200 Pro reader.</p>
+<p>Growth rate was measured from the growth curves using the easylinear
+function from the growthrates R package, as mean absorbance dependent of
+time in hours for each replicate and temperature, with the with of the
+windows h fixed to 10.We used the maximum growth rate as our fitness
+measure.</p>
 </div>
 <div id="phase-2-dispersal-assay" class="section level3">
 <h3>Phase 2: Dispersal assay</h3>
@@ -1712,17 +1762,19 @@ temperature, and temperature was controlled by PolEko SmartPro
 incubators.</p>
 <p>Oomycetes for the dispersal experiment were from the same transfer as
 the fitness assay.</p>
-<p>Systems were filled with 2.5 ml of volvic water and then clamped.
-Then 300 ul of oomycete inoculate was added to the “departure” patch,
-and oomycetes were acclimated to the temperature in the closed systems
-in the incubators set at each given temperature and in light conditions
-for 30 minutes. After 30 minutes, systems were unclamped, and left for 2
-hours for the oomycetes to disperse. Then, after 2 hours, systems were
-re-clamped, and 80 ul of homogenized medium was collected from each tube
-(the “departure” and “arrival” patch), and placed onto multi-chambered
-counting slides (Kima). We took from each sample a 15 second video under
-dark-field macroscopy (Axio Zoom V16, Zeiss) and quantified cell
-densities using the BEMOVI R package.</p>
+<p>Systems were filled with 2.5 ml of sterile volvic water and then
+clamped. Then 300 ul of oomycete inoculate was added to the “departure”
+patch, and oomycetes were acclimated to the temperature in the closed
+systems in the incubators set at each given temperature and in light
+conditions for 30 minutes. After 30 minutes, systems were unclamped, and
+left for 2 hours for the oomycetes to disperse. Then, after 2 hours,
+systems were re-clamped, and 80 ul of homogenized medium was collected
+from each tube (the “departure” and “arrival” patch), and placed onto
+multi-chambered counting slides (Kima).</p>
+<p>We took from each sample a 15 second video under dark-field
+macroscopy (Axio Zoom V16, Zeiss) and quantified cell abundances in the
+departure and arrival patches using ImageJ and R stoftware with the
+BEMOVI R package (Pennekamp et al, 2015).</p>
 </div>
 </div>
 <div id="author-contributions" class="section level2">
@@ -1736,10 +1788,10 @@ analysis, Investigation, Writing</li>
 </div>
 <div id="acknowledgements" class="section level2">
 <h2>Acknowledgements</h2>
-<p>We are thankful to our high school interns, Elena and Kalis, for help
-running the experiment, as well as to Lucie Di Gesu for punctual help
-running the growth curve experiment. This work was supported by funding
-from the LABEX TULIP (ANR-10-LABX-0041).</p>
+<p>We are thankful to our high school interns, Elena Hattinguais and
+Kalis Eliot, for help running the experiment, as well as to Lucie Di
+Gesu for punctual help running the growth curve experiment. This work
+was supported by funding from the LABEX TULIP (ANR-10-LABX-0041).</p>
 </div>
 <div id="statistical-analysis" class="section level2">
 <h2>Statistical Analysis</h2>
