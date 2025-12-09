@@ -181,6 +181,7 @@ On the day of the experiment, 12 wells of a 96 well plate were filled with 250 u
 Plates were placed in PolEko SmartPro incubators at the three chosen temperatures on a 12:12 light:dark cycle.
 Absorbance was measured at 665 nm to measure growth rate twice a day for 16 days with a TECAN Infinite M200 Pro reader.
 
+Growth rate was measured from the growth curves using the easylinear function from the growthrates R package, as mean absorbance dependent of time in hours for each replicate and temperature, with the with of the windows h fixed to 10.We used the maximum growth rate as our fitness measure.
 
 ### Phase 2: Dispersal assay
 
@@ -197,7 +198,7 @@ Systems were filled with 2.5 ml of K medium and then clamped. Then 400 ul of alg
 
 ## Acknowledgements
 
-We are thankful to our high school interns, Elena and Kalis, for help running the experiment, as well as to Lucie Di Gesu for punctual help running the growth curve experiment. This work was supported by funding from the LABEX TULIP (ANR-10-LABX-0041).
+We are thankful to our high school interns, Elena Hattinguais and Kalis Eliot, for help running the experiment, as well as to Lucie Di Gesu for punctual help running the growth curve experiment. This work was supported by funding from the LABEX TULIP (ANR-10-LABX-0041).
 
 
 
