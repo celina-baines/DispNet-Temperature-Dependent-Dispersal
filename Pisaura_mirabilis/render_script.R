@@ -1,5 +1,5 @@
-Genus = "" #Insert Genus here in quotes
-species = "" #Insert species here in quotes
+Genus = "Pisaura" #Insert Genus here in quotes
+species = "mirabilis" #Insert species here in quotes
 
 rmarkdown::render(
   input = paste(Genus, "_", species, "/", Genus, "_", species, ".Rmd", sep = ""),

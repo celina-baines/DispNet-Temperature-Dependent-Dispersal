@@ -1,8 +1,10 @@
 ---
-title: "Temperature dependent dispersal: A distributed experiment"
-author: "researcher names here"
-output: word_document
-editor_options: 
+title: 'Temperature dependent dispersal: A distributed experiment'
+author: "Elvire Bestion,  Margot Trinquier, Delphine Legrand"
+output:
+  html_document:
+    df_print: paged
+editor_options:
   chunk_output_type: console
 ---
 
@@ -32,12 +34,12 @@ library(DHARMa)
 
 # 3. Fill out information about your species below
 
-Genus = "Genus"
-species = "species"
-fitness.proxy = "Population growth, r / Survival / Fecundity"
-low.temp = x #value of low temperature treatment in Celsius
-opt.temp = x #value of optimal temperature treatment in Celsius
-high.temp = x #value of high temperature treatment in Celsius
+Genus = "Aphanomyces"
+species = "euteiches"
+fitness.proxy = "Population growth, r"
+low.temp = 14 #value of low temperature treatment in Celsius
+opt.temp = 22 #value of optimal temperature treatment in Celsius
+high.temp = 26 #value of high temperature treatment in Celsius
 
 
 # 4. Check that the data files have the following headers (order of columns is not important):
@@ -61,18 +63,18 @@ high.temp = x #value of high temperature treatment in Celsius
 ## Answer questions below about the fitness proxy
 
 ### Is your fitness variable binary? (choose one)
-fitness.binary = TRUE/FALSE
+fitness.binary = FALSE
 
 ### Is the fitness variable continuous normal (without transformation)? (choose one)
-fitness.normal = TRUE/FALSE
+fitness.normal = FALSE
 
 ### Is the fitness variable normal after transformation? (choose one; choose NA if you said "TRUE" to either question above)
-fitness.transformed.normal = TRUE/FALSE/NA
+fitness.transformed.normal = TRUE
 
 ## If fitness variable is continuous normal AFTER transformation, choose transformation used (just write it in if not on this list):
 
-transform.description <- "square-root/log/log10" # leave as-is if not applicable
-fitness.transformation.function <- function(x) {return (XYZ(x))} # give transformation formula here; replace XYZ with transformation e.g., sqrt(x) or log(x + 1), etc., where x will be Fitness, below
+transform.description <- "log" # leave as-is if not applicable
+fitness.transformation.function <- function(x) {return (log(x))} # give transformation formula here; replace XYZ with transformation e.g., sqrt(x) or log(x + 1), etc., where x will be Fitness, below
 
 ## note: if fitness (or transformed fitness) does not have a binomial or normal distribution, check in with Celina.
 
@@ -81,7 +83,7 @@ fitness.transformation.function <- function(x) {return (XYZ(x))} # give transfor
 
 ## Is there overdispersion in the dispersal data? If you do not yet know, choose FALSE and this will be dealt with in step 12.
 
-overdispersion = TRUE/FALSE
+overdispersion = FALSE
 
 
 # 7. Dealing with mortality in dispersal assay
@@ -94,14 +96,14 @@ overdispersion = TRUE/FALSE
 
 ## Do rows represent individuals in the dataset and are there dead individuals that should be removed from the dispersal data?
 
-filter.dead = TRUE/FALSE/NA # choose NA if this does not apply to your species
+filter.dead = FALSE # choose NA if this does not apply to your species
 
 
 # 8. Model formulae
 
 ## Formula for fitness: (fill in as appropriate)
 
-fitness.formula <- "Fitness ~ Temp.treatment + other.fixed.effects + (1|random)"
+fitness.formula <- "log(Fitness) ~ Temp.treatment*Strain"
 
 ### notes:
 #### TRANSFORM FITNESS VARIABLE (if needed) *WITHIN* THE FORMULA; doing it within the formula is important for contrasts below  
@@ -118,7 +120,7 @@ Fit1 <- "Died/Survived" # or fill in other
 
 ## Formula for dispersal: (fill in as appropriate)
   
-dispersal.formula <- "cbind(Num.disp, Num.nondisp) ~ Temp.treatment + other.fixed.effects + (1|random)"
+dispersal.formula <- "cbind(Num.disp, Num.nondisp) ~ Temp.treatment*Strain"
 
 ### notes
 #### other.fixed.effects does not apply to every species; include as appropriate; fixed effects should be standardized
@@ -133,17 +135,17 @@ dispersal.formula <- "cbind(Num.disp, Num.nondisp) ~ Temp.treatment + other.fixe
 ## choose option on right hand side
 ## see description of moderators and levels in README.md in project repo
 
-taxonomic.group <- "arthropod/ciliate/microalgae"
-rearing.environment <- "commonT/treatmentT/field"
-comp.strength <- "low/moderate/high"
-source <- "lab/field" # lab population or field caught
+taxonomic.group <- "oomycete"
+rearing.environment <- "commonT"
+comp.strength <- "low"
+source <- "lab" # lab population or field caught
 habitat <- "aquatic/terrestrial"
 Tvariation <- "homogenous/heterogenous"
-species.body.size <- x # mean body length in mm
+species.body.size <- NA # mean body length in mm
 passive.dispersal <- "Yes/No"
 inbred <- "inbred line/mixed"
 disp.assay.duration <- 0.01/0.1/1/10 # order of magnitude for dispersal assay duration / generation time, i.e., approximate number of generations the dispersal assay lasted
-fitness.proxy.type <- "r/other"
+fitness.proxy.type <- "r"
 
 # 10. Fill out methods information in text below.
 
@@ -173,48 +175,38 @@ Were specific individuals/phenotypes/stages selected for the experiment?
 
 ### Temperature treatments
 
-State the temperatures used for Topt, Thot, Tcold, and explain how they were chosen.  
+We created a growth curve and a dispersal experiment at 6 temperature treatments, 14, 18, 22, 26, 30 and 34°C. We chose tree temperatures out of the 6 to be the Tlow, Topt and Thigh, so that we had Topt, and Tlow and Thigh would be the most different temperatures from Topt where there is still enough cells to detect dispersal.
+This led to choose 14, 22 and 26 °C.
 
-State whether there was daily variation in temperature, and if so, describe (e.g., mean and standard deviation of temperature for each treatment).  
 
 ### Phase 1: Fitness assay
 
-Describe the fitness proxy (growth rate, survival, body condition, reproductive output, etc.). If proxy is indirect (e.g., body condition), explain what is known about the relationship between the proxy and actual fitness in the species.  
+We studied population growth rate as a fitness proxy. We measured growth rate by absorbance on 12 technical replicates per temperature, over 16 days of experiment.
 
-Provide details about the methods for estimating the fitness proxy including:  
--	Physical details about the experimental setup including size/shape/volume of experimental arenas, substrate/medium of experimental arenas.  
--	Replicates  
-    - Specify number of experimental replicates  
-    - Number of strains and number of replicates per strain  
-    - Indicate if experimental blocks were used and the blocking design (number of blocks, how many replicates of each treatment per block, time/space between blocks)
--	Type and amount of food provided during experiment  
-- Starting density  
--	Duration of fitness assay  
--	Controlled variables: food (ad lib?), water (ad lib?), sex ratio  
-- Phenotypes measured (activity, body condition, body size, etc.) and how they were estimated  
+The experiments were done in PolEko SmartPro incubators.
+Oomycetes were **prepared XXXXXXXX** 
+On the day of the experiment, 12 wells of a 96 well plate were filled with 250 ul of PG medium and 10 ul of oomycetes inoculate for each temperature. The other wells were filled with medium, and the reservoirs filled with 12 ml of pure water to limit evaporation during the experiment.
+Plates were placed in PolEko SmartPro incubators at the three chosen temperatures on a 12:12 light:dark cycle.
+Absorbance was measured at 600 nm to measure growth rate thrice then twice a day for 16 days with a TECAN Infinite M200 Pro reader.
+
 
 ### Phase 2: Dispersal assay
 
-Provide details about the methods for estimating dispersal including:  
--	Physical details about the experimental setup including size/shape/volume of experimental arenas, substrate/medium of experimental arenas, type of system (1 or 2 patches).  
--	Replicates  
-    - Specify number of experimental replicates  
-    - Number of strains and number of replicates per strain  
-    - Indicate if experimental blocks were used and the blocking design (number of blocks, how many replicates of each treatment per block, time/space between blocks)  
--	Type and amount of food provided during experiment  
-- Starting density  
--	Duration of dispersal assay including:  
-    - time between birth and start of acclimation period  
-    - duration of acclimation period  
-    - timing and duration of dispersal assay  
--	Controlled variables: food (ad lib?), water (ad lib? if applicable), sex ratio  
-- Phenotypes measured (activity, body condition, body size, etc.) and how they were estimated  
-- Whether individuals used in phase 2 were the same as used in phase 1 
-- Provide details on data collection including:  
-    -	The sampling regime (time intervals between sampling).  
-    -	Sampling method including whether individuals were marked and whether sampling was observed or automated. Please include validation if automated.  
-- State whether mortality during the dispersal assay was recorded. Describe how mortality was handled for the statistical analysis (e.g., individuals that died during the dispersal assay were excluded from the analysis of dispersal).  
+Dispersal assays were done over one day in two-patch systems made of two 1.5 ml Eppendorf tubes connected by a corridor (4 mm internal diameter silicon tube, 2.5 cm long). Six replicates were done by temperature, and temperature was controlled by PolEko SmartPro incubators.
 
+Oomycetes for the dispersal experiment were from the same transfer as the fitness assay.
+
+Systems were filled with 2.5 ml of volvic water and then clamped. Then 300 ul of oomycete inoculate was added to the "departure" patch, and oomycetes were acclimated to the temperature in the closed systems in the incubators set at each given temperature and in light conditions for 30 minutes. After 30 minutes, systems were unclamped, and left for 2 hours for the oomycetes to disperse. Then, after 2 hours, systems were re-clamped, and 80 ul of homogenized medium was collected from each tube (the "departure" and "arrival" patch), and placed onto multi-chambered counting slides (Kima). We took from each sample a 15 second video under dark-field macroscopy (Axio Zoom V16, Zeiss) and quantified cell densities using the BEMOVI R package. 
+
+## Author contributions
+
+* Delphine Legrand: Conceptualization, Methodology,  Investigation
+* Margot Trinquier: Investigation
+* Elvire Bestion: Conceptualization, Methodology, Statistical analysis, Investigation, Writing
+
+## Acknowledgements
+
+We are thankful to our high school interns, Elena and Kalis, for help running the experiment, as well as to Lucie Di Gesu for punctual help running the growth curve experiment. This work was supported by funding from the LABEX TULIP (ANR-10-LABX-0041).
 
 
 ```{r instructions2, echo = F}
@@ -319,7 +311,7 @@ ggplot(d_phase1, aes(x = Temp.treatment, y = Fitness, col = Temp.treatment))+
 
 # model testing effects of temperature on fitness
 
-m_fitness <- lmer(fitness.formula, data = d_phase1)
+m_fitness <- lm(fitness.formula, data = d_phase1)
 
 # output results for overall model and pairwise comparisons
 
@@ -345,7 +337,7 @@ knitr::kable(fittable, col.names = c(Fit0, Fit1),
 
 # model testing effects of temperature on fitness
 
-m_fitness <- glmer(fitness.formula, family = binomial, data = d_phase1)
+m_fitness <- glm(fitness.formula, family = binomial, data = d_phase1)
 
 # output results for overall model and pairwise comparisons
 
@@ -383,7 +375,7 @@ output_fitness_contrasts
 
 # binomial model testing effects of temperature on dispersal
 
-m_dispersal <- glmer(dispersal.formula, family = "binomial", data = d_phase2)
+m_dispersal <- glm(dispersal.formula, family = "binomial", data = d_phase2)
 
 # output results for overall model and pairwise comparisons
 output_dispersal_Tempeffect <- drop1(m_dispersal, test = "Chisq")
