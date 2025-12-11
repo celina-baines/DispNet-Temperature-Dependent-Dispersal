@@ -151,6 +151,18 @@ fitness.proxy.type <- "other"
 
 # Supplementary methods for *`r (print(paste(Genus, species)))`*
 
+### Author contributions
+Possible categories:
+- conceptualization: Leonor Rodrigues Inês Fragata
+- statistical analysis: Inês Fragata, Sofia Henriques and Ana Lima
+- methodology (design of methodology): Leonor Rodrigues, Inês Fragata
+- investigation/conduct experiment: Sofia Henriques and Ana Lima
+- funding acquisition: Inês Fragata
+- writing (original draft, supplement): Inês Fragata
+
+## Acknowledgements
+Juan Lopez and Raquel Tomé for plant maintenance. This work was financed by an ERC starting grant DYNAMICTRIO, GA 101042392 attributed to IF.
+
 #### Study organism
 Name and strain/origin of species: Tetranychus evansi
 

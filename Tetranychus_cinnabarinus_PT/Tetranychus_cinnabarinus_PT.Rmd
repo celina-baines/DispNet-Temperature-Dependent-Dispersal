@@ -67,14 +67,14 @@ high.temp = 36 #value of high temperature treatment in Celsius
 fitness.binary = FALSE
 
 ### Is the fitness variable continuous normal (without transformation)? (choose one)
-fitness.normal = TRUE
+fitness.normal = FALSE
 
 ### Is the fitness variable normal after transformation? (choose one; choose NA if you said "TRUE" to either question above)
-fitness.transformed.normal = NA
+fitness.transformed.normal = TRUE
 
 ## If fitness variable is continuous normal AFTER transformation, choose transformation used (just write it in if not on this list):
 
-transform.description <-  "square-root/log/log10" # leave as-is if not applicable
+transform.description <-  "square-root" # leave as-is if not applicable /log/log10
 fitness.transformation.function <- function(x) {return (sqrt(x))} # give transformation formula here; replace XYZ with transformation e.g., sqrt(x) or log(x + 1), etc., where x will be Fitness, below
 
 ## note: if fitness (or transformed fitness) does not have a binomial or normal distribution, check in with Celina.
@@ -106,7 +106,7 @@ filter.dead = FALSE # choose NA if this does not apply to your species
 # 8. Model formulae
 
 ## Formula for fitness: (fill in as appropriate)
-fitness.formula <- Fitness ~ Temp.treatment + (1|Female_survival)
+fitness.formula <- "Fitness ~ Temp.treatment + (1|Female_survival)"
 
 ### notes:
 #### TRANSFORM FITNESS VARIABLE (if needed) *WITHIN* THE FORMULA; doing it within the formula is important for contrasts below  
@@ -155,6 +155,18 @@ fitness.proxy.type <- "other"
 ```
 
 # Supplementary methods for *`r (print(paste(Genus, species)))`*
+
+## Author contributions
+Possible categories:
+- conceptualization: Leonor Rodrigues
+- statistical analysis: Sofia Costa and Raquel Gaspar
+- methodology (design of methodology): Leonor Rodrigues
+- investigation/conduct experiment: Raquel Gaspar and Sofia Costa
+- funding acquisition: Leonor Rodrigues
+- writing (original draft, supplement): Leonor Rodrigues
+
+## Acknowledgements
+Juan Lopez for plant maintenance and Sofia Nunes for population maintenance. This work is funded by portuguese national funds through FCT – Fundação para a Ciência e a Tecnologia, I.P., under the project HotPest (https://doi.org/10.54499/2022.04172.PTDC) to LRR. 
 
 ## Study organism
 
@@ -407,7 +419,7 @@ fittable <- with(d_phase1, table(Temp.treatment, Fitness))
 knitr::kable(fittable, col.names = c(Fit0, Fit1),
  caption = paste("Table 1. Relationship between", tolower(fitness.proxy), "and temperature treatment.")) 
 
-
+shapiro.test(d_phase1$Fitness^2)
 ```
 
 
