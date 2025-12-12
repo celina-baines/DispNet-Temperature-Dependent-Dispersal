@@ -157,7 +157,6 @@ fitness.proxy.type <- "other"
 # Supplementary methods for *`r (print(paste(Genus, species)))`*
 
 ## Author contributions
-Possible categories:
 - conceptualization: Leonor Rodrigues
 - statistical analysis: Sofia Costa and Raquel Gaspar
 - methodology (design of methodology): Leonor Rodrigues
