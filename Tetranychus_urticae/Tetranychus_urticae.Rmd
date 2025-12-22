@@ -70,12 +70,12 @@ fitness.binary = FALSE
 fitness.normal = FALSE
 
 ### Is the fitness variable normal after transformation? (choose one; choose NA if you said "TRUE" to either question above)
-fitness.transformed.normal = TRUE
+fitness.transformed.normal = FALSE
 
 ## If fitness variable is continuous normal AFTER transformation, choose transformation used (just write it in if not on this list):
 
-transform.description <- "sqrt" # leave as-is if not applicable
-fitness.transformation.function <- function(x) {return (sqrt(x))} # give transformation formula here; replace XYZ with transformation e.g., sqrt(x) or log(x + 1), etc., where x will be Fitness, below
+transform.description <- NA # leave as-is if not applicable
+fitness.transformation.function <- NA # give transformation formula here; replace XYZ with transformation e.g., sqrt(x) or log(x + 1), etc., where x will be Fitness, below
 
 ## note: if fitness (or transformed fitness) does not have a binomial or normal distribution, check in with Celina.
 
@@ -106,8 +106,8 @@ filter.dead = FALSE # choose NA if this does not apply to your species
 # 8. Model formulae
 
 ## Formula for fitness: (fill in as appropriate)
-fitness.formula.zero <- zero ~ Temp.treatment + population + (1|dispersion_id)
-fitness.formula.pos <- Fitness ~ Temp.treatment + population + (1|dispersion_id)
+fitness.formula <- Fitness ~ temp_treatment + (1 | plate)
+
 
 ### notes:
 #### TRANSFORM FITNESS VARIABLE (if needed) *WITHIN* THE FORMULA; doing it within the formula is important for contrasts below  
@@ -124,8 +124,8 @@ Fit1 <- "Died/Survived" # or fill in other
 
 ## Formula for dispersal: (fill in as appropriate)
   
-dispersal.formula.zero <- zero ~ Temp.treatment + population + (1|dispersion_id)
-dispersal.formula.pos <- cbind(Num.disp, Num.res) ~ Temp.treatment + population + (1|dispersion_id)
+dispersal.formula <- cbind(n_eggs_on_B, total_n_eggs - n_eggs_on_B) ~ temp_treatment + (1 | plate)
+
 ### notes
 #### other.fixed.effects does not apply to every species; include as appropriate; fixed effects should be standardized
 #### include as many random effects as appropriate
@@ -383,64 +383,31 @@ ggplot(d_phase1, aes(x = Temp.treatment, y = Fitness, col = Temp.treatment))+
 
 `r ifelse(fitness.binary == T, print(paste("To estimate the effects of temperature (a factor) on fitness we used a generalized linear mixed model with a logit link and", tolower(fitness.proxy), "as the binary response variable. We used the formula:")), paste("To estimate the effects of temperature (a factor) on fitness, we used a linear mixed model with", tolower(fitness.proxy), "as the response variable. We used the formula:"))`  
 
-`r deparse(fitness.formula.pos)`
+`r deparse(fitness.formula)`
 
 ```{r fitnessmodelnormal, eval = fitness.normal | fitness.transformed.normal, echo = F}
-
-d_phase1$zero <- d_phase1$Fitness == 0
-
-# --- 1. Zero part (logistic) ---
-m_fitness_zero <- glmmTMB(
-  fitness.formula.zero,
-  family = binomial(link="logit"),
+m_fitness <- glmmTMB(
+  Fitness ~ Temp.treatment + (1 | population) + (1 | plate),
+  family = tweedie(),
   data = d_phase1
 )
 
 
-# ANOVA for zero part
-output_fitness_zero_Tempeffect <- drop1(m_fitness_zero, test = "Chisq")
+output_fitness_Tempeffect <- drop1(m_fitness, test = "Chisq")
 
 # Summary for zero part
-output_fitness_zero_summary <- summary(m_fitness_zero)
+output_fitness_summary <- summary(m_fitness)
 
 # Pairwise comparisons for zero part (odds of producing any offspring)
-output_fitness_zero_emmeans <- emmeans(
-  m_fitness_zero,
+output_fitness_emmeans <- emmeans(
+  m_fitness,
   specs = pairwise ~ Temp.treatment,
   type = "response",       # back-transforms logit to probability
   adjust = "none"
 )
 
-output_fitness_zero_contrasts <- output_fitness_zero_emmeans$contrasts %>%
+output_fitness_contrasts <- output_fitness_emmeans$contrasts %>%
   summary(infer = TRUE)
-
-
-# --- 2. Positive part (Gamma) ---
-d_pos <- subset(d_phase1, Fitness > 0)
-m_fitness_pos <- glmmTMB(
-  fitness.formula.pos,
-  family = Gamma(link="log"),
-  data = d_pos
-)
-
-
-# ANOVA for positive part
-output_fitness_pos_Tempeffect <- drop1(m_fitness_pos, test = "Chisq")
-
-# Summary for positive part
-output_fitness_pos_summary <- summary(m_fitness_pos)
-
-# Pairwise comparisons for positive part
-output_fitness_pos_emmeans <- emmeans(
-  m_fitness_pos,
-  specs = pairwise ~ Temp.treatment,
-  type = "response",   # back-transform log-link to mean response
-  adjust = "none"
-)
-
-output_fitness_pos_contrasts <- output_fitness_pos_emmeans$contrasts %>%
-  summary(infer = TRUE)
-
 
 ```
 
@@ -474,35 +441,22 @@ output_fitness_contrasts <- output_fitness_emmeans$contrasts %>%
 #### Results for main effect of temperature on fitness for zero part
 ```{r fitnessresultsmaineffect_zero, echo = F}
 # for zero part of fitness
-output_fitness_zero_Tempeffect
+output_fitness_Tempeffect
 
 ```
 
 #### Post-hoc pairwise contrasts: differences in fitness between temperature treatments for zero part
 ```{r fitnessresultscontrasts_zero, echo = F}
 # for zero part of fitness
-output_fitness_zero_contrasts
+output_fitness_contrasts
 
 ```
 
-#### Results for main effect of temperature on fitness for positive part
-```{r fitnessresultsmaineffect_pos, echo = F}
-# for positive part of fitness
-output_fitness_pos_Tempeffect
-
-```
-
-#### Post-hoc pairwise contrasts: differences in fitness between temperature treatments for positive part
-```{r fitnessresultscontrasts_pos, echo = F}
-# for positive part of fitness
-output_fitness_pos_contrasts
-
-```
 ### Does dispersal change with temperature (phase 2)?
 
 `r ifelse(!overdispersion, print("To estimate the effect of temperature treatment (a factor) on dispersal, we used a generalized linear mixed model with a binomial error structure and a logit link. Dispersal (the number of dispersers vs non-dispersers) was the response variable. We used the formula:"), print("There was evidence of overdispersion in our dispersal data. Therefore, to estimate the effect of temperature treatment (a factor) on dispersal, we used a generalized linear mixed model with a negative binomial error structure. Dispersal (the number of dispersers vs non-dispersers) was the response variable. We used the formula:"))`  
 
-`r deparse(dispersal.formula.pos)`
+`r deparse(dispersal.formula)`
 
 
 ```{r dispersalmodelbinomial, eval = !overdispersion, echo = F}
@@ -532,55 +486,28 @@ d_phase2$dispersal_occurs <- as.numeric(d_phase2$Num.disp > 0)
 d_phase2$zero <- d_phase2$Num.disp == 0
 
 # --- 1. Zero part (logistic) ---
-m_disp_zero <- glmmTMB(
-  dispersal.formula.zero,
-  family = binomial(link="logit"),
+m_disp <- glmmTMB(
+  cbind(Num.disp, n_eggs_on_A) ~ Temp.treatment + (1 | population) + (1 | plate),
+  family = betabinomial(),
   data = d_phase2
 )
 
 
 # ANOVA for zero part
-output_disp_zero_Tempeffect <- drop1(m_fitness_zero, test = "Chisq")
+output_disp_Tempeffect <- drop1(m_disp, test = "Chisq")
 
 # Summary for zero part
-output_disp_zero_summary <- summary(m_disp_zero)
+output_disp_summary <- summary(m_disp)
 
 # Pairwise comparisons for zero part (odds of producing any offspring)
-output_disp_zero_emmeans <- emmeans(
-  m_disp_zero,
+output_disp_emmeans <- emmeans(
+  m_disp,
   specs = pairwise ~ Temp.treatment,
   type = "response",       # back-transforms logit to probability
   adjust = "none"
 )
 
-output_disp_zero_contrasts <- output_disp_zero_emmeans$contrasts %>%
-  summary(infer = TRUE)
-
-
-# --- 2. Positive part (Gamma) ---
-d_pos_disp <- subset(d_phase2, Num.disp > 0)
-m_disp_pos <- glmmTMB(
-  dispersal.formula.pos,
-  family = binomial,
-  data = d_pos_disp
-)
-
-
-# ANOVA for positive part
-output_disp_pos_Tempeffect <- drop1(m_disp_pos, test = "Chisq")
-
-# Summary for positive part
-output_disp_pos_summary <- summary(m_disp_pos)
-
-# Pairwise comparisons for positive part
-output_disp_pos_emmeans <- emmeans(
-  m_disp_pos,
-  specs = pairwise ~ Temp.treatment,
-  type = "response",   # back-transform log-link to mean response
-  adjust = "none"
-)
-
-output_disp_pos_contrasts <- output_disp_pos_emmeans$contrasts %>%
+output_disp_contrasts <- output_disp_emmeans$contrasts %>%
   summary(infer = TRUE)
 
 ```
@@ -599,16 +526,6 @@ ggplot(df_emmeans_zero, aes(x = Temp.treatment, y = prob, col = Temp.treatment))
   scale_color_manual(values = c("darkgreen", "red", "blue"), guide = "none") +
   theme_classic(base_size = 15)
 
-df_emmeans_pos <- as.data.frame(output_disp_pos_emmeans$emmeans)
-ggplot(df_emmeans_pos, aes(x = Temp.treatment, y = prob, col = Temp.treatment)) +
-  geom_point(size = 4) +
-  geom_errorbar(aes(ymin = asymp.LCL, ymax = asymp.UCL), width = 0) +
-  scale_x_discrete("Temperature treatment", limits = c("low", "opt", "high")) +
-  scale_y_continuous("Dispersal count") +
-  scale_color_manual(values = c("darkgreen", "red", "blue"), guide = "none") +
-  theme_classic(base_size = 15)
-
-
 ```
 
 #### Results for main effect of temperature on dispersal for zero part
@@ -625,20 +542,6 @@ output_disp_zero_contrasts
 
 ```
 
-#### Results for main effect of temperature on dispersal for positive part
-```{r dispersalresultsmaineffect_pos, echo = F}
-# for positive part of dispersal
-output_disp_pos_Tempeffect
-
-```
-
-#### Post-hoc pairwise contrasts: differences in dispersal between temperature treatments for positive part
-```{r dispersalresultscontrasts_pos, echo = F}
-# for positive part of dispersal
-output_disp_pos_contrasts
-
-```
-
 ### Model Diagnostics
 
 There was no evidence for lack of fit for either the fitness or the dispersal model.
@@ -646,31 +549,15 @@ There was no evidence for lack of fit for either the fitness or the dispersal mo
 #### Diagnostic plots for fitness data - zero part
 
 ```{r modeldiagnosticsfitness_zero, echo = F, fig.width = 8, fig.height = 7}
-diagnostic_fitness_zero <- simulateResiduals(fittedModel = m_fitness_zero)
-plot(diagnostic_fitness_zero)
-```
-
-
-#### Diagnostic plots for fitness data - positive part
-
-```{r modeldiagnosticsfitness_pos, echo = F, fig.width = 8, fig.height = 7}
-diagnostic_fitness_pos <- simulateResiduals(fittedModel = m_fitness_pos)
-plot(diagnostic_fitness_pos)
+diagnostic_fitness <- simulateResiduals(fittedModel = m_fitness)
+plot(diagnostic_fitness)
 ```
 
 #### Diagnostic plots for dispersal data - zero part
 
 ```{r modeldiagnosticsdispersal_zero, echo = F, fig.width = 8, fig.height = 7}
-diagnostic_dispersal_zero <- simulateResiduals(fittedModel = m_disp_zero)
+diagnostic_dispersal_zero <- simulateResiduals(fittedModel = m_disp)
 plot(diagnostic_dispersal_zero)
-```
-
-
-#### Diagnostic plots for dispersal data - positive part
-
-```{r modeldiagnosticsdispersal_pos, echo = F, fig.width = 8, fig.height = 7}
-diagnostic_dispersal_pos <- simulateResiduals(fittedModel = m_disp_pos)
-plot(diagnostic_dispersal_pos)
 ```
 
 ```{r moderators, echo = F}
@@ -693,73 +580,40 @@ d_moderator <- data.frame(
 ```
 
 ```{r writingoutputfiles, echo = F}
-# fitness output for zero
+# fitness output
 
-write.table(output_fitness_zero_Tempeffect, paste(writing.path, "output_zero_TempMain_", Genus, ".", species, ".txt", sep = ""))
+write.table(output_fitness_Tempeffect, paste(writing.path, "output_TempMain_", Genus, ".", species, ".txt", sep = ""))
 
 write.table(
-  output_fitness_zero_summary$coefficients$cond,
-  paste0(writing.path, "zero_summary_cond_", Genus, ".", species, ".txt"),
+  output_fitness_summary$coefficients$cond,
+  paste0(writing.path, "summary_cond_", Genus, ".", species, ".txt"),
   sep = "\t", row.names = TRUE, quote = FALSE
 )
 
-write.table(output_fitness_zero_emmeans$emmeans, paste(writing.path, "output_zero_emmeans_", Genus, ".", species, ".txt", sep = ""))
+write.table(output_fitness_emmeans$emmeans, paste(writing.path, "output_emmeans_", Genus, ".", species, ".txt", sep = ""))
 
-write.table(output_fitness_zero_emmeans$contrasts, paste(writing.path, "output_zero_contrasts_", Genus, ".", species, ".txt", sep = ""))
+write.table(output_fitness_emmeans$contrasts, paste(writing.path, "output_contrasts_", Genus, ".", species, ".txt", sep = ""))
 
-# fitness output for pos
 
-write.table(output_fitness_pos_Tempeffect, paste(writing.path, "output_pos_TempMain_", Genus, ".", species, ".txt", sep = ""))
+# dispersal output 
 
-write.table(
-  output_fitness_pos_summary$coefficients$cond,
-  paste0(writing.path, "pos_summary_cond_", Genus, ".", species, ".txt"),
-  sep = "\t", row.names = TRUE, quote = FALSE
-)
-
-write.table(output_fitness_pos_emmeans$emmeans, paste(writing.path, "output_pos_emmeans_", Genus, ".", species, ".txt", sep = ""))
-
-write.table(output_fitness_pos_emmeans$contrasts, paste(writing.path, "output_pos_contrasts_", Genus, ".", species, ".txt", sep = ""))
-
-# dispersal output for zero part
-
-write.table(output_disp_zero_Tempeffect, paste(writing.path, "output_dispersal_TempMain_", Genus, ".", species, ".txt", sep = ""))
+write.table(output_disp_Tempeffect, paste(writing.path, "output_dispersal_TempMain_", Genus, ".", species, ".txt", sep = ""))
 
 write.table(
-  output_disp_zero_summary$coefficients$cond,
+  output_disp_summary$coefficients$cond,
   paste0(writing.path, "output_dispersal_Summary_cond_", Genus, ".", species, ".txt"),
   sep = "\t", row.names = TRUE, quote = FALSE
 )
 
 write.table(
-  output_disp_zero_summary$coefficients$zi,
+  output_disp_summary$coefficients$zi,
   paste0(writing.path, "output_dispersal_Summary_zi_", Genus, ".", species, ".txt"),
   sep = "\t", row.names = TRUE, quote = FALSE
 )
 
-write.table(output_disp_zero_emmeans$emmeans, paste(writing.path, "output_dispersal_emmeans_", Genus, ".", species, ".txt", sep = ""))
+write.table(output_disp_emmeans$emmeans, paste(writing.path, "output_dispersal_emmeans_", Genus, ".", species, ".txt", sep = ""))
 
-write.table(output_disp_zero_emmeans$contrasts, paste(writing.path, "output_dispersal_contrasts_", Genus, ".", species, ".txt", sep = ""))
-
-# dispersal output for positive part
-
-write.table(output_disp_pos_Tempeffect, paste(writing.path, "output_dispersal_TempMain_", Genus, ".", species, ".txt", sep = ""))
-
-write.table(
-  output_disp_pos_summary$coefficients$cond,
-  paste0(writing.path, "output_dispersal_Summary_cond_", Genus, ".", species, ".txt"),
-  sep = "\t", row.names = TRUE, quote = FALSE
-)
-
-write.table(
-  output_disp_pos_summary$coefficients$zi,
-  paste0(writing.path, "output_dispersal_Summary_zi_", Genus, ".", species, ".txt"),
-  sep = "\t", row.names = TRUE, quote = FALSE
-)
-
-write.table(output_disp_pos_emmeans$emmeans, paste(writing.path, "output_dispersal_emmeans_", Genus, ".", species, ".txt", sep = ""))
-
-write.table(output_disp_pos_emmeans$contrasts, paste(writing.path, "output_dispersal_contrasts_", Genus, ".", species, ".txt", sep = ""))
+write.table(output_disp_emmeans$contrasts, paste(writing.path, "output_dispersal_contrasts_", Genus, ".", species, ".txt", sep = ""))
 
 
 # moderator output
