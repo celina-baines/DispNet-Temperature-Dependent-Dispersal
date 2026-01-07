@@ -118,7 +118,7 @@ Fit1 <- "Died/Survived" # or fill in other
 
 ## Formula for dispersal: (fill in as appropriate)
   
-dispersal.formula <- "cbind(Num.disp, Num.nondisp) ~ Temp.treatment + (1|Replicate)"
+dispersal.formula <- "cbind(Num.disp, Num.nondisp) ~ Temp.treatment + (1|Index)" # used observation level random effect to correct for overdispersion
 
 ### notes
 #### other.fixed.effects does not apply to every species; include as appropriate; fixed effects should be standardized
@@ -151,38 +151,32 @@ fitness.proxy.type <- "r"
 
 # Supplementary methods for *`r (print(paste(Genus, species)))`*
 
+## Author contributions
+
+P.K.: conceptualization, formal analysis, investigation, visualization, writing - original draft; E.A.F.: conceptualization, funding acquisition, project administration, resources, supervision, writing-
+review and editing.
+
+## Acknowledgements
+
+This work was supported by grants from the Agence Nationale de la Recherche (grant ANR‑23‑CE02‑0030). We thank Marie-Ange Devillez and Claire Gougat-Barbera for their help in the lab.
+
 ## Study organism
 
-* **Name and strain of species:** *Tetrahymena thermophila* (strain SB3539)
-* **Basic life history:** Aquatic protist, active dispersal via swimming, generation time of ~ 4 hours
-* **Temperature range:** Lives originally in streams, ponds and lakes on the Atlantic coast of North America. Our strain has been kept in stock for at least six years (around 13,000 generations) at 20$^\circ$C.
-* **Source:** Cornell Tetrahymena Stock Center
-* **Holding conditions before experiment**: For each experiment, we used individuals from our running batch cultures, kept at 20$^\circ$C in a dark incubator in sterile medium made up of mineral water, ground lettuce, and the bacterial species *Serratia fonticola*. The medium was filtered to provide homogeneous spatial structure within the vessel. Whenever we add medium to a batch culture or a test tube, that medium is enriched with a three-day old culture of the bacterium *Serratia fonticola* at a ratio of 9:1 (medium:bacteria). No further selection for the experimental individuals was conducted. 
+Our study organism was *Tetrahymena thermophila* (strain SB3539), an aquatic protist that disperses actively via swimming. It lives originally in streams, ponds and lakes on the Atlantic coast of North America. Our strain has been acquired from the Cornell Tetrahymena Stock Center and kept in stock for at least six years (around 13,000 generations) at 20C. For each experiment, we used individuals from our running batch cultures, kept at 20C in a dark incubator in sterile medium made up of mineral water, ground lettuce, and the bacterial species *Serratia fonticola*. The medium was filtered to provide homogeneous spatial structure within the vessel. Whenever medium is added to a batch culture or a test tube, that medium is enriched with a three-day old culture of the bacterium *Serratia fonticola* at a ratio of 9:1 (medium:bacteria). There was no particular selection for the experimental individuals. 
 
 ## Study design
 
 ### Temperature treatments
 
-State the temperatures used for Topt, Thot, Tcold, and explain how they were chosen: We used Topt = 36C, Thot = 38C, and Tcold = 20C. Tcold is the culture temperature, Topt is the temperature at which the growth rate is maximal, Thot is the temperature at which some growth is still possible, but it is on the descending flank of the TPC. There was no daily variation in temperature. 
+As temperature treatments, we used Topt = 36C, Thot = 38C, and Tcold = 20C. Tcold is the culture temperature, Topt is the temperature at which the growth rate is maximal, Thot is the temperature at which some growth is still possible, but it is on the descending side of the TPC. There was no daily variation in temperature. 
 
 ### Phase 1: Fitness assay
 
-* **Fitness proxy:** Maximum growth rate per replicate and temperature, estimated as suggested with the easy linear fit in the growth rates package based on time series data at different temperatures starting from low densities (~100 individuals per ml).
-* **Experimental setup:** Experiments were conducted in plastic vials (Sarstedt), filled with 20ml of the bacterized medium described above and kept in dark incubators.
-* **Replication:** 5 experimental replicates per temperature. To avoid pseudoreplication, we switched incubators randomly every two days.
-* **Food provided:** Every two days, we replenished 10% of the culture with fresh medium that was enriched with bacteria at the same 9:1 ratio.
-* **Duration**: The experiment lasted 9 days (until the populations at the coldest temperature had reached carrying capacity).
-* **Phenotypic assays:** We measured densities and phenotypes by recording videos under a stereoscope and analyzing those videos with the `bemovi` software. That yielded (apart from densities) measurements of cell size as well as swimming speed.
+As a fitness proxy, we used maximum growth rate, estimated per replicate and temperature with the easy linear fit in the `growthrates` package based on time series data at different temperatures starting from low densities (~100 individuals per ml). Experiments were conducted in plastic vials (Sarstedt), filled with 20ml of the bacterized medium described above and kept in dark incubators at the respective treatment temperatures. We replicated each temperature treatment five times. To avoid pseudoreplication, we switched incubators randomly every two days. To maintain the resource at a constant level, every two days, we replenished 10% of the culture with fresh medium that was enriched with bacteria at the same 9:1 ratio as above. The experiment lasted 9 days (until the populations at the coldest temperature had reached carrying capacity). We additionally measured densities and phenotypes by recording videos under a stereoscope and analyzing those videos with the `bemovi` software. That yielded (apart from densities) measurements of cell size as well as swimming speed.
 
 ### Phase 2: Dispersal assay
 
-* **Setup: ** We conducted the experiment in the same plastic vials filled with 20ml of total culture medium, but now as a 2-patch system connected by a 7cm long silicon tube that we could close with plastic clamps. We consider this silicone tube to be hostile due to the lack of oxygen (which *Tetrahymena* are very sensitive to). 
-* **Dispersal: ** We measured emigration rates by opening the connections between origin and target patch, closing them again after 3 hours, and sampling in both patches. We estimated dispersal rate as the ratio of individuals in the target patch to the total number of individuals in both patches combined.
-* **Replication: ** We replicated each dispersal trial at each temperature 5 times (yielding 15 total experimental units). Individuals were not the same as the ones used in the fitness assay, but came from the same clonal population as above. All five replicates of each temperature were assayed at the same time in the same incubator.
-* **Inoculation: ** We used the fitness assay to determine which inoculation density would produce the highest variation in estimated fitness across temperatures (see below). We chose a density of 1,500 individuals per ml, which is between 25 and 50% of K for all temperatures. In the morning of the experiment, we measured our stock and determined the necessary amount to add to a 20ml tube to reach this density. Accordingly, we inoculated the origin patch with 5ml of *Tetrahymena* stock and 15ml of bacterized medium (see above), and the target patch with 20ml of bacterized medium.
-* **Timing: ** We estimate *Tetrahymena's* generation time to be roughly 4 hours. Therefore, we let the cultures acclimate with the gates closed in the incubator for 45 minutes, and then opened the gates for 3 hours, after which we closed them and sampled.
-* **Sampling and phenotyping: ** As before, we sampled out of the cultures and recorded videos under a stereoscope, which gave us both density and phenotypic estimates. To reduce sampling error given the possible low densities in the target patch, we used the mean across three technical replicates for each sample.
-* **Mortality: ** was not recorded.
+We conducted the dispersal assay in the same plastic vials filled with 20ml of total culture medium, but now as a 2-patch system connected by a 7cm long silicon tube that we could close with plastic clamps. We consider this silicone tube to be hostile due to the lack of oxygen (which *Tetrahymena* are very sensitive to). We measured emigration rates by opening the connections between origin and target patch, closing them again after 3 hours, and sampling in both patches. We estimated dispersal rate as the ratio of individuals in the target patch to the total number of individuals in both patches combined. We replicated each dispersal trial at each temperature 5 times (yielding 15 total experimental units). Individuals were not the same as the ones used in the fitness assay, but came from the same clonal population as above. All five replicates of each temperature were assayed at the same time in the same incubator. As the starting density, we chose 1,500 individuals per ml, which is between 25 and 50% of K for all assayed temperatures. In the morning of the experiment, we measured our stock culture (held at 20C) and determined the necessary amount to add to a 20ml tube to reach this density. Accordingly, we inoculated the origin patch with 5ml of *Tetrahymena* stock and 15ml of bacterized medium (see above), and the target patch with 20ml of bacterized medium. We let the cultures acclimate with the gates closed in the incubator for 45 minutes, and then opened the gates for 3 hours, after which we closed them and sampled. This allowed us to stay below *Tetrahymena's* (estimated) generation of 4 hours. As before, we sampled out of the cultures and recorded videos under a stereoscope, which gave us both density and phenotypic estimates. To reduce sampling error given the possible low densities in the target patch, we used the mean across three technical replicates for each sample. Mortality was not recorded.
 
 
 
@@ -248,6 +242,8 @@ write.csv(d_phase2, paste(data_path, disppath, sep = ""), row.names = FALSE)
 
 
 ### Does fitness change with temperature (phase 1)?
+
+The fitness data met the assumption of normality.
 
 `r ifelse(fitness.transformed.normal == TRUE, print(paste(fitness.proxy, " was not normally distributed so we ", transform.description, "-transformed it. The transformed variable followed a normal distribution.", sep = "")), ifelse(fitness.normal == TRUE, print(paste(fitness.proxy, "was normally distributed.")), print(paste("The fitness proxy,", tolower(fitness.proxy), ", was a binary variable."))))`
 
@@ -343,7 +339,7 @@ output_fitness_contrasts
 
 ### Does dispersal change with temperature (phase 2)?
 
-`r ifelse(!overdispersion, print("To estimate the effect of temperature treatment (a factor) on dispersal, we used a generalized linear mixed model with a binomial error structure and a logit link. Dispersal (the number of dispersers vs non-dispersers) was the response variable. We used the formula:"), print("There was evidence of overdispersion in our dispersal data. Therefore, to estimate the effect of temperature treatment (a factor) on dispersal, we used a generalized linear mixed model with a negative binomial error structure. Dispersal (the number of dispersers vs non-dispersers) was the response variable. We used the formula:"))`  
+`r ifelse(!overdispersion, print("To estimate the effect of temperature treatment (a factor) on dispersal, we used a generalized linear mixed model with a binomial error structure and a logit link. Dispersal (the number of dispersers vs non-dispersers) was the response variable. To correct for overdispersion, we used an observation-level random effect. We used the formula:"), print("There was evidence of overdispersion in our dispersal data. Therefore, to estimate the effect of temperature treatment (a factor) on dispersal, eneralized linear mixed model with a binomial error structure and a logit link. Dispersal (the number of dispersers vs non-dispersers) was the response variable. We used the formula:"))`  
 
 `r (print(dispersal.formula))`
 
@@ -409,7 +405,7 @@ output_dispersal_contrasts
 
 ### Model Diagnostics
 
-There was no evidence for lack of fit for either the fitness or the dispersal model.
+The model diagnostics do not look perfect, but this is to be expected at the sample size of N=5 per treatment.
 
 #### Diagnostic plots for fitness data
 

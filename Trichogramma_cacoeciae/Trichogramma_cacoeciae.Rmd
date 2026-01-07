@@ -72,7 +72,7 @@ fitness.transformed.normal = NA
 ## If fitness variable is continuous normal AFTER transformation, choose transformation used (just write it in if not on this list):
 
 transform.description <- "square-root/log/log10" # leave as-is if not applicable
-#fitness.transformation.function <- function(x) {return (XYZ(x))} # give transformation formula here; replace XYZ with transformation e.g., sqrt(x) or log(x + 1), etc., where x will be Fitness, below
+fitness.transformation.function <- function(x) {return (log(x))} # give transformation formula here; replace "log" with transformation used e.g., sqrt(x) or log(x + 1), etc., where x will be Fitness, below
 
 ## note: if fitness (or transformed fitness) does not have a binomial or normal distribution, check in with Celina.
 
@@ -94,7 +94,8 @@ overdispersion = FALSE
 
 ## Do rows represent individuals in the dataset and are there dead individuals that should be removed from the dispersal data?
 
-filter.dead = FALSE # choose NA if this does not apply to your species
+filter.dead = FALSE # choose FALSE if this does not apply to your species
+
 
 
 # 8. Model formulae
@@ -118,7 +119,7 @@ Fit1 <- "Died/Survived" # or fill in other
 
 ## Formula for dispersal: (fill in as appropriate)
   
-dispersal.formula <- "cbind(Num.disp, Num.nondisp) ~ Temp.treatment + (1|Strain)"
+dispersal.formula <- "cbind(Num.disp, Num.nondisp) ~ Temp.treatment + (1|Observation)"
 
 ### notes
 #### other.fixed.effects does not apply to every species; include as appropriate; fixed effects should be standardized
@@ -150,6 +151,14 @@ fitness.proxy.type <- "r"
 ```
 
 # Supplementary methods for *`r (print(paste(Genus, species)))`*
+
+## Author contributions
+EA methodology (design of methodology), investigation/conduct experiment
+SL conceptualization, methodology (design of methodology), investigation/conduct experiment
+EV conceptualization, methodology (design of methodology), investigation/conduct experiment, statistical analysis, funding acquisition, writing (original draft, supplement)
+
+## Acknowledgements
+Biological material and advice on thermal performance of the different Trichogramma strains were graciously provided by the Biological Resource Center CRB EP-Coll.
 
 ## Study organism
 Trichogramma cacoeciae
@@ -221,6 +230,7 @@ d_phase2 <- read.csv(paste("Phase2_dispersal_", Genus, ".", species, ".csv", sep
 
 d_phase1 <- within(d_phase1, Temp.treatment <- relevel(as.factor(Temp.treatment), ref = "opt"))
 d_phase2 <- within(d_phase2, Temp.treatment <- relevel(as.factor(Temp.treatment), ref = "opt"))
+d_phase2$Observation<-seq(1,54)
 
 d_phase2 <- d_phase2 %>%
   { if (filter.dead) filter(., Survived == "Y") else . }

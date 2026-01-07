@@ -1,0 +1,508 @@
+---
+title: 'Temperature dependent dispersal: A distributed experiment'
+author: "Nicolas Mouret, Julien Cote, Delphine Legrand, Pau Molina-Vila, Elvire Bestion"
+output:
+  html_document:
+    df_print: paged
+editor_options:
+  chunk_output_type: console
+---
+
+```{r instructions, echo = F, warning = F}
+
+# INSTRUCTIONS FOR RESEARCHERS
+
+# Here, you'll find instructions and information to fill out about your species. Once you have finished following the instructions, go to the render_script in your species folder and run the code - this will automatically knit a word document to the shared Knitted_Markdowns folder. You don't need to make any changes to the analysis outside of this code chunk, but feel free to do so if it's appropriate for your species. If you make substantive changes to either of the models, please flag it for Celina.
+
+# Note: Do not try to "run all" within R, you will get an error. Knitting the document from the RStudio menu will only save it to your species folder, not add it to the shared folder, so please use render_script.
+
+# 0. Add names of researchers who worked on this species to author list above
+
+# 1. Before starting, make sure your data files are named:
+# Phase1_fitness_Genus.species.csv
+# Phase2_dispersal_Genus.species.csv
+
+## code below assumes .csv format (only in the code chunk named 'loaddata'; You can change this if you would rather not use .csv)
+
+
+# 2. Install any missing libraries from the list below:
+library(tidyverse)
+library(lme4)
+library(ggplot2)
+library(emmeans)
+library(DHARMa)
+
+# 3. Fill out information about your species below
+
+Genus = "Pteronemobius"
+species = "heydenii"
+fitness.proxy = "Survival"
+opt.temp = 18 #value of optimal temperature treatment in Celsius
+medium.high.temp = 22 #value of high temperature treatment in Celsius
+high.temp = 26 #value of high temperature treatment in Celsius
+
+
+# 4. Check that the data files have the following headers (order of columns is not important):
+
+## phase1 : Temp.treatment (levels = low, opt, high), Temp.value (in degrees C), random effects (name as appropriate), Fitness
+### It's important to give the column of the fitness variable the header "Fitness". You have already provided a description of the fitness proxy which will be used in the knitted document.
+
+## phase 2:
+
+### If your phase 2 data are formatted with mesocosms as rows and number of dispersers/number of non-dispersers as columns, then these headers:
+#### Temp.treatment (levels = low, opt, high), Temp.value (in degrees C), random effects (name as appropriate), Num.disp, Num.nondisp (or alternatively, Num.disp and total N)
+
+### If your phase 2 data are formatted with individuals as rows and a dispersed column (0s and 1s) giving dispersal status for each individual, then these headers:
+#### Temp.treatment (levels = low, opt, high), Temp.value (in degrees C), random effects (name as appropriate), Dispersed (0/1)
+
+# note that the datasets can also include fixed effects and phenotypes, as appropriate for your study
+
+
+# 5. Type of fitness data
+
+## Answer questions below about the fitness proxy
+
+### Is your fitness variable binary? (choose one)
+fitness.binary = TRUE
+
+### Is the fitness variable continuous normal (without transformation)? (choose one)
+fitness.normal = FALSE
+
+### Is the fitness variable normal after transformation? (choose one; choose NA if you said "TRUE" to either question above)
+fitness.transformed.normal = FALSE
+
+## If fitness variable is continuous normal AFTER transformation, choose transformation used (just write it in if not on this list):
+
+transform.description <- "square-root/log/log10" # leave as-is if not applicable
+fitness.transformation.function <- function(x) {return (log(x))} # give transformation formula here; replace XYZ with transformation e.g., sqrt(x) or log(x + 1), etc., where x will be Fitness, below
+
+## note: if fitness (or transformed fitness) does not have a binomial or normal distribution, check in with Celina.
+
+
+# 6. Structure of dispersal data
+
+## Is there overdispersion in the dispersal data? If you do not yet know, choose FALSE and this will be dealt with in step 12.
+
+overdispersion = FALSE
+
+
+# 7. Dealing with mortality in dispersal assay
+
+## note on mortality: everyone will deal with mortality during the dispersal assay in a slightly different way. If individuals are rows in your dataset, you should have a row that indicates "Survived" (Y/N) through the entire experiment. In this case, set filter.dead = TRUE below. If mesocosms are rows in your dataset, you may have a column indicating the number of individuals that died. In this case, dead individuals can be excluded directly in the dispersal formula (e.g., (Num.disp, TotalN-(Num.disp+Num.dead))).
+
+## Make sure to describe how you dealt with mortality in the methods below.
+
+## If you are unsure how to handle mortality in your dataset, check with Celina.
+
+## Do rows represent individuals in the dataset and are there dead individuals that should be removed from the dispersal data?
+
+filter.dead = TRUE # choose NA if this does not apply to your species
+
+
+# 8. Model formulae
+
+## Formula for fitness: (fill in as appropriate)
+
+fitness.formula <- "Fitness ~ Temp.treatment  + (1|Mesocosm)"
+
+### notes:
+#### TRANSFORM FITNESS VARIABLE (if needed) *WITHIN* THE FORMULA; doing it within the formula is important for contrasts below  
+#### other.fixed.effects does not apply to every species; include as appropriate; fixed effects should be standardized
+#### include as many random effects as appropriate
+#### Fitness can be normal or binary, including 0s and 1s or cbind(number.survived, number.dead)
+
+### If fitness is binary: (ignore if fitness is not binary)
+
+### What do Fitness = 0 and Fitness = 1 mean?
+
+Fit0 <- "Died" # or fill in other
+Fit1 <- "Survived" # or fill in other
+
+## Formula for dispersal: (fill in as appropriate)
+  
+dispersal.formula <- "Dispersed ~ Temp.treatment  + (1|Mesocosm)"
+
+### notes
+#### other.fixed.effects does not apply to every species; include as appropriate; fixed effects should be standardized
+#### include as many random effects as appropriate
+#### Num.disp/Num.nondisp can be replaced with column "Dispersed" with values 0 and 1, if individuals are rows in your dataset
+#### remember to deal with mortality directly in dispersl formula if appropriate
+
+
+# 9. Moderators
+
+## We are collecting data on all proposed moderators; we will use a subset of these in the analysis
+## choose option on right hand side
+## see description of moderators and levels in README.md in project repo
+
+taxonomic.group <- "arthropod"
+rearing.environment <- "field"
+comp.strength <- "low"
+source <- "field" # lab population or field caught
+habitat <- "terrestrial"
+Tvariation <- "heterogenous"
+species.body.size <- 6 # mean body length in mm
+passive.dispersal <- "No"
+inbred <- "mixed"
+disp.assay.duration <- 0.01 # order of magnitude for dispersal assay duration / generation time, i.e., approximate number of generations the dispersal assay lasted
+fitness.proxy.type <- "other"
+
+# 10. Fill out methods information in text below.
+
+```
+
+# Supplementary methods for *`r (print(paste(Genus, species)))`*
+
+## Study organism
+
+**Name and strain/origin of species.**  
+
+*Pteronemobius heydenii* were captured from semi-natural enclosures situated in Southern France (the Metatron, Ariège, France, 43°01ʹ N, 1°05ʹ E, Legrand et al 2012). 
+
+
+**Life history information**
+
+*Pteronemobius heydenii* are terrestrial Orthopteran of the Trigonidiidae family, widely distributed in Europe.
+Crickets are found in humid habitats. 
+Individuals hibernate as nymphs, and adults can be encountered from May to September in Romania (Iorgu et Iorgu 2008).
+A test by the authors using individuals from the source populations and increasing temperature gradually degree by degree in a water bath until death gave a CTmax of 40.8°C +/- 2.17 SD (personal communication).
+
+**How were the organisms sourced**
+
+The 6 species used by our group for the experiment (i.e. experiments on the isopods *Armadillidium vulgare* and *Philoscia muscorum*, the spiders *Pardosa sp* and *Pisaura mirabilis*, and the crickets *Gryllus campestris* and *Pteronemobius heydenii*) were sourced from arthropod communities present in the Metatron, an ensemble of 10 × 10 m semi-natural mesocosms fully enclosed by tarpaulin and fine-meshed nets (Ariège, France, 43°01ʹ N, 1°05ʹ E; Legrand et al. 2012). Mesocosms act as mini-ecosystems, with diverse natural vegetation (39 ± 9 plant species per mesocosm), invertebrate communities (37 ± 4 insect families per mesocosm) and thermal micro-habitats (shaded, dense and diverse vegetation, hides, sun-battered rocks, and logs and small ponds; Bestion et al., 2015). The vegetation is representative of humid grasslands. 
+We collected arthropods from the 6 species beginning of September 2025 for the fitness experiment (except for Pteronemobius that was collected in a second round beginning of October 2025), aiming to collect 6 individuals per mesocosm in the mesocosms in which the focal species was present in sufficient abundance (hence, not all mesocosms were sampled, and the identity of the mesocosms sampled could vary depending on the species). Individuals for the dispersal experiments were captured in three separate round (first round, end of September 2025, *Armadillidium vulgare* and *Gryllus campestris*, second round, beggining of October 2025, *Pardosa sp* and *Pisaura mirabilis*, and third round, end of October 2025, *Pteronemobius heydenii* and *Philoscia muscorum*). For the dispersal experiment, we aimed at capturing 15 individuals per mesocosms in the mesocosms in which the focal species was present in sufficient abundance. Because the individuals for the fitness experiment were captured at a different time from the individuals for the dispersal experiment, and because the number of individuals captured for the dispersal experiment was higher than from the fitness experiment, the number and identity of mesocosms in which individuals were captured for the two experiments could vary.
+
+## Study design
+
+### Temperature treatments
+
+We ran all arthropod experiments from our group (i.e. experiments on the isopods *Armadillidium vulgare* and *Philoscia muscorum*, the spiders *Pardosa sp* and *Pisaura mirabilis*, and the crickets *Gryllus campestris* and *Pteronemobius heydenii*) at three temperatures, 18, 22 and 26°C. Temperatures were maintained constant (no daily variation) during the experiment. 
+Temperature treatments were chosen as a compromise between the different species,  as limited experimental room led all species to be treated at the same three temperatures. Thus, depending on the species, we may have missed the low or the high part of the thermal performance curve. Thus, instead of the low, opt, high treatment, some species may have low, medium.low and opt treatment, some opt, medium.high and high treatment.
+
+### Phase 1: Fitness assay
+
+We studied survival as a function of temperature. 
+Beginning of October 2025, we captured 65  crickets from 11 semi-natural mesocosms (the Metatron), and brought them to the laboratory to study survival. Individuals were weighted, and then kept individually in 50 ml falcon tubes with a pierced lid, with a piece of humid cotton and dandelion leaves.
+The assays were run inside 3 incubators (Aqualitik thermostatic cabinets, 544 L), in which temperature was set at either 18, 22 or 26°C and light (a light bulb Zoomed Reptisun 5.0 UVB) was set on a 12:12 timer.
+Once a week, the cotton was re-humidified, and fresh dandelion leaves were added.
+
+Survival for all six species was checked twice a week from beginning of September to end of November. Further, individuals from all species were weighted after two and six weeks, and for spiders also after eleven weeks. Timing of death varied among species, with for instance *Pteronemobius heydenii* loosing over half of its individuals after 29 days of treatment, while it took 52 days to *Philoscia muscorum*, 80 days to *Armadillidium vulgare* to reach the same amount of deaths, and crickets *Gryllus campestris* only reached 41 % of mortality at the end of the experiment, while spiders *Pardosa sp* and *Pisaura mirabilis* reached even lower number of deaths, with respectively 21 % (18 out of 87 individuals) and 11 % (7 out of 63 individuals) of mortality.
+Because of the variation in mortality over time, we decided to choose a cut-off date at which the individuals of a given species had reached at least 40 % of overall mortality to calculate fitness as survival, which allowed to treat all crickets and isopods the same. For the two spiders, because the mortality was very low, we decided to pick weight change as a fitness proxy.
+Hence, for *Pteronemobius heydenii*, the cut-off chosen led survival to be measured at 23 days of treatment.
+
+### Phase 2: Dispersal assay
+
+Dispersal assays were ran in 33 dispersal systems constituted by a plastic container (39*28*28 cm) connected to a 8 cm diameter plastic tube of total length 320 cm and composed of three tubes connected by U connectors, and ending in a pitfall trap (glass jar). The plastic tubes are cut in their length with a 3cm-large windows covered in insect net. 
+The systems are filled with ground (organic compost), and departure patches contain dandelion leaves and a shelter made of eggg cardboard. During the acclimation phase, corridors are closed by insect-proof net.
+
+The systems are lighted by neon lights (Zoomed Reptisun 5.0 UVB) on on a timer between 8:00 and 17:00.
+Systems are set in three temperature-controlled rooms, at either 18, 22 or 26°C.
+
+Isopods were captured from Metatron mesocosms end of October 2025 (~15 individuals per mesocosm in 11 mesocosms), acclimated to the laboratory for a few days, then we created 33 populations (11 populations per temperatures) the dispersal systems. We created populations of 5 individuals provening from the same Metatron mesocosm per dispersal system.
+
+Once populations were created in the dispersal systems, we left individuals to acclimatize to the departure patches for a day, then opened the corridors and monitored dispersal for 11 days, capturing dispersing individuals in the pitfall traps twice a day. During this period, systems (departure patches+ corridors) were sprayed with water daily. At the end of the dispersal experiment, we recaptured surviving and dead individuals.
+Dispersal was assessed for each individual as a 0/1 (1=dispersed) outcome, excluding dead or missing individuals.
+
+
+## Author contributions
+
+* Nicolas Mouret:  Methodology, Statistical analysis, Investigation
+* Julien Cote: Conceptualization, Methodology,  Investigation
+* Delphine Legrand: Conceptualization, Methodology,  Investigation
+* Pau Molina-Vila: Conceptualization, Methodology
+* Elvire Bestion: Conceptualization, Methodology, Statistical analysis, Investigation, Writing, Funding Acquisition
+
+## Acknowledgements
+
+We are thankful to Mireia Alonso-Pont and Laure Olazcuaga for punctual help building the dispersal systems. This work was supported by funding from the Agence Nationale de la Recherche to EB (ANR-23-CE02-0009-01) and by LABEX TULIP (ANR-10-LABX-0041).
+
+```{r instructions2, echo = F}
+
+# 11. Knit RMarkdown
+
+## Now it is time to knit the RMarkdown document. Open the render_script document in the species folder and run that script (see README.md for additional instructions). It will automatically write the files to the correct folders in the repository. Remember not to 'run all' in the RMarkdown. You will get an error.
+
+# 12. Check diagnostics
+
+## The final section of the output doc will be model diagnostics. Check the output word doc (it will be in the 'Knitted_Markdowns' folder) for any issues and re-run the render_script if necessary after selecting different options in the RMarkdown (e.g., does the fitness variable need to be transformed? Is there overdispersion in the dispersal data?)
+
+## You should also check the word doc for warning messages for the models (e.g., singularity in mixed models). These (if there are any) will print in the knitted doc next to the model results.
+
+## If problems persist, the way the analysis is done may have to be changed (check in with Celina).
+
+## Note that the current default description of the diagnostics is: "There was no evidence for lack of fit for either the fitness or the dispersal model." Change this as needed.
+
+
+#############
+
+# YOU ARE DONE! NO NEED TO FILL IN OR CHANGE ANYTHING BELOW.
+
+############
+
+```
+
+## Statistical Analysis
+
+```{r loaddata, echo = F}
+
+# Set reading and writing paths; Do not change these paths
+reading.path <- ("./")
+
+writing.path <- ("../outputs/")
+
+# load data file
+d_phase1 <- read.csv(paste("Phase1_fitness_", Genus, ".", species, ".csv", sep = ""))
+d_phase2 <- read.csv(paste("Phase2_dispersal_", Genus, ".", species, ".csv", sep = ""))
+
+d_phase1 <- within(d_phase1, Temp.treatment <- relevel(as.factor(Temp.treatment), ref = "opt"))
+d_phase2 <- within(d_phase2, Temp.treatment <- relevel(as.factor(Temp.treatment), ref = "opt"))
+
+d_phase2 <- d_phase2 %>%
+  { if (filter.dead) filter(., Survived == "Y") else . }
+
+```
+
+```{r writedata, echo = F}
+
+# specify fitness and dispersal file names
+fitpath <- paste("Phase1_fitness_", Genus, ".", species, ".csv", sep = "")
+disppath <- paste("Phase2_dispersal_", Genus, ".", species, ".csv", sep = "")
+
+data_path <- "../raw_data/" #path to save the data is to the raw_data folder
+
+#save copy of final dfs used in this file to the raw_data folder
+write.csv(d_phase1, paste(data_path, fitpath, sep = ""), row.names = FALSE)
+write.csv(d_phase2, paste(data_path, disppath, sep = ""), row.names = FALSE)
+
+```
+
+
+### Does fitness change with temperature (phase 1)?
+
+`r ifelse(fitness.transformed.normal == TRUE, print(paste(fitness.proxy, " was not normally distributed so we ", transform.description, "-transformed it. The transformed variable followed a normal distribution.", sep = "")), ifelse(fitness.normal == TRUE, print(paste(fitness.proxy, "was normally distributed.")), print(paste("The fitness proxy,", tolower(fitness.proxy), ", was a binary variable."))))`
+
+```{r fitnessnormal, eval = fitness.normal, echo = F, fig.cap = paste("Figure 1. Histogram of fitness (", tolower(fitness.proxy), ") values.")}
+
+# histogram showing fitness proxy was normally distributed
+
+with(d_phase1, hist(Fitness, xlab = fitness.proxy, main = NULL))
+
+```
+
+
+```{r transformedfitnessnormal, eval = fitness.transformed.normal, echo = F, fig.cap = paste("Figure 1. Histogram of", transform.description, "-transformed", tolower(fitness.proxy), "values.")}
+
+# histogram showing transformed fitness proxy was normally distributed
+
+with(d_phase1, hist(fitness.transformation.function(Fitness), xlab = paste(transform.description, "-transformed ", tolower(fitness.proxy), sep = ""), main = NULL))
+
+```
+
+```{r fitnessplotnormal, eval = fitness.normal | fitness.transformed.normal, echo = F, message = F, fig.cap = paste("Figure 2. Boxplot of fitness (", tolower(fitness.proxy), "), as a function of temperature treatment. opt = ", opt.temp, "C, medium.high = ", medium.high.temp, "C, high = ", high.temp, "C.")}
+
+# plot fitness data
+
+ggplot(d_phase1, aes(x = Temp.treatment, y = Fitness, col = Temp.treatment))+
+  geom_boxplot()+
+  scale_x_discrete("Temperature treatment", limits = c("opt", "medium.high", "high"))+
+  scale_color_manual(values = c("darkgreen", "red", "blue"), guide = "none")+
+  theme_classic(base_size = 15)
+
+```
+
+`r ifelse(fitness.binary == T, print(paste("To estimate the effects of temperature (a factor) on fitness we used a generalized linear mixed model with a logit link and", tolower(fitness.proxy), "as the binary response variable. We used the formula:")), paste("To estimate the effects of temperature (a factor) on fitness, we used a linear mixed model with", tolower(fitness.proxy), "as the response variable. We used the formula:"))`  
+
+`r (print(fitness.formula))`
+
+```{r fitnessmodelnormal, eval = fitness.normal | fitness.transformed.normal, echo = F}
+
+# model testing effects of temperature on fitness
+
+m_fitness <- lmer(fitness.formula, data = d_phase1)
+
+# output results for overall model and pairwise comparisons
+
+output_fitness_Tempeffect <- anova(m_fitness)
+output_fitness_summary <- summary(m_fitness)
+output_fitness_emmeans <- emmeans(m_fitness, specs = pairwise ~ Temp.treatment, regrid = "response", adjust = "none")
+output_fitness_contrasts <- output_fitness_emmeans$contrasts %>%
+     summary(infer = TRUE)
+```
+
+
+```{r fitnesstablebinary, eval = fitness.binary, echo = F}
+
+fittable <- with(d_phase1, table(Temp.treatment, Fitness))
+knitr::kable(fittable, col.names = c(Fit0, Fit1),
+ caption = paste("Table 1. Relationship between", tolower(fitness.proxy), "and temperature treatment.")) 
+
+
+```
+
+
+```{r fitnessmodelbinary, eval = fitness.binary, echo = F}
+
+# model testing effects of temperature on fitness
+
+m_fitness <- glmer(fitness.formula, family = binomial, data = d_phase1)
+
+# output results for overall model and pairwise comparisons
+
+output_fitness_Tempeffect <- drop1(m_fitness, test = "Chisq")
+output_fitness_summary <- summary(m_fitness)
+output_fitness_emmeans <- emmeans(m_fitness, specs = pairwise ~ Temp.treatment, type = "response", adjust = "none")
+output_fitness_contrasts <- output_fitness_emmeans$contrasts %>%
+     summary(infer = TRUE)
+
+```
+
+#### Results for main effect of temperature on fitness
+```{r fitnessresultsmaineffect, echo = F}
+
+output_fitness_Tempeffect
+
+```
+
+#### Post-hoc pairwise contrasts: differences in fitness between temperature treatments
+```{r fitnessresultscontrasts, echo = F}
+
+output_fitness_contrasts
+
+```
+
+
+### Does dispersal change with temperature (phase 2)?
+
+`r ifelse(!overdispersion, print("To estimate the effect of temperature treatment (a factor) on dispersal, we used a generalized linear mixed model with a binomial error structure and a logit link. Dispersal (the number of dispersers vs non-dispersers) was the response variable. We used the formula:"), print("There was evidence of overdispersion in our dispersal data. Therefore, to estimate the effect of temperature treatment (a factor) on dispersal, we used a generalized linear mixed model with a negative binomial error structure. Dispersal (the number of dispersers vs non-dispersers) was the response variable. We used the formula:"))`  
+
+`r (print(dispersal.formula))`
+
+
+```{r dispersalmodelbinomial, eval = !overdispersion, echo = F}
+
+# binomial model testing effects of temperature on dispersal
+
+m_dispersal <- glmer(dispersal.formula, family = "binomial", data = d_phase2)
+
+# output results for overall model and pairwise comparisons
+output_dispersal_Tempeffect <- drop1(m_dispersal, test = "Chisq")
+output_dispersal_summary <- summary(m_dispersal)
+output_dispersal_emmeans <- emmeans(m_dispersal, specs = pairwise ~ Temp.treatment, type = "response", adjust = "none")
+output_dispersal_contrasts <- output_dispersal_emmeans$contrasts %>%
+  summary(infer = TRUE)
+
+
+```
+
+```{r dispersalmodelnegbinomial, eval = overdispersion, echo = F}
+
+# negative binomial model testing effects of temperature on dispersal
+
+m_dispersal <- glmer.nb(dispersal.formula, data = d_phase2)
+
+# output results for overall model and pairwise comparisons
+output_dispersal_Tempeffect <- drop1(m_dispersal, test = "Chisq")
+output_dispersal_summary <- summary(m_dispersal)
+output_dispersal_emmeans <- emmeans(m_dispersal, specs = pairwise ~ Temp.treatment, type = "response", adjust = "none")
+output_dispersal_contrasts <- output_dispersal_emmeans$contrasts %>%
+  summary(infer = TRUE)
+
+```
+
+```{r dispersalplot, echo = F, warning = F, fig.cap = paste("Figure 1. Dispersal as a function of temperature treatment. opt = ", opt.temp, "C, medium.high = ", medium.high.temp, "C, high = ", high.temp, "C. Error bars represent 95% confidence intervals predicted from GLMM.")}
+
+# plot dispersal data
+
+ggplot(as.data.frame(output_dispersal_emmeans$emmeans), aes(x = Temp.treatment, y = prob, col = Temp.treatment))+
+  geom_point(size = 4)+
+  geom_errorbar(aes(ymin = asymp.LCL, ymax = asymp.UCL), width = 0)+
+  scale_x_discrete("Temperature treatment", limits = c("opt", "medium.high", "high"))+
+  scale_y_continuous("Dispersal probability")+
+  scale_color_manual(values = c("darkgreen", "red", "blue"), guide = "none")+
+  theme_classic(base_size = 15)
+
+```
+
+#### Results for main effect of temperature on dispersal
+```{r dispersalresultsmaineffect, echo = F}
+
+output_dispersal_Tempeffect
+
+```
+
+#### Post-hoc pairwise contrasts: differences in dispersal between temperature treatments
+```{r dispersalresultscontrasts, echo = F}
+
+output_dispersal_contrasts
+
+```
+
+### Model Diagnostics
+
+There was no evidence for lack of fit for either the fitness or the dispersal model.
+
+#### Diagnostic plots for fitness data
+
+```{r modeldiagnosticsfitness, echo = F, fig.width = 8, fig.height = 7}
+
+diagnostic_fitness <- simulateResiduals(fittedModel = m_fitness)
+plot(diagnostic_fitness)
+```
+
+#### Diagnostic plots for dispersal data
+
+```{r modeldiagnosticsdispersal, echo = F, fig.width = 8, fig.height = 7}
+
+diagnostic_dispersal <- simulateResiduals(fittedModel = m_dispersal)
+plot(diagnostic_dispersal)
+
+```
+
+```{r moderators, echo = F}
+
+d_moderator <- data.frame(
+  "Species" = paste(Genus, species),
+  "Taxonomic group" = taxonomic.group,
+  "Rearing.environment" = rearing.environment,
+  "Competition.strength" = comp.strength,
+  "Source" = source,
+  "Habitat" = habitat,
+  "Temperature.variation" = Tvariation,
+  "Species mean body size" = species.body.size,
+  "Passive.dispersal" = passive.dispersal,
+  "Inbred.or.Mixed" = inbred,
+  "Dispersal.assay.duration" = disp.assay.duration,
+  "Fitness.proxy.type" = fitness.proxy.type
+)
+
+```
+
+```{r writingoutputfiles, echo = F}
+
+# fitness output
+
+write.table(output_fitness_Tempeffect, paste(writing.path, "output_fitness_TempMain_", Genus, ".", species, ".txt", sep = ""))
+
+write.table(output_fitness_summary$coefficients, paste(writing.path, "output_fitness_Summary_", Genus, ".", species, ".txt", sep = ""))
+
+write.table(output_fitness_emmeans$emmeans, paste(writing.path, "output_fitness_emmeans_", Genus, ".", species, ".txt", sep = ""))
+
+write.table(output_fitness_emmeans$contrasts, paste(writing.path, "output_fitness_contrasts_", Genus, ".", species, ".txt", sep = ""))
+
+
+# dispersal output
+
+write.table(output_dispersal_Tempeffect, paste(writing.path, "output_dispersal_TempMain_", Genus, ".", species, ".txt", sep = ""))
+
+write.table(output_dispersal_summary$coefficients, paste(writing.path, "output_dispersal_Summary_", Genus, ".", species, ".txt", sep = ""))
+
+write.table(output_dispersal_emmeans$emmeans, paste(writing.path, "output_dispersal_emmeans_", Genus, ".", species, ".txt", sep = ""))
+
+write.table(output_dispersal_emmeans$contrasts, paste(writing.path, "output_dispersal_contrasts_", Genus, ".", species, ".txt", sep = ""))
+
+
+# moderator output
+
+write.table(d_moderator, paste(writing.path, "moderators_", Genus, ".", species, ".txt", sep = ""))
+
+```
