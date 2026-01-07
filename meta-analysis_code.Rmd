@@ -1,5 +1,28 @@
 ---
 title: "meta-analysis_code"
-output: html_document
+output: word_document
 ---
 
+```{r libraries}
+library(tidyverse)
+library(mgsub)
+```
+
+```{r import files}
+
+# main effect of temperature
+fitness_main_list <- list.files(path = "./outputs", pattern = "output_fitness_TempMain")
+
+d_fitness_main_names <- mgsub(fitness_main_list, c("./",".txt"), c("",""))
+
+
+for(file in fitness_main_list){
+  name <- gsub(".txt", "", file)
+  df <- read.table(paste("./outputs/", file, sep = ""), header = T)
+  assign(name, df)
+ }
+
+df_list <- as.list(d_fitness_main_names)
+Reduce(function(x,y) merge(x,y, all = TRUE), df_list)
+
+```
