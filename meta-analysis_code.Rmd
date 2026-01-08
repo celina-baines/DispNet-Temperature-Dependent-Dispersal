@@ -22,7 +22,5 @@ for(file in fitness_main_list){
   assign(name, df)
  }
 
-df_list <- as.list(d_fitness_main_names)
-Reduce(function(x,y) merge(x,y, all = TRUE), df_list)
 
 ```
