@@ -15,11 +15,14 @@ fitness_main_list <- list.files(path = "./outputs", pattern = "output_fitness_Te
 
 d_fitness_main_names <- mgsub(fitness_main_list, c("./",".txt"), c("",""))
 
-
+d_fitness_main <- NULL
 for(file in fitness_main_list){
   name <- gsub(".txt", "", file)
   df <- read.table(paste("./outputs/", file, sep = ""), header = T)
+  df <- rownames_to_column(df, var = "term")
+  df$species <- str_sub(name, 23)
   assign(name, df)
+  d_fitness_main <- bind_rows(d_fitness_main, df)
  }
 
 
