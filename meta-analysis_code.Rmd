@@ -3,27 +3,140 @@ title: "meta-analysis_code"
 output: word_document
 ---
 
+# to do
+- get vector of sample sizes for all studies/treatments  
+
+
 ```{r libraries}
 library(tidyverse)
 library(mgsub)
+library(esc)
+library(metafor)
 ```
 
 ```{r import files}
 
-# main effect of temperature
+# main effect of temperature on fitness
 fitness_main_list <- list.files(path = "./outputs", pattern = "output_fitness_TempMain")
-
-d_fitness_main_names <- mgsub(fitness_main_list, c("./",".txt"), c("",""))
 
 d_fitness_main <- NULL
 for(file in fitness_main_list){
   name <- gsub(".txt", "", file)
   df <- read.table(paste("./outputs/", file, sep = ""), header = T)
   df <- rownames_to_column(df, var = "term")
-  df$species <- str_sub(name, 23)
+  df$species <- str_sub(name, 25)
   assign(name, df)
   d_fitness_main <- bind_rows(d_fitness_main, df)
  }
 
+
+
+```
+
+# Effects of temperature on fitness
+## Pairwise temperature treatment comparisons
+
+We calculated Hedge's g for the pairwise temperature treatment comparisons of fitness for all studies using the 'esc' package in R. For fitness proxies that were normally distributed, we used the *esc_mean_se function* to convert treatment means and standard error to Hedge's g. For binary fitness proxies (i.e., survival) we used the *convert_or2d* function to convert log-odds ratios to Hedge's g.
+
+```{r, esfitness}
+
+# pairwise temperature treatment differences in fitness
+
+## list emmeans datasets
+fitness_emmeans_list <- list.files(path = "./outputs", pattern = "output_fitness_emmeans")
+
+## estimate Hedge's g
+d_g_fitness_OH <- NULL # dataframe of effect sizes for fitness for opt vs high
+d_g_fitness_OL <- NULL # dataframe of effect sizes for fitness for opt vs low
+for(file in fitness_emmeans_list){
+  name <- gsub(".txt", "", file)
+  df <- read.table(paste("./outputs/", file, sep = ""), header = T) #read all emmeans files in list
+  df$species <- str_sub(name, 24)
+  assign(name, df)
+  
+  if("emmean" %in% names(df)){ #if there is an emmeans column (meaning the fitness proxy is normal) then estimate Hedge's g from means/se
+  g_fitness_OH <- as.data.frame(esc_mean_se(grp1m = subset(df, Temp.treatment == "opt")$emmean[1], grp1se = subset(df, Temp.treatment == "opt")$SE[1], grp1n = 5, grp2m = subset(df, Temp.treatment == "high")$emmean[1], grp2se = subset(df, Temp.treatment == "high")$SE[1], grp2n = 5, es.type = "g", study = df$species[1]))
+  g_fitness_OL <- as.data.frame(esc_mean_se(grp1m = subset(df, Temp.treatment == "opt")$emmean[1], grp1se = subset(df, Temp.treatment == "opt")$SE[1], grp1n = 5, grp2m = subset(df, Temp.treatment == "low")$emmean[1], grp2se = subset(df, Temp.treatment == "low")$SE[1], grp2n = 5, es.type = "g", study = df$species[1]))
+  d_g_fitness_OH <- rbind(d_g_fitness_OH, g_fitness_OH)
+  d_g_fitness_OL <- rbind(d_g_fitness_OL, g_fitness_OL)
+  }
+  
+  if("response" %in% names(df)){ #if there is an response column (meaning the transformed fitness proxy is normal) then estimate Hedge's g from means/se
+  g_fitness_OH <- as.data.frame(esc_mean_se(grp1m = subset(df, Temp.treatment == "opt")$response[1], grp1se = subset(df, Temp.treatment == "opt")$SE[1], grp1n = 5, grp2m = subset(df, Temp.treatment == "high")$response[1], grp2se = subset(df, Temp.treatment == "high")$SE[1], grp2n = 5, es.type = "g", study = df$species[1]))
+  g_fitness_OL <- as.data.frame(esc_mean_se(grp1m = subset(df, Temp.treatment == "opt")$response[1], grp1se = subset(df, Temp.treatment == "opt")$SE[1], grp1n = 5, grp2m = subset(df, Temp.treatment == "low")$response[1], grp2se = subset(df, Temp.treatment == "low")$SE[1], grp2n = 5, es.type = "g", study = df$species[1]))
+  d_g_fitness_OH <- rbind(d_g_fitness_OH, g_fitness_OH)
+  d_g_fitness_OL <- rbind(d_g_fitness_OL, g_fitness_OL)
+  }
+  
+  if("prob" %in% names(df)){ #if there is a prob column (meaning the fitness proxy is binary) then estimate Hedge's g from OR
+    d2 <- read.table(paste("./outputs/output_fitness_Summary_", species, ".txt", sep = ""), header = T)
+    d2 <- rownames_to_column(d2, var = "term")
+
+  g_fitness_OH <- as.data.frame(convert_or2d(or = exp(subset(d2, term == "Temp.treatmenthigh")$Estimate[1]), se = subset(d2, term == "Temp.treatmenthigh")$Std..Error[1], totaln = 10, es.type = "g", study = df$species[1]))
+  g_fitness_OL <- as.data.frame(convert_or2d(or = exp(subset(d2, term == "Temp.treatmentlow")$Estimate[1]), se = subset(d2, term == "Temp.treatmentlow")$Std..Error[1], totaln = 10, es.type = "g", study = df$species[1]))
+  d_g_fitness_OH <- rbind(d_g_fitness_OH, g_fitness_OH)
+  d_g_fitness_OL <- rbind(d_g_fitness_OL, g_fitness_OL)
+  }
+}
+
+```
+
+
+```{r fitnessmeta}
+
+# random effects metaanalytical model
+
+m_fitnessOH <- rma(yi = d_g_fitness_OH$es, vi = d_g_fitness_OH$var)
+m_fitnessOL <- rma(yi = d_g_fitness_OL$es, vi = d_g_fitness_OL$var)
+
+```
+
+```{r fitnessforest}
+
+forest(m_fitnessOH, slab = d_g_fitness_OH$study, addcred = TRUE)
+forest(m_fitnessOL, slab = d_g_fitness_OL$study, addcred = TRUE)
+
+```
+
+```{r, esdispersal}
+
+# pairwise temperature treatment differences in dispersal
+
+## list summary datasets
+dispersal_summary_list <- list.files(path = "./outputs", pattern = "output_dispersal_Summary")
+
+## estimate Hedge's g
+d_OR_dispersal_OH <- NULL # dataframe of effect sizes for dispersal for opt vs high
+d_OR_dispersal_OL <- NULL # dataframe of effect sizes for dispersal for opt vs low
+for(file in dispersal_summary_list){
+  name <- gsub(".txt", "", file)
+  df <- read.table(paste("./outputs/", file, sep = ""), header = T) #read all summary files in list
+  df <- rownames_to_column(df, var = "term")
+  df$species <- str_sub(name, 26)
+  assign(name, df)
+  # extract OR
+  OR_dispersal_OH <- data.frame("species" = df$species[1], "OR" = subset(df, term == "Temp.treatmenthigh")$Estimate[1], se = subset(df, term == "Temp.treatmenthigh")$Std..Error[1], "totaln" = 10)
+  OR_dispersal_OL <- data.frame("species" = df$species[1], "OR" = subset(df, term == "Temp.treatmentlow")$Estimate[1], se = subset(df, term == "Temp.treatmentlow")$Std..Error[1], "totaln" = 10)  
+  d_OR_dispersal_OH <- rbind(d_OR_dispersal_OH, OR_dispersal_OH)
+  d_OR_dispersal_OL <- rbind(d_OR_dispersal_OL, OR_dispersal_OL)
+
+}
+
+```
+
+
+```{r dispersalmeta}
+
+# random effects metaanalytical model
+
+m_dispersalOH <- rma(yi = d_OR_dispersal_OH$OR, sei = d_OR_dispersal_OH$se)
+m_dispersalOL <- rma(yi = d_OR_dispersal_OL$OR, sei = d_OR_dispersal_OL$se)
+
+```
+
+```{r dispersalforest}
+
+forest(m_dispersalOH, slab = d_OR_dispersal_OH$species, addcred = TRUE)
+forest(m_dispersalOL, slab = d_OR_dispersal_OL$species, addcred = TRUE)
 
 ```
