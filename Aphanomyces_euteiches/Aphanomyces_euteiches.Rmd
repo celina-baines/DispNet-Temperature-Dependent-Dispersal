@@ -171,7 +171,7 @@ This soilborne pathogen has been recorded mostly in the north hemisphere in cool
 
 The Ae FIFi46 strain was isolated in June 2020 from the Itä Uusimaa region (south-east Finland, detailed coordinates not available) from 20-25cm depth soil samples (Kälin et al., 2022). This strain was baited using the susceptible pea cultivar Linnea as described by Olofsson (1967).
 
-The Ae RB84 strain was isolated from Riec-sur-Bélon (Brittany, Finistère, France) from infected pea field.
+The Ae RB84 strain was isolated from Riec-sur-Bélon (Brittany, Finistère, France) in December 2000 from infected pea field from the "Pois Baccara" strain (doi:10.1007/s10658-008-9350-x, 10.1007/s10658-006-9071-y).
 
 For FIFi46: Department of Forest Mycology and Plant Pathology, Swedish University of Agricultural Sciences, Uppsala, Sweden
 For RB84: Terres Inovia, Le Rheu, France and IGEPP, INRAE, Institut Agro, Univ Rennes, Le Rheu, France. 
