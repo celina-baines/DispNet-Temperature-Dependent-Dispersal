@@ -1,0 +1,28 @@
+Changes made to Rmd template:
+
+1. Added author contributions and acknowledgements sections to top of # Supplementary methods
+
+## Author contributions
+Possible categories:
+- conceptualization  
+- statistical analysis  
+- methodology (design of methodology)  
+- investigation/conduct experiment  
+- funding acquisition  
+- writing (original draft, supplement)
+- list others as needed  
+
+## Acknowledgements
+Research assistants, funding sources, etc.
+
+2. Fixed problem with fitness.transformation.function (~line 75)
+
+Changed line to:
+
+fitness.transformation.function <- function(x) {return (log(x))} # give transformation formula here; replace "log" with transformation used e.g., sqrt(x) or log(x + 1), etc., where x will be Fitness, below
+
+3. Fixed problem with filter.dead (~line 97)
+
+Changed line to:
+
+filter.dead = TRUE/FALSE # choose FALSE if this does not apply to your species
