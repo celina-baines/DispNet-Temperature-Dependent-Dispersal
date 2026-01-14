@@ -69,5 +69,5 @@ d_phase2 <- subset(d_phase2, select = c(Temp.treatment, Temp.value, Mesocosm, Di
 setwd("C:/Users/Celina Baines/Dropbox/Ongoing Research/DispNet/DispNet-Temperature-Dependent-Dispersal/Notonecta_undulata")
 write.csv(d_phase1, "Phase1_fitness_Notonecta.undulata.csv", row.names = F)
 
-write.csv(d_phase2, "Phase2_dispersal_Notonecta.undulata.csv")
+write.csv(d_phase2, "Phase2_dispersal_Notonecta.undulata.csv", row.names = F)
 
