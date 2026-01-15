@@ -1,17 +1,24 @@
 # phase 1
 
-d_phase1 <- read.csv("phase1_fitness_assay.csv", header = TRUE)
+d_phase1 <- read.csv("phase1_fitness_assay_NR.csv", header = TRUE)
 
 # normality of fitness proxy
 
 with(d_phase1, hist(Total_eggs))
 with(d_phase1, hist(log(Total_eggs+1)))
 nrow(subset(d_phase1, Total_eggs == 0))
+with(d_phase1, table(Survivorship, Treatment))
 
 with(d_phase1, table(Death_Day, Treatment))
 
 nrow(subset(d_phase1, Death_Day != 0 & Death_Day != 1 & Total_eggs == 0))
 
+with(subset(d_phase1, Death_Day != 0 & Death_Day != 1), hist(log(Avg_Egg + 1)))
+with(d_phase1, hist(log(Avg_Egg + 1)))
+
+with(subset(d_phase1, Death_Day != 0 & Death_Day != 1), hist(Avg_Egg))
+with(subset(d_phase1, Death_Day != 0 & Death_Day != 1), summary(Avg_Egg))
+subset(d_phase1, Death_Day != 0 & Death_Day != 1 & Total_eggs == 0)
 
 with(subset(d_phase1, Death_Day != 0 & Death_Day != 1), hist(log(Total_eggs+1)))
 
@@ -23,8 +30,8 @@ with(subset(d_phase1, Death_Day != 0 & Death_Day != 1 & Treatment == 16 | Treatm
 # additionally, they represent a lot of the zeros in the dataset that make it difficult to transform to make the data close to normal.
 
 # tidy the dataset
-
-d_phase1 <- subset(d_phase1, select = c(Treatment, Block, Mesocosm, Total_eggs, Survivorship), Treatment == 16 | Treatment == 26 | Treatment == 30 & Death_Day != 0 & Death_Day != 1)
+d_phase1 <- subset(d_phase1, Death_Day != 0 & Death_Day != 1)
+d_phase1 <- subset(d_phase1, select = c(Treatment, Block, Mesocosm, Total_eggs, Survivorship), Treatment == 16 | Treatment == 26 | Treatment == 30)
 
 d_phase1$Temp.treatment <- with(d_phase1, ifelse(Treatment == 30, "high", ifelse(Treatment == 26, "opt", "low")))
 

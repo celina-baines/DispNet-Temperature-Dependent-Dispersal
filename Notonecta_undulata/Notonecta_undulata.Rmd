@@ -71,7 +71,7 @@ fitness.transformed.normal = TRUE
 
 ## If fitness variable is continuous normal AFTER transformation, choose transformation used (just write it in if not on this list):
 
-transform.description <- "log10" # leave as-is if not applicable
+transform.description <- "ln" # leave as-is if not applicable
 fitness.transformation.function <- function(x) {return (log(x+1))} # give transformation formula here; replace "log" with transformation used e.g., sqrt(x) or log(x + 1), etc., where x will be Fitness, below
 
 ## note: if fitness (or transformed fitness) does not have a binomial or normal distribution, check in with Celina.
@@ -139,7 +139,7 @@ comp.strength <- "low" # tested alone
 source <- "field" # lab population or field caught
 habitat <- "aquatic"
 Tvariation <- "heterogenous"
-species.body.size <- x # mean body length in mm
+species.body.size <- 11 # mean body length in mm
 passive.dispersal <- "No"
 inbred <- "mixed"
 disp.assay.duration <- 0.01 # order of magnitude for dispersal assay duration / generation time, i.e., approximate number of generations the dispersal assay lasted
@@ -158,70 +158,21 @@ CB conceptualized the project. NR and CB designed the methodology. NR conducted 
 Funding was provided by a National Science and Engineering Council of Canada Discovery Grant awarded to CB.
 
 ## Study organism
-Name and strain/origin of species.  
-
-Provide basic life history information (aquatic/terrestrial, mode of dispersal, lifespan, etc.).  
-
-Briefly describe what is known about the temperature range the species experiences (geographic range, seasonality, type of habitat, etc.) in its natural system or the history of the conditions it has experienced in the lab.  
-
-How were organisms sourced?  
--	Field caught: provide information on timing, geographic coordinates, type of habitat.  
--	Lab sourced: provide information on source.  
--	Provide license/ authorization numbers for catching animals in the field and/or doing experiments, where applicable. 
-
-How were individuals/populations treated before the experiment?  
--	Rearing/holding conditions (temperature, food, light).  
--	How long were experimental subjects held before the experiment?  
-
-Were specific individuals/phenotypes/stages selected for the experiment?  
+Our experiment used backswimmers (Notonecta undulata) that were field caught from experimental ponds at the University of Toronto’s Koffler Scientific Reserve (KSR; 44°01’N, 79°32’W) in King City, Ontario. Backswimmers are semi-aquatic insects that are common in freshwater ponds throughout North America (Hungerford 1919). In these habitats, backswimmers are voracious generalist predators that has strong impacts on community structure (Hungerford 1934, Blaustein et al. 1995). They also commonly exhibit opportunistic cannibalism (Zalom 1978). Backswimmers fly to disperse between patches of aquatic habitat (Hungerford 1934), but this process is energetically intensive (Baines et al. 2015) and requires a light cue (Essenberg 1915). At high temperatures, the predatory behaviors of backswimmers increase, imposing greater top-down effects on the community (Ingram and Burns 2018). At high temperatures, some species of backswimmer have shown an increase in paddling rate (Krishnan and Narayanan 2024), swimming duration (Bailey 1988) and swimming speed (Ferris and Wilson 2012).  
+  
+Backswimmers for Phase 1 were sourced in May and individuals for Phase 2 were sourced in August. Prior to the start of the experiment, backswimmers were separated into individual holding containers, which they remained in throughout the duration of the experiment, at ambient temperatures to reduce stress for a minimum of 24 hours. Backswimmers in Phase 2 underwent 4 acclimation days in their temperature treatments prior to the dispersal assay. While acclimating, backswimmers were fed ad libitum. For Phase 1, we specifically used female adult backswimmers since we were measuring reproductive output. Phase 2 used any adult backswimmer regardless of sex. 
 
 ## Study design
 
-### Temperature treatments
+### Phase 1 - Fitness assay
+We assessed the effects of temperature on survival, body condition, and reproductive rate for female backswimmers over a 2-week long fitness assay. Higher fecundity and survival are indicators of higher relative fitness. We manipulated water temperature in indoor mesocosms to 16℃, 22℃, 26℃, 28℃, and 30℃. The water temperature of warm treatments was manipulated using aquaria heaters. The 16℃ was manipulated by putting the mesocosms in coolers surrounded with ice packs that were replaced twice a day. This cooled the water temperature externally without adding ice directly into the water. The experiment was conducted in 2 temporally overlapping blocks. In the first block, 3 individually separated backswimmers were added to each mesocosm and in the second block 2 additional individually separated backswimmers were added to each mesocosm. Each temperature treatment had 8 replicates, totalling 48 mesocosms and 240 backswimmers. Each cup contained a black zip tie as structure for the backswimmer. Backswimmers lay white eggs on available structure, the black zip tie provides contrast which allows us to easily count eggs laid. Every other day for 2 weeks we removed and replaced the zip ties in each cup for data collection and to create room for more eggs to be laid. We recorded the number of eggs on each zip tie when it was removed. This data was used to create total reproductive output (total number of eggs laid) and reproductive rate (average number of eggs laid per day). Survival was assessed throughout the experiment. At the end of the experiment, we calculated body condition the backswimmer mass (g) divided by body size (thorax width, mm). Backswimmers were fed zooplankton and mosquito larvae which was replenished ad lib. 
 
-Topt, Thot, and Tcold were set to 16, 26, and 30$^\circ$C, respectively. These temperatures were chosen based on the results of the fitness assay described below.
+### Phase 2 - Dispersal assay
+The dispersal assay was conducted using an outdoor mesocosm field experiment. The temperatures 16℃, 26℃, and 30℃ were chosen for the dispersal assay with 6 replicates of each treatment (18 total mesocosms). For the 26℃ and 30℃ treatments, water temperature was manipulated using aquaria heaters. To keep the 16℃ treatment below ambient temperatures, the mesocosms were wrapped in insulation with ice packs between the insulation and mesocosm, the ice packs were switched out twice a day. Backswimmers were separated into individual cups throughout the experiment, with 13 backswimmers per mesocosm (234 backswimmers total). Dispersal is dichotomous and can be determined from the presence-absence of a backswimmer from a cup, if a backswimmer is absent it is assumed to have dispersed via flight. Backswimmers were labeled on one hemelytron with their assigned mesocosm number to identify if short distance dispersal (flight from between mesocosms) occurred. Backswimmers were fed zooplankton and mosquito larvae which was replenished ad lib. 
+This phase used separate individuals from Phase 1, including randomly sampled adult backswimmers regardless of sex collected in August. Since interspecific interactions such as density (Baines et al. 2014) and cannibalism (Regimbal and Baines 2024) influence dispersal, the backswimmers remained individually separated to isolate the independent effects of temperature on dispersal. Backswimmers acclimated to their temperature treatments for 4 days, during which each backswimmer cup was covered with mesh to prevent dispersal and the mesocosms covered to prevent light cues which may induce dispersal attempts. The backswimmers then underwent a 2 week dispersal assay where the backswimmer containers were uncovered allowing dispersal to occur. We assessed dispersal and survival every day during this period. 
 
-
-State whether there was daily variation in temperature, and if so, describe (e.g., mean and standard deviation of temperature for each treatment).  
-
-### Phase 1: Fitness assay
-
-Describe the fitness proxy (growth rate, survival, body condition, reproductive output, etc.). If proxy is indirect (e.g., body condition), explain what is known about the relationship between the proxy and actual fitness in the species.  
-
-Provide details about the methods for estimating the fitness proxy including:  
--	Physical details about the experimental setup including size/shape/volume of experimental arenas, substrate/medium of experimental arenas.  
--	Replicates  
-    - Specify number of experimental replicates  
-    - Number of strains and number of replicates per strain  
-    - Indicate if experimental blocks were used and the blocking design (number of blocks, how many replicates of each treatment per block, time/space between blocks)
--	Type and amount of food provided during experiment  
-- Starting density  
--	Duration of fitness assay  
--	Controlled variables: food (ad lib?), water (ad lib?), sex ratio  
-- Phenotypes measured (activity, body condition, body size, etc.) and how they were estimated  
-
-### Phase 2: Dispersal assay
-
-Provide details about the methods for estimating dispersal including:  
--	Physical details about the experimental setup including size/shape/volume of experimental arenas, substrate/medium of experimental arenas, type of system (1 or 2 patches).  
--	Replicates  
-    - Specify number of experimental replicates  
-    - Number of strains and number of replicates per strain  
-    - Indicate if experimental blocks were used and the blocking design (number of blocks, how many replicates of each treatment per block, time/space between blocks)  
--	Type and amount of food provided during experiment  
-- Starting density  
--	Duration of dispersal assay including:  
-    - time between birth and start of acclimation period  
-    - duration of acclimation period  
-    - timing and duration of dispersal assay  
--	Controlled variables: food (ad lib?), water (ad lib? if applicable), sex ratio  
-- Phenotypes measured (activity, body condition, body size, etc.) and how they were estimated  
-- Whether individuals used in phase 2 were the same as used in phase 1 
-- Provide details on data collection including:  
-    -	The sampling regime (time intervals between sampling).  
-    -	Sampling method including whether individuals were marked and whether sampling was observed or automated. Please include validation if automated.  
-- State whether mortality during the dispersal assay was recorded. Describe how mortality was handled for the statistical analysis (e.g., individuals that died during the dispersal assay were excluded from the analysis of dispersal).  
-
+###	Temperature treatments
+For Phase 1, we chose 5 temperature treatments of 16℃, 22℃, 26℃, 28℃, and 30℃. Based on our results of how temperature affects reproduction in Phase 1, we chose the three temperatures of 16℃, 26℃, and 30℃; such that 26℃ is Topt.
 
 
 ```{r instructions2, echo = F}
