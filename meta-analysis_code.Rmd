@@ -5,8 +5,9 @@ output: word_document
 
 # to do
 - get vector of sample sizes for all studies/treatments  
-- tetranychus cinnabarinus_PT, Tetranychus evansi calls low temp "control"
+- tetranychus cinnabarinus_PT, Tetranychus evansi calls low temp "control" - need to ask them to change it to "low"
 - tetranychus turkestani, cinnabrinus, urticae - check sample size with researchers
+- notonecta fitness analysis not normal - fix
 
 ```{r libraries}
 library(tidyverse)
@@ -28,7 +29,9 @@ for(file in fitness_main_list){
   df$species <- str_sub(name, 25)
   assign(name, df)
   d_fitness_main <- bind_rows(d_fitness_main, df)
- }
+}
+
+d_sampleN <- read.csv("./outputs/Sample_sizes.csv", header = T)
 
 
 
@@ -43,6 +46,7 @@ We calculated Hedge's g for the pairwise temperature treatment comparisons of fi
 
 # pairwise temperature treatment differences in fitness
 
+
 ## list emmeans datasets
 fitness_emmeans_list <- list.files(path = "./outputs", pattern = "output_fitness_emmeans")
 
@@ -56,30 +60,35 @@ for(file in fitness_emmeans_list){
   assign(name, df)
   
   if("emmean" %in% names(df)){ #if there is an emmeans column (meaning the fitness proxy is normal) then estimate Hedge's g from means/se
-  g_fitness_OH <- as.data.frame(esc_mean_se(grp1m = subset(df, Temp.treatment == "opt")$emmean[1], grp1se = subset(df, Temp.treatment == "opt")$SE[1], grp1n = 5, grp2m = subset(df, Temp.treatment == "high")$emmean[1], grp2se = subset(df, Temp.treatment == "high")$SE[1], grp2n = 5, es.type = "g", study = df$species[1]))
-  g_fitness_OL <- as.data.frame(esc_mean_se(grp1m = subset(df, Temp.treatment == "opt")$emmean[1], grp1se = subset(df, Temp.treatment == "opt")$SE[1], grp1n = 5, grp2m = subset(df, Temp.treatment == "low")$emmean[1], grp2se = subset(df, Temp.treatment == "low")$SE[1], grp2n = 5, es.type = "g", study = df$species[1]))
-  d_g_fitness_OH <- rbind(d_g_fitness_OH, g_fitness_OH)
-  d_g_fitness_OL <- rbind(d_g_fitness_OL, g_fitness_OL)
+    g_fitness_OH <- as.data.frame(esc_mean_se(grp1m = subset(df, Temp.treatment == "opt")$emmean[1], grp1se = subset(df, Temp.treatment == "opt")$SE[1], grp1n = subset(d_sampleN, species == df$species[1])$Fitness.Nopt, grp2m = subset(df, Temp.treatment == "high")$emmean[1], grp2se = subset(df, Temp.treatment == "high")$SE[1], grp2n = subset(d_sampleN, species == df$species[1])$Fitness.Nhigh, es.type = "g", study = df$species[1]))
+    g_fitness_OMH <- as.data.frame(esc_mean_se(grp1m = subset(df, Temp.treatment == "opt")$emmean[1], grp1se = subset(df, Temp.treatment == "opt")$SE[1], grp1n = subset(d_sampleN, species == df$species[1])$Fitness.Nopt, grp2m = subset(df, Temp.treatment == "medium.high")$emmean[1], grp2se = subset(df, Temp.treatment == "medium.high")$SE[1], grp2n = subset(d_sampleN, species == df$species[1])$Fitness.Nmediumhigh, es.type = "g", study = df$species[1]))
+    g_fitness_OL <- as.data.frame(esc_mean_se(grp1m = subset(df, Temp.treatment == "opt")$emmean[1], grp1se = subset(df, Temp.treatment == "opt")$SE[1], grp1n = subset(d_sampleN, species == df$species[1])$Fitness.Nopt, grp2m = subset(df, Temp.treatment == "low")$emmean[1], grp2se = subset(df, Temp.treatment == "low")$SE[1], grp2n = subset(d_sampleN, species == df$species[1])$Fitness.Nlow, es.type = "g", study = df$species[1]))
+    g_fitness_OML <- as.data.frame(esc_mean_se(grp1m = subset(df, Temp.treatment == "opt")$emmean[1], grp1se = subset(df, Temp.treatment == "opt")$SE[1], grp1n = subset(d_sampleN, species == df$species[1])$Fitness.Nopt, grp2m = subset(df, Temp.treatment == "medium.low")$emmean[1], grp2se = subset(df, Temp.treatment == "medium.low")$SE[1], grp2n = subset(d_sampleN, species == df$species[1])$Fitness.Nmediumlow, es.type = "g", study = df$species[1]))
+    d_g_fitness_OH <- rbind(d_g_fitness_OH, cbind(g_fitness_OH, "Temp.contr" = "OH"), cbind(g_fitness_OMH, "Temp.contr" = "OMH"))
+    d_g_fitness_OL <- rbind(d_g_fitness_OL, cbind(g_fitness_OL, "Temp.contr" = "OL"), cbind(g_fitness_OML, "Temp.contr" = "OML"))
   }
   
   if("response" %in% names(df)){ #if there is an response column (meaning the transformed fitness proxy is normal) then estimate Hedge's g from means/se
-  g_fitness_OH <- as.data.frame(esc_mean_se(grp1m = subset(df, Temp.treatment == "opt")$response[1], grp1se = subset(df, Temp.treatment == "opt")$SE[1], grp1n = 5, grp2m = subset(df, Temp.treatment == "high")$response[1], grp2se = subset(df, Temp.treatment == "high")$SE[1], grp2n = 5, es.type = "g", study = df$species[1]))
-  g_fitness_OL <- as.data.frame(esc_mean_se(grp1m = subset(df, Temp.treatment == "opt")$response[1], grp1se = subset(df, Temp.treatment == "opt")$SE[1], grp1n = 5, grp2m = subset(df, Temp.treatment == "low")$response[1], grp2se = subset(df, Temp.treatment == "low")$SE[1], grp2n = 5, es.type = "g", study = df$species[1]))
-  d_g_fitness_OH <- rbind(d_g_fitness_OH, g_fitness_OH)
-  d_g_fitness_OL <- rbind(d_g_fitness_OL, g_fitness_OL)
+    g_fitness_OH <- as.data.frame(esc_mean_se(grp1m = subset(df, Temp.treatment == "opt")$response[1], grp1se = subset(df, Temp.treatment == "opt")$SE[1], grp1n = max(1, subset(d_sampleN, species == df$species[1])$Fitness.Nopt), grp2m = subset(df, Temp.treatment == "high")$response[1], grp2se = subset(df, Temp.treatment == "high")$SE[1], grp2n = max(1, subset(d_sampleN, species == df$species[1])$Fitness.Nhigh), es.type = "g", study = df$species[1]))
+    g_fitness_OMH <- as.data.frame(esc_mean_se(grp1m = subset(df, Temp.treatment == "opt")$response[1], grp1se = subset(df, Temp.treatment == "opt")$SE[1], grp1n = max(1, subset(d_sampleN, species == df$species[1])$Fitness.Nopt), grp2m = subset(df, Temp.treatment == "medium.high")$response[1], grp2se = subset(df, Temp.treatment == "medium.high")$SE[1], grp2n = max(1, subset(d_sampleN, species == df$species[1])$Fitness.Nmedium.high), es.type = "g", study = df$species[1]))
+    g_fitness_OL <- as.data.frame(esc_mean_se(grp1m = subset(df, Temp.treatment == "opt")$response[1], grp1se = subset(df, Temp.treatment == "opt")$SE[1], grp1n = max(1, subset(d_sampleN, species == df$species[1])$Fitness.Nopt), grp2m = subset(df, Temp.treatment == "low")$response[1], grp2se = subset(df, Temp.treatment == "low")$SE[1], grp2n = max(1, subset(d_sampleN, species == df$species[1])$Fitness.Nlow), es.type = "g", study = df$species[1]))
+    g_fitness_OML <- as.data.frame(esc_mean_se(grp1m = subset(df, Temp.treatment == "opt")$response[1], grp1se = subset(df, Temp.treatment == "opt")$SE[1], grp1n = max(1, subset(d_sampleN, species == df$species[1])$Fitness.Nopt), grp2m = subset(df, Temp.treatment == "medium.low")$response[1], grp2se = subset(df, Temp.treatment == "medium.low")$SE[1], grp2n = max(1, subset(d_sampleN, species == df$species[1])$Fitness.Nmedium.low), es.type = "g", study = df$species[1]))
+    d_g_fitness_OH <- rbind(d_g_fitness_OH, cbind(g_fitness_OH, "Temp.contr" = "OH"), cbind(g_fitness_OMH, "Temp.contr" = "OMH"))
+    d_g_fitness_OL <- rbind(d_g_fitness_OL, cbind(g_fitness_OL, "Temp.contr" = "OL"), cbind(g_fitness_OML, "Temp.contr" = "OML"))
   }
   
   if("prob" %in% names(df)){ #if there is a prob column (meaning the fitness proxy is binary) then estimate Hedge's g from OR
-    d2 <- read.table(paste("./outputs/output_fitness_Summary_", species, ".txt", sep = ""), header = T)
+    d2 <- read.table(paste("./outputs/output_fitness_Summary_", df$species[1], ".txt", sep = ""), header = T)
     d2 <- rownames_to_column(d2, var = "term")
-
-  g_fitness_OH <- as.data.frame(convert_or2d(or = exp(subset(d2, term == "Temp.treatmenthigh")$Estimate[1]), se = subset(d2, term == "Temp.treatmenthigh")$Std..Error[1], totaln = 10, es.type = "g", study = df$species[1]))
-  g_fitness_OL <- as.data.frame(convert_or2d(or = exp(subset(d2, term == "Temp.treatmentlow")$Estimate[1]), se = subset(d2, term == "Temp.treatmentlow")$Std..Error[1], totaln = 10, es.type = "g", study = df$species[1]))
-  d_g_fitness_OH <- rbind(d_g_fitness_OH, g_fitness_OH)
-  d_g_fitness_OL <- rbind(d_g_fitness_OL, g_fitness_OL)
+    
+    g_fitness_OH <- as.data.frame(convert_or2d(or = exp(subset(d2, term == "Temp.treatmenthigh")$Estimate[1]), se = subset(d2, term == "Temp.treatmenthigh")$Std..Error[1], totaln = subset(d_sampleN, species == df$species[1])$Fitness.totalN, es.type = "g", study = df$species[1]))
+    g_fitness_OMH <- as.data.frame(convert_or2d(or = exp(subset(d2, term == "Temp.treatmentmedium.high")$Estimate[1]), se = subset(d2, term == "Temp.treatmentmedium.high")$Std..Error[1], totaln = subset(d_sampleN, species == df$species[1])$Fitness.totalN, es.type = "g", study = df$species[1]))
+    g_fitness_OL <- as.data.frame(convert_or2d(or = exp(subset(d2, term == "Temp.treatmentlow")$Estimate[1]), se = subset(d2, term == "Temp.treatmentlow")$Std..Error[1], totaln = subset(d_sampleN, species == df$species[1])$Fitness.totalN, es.type = "g", study = df$species[1]))
+    g_fitness_OML <- as.data.frame(convert_or2d(or = exp(subset(d2, term == "Temp.treatmentmedium.low")$Estimate[1]), se = subset(d2, term == "Temp.treatmentmedium.low")$Std..Error[1], totaln = subset(d_sampleN, species == df$species[1])$Fitness.totalN, es.type = "g", study = df$species[1]))
+    d_g_fitness_OH <- rbind(d_g_fitness_OH, cbind(g_fitness_OH, "Temp.contr" = "OH"), cbind(g_fitness_OMH, "Temp.contr" = "OMH"))
+    d_g_fitness_OL <- rbind(d_g_fitness_OL, cbind(g_fitness_OL, "Temp.contr" = "OL"), cbind(g_fitness_OML, "Temp.contr" = "OML"))
   }
 }
-
 ```
 
 
@@ -116,10 +125,14 @@ for(file in dispersal_summary_list){
   df$species <- str_sub(name, 26)
   assign(name, df)
   # extract OR
-  OR_dispersal_OH <- data.frame("species" = df$species[1], "OR" = subset(df, term == "Temp.treatmenthigh")$Estimate[1], se = subset(df, term == "Temp.treatmenthigh")$Std..Error[1], "totaln" = 10)
-  OR_dispersal_OL <- data.frame("species" = df$species[1], "OR" = subset(df, term == "Temp.treatmentlow")$Estimate[1], se = subset(df, term == "Temp.treatmentlow")$Std..Error[1], "totaln" = 10)  
-  d_OR_dispersal_OH <- rbind(d_OR_dispersal_OH, OR_dispersal_OH)
-  d_OR_dispersal_OL <- rbind(d_OR_dispersal_OL, OR_dispersal_OL)
+  OR_dispersal_OH <- data.frame("species" = df$species[1], "OR" = subset(df, term == "Temp.treatmenthigh")$Estimate[1], se = subset(df, term == "Temp.treatmenthigh")$Std..Error[1], "totaln" = subset(d_sampleN, species == df$species[1])$Dispersal.totalN)
+  OR_dispersal_OMH <- data.frame("species" = df$species[1], "OR" = subset(df, term == "Temp.treatmentmedium.high")$Estimate[1], se = subset(df, term == "Temp.treatmentmedium.high")$Std..Error[1], "totaln" = subset(d_sampleN, species == df$species[1])$Dispersal.totalN)
+  OR_dispersal_OL <- data.frame("species" = df$species[1], "OR" = subset(df, term == "Temp.treatmentlow")$Estimate[1], se = subset(df, term == "Temp.treatmentlow")$Std..Error[1], "totaln" = subset(d_sampleN, species == df$species[1])$Dispersal.totalN)  
+  OR_dispersal_OML <- data.frame("species" = df$species[1], "OR" = subset(df, term == "Temp.treatmentmedium.low")$Estimate[1], se = subset(df, term == "Temp.treatmentmedium.low")$Std..Error[1], "totaln" = subset(d_sampleN, species == df$species[1])$Dispersal.totalN)
+  
+  d_OR_dispersal_OH <- rbind(d_OR_dispersal_OH, cbind("Temp.contr" = "OH", OR_dispersal_OH), cbind("Temp.contr" = "OMH", OR_dispersal_OMH))
+  
+  d_OR_dispersal_OL <- rbind(d_OR_dispersal_OL, cbind("Temp.contr" = "OL", OR_dispersal_OL), cbind("Temp.contr" = "OML", OR_dispersal_OML))
 
 }
 
@@ -139,5 +152,30 @@ m_dispersalOL <- rma(yi = d_OR_dispersal_OL$OR, sei = d_OR_dispersal_OL$se)
 
 forest(m_dispersalOH, slab = d_OR_dispersal_OH$species, addcred = TRUE)
 forest(m_dispersalOL, slab = d_OR_dispersal_OL$species, addcred = TRUE)
+
+```
+
+```{r fitdispcontr}
+
+d_g_fitness <- rbind(d_g_fitness_OH, d_g_fitness_OL)
+d_g_fitness$species <- d_g_fitness$study
+d_g_fitness <- d_g_fitness %>%
+  rename(se_fitness = se)
+
+d_OR_dispersal <- rbind(d_OR_dispersal_OH, d_OR_dispersal_OL)
+
+d_OR_dispersal <- d_OR_dispersal %>%
+  rename(se_dispersal = se)
+
+
+d_fitdispcontr <- full_join(d_g_fitness, d_OR_dispersal, by = c("species", "Temp.contr"))
+d_fitdispcontr$HILO <- with(d_fitdispcontr, ifelse(Temp.contr == "OH" | Temp.contr == "OMH", "hot", "cold"))
+
+ggplot(d_fitdispcontr, aes(x = es, y = OR))+
+  geom_point(aes(col = HILO))+
+  geom_smooth(method = "lm", col = "black")+
+  geom_hline(yintercept = 0, lty = 2)+
+  scale_color_manual("", values = c("blue", "red"))+
+  theme_classic()
 
 ```
