@@ -6,6 +6,7 @@ output: word_document
 # to do
 - get vector of sample sizes for all studies/treatments  
 - tetranychus cinnabarinus_PT, Tetranychus evansi calls low temp "control"
+- tetranychus turkestani, cinnabrinus, urticae - check sample size with researchers
 
 ```{r libraries}
 library(tidyverse)
