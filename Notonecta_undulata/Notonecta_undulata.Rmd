@@ -1,6 +1,6 @@
 ---
 title: "Temperature dependent dispersal: A distributed experiment"
-author: "researcher names here"
+author: "Celina Baines, Nicole Regimbal"
 output: word_document
 editor_options: 
   chunk_output_type: console
@@ -32,12 +32,12 @@ library(DHARMa)
 
 # 3. Fill out information about your species below
 
-Genus = "Genus"
-species = "species"
-fitness.proxy = "Population growth, r / Survival / Fecundity"
-low.temp = x #value of low temperature treatment in Celsius
-opt.temp = x #value of optimal temperature treatment in Celsius
-high.temp = x #value of high temperature treatment in Celsius
+Genus = "Notonecta"
+species = "undulata"
+fitness.proxy = "Fecundity"
+low.temp = 16 #value of low temperature treatment in Celsius
+opt.temp = 26 #value of optimal temperature treatment in Celsius
+high.temp = 30 #value of high temperature treatment in Celsius
 
 
 # 4. Check that the data files have the following headers (order of columns is not important):
@@ -61,18 +61,18 @@ high.temp = x #value of high temperature treatment in Celsius
 ## Answer questions below about the fitness proxy
 
 ### Is your fitness variable binary? (choose one)
-fitness.binary = TRUE/FALSE
+fitness.binary = FALSE
 
 ### Is the fitness variable continuous normal (without transformation)? (choose one)
-fitness.normal = TRUE/FALSE
+fitness.normal = FALSE
 
 ### Is the fitness variable normal after transformation? (choose one; choose NA if you said "TRUE" to either question above)
-fitness.transformed.normal = TRUE/FALSE/NA
+fitness.transformed.normal = TRUE
 
 ## If fitness variable is continuous normal AFTER transformation, choose transformation used (just write it in if not on this list):
 
-transform.description <- "square-root/log/log10" # leave as-is if not applicable
-fitness.transformation.function <- function(x) {return (log(x))} # give transformation formula here; replace "log" with transformation used e.g., sqrt(x) or log(x + 1), etc., where x will be Fitness, below
+transform.description <- "log10" # leave as-is if not applicable
+fitness.transformation.function <- function(x) {return (log(x+1))} # give transformation formula here; replace "log" with transformation used e.g., sqrt(x) or log(x + 1), etc., where x will be Fitness, below
 
 ## note: if fitness (or transformed fitness) does not have a binomial or normal distribution, check in with Celina.
 
@@ -81,7 +81,7 @@ fitness.transformation.function <- function(x) {return (log(x))} # give transfor
 
 ## Is there overdispersion in the dispersal data? If you do not yet know, choose FALSE and this will be dealt with in step 12.
 
-overdispersion = TRUE/FALSE
+overdispersion = FALSE
 
 
 # 7. Dealing with mortality in dispersal assay
@@ -94,14 +94,14 @@ overdispersion = TRUE/FALSE
 
 ## Do rows represent individuals in the dataset and are there dead individuals that should be removed from the dispersal data?
 
-filter.dead = TRUE/FALSE # choose FALSE if this does not apply to your species
+filter.dead = TRUE # choose FALSE if this does not apply to your species
 
 
 # 8. Model formulae
 
 ## Formula for fitness: (fill in as appropriate)
 
-fitness.formula <- "Fitness ~ Temp.treatment + other.fixed.effects + (1|random)"
+fitness.formula <- "log(Fitness+1) ~ Temp.treatment + (1|Mesocosm)"
 
 ### notes:
 #### TRANSFORM FITNESS VARIABLE (if needed) *WITHIN* THE FORMULA; doing it within the formula is important for contrasts below  
@@ -118,13 +118,13 @@ Fit1 <- "Died/Survived" # or fill in other
 
 ## Formula for dispersal: (fill in as appropriate)
   
-dispersal.formula <- "cbind(Num.disp, Num.nondisp) ~ Temp.treatment + other.fixed.effects + (1|random)"
+dispersal.formula <- "Dispersed ~ Temp.treatment + (1|Mesocosm)"
 
 ### notes
 #### other.fixed.effects does not apply to every species; include as appropriate; fixed effects should be standardized
 #### include as many random effects as appropriate
 #### Num.disp/Num.nondisp can be replaced with column "Dispersed" with values 0 and 1, if individuals are rows in your dataset
-#### remember to deal with mortality directly in dispersl formula if appropriate
+#### remember to deal with mortality directly in dispersal formula if appropriate
 
 
 # 9. Moderators
@@ -133,17 +133,17 @@ dispersal.formula <- "cbind(Num.disp, Num.nondisp) ~ Temp.treatment + other.fixe
 ## choose option on right hand side
 ## see description of moderators and levels in README.md in project repo
 
-taxonomic.group <- "arthropod/ciliate/microalgae"
-rearing.environment <- "commonT/treatmentT/field"
-comp.strength <- "low/moderate/high"
-source <- "lab/field" # lab population or field caught
-habitat <- "aquatic/terrestrial"
-Tvariation <- "homogenous/heterogenous"
+taxonomic.group <- "arthropod"
+rearing.environment <- "field"
+comp.strength <- "low" # tested alone
+source <- "field" # lab population or field caught
+habitat <- "aquatic"
+Tvariation <- "heterogenous"
 species.body.size <- x # mean body length in mm
-passive.dispersal <- "Yes/No"
-inbred <- "inbred line/mixed"
-disp.assay.duration <- 0.01/0.1/1/10 # order of magnitude for dispersal assay duration / generation time, i.e., approximate number of generations the dispersal assay lasted
-fitness.proxy.type <- "r/other"
+passive.dispersal <- "No"
+inbred <- "mixed"
+disp.assay.duration <- 0.01 # order of magnitude for dispersal assay duration / generation time, i.e., approximate number of generations the dispersal assay lasted
+fitness.proxy.type <- "other"
 
 # 10. Fill out methods information in text below.
 
@@ -152,17 +152,10 @@ fitness.proxy.type <- "r/other"
 # Supplementary methods for *`r (print(paste(Genus, species)))`*
 
 ## Author contributions
-Possible categories:
-- conceptualization  
-- statistical analysis  
-- methodology (design of methodology)  
-- investigation/conduct experiment  
-- funding acquisition  
-- writing (original draft, supplement)
-- list others as needed  
+CB conceptualized the project. NR and CB designed the methodology. NR conducted the experiment and collected the data. CB conducted the statistical analysis. NR and CB wrote the supplementary material.
 
 ## Acknowledgements
-Research assistants, funding sources, etc.
+Funding was provided by a National Science and Engineering Council of Canada Discovery Grant awarded to CB.
 
 ## Study organism
 Name and strain/origin of species.  
@@ -186,7 +179,8 @@ Were specific individuals/phenotypes/stages selected for the experiment?
 
 ### Temperature treatments
 
-State the temperatures used for Topt, Thot, Tcold, and explain how they were chosen.  
+Topt, Thot, and Tcold were set to 16, 26, and 30$^\circ$C, respectively. These temperatures were chosen based on the results of the fitness assay described below.
+
 
 State whether there was daily variation in temperature, and if so, describe (e.g., mean and standard deviation of temperature for each treatment).  
 
