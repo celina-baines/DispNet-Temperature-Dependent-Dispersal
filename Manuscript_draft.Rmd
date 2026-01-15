@@ -1,7 +1,12 @@
 # Temperature-dependent dispersal: a distributed experiment
 
 # Methods
+
 ## Statistical analysis
+
+## Extracting sample size
+
+The unit of replication for both the fitness and dispersal assays was taken to be the mesocosm. The number of individuals per mesocosm varied across species from one (e.g., *Notonecta undulata*) to thousands (e.g., Tetrahymena thermophila).
 
 ### Model fitting
 All linear mixed models were fit using the ‘lmer’ function in the lme4 package (Bates et al. 2015). All generalized linear mixed models were fit using the ‘glmer’ function in the lme4 package.
