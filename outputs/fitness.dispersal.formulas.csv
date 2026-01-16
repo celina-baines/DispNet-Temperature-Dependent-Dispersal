@@ -1,0 +1,19 @@
+species,fitness.formula,fitness.fixed.mixed,dispersal.formula,dispersal.fixed.mixed
+Aphanomyces.euteiches,log(Fitness) ~ Temp.treatment*Strain,fixed,"cbind(Num.disp, Num.nondisp) ~ Temp.treatment*Strain",fixed
+Armadillidium.vulgare,Fitness ~ Temp.treatment + (1|Mesocosm),mixed,Dispersed ~ Temp.treatment + (1|Mesocosm),mixed
+Bigelowiellia.natans,log(Fitness) ~ Temp.treatment,fixed,"cbind(Num.disp, Num.nondisp) ~ Temp.treatment",fixed
+Folsomia.candida,Fitness ~ Temp.treatment,fixed,"cbind(Num.disp, Num.nondisp) ~ Temp.treatment + (1|Group) + (1|Block)",mixed
+Gryllus.campestris,Fitness ~ Temp.treatment + (1|Mesocosm),mixed,Dispersed ~ Temp.treatment + (1|Mesocosm),mixed
+Notonecta.undulata,log(Fitness + 1) ~ Temp.treatment + (1|Block/Mesocosm),mixed,Dispersed ~ Temp.treatment + (1|Mesocosm),mixed
+Pardosa.sp,log(Fitness) ~ Temp.treatment + (1|Mesocosm),mixed,Dispersed ~ Temp.treatment + (1|Mesocosm),mixed
+Philoscia.muscorum,Fitness ~ Temp.treatment + (1|Mesocosm),mixed,Dispersed ~ Temp.treatment + (1|Mesocosm),mixed
+Pisaura.mirabilis,log(Fitness) ~ Temp.treatment + (1|Mesocosm),mixed,Dispersed ~ Temp.treatment + (1|Mesocosm),mixed
+Pteronemobius.heydenii,Fitness ~ Temp.treatment + (1|Mesocosm),mixed,Dispersed ~ Temp.treatment + (1|Mesocosm),mixed
+Tetrahymena.thermophila_ISEM,Fitness ~ Temp.treatment,fixed,"cbind(Num.disp, Num.nondisp) ~ Temp.treatment + (1|Index)",mixed
+Tetrahymena.thermophila,Fitness ~ Temp.treatment + (1|Strain),mixed,"cbind(Num.disp, Num.nondisp) ~ Temp.treatment + (1|Strain)",mixed
+Tetranychus.cinnabarinus_PT,Fitness ~ Temp.treatment + (1 | Female_survival),mixed,"cbind(Num.disp, Num.nondisp) ~ Temp.treatment * Time + (1 | Block)",mixed
+Tetranychus.cinnabarinus,Fitness ~ temp_treatment + (1 | plate),mixed,"cbind(Num.disp, total.N - Num.disp) ~ Temp.treatment + (1 | plate)",mixed
+Tetranychus.evansi,sqrt(Fitness) ~ Temp.treatment,fixed,"cbind(Num.disp, Num.nondisp) ~ Temp.treatment + (1|block)",mixed
+Tetranychus.turkestani,Fitness ~ Temp.treatment + (1 | dispersion_id),mixed,"cbind(Num.disp, total.N - Num.disp) ~ Temp.treatment + (1 | dispersion_id)",mixed
+Tetranychus.urticae,Fitness ~ temp_treatment + (1 | plate),mixed,"cbind(Num.disp, total.N - Num.disp) ~ Temp.treatment + (1 | plate)",mixed
+Trichogramma.cacoeciae,Fitness ~ Temp.treatment + (1|Strain),mixed,"cbind(Num.disp, Num.nondisp) ~ Temp.treatment + (1|Observation)",mixed
