@@ -4,7 +4,6 @@ output: word_document
 ---
 
 # to do
-- get vector of sample sizes for all studies/treatments  
 - tetranychus cinnabarinus_PT, Tetranychus evansi calls low temp "control" - need to ask them to change it to "low"
 - tetranychus turkestani, cinnabrinus, urticae - check sample size with researchers
 - notonecta fitness analysis not normal - fix
@@ -85,8 +84,14 @@ for(file in fitness_emmeans_list){
     g_fitness_OMH <- as.data.frame(convert_or2d(or = exp(subset(d2, term == "Temp.treatmentmedium.high")$Estimate[1]), se = subset(d2, term == "Temp.treatmentmedium.high")$Std..Error[1], totaln = subset(d_sampleN, species == df$species[1])$Fitness.totalN, es.type = "g", study = df$species[1]))
     g_fitness_OL <- as.data.frame(convert_or2d(or = exp(subset(d2, term == "Temp.treatmentlow")$Estimate[1]), se = subset(d2, term == "Temp.treatmentlow")$Std..Error[1], totaln = subset(d_sampleN, species == df$species[1])$Fitness.totalN, es.type = "g", study = df$species[1]))
     g_fitness_OML <- as.data.frame(convert_or2d(or = exp(subset(d2, term == "Temp.treatmentmedium.low")$Estimate[1]), se = subset(d2, term == "Temp.treatmentmedium.low")$Std..Error[1], totaln = subset(d_sampleN, species == df$species[1])$Fitness.totalN, es.type = "g", study = df$species[1]))
+    g_fitness_OH$es <- g_fitness_OH$es*-1
+    g_fitness_OMH$es <- g_fitness_OMH$es*-1
+    g_fitness_OL$es <- g_fitness_OL$es*-1
+    g_fitness_OML$es <- g_fitness_OML$es*-1
     d_g_fitness_OH <- rbind(d_g_fitness_OH, cbind(g_fitness_OH, "Temp.contr" = "OH"), cbind(g_fitness_OMH, "Temp.contr" = "OMH"))
     d_g_fitness_OL <- rbind(d_g_fitness_OL, cbind(g_fitness_OL, "Temp.contr" = "OL"), cbind(g_fitness_OML, "Temp.contr" = "OML"))
+    
+
   }
 }
 ```
