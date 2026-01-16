@@ -32,11 +32,22 @@ for(file in fitness_main_list){
 
 d_sampleN <- read.csv("./outputs/Sample_sizes.csv", header = T)
 
+mods_main_list <- list.files(path = "./outputs", pattern = "moderators_")
+
+d_mods <- NULL
+for(file in mods_main_list){
+  name <- gsub(".txt", "", file)
+  df <- read.table(paste("./outputs/", file, sep = ""), header = T)
+  df$species <- str_sub(name, 12)
+  assign(name, df)
+  d_mods <- bind_rows(d_mods, df)
+}
 
 
 ```
 
 # Effects of temperature on fitness
+
 ## Pairwise temperature treatment comparisons
 
 We calculated Hedge's g for the pairwise temperature treatment comparisons of fitness for all studies using the 'esc' package in R. For fitness proxies that were normally distributed, we used the *esc_mean_se function* to convert treatment means and standard error to Hedge's g. For binary fitness proxies (i.e., survival) we used the *convert_or2d* function to convert log-odds ratios to Hedge's g.
@@ -112,8 +123,16 @@ forest(m_fitnessOH, slab = d_g_fitness_OH$study, addcred = TRUE)
 forest(m_fitnessOL, slab = d_g_fitness_OL$study, addcred = TRUE)
 
 ```
+```{r, esdispersaloverall}
 
-```{r, esdispersal}
+d_dispersal_overall <- read.csv("outputs/overall_dispersal_chisq_boot.csv")
+m_dispersal.overall <- rma(yi = chisq, sei = se, data = subset(d_dispersal_overall, species != "Tetranychus.cinnabarinus_PT"))
+forest(m_dispersal.overall, slab = subset(d_dispersal_overall, species != "Tetranychus.cinnabarinus_PT")$species, addcred = TRUE)
+
+
+```
+
+```{r, esdispersalcontr}
 
 # pairwise temperature treatment differences in dispersal
 
@@ -144,19 +163,27 @@ for(file in dispersal_summary_list){
 ```
 
 
-```{r dispersalmeta}
+```{r dispersalcontrmeta}
+
+# join moderator dataset
+d_dispmeta_OH <- full_join(d_OR_dispersal_OH, d_mods)
+d_dispmeta_OL <- full_join(d_OR_dispersal_OL, d_mods)
 
 # random effects metaanalytical model
 
-m_dispersalOH <- rma(yi = d_OR_dispersal_OH$OR, sei = d_OR_dispersal_OH$se)
-m_dispersalOL <- rma(yi = d_OR_dispersal_OL$OR, sei = d_OR_dispersal_OL$se)
+m_dispersalOH <- rma(yi = OR, sei = se, mods = ~Taxonomic.group, data = subset(d_dispmeta_OH, species != "Tetranychus.turkestani" & species != "Tetranychus.cinnabarinus"))
+m_dispersalOL <- rma(yi = OR, sei = se, mods = ~Taxonomic.group+Dispersal.assay.duration, data = subset(d_dispmeta_OL, species != "Tetranychus.turkestani" & species != "Tetranychus.cinnabarinus"))
 
 ```
 
-```{r dispersalforest}
+```{r dispersalcontrforest}
 
-forest(m_dispersalOH, slab = d_OR_dispersal_OH$species, addcred = TRUE)
-forest(m_dispersalOL, slab = d_OR_dispersal_OL$species, addcred = TRUE)
+# repeating the models because overall effect is removed from forest plots when moderators are included
+m_dispersalOH <- rma(yi = OR, sei = se, data = subset(d_dispmeta_OH, species != "Tetranychus.turkestani" & species != "Tetranychus.cinnabarinus"))
+m_dispersalOL <- rma(yi = OR, sei = se, data = subset(d_dispmeta_OL, species != "Tetranychus.turkestani" & species != "Tetranychus.cinnabarinus"))
+
+forest(m_dispersalOH, slab = subset(d_OR_dispersal_OH, species != "Tetranychus.turkestani" & species != "Tetranychus.cinnabarinus")$species, addcred = TRUE)
+forest(m_dispersalOL, slab = subset(d_OR_dispersal_OL, species != "Tetranychus.turkestani" & species != "Tetranychus.cinnabarinus")$species, addcred = TRUE)
 
 ```
 
@@ -175,12 +202,26 @@ d_OR_dispersal <- d_OR_dispersal %>%
 
 d_fitdispcontr <- full_join(d_g_fitness, d_OR_dispersal, by = c("species", "Temp.contr"))
 d_fitdispcontr$HILO <- with(d_fitdispcontr, ifelse(Temp.contr == "OH" | Temp.contr == "OMH", "hot", "cold"))
+d_fitdispcontr <- full_join(d_fitdispcontr, d_mods)
 
-ggplot(d_fitdispcontr, aes(x = es, y = OR))+
-  geom_point(aes(col = HILO))+
-  geom_smooth(method = "lm", col = "black")+
+# note -es so that when hot/cold have high fitness, "relative fitness" is greater
+ggplot(subset(d_fitdispcontr, species != "Tetranychus.turkestani" & species != "Tetranychus.cinnabarinus"), aes(x = -es, y = OR, col = HILO))+
+  geom_point()+
+  geom_smooth(method = "lm")+
   geom_hline(yintercept = 0, lty = 2)+
+  scale_y_continuous("Relative dispersal")+
+  scale_x_continuous("Relative fitness")+
   scale_color_manual("", values = c("blue", "red"))+
-  theme_classic()
+  theme_classic(base_size = 20)
+
+# same species from different labs look like different species - need to correct
+m_fitdispcontr <- lmer(OR ~ es*HILO + (1|Taxonomic.group/species), data = subset(d_fitdispcontr, species != "Tetranychus.turkestani" & species != "Tetranychus.cinnabarinus"))
+summary(m_fitdispcontr)
+drop1(m_fitdispcontr, test = "Chisq")
+
+
+m_fitdispcontr_OH <- lmer(OR ~ es + (1|Taxonomic.group/species), data = subset(d_fitdispcontr, HILO == "hot" & species != "Tetranychus.turkestani" & species != "Tetranychus.cinnabarinus"))
+summary(m_fitdispcontr_OH)
+drop1(m_fitdispcontr_OH, test = "Chisq")
 
 ```
