@@ -1,6 +1,6 @@
 # phase 1
 
-d_phase1 <- read.csv("phase1_fitness_assay_NR.csv", header = TRUE)
+d_phase1 <- read.csv("Notonecta_undulata/phase1_fitness_assay_NR.csv", header = TRUE)
 
 # normality of fitness proxy
 
@@ -20,11 +20,11 @@ with(subset(d_phase1, Death_Day != 0 & Death_Day != 1), hist(Avg_Egg))
 with(subset(d_phase1, Death_Day != 0 & Death_Day != 1), summary(Avg_Egg))
 subset(d_phase1, Death_Day != 0 & Death_Day != 1 & Total_eggs == 0)
 
-with(subset(d_phase1, Death_Day != 0 & Death_Day != 1), hist(log(Total_eggs+1)))
+with(subset(d_phase1, Death_Day != 0 & Death_Day != 1 & Death_Day != "17-May-24"), hist(log(Total_eggs+1)))
 
-with(d_phase1, boxplot(Total_eggs ~ Treatment))
-with(subset(d_phase1, Death_Day != 0 & Death_Day != 1 & Treatment == 16 | Treatment == 26 | Treatment == 30), boxplot(Total_eggs ~ Treatment))
-with(subset(d_phase1, Death_Day != 0 & Death_Day != 1 & Treatment == 16 | Treatment == 26 | Treatment == 30), boxplot(log(Total_eggs+1) ~ Treatment))
+with(d_phase1, boxplot(Avg_Egg ~ Treatment))
+with(subset(d_phase1, Death_Day != 0 & Death_Day != 1 & Treatment == 16 | Treatment == 26 | Treatment == 30), boxplot(Avg_Egg ~ Treatment))
+with(subset(d_phase1, Death_Day != 0 & Death_Day != 1 & Treatment == 16 | Treatment == 26 | Treatment == 30), boxplot(log(Avg_Egg+1) ~ Treatment))
 
 # NB: For backswimmer data, remove individuals that died on day 0 or 1. These individuals are distributed evenly across temperature treatments, and can be assumed to be caused by shock/handling rather than treatment.
 # additionally, they represent a lot of the zeros in the dataset that make it difficult to transform to make the data close to normal.
