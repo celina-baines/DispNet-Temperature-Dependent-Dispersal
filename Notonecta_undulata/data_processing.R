@@ -10,9 +10,12 @@ nrow(subset(d_phase1, Total_eggs == 0))
 with(d_phase1, table(Survivorship, Treatment))
 
 with(d_phase1, table(Death_Day, Treatment))
+with(subset(d_phase1, Treatment == 16 | Treatment == 26 | Treatment == 30), table(Death_Day, Treatment))
+with(subset(d_phase1, Death_Day < 2), table(Total_eggs, Treatment, Death_Day))
 
 d_trunc <- subset(d_phase1, Survivorship == 1 | Death_Day > 1)
 subset(d_trunc, Total_eggs == 0)
+
 
 with(d_phase1, boxplot(Total_eggs ~ Treatment))
 with(subset(d_trunc, Treatment == 16 | Treatment == 26 | Treatment == 30), boxplot(Total_eggs ~ Treatment))
@@ -41,7 +44,6 @@ d_final$Temp.value <- d_final$Treatment
 d_final$Fitness <- d_final$Total_eggs
 
 d_final <- subset(d_final, select = c(Temp.treatment, Temp.value, Block, Mesocosm, Fitness))
-
 
 #####################################
 # phase 2
@@ -72,7 +74,7 @@ d_phase2 <- subset(d_phase2, select = c(Temp.treatment, Temp.value, Mesocosm, Di
 
 # write datasets
 setwd("C:/Users/Celina Baines/Dropbox/Ongoing Research/DispNet/DispNet-Temperature-Dependent-Dispersal/Notonecta_undulata")
-write.csv(d_phase1, "Phase1_fitness_Notonecta.undulata.csv", row.names = F)
+write.csv(d_final, "Phase1_fitness_Notonecta.undulata.csv", row.names = F)
 
 write.csv(d_phase2, "Phase2_dispersal_Notonecta.undulata.csv", row.names = F)
 
