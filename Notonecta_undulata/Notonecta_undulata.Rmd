@@ -71,8 +71,8 @@ fitness.transformed.normal = TRUE
 
 ## If fitness variable is continuous normal AFTER transformation, choose transformation used (just write it in if not on this list):
 
-transform.description <- "ln" # leave as-is if not applicable
-fitness.transformation.function <- function(x) {return (log(x+1))} # give transformation formula here; replace "log" with transformation used e.g., sqrt(x) or log(x + 1), etc., where x will be Fitness, below
+transform.description <- "square-root" # leave as-is if not applicable
+fitness.transformation.function <- function(x) {return (sqrt(x))} # give transformation formula here; replace "log" with transformation used e.g., sqrt(x) or log(x + 1), etc., where x will be Fitness, below
 
 ## note: if fitness (or transformed fitness) does not have a binomial or normal distribution, check in with Celina.
 
@@ -101,7 +101,7 @@ filter.dead = TRUE # choose FALSE if this does not apply to your species
 
 ## Formula for fitness: (fill in as appropriate)
 
-fitness.formula <- "log(Fitness+1) ~ Temp.treatment + (1|Mesocosm)"
+fitness.formula <- "sqrt(Fitness) ~ Temp.treatment + (1|Mesocosm)"
 
 ### notes:
 #### TRANSFORM FITNESS VARIABLE (if needed) *WITHIN* THE FORMULA; doing it within the formula is important for contrasts below  
