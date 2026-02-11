@@ -11,38 +11,36 @@ with(d_phase1, table(Survivorship, Treatment))
 
 with(d_phase1, table(Death_Day, Treatment))
 
-nrow(subset(d_phase1, Death_Day != 0 & Death_Day != 1 & Total_eggs == 0))
+d_trunc <- subset(d_phase1, Survivorship == 1 | Death_Day > 1)
+subset(d_trunc, Total_eggs == 0)
 
-with(subset(d_phase1, Death_Day != 0 & Death_Day != 1), hist(log(Avg_Egg + 1)))
-with(d_phase1, hist(log(Avg_Egg + 1)))
+with(d_phase1, boxplot(Total_eggs ~ Treatment))
+with(subset(d_trunc, Treatment == 16 | Treatment == 26 | Treatment == 30), boxplot(Total_eggs ~ Treatment))
+with(subset(d_trunc, Treatment == 16 | Treatment == 26 | Treatment == 30), boxplot(log(Total_eggs+1) ~ Treatment))
 
-with(subset(d_phase1, Death_Day != 0 & Death_Day != 1), hist(Avg_Egg))
-with(subset(d_phase1, Death_Day != 0 & Death_Day != 1), summary(Avg_Egg))
-subset(d_phase1, Death_Day != 0 & Death_Day != 1 & Total_eggs == 0)
+with(subset(d_trunc, Treatment == 16 | Treatment == 26 | Treatment == 30), hist(log(Total_eggs+1)))
+with(subset(d_trunc, Treatment == 16 | Treatment == 26 | Treatment == 30), hist(sqrt(Total_eggs)))
 
-with(subset(d_phase1, Death_Day != 0 & Death_Day != 1 & Death_Day != "17-May-24"), hist(log(Total_eggs+1)))
+qqnorm(log(d_trunc$Total_eggs+1))
+qqnorm(sqrt(d_trunc$Total_eggs))
 
-with(d_phase1, boxplot(Avg_Egg ~ Treatment))
-with(subset(d_phase1, Death_Day != 0 & Death_Day != 1 & Treatment == 16 | Treatment == 26 | Treatment == 30), boxplot(Avg_Egg ~ Treatment))
-with(subset(d_phase1, Death_Day != 0 & Death_Day != 1 & Treatment == 16 | Treatment == 26 | Treatment == 30), boxplot(log(Avg_Egg+1) ~ Treatment))
 
 # NB: For backswimmer data, remove individuals that died on day 0 or 1. These individuals are distributed evenly across temperature treatments, and can be assumed to be caused by shock/handling rather than treatment.
 # additionally, they represent a lot of the zeros in the dataset that make it difficult to transform to make the data close to normal.
 
 # tidy the dataset
-d_phase1 <- subset(d_phase1, Death_Day != 0 & Death_Day != 1)
-d_phase1 <- subset(d_phase1, select = c(Treatment, Block, Mesocosm, Total_eggs, Survivorship), Treatment == 16 | Treatment == 26 | Treatment == 30)
+d_final <- subset(d_trunc, select = c(Treatment, Block, Mesocosm, Total_eggs), Treatment == 16 | Treatment == 26 | Treatment == 30)
 
-d_phase1$Temp.treatment <- with(d_phase1, ifelse(Treatment == 30, "high", ifelse(Treatment == 26, "opt", "low")))
+d_final$Temp.treatment <- with(d_final, ifelse(Treatment == 30, "high", ifelse(Treatment == 26, "opt", "low")))
 
-with(d_phase1, table(Temp.treatment, Treatment))
+with(d_final, table(Temp.treatment, Treatment))
 
-d_phase1$Mesocosm <- with(d_phase1, paste(Block, Mesocosm, sep = "."))
+d_final$Mesocosm <- with(d_final, paste(Block, Mesocosm, sep = "."))
 
-d_phase1$Temp.value <- d_phase1$Treatment
-d_phase1$Fitness <- d_phase1$Total_eggs
+d_final$Temp.value <- d_final$Treatment
+d_final$Fitness <- d_final$Total_eggs
 
-d_phase1 <- subset(d_phase1, select = c(Temp.treatment, Temp.value, Block, Mesocosm, Fitness))
+d_final <- subset(d_final, select = c(Temp.treatment, Temp.value, Block, Mesocosm, Fitness))
 
 
 #####################################
