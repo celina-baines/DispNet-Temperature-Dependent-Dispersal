@@ -97,7 +97,7 @@ overdispersion = TRUE
 
 ## Do rows represent individuals in the dataset and are there dead individuals that should be removed from the dispersal data?
 
-filter.dead = NA # choose NA if this does not apply to your species
+filter.dead = FALSE # choose NA if this does not apply to your species
 
 ## Also filter out males!
 
