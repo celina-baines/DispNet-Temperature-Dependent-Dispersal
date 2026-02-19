@@ -4,9 +4,9 @@ output: word_document
 ---
 
 # to do
-- tetranychus cinnabarinus_PT, Tetranychus evansi calls low temp "control" - need to ask them to change it to "low"
+- overall effect of temp on fitness and dispersal
+- tetranychus cinnabarinus_PT, Tetranychus evansi calls low temp "control" - changed it to 'low' but can't re-run Rmd because of issues with analysis
 - tetranychus turkestani, cinnabrinus, urticae - check sample size with researchers
-- notonecta fitness analysis not normal - fix
 
 ```{r libraries}
 library(tidyverse)
@@ -205,23 +205,36 @@ d_fitdispcontr$HILO <- with(d_fitdispcontr, ifelse(Temp.contr == "OH" | Temp.con
 d_fitdispcontr <- full_join(d_fitdispcontr, d_mods)
 
 # note -es so that when hot/cold have high fitness, "relative fitness" is greater
-ggplot(subset(d_fitdispcontr, species != "Tetranychus.turkestani" & species != "Tetranychus.cinnabarinus"), aes(x = -es, y = OR, col = HILO))+
+ggplot(subset(d_fitdispcontr, species != "Tetranychus.turkestani" & species != "Tetranychus.cinnabarinus"), aes(x = -es, y = OR, col = HILO, fill = HILO))+
   geom_point()+
-  geom_smooth(method = "lm")+
+  geom_smooth(method = "lm", alpha = 0.1)+
   geom_hline(yintercept = 0, lty = 2)+
   scale_y_continuous("Relative dispersal")+
   scale_x_continuous("Relative fitness")+
   scale_color_manual("", values = c("blue", "red"))+
+  scale_fill_manual("", values = c("blue", "red"))+
   theme_classic(base_size = 20)
 
 # same species from different labs look like different species - need to correct
-m_fitdispcontr <- lmer(OR ~ es*HILO + (1|Taxonomic.group/species), data = subset(d_fitdispcontr, species != "Tetranychus.turkestani" & species != "Tetranychus.cinnabarinus"))
+m_fitdispcontr <- lmer(OR ~ es+HILO + (1|Taxonomic.group/species), data = na.omit(subset(d_fitdispcontr, select = c(OR, es, HILO, Taxonomic.group, species), species != "Tetranychus.turkestani" & species != "Tetranychus.cinnabarinus")))
 summary(m_fitdispcontr)
 drop1(m_fitdispcontr, test = "Chisq")
 
 
-m_fitdispcontr_OH <- lmer(OR ~ es + (1|Taxonomic.group/species), data = subset(d_fitdispcontr, HILO == "hot" & species != "Tetranychus.turkestani" & species != "Tetranychus.cinnabarinus"))
+m_fitdispcontr_OH <- lmer(OR ~ es + (1|Taxonomic.group/study), data = na.omit(subset(d_fitdispcontr, select = c(OR, es, Taxonomic.group, study), HILO == "hot" & species != "Tetranychus.turkestani" & species != "Tetranychus.cinnabarinus")))
 summary(m_fitdispcontr_OH)
 drop1(m_fitdispcontr_OH, test = "Chisq")
+
+
+
+m_fitdispcontr_OL <- lmer(OR ~ es + (1|Taxonomic.group/species), data = na.omit(subset(d_fitdispcontr, select = c(OR, es, Taxonomic.group, species), HILO == "cold" & species != "Tetranychus.turkestani" & species != "Tetranychus.cinnabarinus")))
+summary(m_fitdispcontr_OL)
+drop1(m_fitdispcontr_OL, test = "Chisq")
+
+d_sub <- subset(d_fitdispcontr, HILO == "hot" & species != "Tetranychus.turkestani" & species != "Tetranychus.cinnabarinus")
+d_sub$V_dispersal <- with(d_sub, I(se_dispersal)^2)
+m_fitdispcontr_OH_meta <- rma.mv(yi = OR, V = V_dispersal, random = list(~ 1 | study), mods = ~Taxonomic.group + es, data = na.omit(subset(d_sub, select = c(OR, V_dispersal, study, Taxonomic.group, es))))
+
+summary(m_fitdispcontr_OH_meta)
 
 ```
