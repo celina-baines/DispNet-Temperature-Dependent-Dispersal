@@ -195,8 +195,8 @@ m_fitnessOL <- rma(yi = d_g_fitness_OL$es, vi = d_g_fitness_OL$var)
 
 ```{r fitnessforest, echo = F, fig.width = 6.5}
 
-forest(m_fitnessOH, slab = d_g_fitness_OH$study, addcred = TRUE)
-forest(m_fitnessOL, slab = d_g_fitness_OL$study, addcred = TRUE)
+forest(m_fitnessOH, slab = d_g_fitness_OH$study, addcred = TRUE, main = "Fitness: Opt vs Hot")
+forest(m_fitnessOL, slab = d_g_fitness_OL$study, addcred = TRUE, main = "Fitness: Opt vs Cold")
 
 ```
 ```{r, esdispersaloverall, echo = F, fig.width = 6.5}
@@ -269,10 +269,10 @@ m_dispersalOL <- rma(yi = OR, sei = se, mods = ~Taxonomic.group+Dispersal.assay.
 
 # repeating the models because overall effect is removed from forest plots when moderators are included
 m_dispersalOH <- rma(yi = OR, sei = se, data = subset(d_dispmeta_OH, study != "Tetranychus.turkestani" & study != "Tetranychus.cinnabarinus"))
-m_dispersalOL <- rma(yi = OR, sei = se, data = subset(d_dispmeta_OL, study != "Tetranychus.turkestani" & study != "Tetranychus.cinnabarinus"))
+m_dispersalOL <- rma(yi = OR, sei = se, data = d_dispmeta_OL)
 
-forest(m_dispersalOH, slab = subset(d_OR_dispersal_OH, study != "Tetranychus.turkestani" & study != "Tetranychus.cinnabarinus")$study, addcred = TRUE)
-forest(m_dispersalOL, slab = subset(d_OR_dispersal_OL, study != "Tetranychus.turkestani" & study != "Tetranychus.cinnabarinus")$study, addcred = TRUE)
+forest(m_dispersalOH, slab = subset(d_OR_dispersal_OH, study != "Tetranychus.turkestani" & study != "Tetranychus.cinnabarinus")$study, addcred = TRUE, main = "Dispersal: Opt vs Hot")
+forest(m_dispersalOL, slab = d_OR_dispersal_OL$study, addcred = TRUE, main = "Dispersal: Opt vs Cool")
 
 ```
 
@@ -295,14 +295,15 @@ d_fitdispcontr$HILO <- with(d_fitdispcontr, ifelse(Temp.contr == "OH" | Temp.con
 d_fitdispcontr <- full_join(d_fitdispcontr, d_mods)
 
 # note -es so that when hot/cold have high fitness, "relative fitness" is greater
-ggplot(subset(d_fitdispcontr, study != "Tetranychus.turkestani" & study != "Tetranychus.cinnabarinus"), aes(x = -es, y = OR, col = HILO, fill = HILO, lty = Taxonomic.group))+
-  geom_point()+
+ggplot(subset(d_fitdispcontr, study != "Tetranychus.turkestani" & study != "Tetranychus.cinnabarinus"), aes(x = -es, y = OR, col = HILO, fill = HILO, size = 1/se_dispersal))+
+  geom_point(pch = 1)+
   geom_smooth(method = "lm", alpha = 0.1)+
   geom_hline(yintercept = 0, lty = 2)+
   scale_y_continuous("Relative dispersal")+
   scale_x_continuous("Relative fitness")+
   scale_color_manual("", values = c("blue", "red"))+
   scale_fill_manual("", values = c("blue", "red"))+
+  guides(size = "none")+
   theme_classic(base_size = 20)
 
 # same study from different labs look like different study - need to correct
@@ -330,3 +331,8 @@ summary(m_fitdispcontr_OH_meta)
 
 
 ```
+
+```{r}
+
+```
+
