@@ -254,27 +254,22 @@ for(file in dispersal_summary_list){
 
 ```{r dispersalcontrmeta, echo = T}
 
-# join moderator dataset
-d_dispmeta_OH <- full_join(d_OR_dispersal_OH, d_mods)
-d_dispmeta_OL <- full_join(d_OR_dispersal_OL, d_mods)
-
-# random effects metaanalytical model
-
-m_dispersalOH <- rma(yi = OR, sei = se, mods = ~Taxonomic.group, data = subset(d_dispmeta_OH, study != "Tetranychus.turkestani" & study != "Tetranychus.cinnabarinus"))
-m_dispersalOL <- rma(yi = OR, sei = se, mods = ~Taxonomic.group+Dispersal.assay.duration, data = subset(d_dispmeta_OL, study != "Tetranychus.turkestani" & study != "Tetranychus.cinnabarinus"))
-
-```
-
-```{r dispersalcontrforest, echo = T}
-
-# repeating the models because overall effect is removed from forest plots when moderators are included
-m_dispersalOH <- rma(yi = OR, sei = se, data = subset(d_dispmeta_OH, study != "Tetranychus.turkestani" & study != "Tetranychus.cinnabarinus"))
-m_dispersalOL <- rma(yi = OR, sei = se, data = d_dispmeta_OL)
-
-forest(m_dispersalOH, slab = subset(d_OR_dispersal_OH, study != "Tetranychus.turkestani" & study != "Tetranychus.cinnabarinus")$study, addcred = TRUE, main = "Dispersal: Opt vs Hot")
-forest(m_dispersalOL, slab = d_OR_dispersal_OL$study, addcred = TRUE, main = "Dispersal: Opt vs Cool")
+# oudated - using metaregression models below
+# # join moderator dataset
+# d_dispmeta_OH <- full_join(d_OR_dispersal_OH, d_mods)
+# d_dispmeta_OL <- full_join(d_OR_dispersal_OL, d_mods)
+# 
+# # random effects metaanalytical model
+# 
+# m_dispersalOH <- rma(yi = OR, sei = se, mods = ~Taxonomic.group, data = subset(d_dispmeta_OH, study != "Tetranychus.turkestani" & study != "Tetranychus.cinnabarinus"))
+# 
+# d_dispmeta_OL$V_dispersal <- with(d_dispmeta_OL, I(se)^2)
+# 
+# m_dispersalOL <- rma.mv(yi = OR, V = V_dispersal, random = list(~ 1 | study), mods = ~Taxonomic.group, data = d_dispmeta_OL)
 
 ```
+
+
 
 ```{r fitdispcontr}
 
@@ -306,28 +301,48 @@ ggplot(subset(d_fitdispcontr, study != "Tetranychus.turkestani" & study != "Tetr
   guides(size = "none")+
   theme_classic(base_size = 20)
 
-# same study from different labs look like different study - need to correct
+
 m_fitdispcontr <- lmer(OR ~ es+HILO + (1|Taxonomic.group/species) + (1|study), data = na.omit(subset(d_fitdispcontr, select = c(OR, es, HILO, Taxonomic.group, study, species), study != "Tetranychus.turkestani" & study != "Tetranychus.cinnabarinus")))
 summary(m_fitdispcontr)
 drop1(m_fitdispcontr, test = "Chisq")
 
-
+# opt vs hot
+# same study from different labs look like different study - need to correct
+# lmm
 m_fitdispcontr_OH <- lmer(OR ~ es + (1|Taxonomic.group/species) + (1|study), data = na.omit(subset(d_fitdispcontr, select = c(OR, es, Taxonomic.group, study, study, species), HILO == "hot" & study != "Tetranychus.turkestani" & study != "Tetranychus.cinnabarinus")))
 summary(m_fitdispcontr_OH)
 drop1(m_fitdispcontr_OH, test = "Chisq")
 
-
-
-m_fitdispcontr_OL <- lmer(OR ~ es + (1|Taxonomic.group/species) + (1|study), data = na.omit(subset(d_fitdispcontr, select = c(OR, es, Taxonomic.group, study, species), HILO == "cold" & study != "Tetranychus.turkestani" & study != "Tetranychus.cinnabarinus")))
-summary(m_fitdispcontr_OL)
-drop1(m_fitdispcontr_OL, test = "Chisq")
-
+# meta regression
 d_sub <- subset(d_fitdispcontr, HILO == "hot" & study != "Tetranychus.turkestani" & study != "Tetranychus.cinnabarinus")
 d_sub$V_dispersal <- with(d_sub, I(se_dispersal)^2)
 m_fitdispcontr_OH_meta <- rma.mv(yi = OR, V = V_dispersal, random = list(~ 1 | study, ~1|Taxonomic.group/species), mods = ~es, data = na.omit(subset(d_sub, select = c(OR, V_dispersal, study, Taxonomic.group, es, species))))
 
-summary(m_fitdispcontr_OH_meta)
+# forest plot without moderator
+forest(rma.mv(yi = OR, V = V_dispersal, random = list(~ 1 | study, ~1|Taxonomic.group/species), data = na.omit(subset(d_sub, select = c(OR, V_dispersal, study, Taxonomic.group, es, species)))),
+       slab = na.omit(subset(d_sub, select = c(OR, V_dispersal, study, Taxonomic.group, es, species)))$study, addcred = TRUE, main = "Dispersal: Opt vs Hot")
 
+
+forest(m_fitdispcontr_OH_meta, slab = na.omit(subset(d_sub, select = c(OR, V_dispersal, study, Taxonomic.group, es, species)))$study, addcred = TRUE, main = "Dispersal: Opt vs Hot")
+summary(m_fitdispcontr_OH_meta)
+anova(m_fitdispcontr_OH_meta)
+
+# opt vs cool
+
+## lmm
+m_fitdispcontr_OL <- lmer(OR ~ es + (1|Taxonomic.group/species) + (1|study), data = na.omit(subset(d_fitdispcontr, select = c(OR, es, Taxonomic.group, study, species), HILO == "cold" & study != "Tetranychus.turkestani" & study != "Tetranychus.cinnabarinus")))
+summary(m_fitdispcontr_OL)
+drop1(m_fitdispcontr_OL, test = "Chisq")
+
+## meta regression
+
+m_fitdispcontr_OL_meta <- rma.mv(yi = OR, V = I(se_dispersal)^2, random = list(~ 1 | study, ~1|Taxonomic.group/species), mods = ~es, data = na.omit(subset(d_fitdispcontr, HILO == "cold", select = c(OR, se_dispersal, study, Taxonomic.group, es, species))))
+
+summary(m_fitdispcontr_OL_meta)
+anova(m_fitdispcontr_OL_meta)
+
+
+forest(m_fitdispcontr_OL_meta, slab = na.omit(subset(d_fitdispcontr, HILO == "cold", select = c(OR, se_dispersal, study, Taxonomic.group, es, species)))$study, addcred = TRUE, main = "Dispersal: Opt vs Cool")
 
 
 ```
