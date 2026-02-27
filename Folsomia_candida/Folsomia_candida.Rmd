@@ -145,7 +145,7 @@ Tvariation <- "homogenous"
 species.body.size <- 3 # mean body length in mm
 passive.dispersal <- "No"
 inbred <- "inbred line"
-disp.assay.duration <- 1 # order of magnitude for dispersal assay duration / generation time, i.e., approximate number of generations the dispersal assay lasted
+disp.assay.duration <- 0.1 # order of magnitude for dispersal assay duration / generation time, i.e., approximate number of generations the dispersal assay lasted
 fitness.proxy.type <- "r"
 
 # 10. Fill out methods information in text below.
