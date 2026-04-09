@@ -5,8 +5,8 @@ output: word_document
 
 # to do
 - overall effect of temp on fitness and dispersal
-- tetranychus cinnabarinus_PT, Tetranychus evansi calls low temp "control" - changed it to 'low' but can't re-run Rmd because of issues with analysis
-- tetranychus turkestani, cinnabrinus, urticae - check sample size with researchers
+- tetranychus cinnabarinus_PT, Tetranychus evansi calls low temp "control" - changed it to 'low' but can't re-run Rmd because of issues with analysis - Ines is re-running this; emailed her to ask her to make sure it's "low"
+- tetranychus turkestani, cinnabarinus, urticae - check sample size with researchers - emailed to ask
 
 ```{r libraries}
 library(tidyverse)
@@ -196,9 +196,11 @@ m_fitnessOL <- rma(yi = d_g_fitness_OL$es, vi = d_g_fitness_OL$var)
 ```{r fitnessforest, echo = F, fig.width = 6.5}
 
 forest(m_fitnessOH, slab = d_g_fitness_OH$study, addcred = TRUE, main = "Fitness: Opt vs Hot")
+
 forest(m_fitnessOL, slab = d_g_fitness_OL$study, addcred = TRUE, main = "Fitness: Opt vs Cold")
 
 ```
+
 ```{r, esdispersaloverall, echo = F, fig.width = 6.5}
 
 d_dispersal_overall <- read.csv("outputs/overall_dispersal_chisq_boot.csv")
@@ -254,7 +256,7 @@ for(file in dispersal_summary_list){
 
 ```{r dispersalcontrmeta, echo = T}
 
-# oudated - using metaregression models below
+# outdated - using metaregression models below
 # # join moderator dataset
 # d_dispmeta_OH <- full_join(d_OR_dispersal_OH, d_mods)
 # d_dispmeta_OL <- full_join(d_OR_dispersal_OL, d_mods)
@@ -301,6 +303,8 @@ ggplot(subset(d_fitdispcontr, study != "Tetranychus.turkestani" & study != "Tetr
   guides(size = "none")+
   theme_classic(base_size = 20)
 
+# hot and cold together
+# lmm
 
 m_fitdispcontr <- lmer(OR ~ es+HILO + (1|Taxonomic.group/species) + (1|study), data = na.omit(subset(d_fitdispcontr, select = c(OR, es, HILO, Taxonomic.group, study, species), study != "Tetranychus.turkestani" & study != "Tetranychus.cinnabarinus")))
 summary(m_fitdispcontr)
@@ -316,16 +320,29 @@ drop1(m_fitdispcontr_OH, test = "Chisq")
 # meta regression
 d_sub <- subset(d_fitdispcontr, HILO == "hot" & study != "Tetranychus.turkestani" & study != "Tetranychus.cinnabarinus")
 d_sub$V_dispersal <- with(d_sub, I(se_dispersal)^2)
-m_fitdispcontr_OH_meta <- rma.mv(yi = OR, V = V_dispersal, random = list(~ 1 | study, ~1|Taxonomic.group/species), mods = ~es, data = na.omit(subset(d_sub, select = c(OR, V_dispersal, study, Taxonomic.group, es, species))))
 
-# forest plot without moderator
-forest(rma.mv(yi = OR, V = V_dispersal, random = list(~ 1 | study, ~1|Taxonomic.group/species), data = na.omit(subset(d_sub, select = c(OR, V_dispersal, study, Taxonomic.group, es, species)))),
-       slab = na.omit(subset(d_sub, select = c(OR, V_dispersal, study, Taxonomic.group, es, species)))$study, addcred = TRUE, main = "Dispersal: Opt vs Hot")
+# plan for testing moderators:
+##1) choose four moderators: 
+### Testing biological hypotheses about what is driving dispersal: Temp variation, and Competition strength
+### Testing hypotheses about methods that might influence estimate of effect size: Source, Dispersal.assay.duration
+##2) remove if not significant
+##3) with this dataset, only temperature variation is significant ***re-run with final dataset***
+m_fitdispcontr_OH_meta <- rma.mv(yi = OR, V = V_dispersal, random = list(~ 1 | study, ~1|Taxonomic.group/species), mods = ~es + Temperature.variation, data = na.omit(subset(d_sub, select = c(OR, V_dispersal, study, Taxonomic.group, es, species, Temperature.variation))))
 
-
-forest(m_fitdispcontr_OH_meta, slab = na.omit(subset(d_sub, select = c(OR, V_dispersal, study, Taxonomic.group, es, species)))$study, addcred = TRUE, main = "Dispersal: Opt vs Hot")
+forest(m_fitdispcontr_OH_meta, slab = na.omit(subset(d_sub, select = c(OR, V_dispersal, study, Taxonomic.group, es, species, Temperature.variation)))$study, addcred = TRUE, main = "Dispersal: Opt vs Hot")
 summary(m_fitdispcontr_OH_meta)
 anova(m_fitdispcontr_OH_meta)
+
+
+ggplot(subset(d_fitdispcontr, study != "Tetranychus.turkestani" & study != "Tetranychus.cinnabarinus" & HILO == "hot"), aes(x = es, y = OR, col = Temperature.variation, fill = Temperature.variation, size = totaln))+
+  geom_point(pch = 1)+
+  geom_smooth(method = "lm", alpha = 0.1)+
+  geom_hline(yintercept = 0, lty = 2)+
+  scale_y_continuous("Relative dispersal")+
+  scale_x_continuous("Relative fitness")+
+  scale_color_discrete("Temperature variation")+
+  scale_fill_discrete("Temperature variation")+
+  theme_classic(base_size = 20)
 
 # opt vs cool
 
@@ -335,12 +352,26 @@ summary(m_fitdispcontr_OL)
 drop1(m_fitdispcontr_OL, test = "Chisq")
 
 ## meta regression
-
-m_fitdispcontr_OL_meta <- rma.mv(yi = OR, V = I(se_dispersal)^2, random = list(~ 1 | study, ~1|Taxonomic.group/species), mods = ~es, data = na.omit(subset(d_fitdispcontr, HILO == "cold", select = c(OR, se_dispersal, study, Taxonomic.group, es, species))))
+# plan for testing moderators:
+##1) choose four moderators: 
+### Testing biological hypotheses about what is driving dispersal: Temp variation, and Competition strength
+### Testing hypotheses about methods that might influence estimate of effect size: Source, Dispersal.assay.duration
+##2) remove if not significant
+##3) with this dataset, only Source is significant ***re-run with final dataset***
+m_fitdispcontr_OL_meta <- rma.mv(yi = OR, V = I(se_dispersal)^2, random = list(~ 1 | study, ~1|Taxonomic.group/species), mods = ~es + Source, data = na.omit(subset(d_fitdispcontr, HILO == "cold", select = c(OR, se_dispersal, study, Taxonomic.group, es, species, Source))))
 
 summary(m_fitdispcontr_OL_meta)
 anova(m_fitdispcontr_OL_meta)
 
+ggplot(subset(d_fitdispcontr, study != "Tetranychus.turkestani" & study != "Tetranychus.cinnabarinus" & HILO == "cold" & es < 5 & es > 0), aes(x = es, y = OR, col = Source, fill = Source, size = totaln))+
+  geom_point(data = subset(d_fitdispcontr, study != "Tetranychus.turkestani" & study != "Tetranychus.cinnabarinus" & HILO == "cold"), pch = 1)+
+  geom_smooth(method = "lm", alpha = 0.1)+
+  geom_hline(yintercept = 0, lty = 2)+
+  scale_y_continuous("Relative dispersal")+
+  scale_x_continuous("Relative fitness")+
+  scale_color_discrete("Source")+
+  scale_fill_discrete("Source")+
+  theme_classic(base_size = 20)
 
 forest(m_fitdispcontr_OL_meta, slab = na.omit(subset(d_fitdispcontr, HILO == "cold", select = c(OR, se_dispersal, study, Taxonomic.group, es, species)))$study, addcred = TRUE, main = "Dispersal: Opt vs Cool")
 
