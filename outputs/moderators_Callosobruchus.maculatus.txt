@@ -1,2 +1,2 @@
 "Species" "Taxonomic.group" "Rearing.environment" "Competition.strength" "Source" "Habitat" "Temperature.variation" "Species.mean.body.size" "Passive.dispersal" "Inbred.or.Mixed" "Dispersal.assay.duration" "Fitness.proxy.type"
-"1" "Callosobruchus maculatus" "arthropod" "treatmentT" "low/moderate/high" "lab" "terrestrial" "homogenous" 3 "No" "mixed" 0.001 "other"
+"1" "Callosobruchus maculatus" "arthropod" "treatmentT" "moderate" "lab" "terrestrial" "homogenous" 3 "No" "mixed" 0.001 "other"
