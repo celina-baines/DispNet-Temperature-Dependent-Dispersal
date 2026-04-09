@@ -4,9 +4,11 @@ output: word_document
 ---
 
 # to do
-- overall effect of temp on fitness and dispersal
-- tetranychus cinnabarinus_PT, Tetranychus evansi calls low temp "control" - changed it to 'low' but can't re-run Rmd because of issues with analysis - Ines is re-running this; emailed her to ask her to make sure it's "low"
-- tetranychus turkestani, cinnabarinus, urticae - check sample size with researchers - emailed to ask
+
+-   overall effect of temp on fitness and dispersal
+-   tetranychus cinnabarinus_PT, Tetranychus evansi calls low temp "control" - changed it to 'low' but can't re-run Rmd because of issues with analysis - Ines is re-running this; emailed her to ask her to make sure it's "low"
+-   tetranychus turkestani, cinnabarinus, urticae - check sample size with researchers - emailed to ask
+- no variation in T thermophila?
 
 ```{r libraries}
 library(tidyverse)
@@ -183,7 +185,6 @@ for(file in fitness_emmeans_list){
 }
 ```
 
-
 ```{r fitnessmeta}
 
 # random effects metaanalytical model
@@ -253,7 +254,6 @@ for(file in dispersal_summary_list){
 
 ```
 
-
 ```{r dispersalcontrmeta, echo = T}
 
 # outdated - using metaregression models below
@@ -270,8 +270,6 @@ for(file in dispersal_summary_list){
 # m_dispersalOL <- rma.mv(yi = OR, V = V_dispersal, random = list(~ 1 | study), mods = ~Taxonomic.group, data = d_dispmeta_OL)
 
 ```
-
-
 
 ```{r fitdispcontr}
 
@@ -379,6 +377,94 @@ forest(m_fitdispcontr_OL_meta, slab = na.omit(subset(d_fitdispcontr, HILO == "co
 ```
 
 ```{r}
+dispersal_emmeans_list <- list.files(path = "./outputs", pattern = "output_dispersal_emmeans")
 
+d_dispersal_emmeans <- NULL
+for(file in dispersal_emmeans_list){
+  name <- gsub(".txt", "", file)
+  df <- read.table(paste("./outputs/", file, sep = ""), header = T)
+  df <- rownames_to_column(df, var = "term")
+  df$study <- str_sub(name, 26)
+  assign(name, df)
+  d_dispersal_emmeans <- bind_rows(d_dispersal_emmeans, df)
+}
+
+d_dispersal_emmeans <- left_join(d_dispersal_emmeans, d_mods)
+
+
+ggplot(d_dispersal_emmeans, aes(x = Temp.treatment, y = prob, col = study, group = study))+
+  geom_point()+
+  geom_line()+
+  geom_errorbar(aes(ymin = asymp.LCL, ymax = asymp.UCL), width = 0)+
+  scale_x_discrete(limits = c("low", "medium.low", "opt", "medium.high", "high"))+
+  theme_classic()+
+  facet_wrap(~Temperature.variation)
+
+```
+
+```{r}
+
+dispersal_temp.values_list <- list.files(path = "./raw_data", pattern = "Phase2_dispersal_")
+
+d_dispersal_temp.values <- NULL
+for(file in dispersal_temp.values_list){
+  name <- gsub(".csv", "", file)
+  df <- read.csv(paste("./raw_data/", file, sep = ""), header = T)
+  df <- rownames_to_column(df, var = "term")
+  df <- subset(df, select = c(Temp.value, Temp.treatment))
+  df$study <- str_sub(name, 18)
+  assign(name, df)
+  df <- unique(df)
+  d_dispersal_temp.values <- bind_rows(d_dispersal_temp.values, df)
+}
+
+d_topt <- subset(d_dispersal_temp.values, Temp.treatment == "opt", select = c(Temp.value, study))
+colnames(d_topt)[colnames(d_topt) == "Temp.value"] <- "Topt"
+```
+
+```{r}
+
+disp_pattern <- read.csv("./outputs/dispersal_pattern.csv", header = T)
+
+d_dispersal_emmeans2 <- left_join(d_dispersal_emmeans, d_dispersal_temp.values)
+d_dispersal_emmeans2 <- left_join(d_dispersal_emmeans2, disp_pattern)
+d_dispersal_emmeans2 <- left_join(d_dispersal_emmeans2, d_topt)
+d_dispersal_emmeans2$topt_cat <- with(d_dispersal_emmeans2, cut(Topt, breaks = 4))
+
+ggplot(d_dispersal_emmeans2, aes(x = Temp.value, y = prob, col = species, group = study))+
+  geom_point()+
+  geom_line()+
+  #geom_errorbar(aes(ymin = asymp.LCL, ymax = asymp.UCL), width = 0)+
+  scale_y_continuous("Dispersal probability")+
+  scale_x_continuous("Temperature (C)")+
+  theme_classic()+
+  facet_wrap(~dispersal.pattern)
+ 
+ggplot(d_dispersal_emmeans2)+
+  geom_point(aes(x = Temp.value, y = prob, col = dispersal.pattern, group = study))+
+  geom_line(aes(x = Temp.value, y = prob, col = dispersal.pattern, group = study))+
+  #geom_errorbar(aes(ymin = asymp.LCL, ymax = asymp.UCL), width = 0)+
+  scale_y_continuous("Dispersal probability")+
+  scale_x_continuous("Temperature (C)")+
+  theme_classic()+
+  facet_wrap(~Temperature.variation)
+  
+ggplot(d_dispersal_emmeans2)+
+  geom_point(aes(x = Temp.value, y = prob, col = dispersal.pattern, group = study))+
+  geom_line(aes(x = Temp.value, y = prob, col = dispersal.pattern, group = study))+
+  #geom_errorbar(aes(ymin = asymp.LCL, ymax = asymp.UCL), width = 0)+
+  scale_y_continuous("Dispersal probability")+
+  scale_x_continuous("Temperature (C)")+
+  theme_classic()+
+  facet_wrap(~topt_cat)
+
+
+
+```
+```{r}
+ggplot(d_dispersal_emmeans2, aes(x = Temp.treatment, y = prob, col = Competition.strength))+
+  geom_boxplot()+
+  theme_classic()
+  
 ```
 
