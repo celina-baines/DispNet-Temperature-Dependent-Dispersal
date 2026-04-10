@@ -59,9 +59,8 @@ ggplot(simulated_data, aes(x = temp, y = performance)) +
 
 
 dispersal_func <- function(temp) {
-  results <- ifelse(temp < p_quad$Topt, 0.2,
-                    ifelse(temp < p_quad$Thigh, 0.1*temp - 2.725,
-                           -0.2*temp + 6.85))
+  results <- ifelse(temp < p_quad$Thigh, 0.1*temp - 2.725,
+                           -0.2*temp + 6.85)
   return(results)
 }
 
