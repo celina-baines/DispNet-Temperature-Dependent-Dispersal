@@ -5,10 +5,17 @@ output: word_document
 
 # to do
 
--   overall effect of temp on fitness and dispersal
+1) Check for influence of model structure: Same meta-analysis but with all species using same simplest model and/or fit one GLMM in same model - have the data and can do this myself
+2) overall effect of temp on fitness and dispersal - Especially: how much does dispersal change per degree C?
+3) Lines/populations: Multi-level meta-analysis. Compare to model with lines/populations combined estimate. - need help from researchers with datasets to sort out multiple lines?
+
+Minor issues
 -   tetranychus cinnabarinus_PT, Tetranychus evansi calls low temp "control" - changed it to 'low' but can't re-run Rmd because of issues with analysis - Ines is re-running this; emailed her to ask her to make sure it's "low"
--   tetranychus turkestani, cinnabarinus, urticae - check sample size with researchers - emailed to ask
+-   tetranychus turkestani, cinnabarinus, urticae - Siebe is providing sample size
 - no variation in T thermophila?
+
+
+
 
 ```{r libraries}
 library(tidyverse)
@@ -290,14 +297,16 @@ d_fitdispcontr$HILO <- with(d_fitdispcontr, ifelse(Temp.contr == "OH" | Temp.con
 d_fitdispcontr <- full_join(d_fitdispcontr, d_mods)
 
 # note -es so that when hot/cold have high fitness, "relative fitness" is greater
-ggplot(subset(d_fitdispcontr, study != "Tetranychus.turkestani" & study != "Tetranychus.cinnabarinus"), aes(x = -es, y = OR, col = HILO, fill = HILO, size = 1/se_dispersal))+
+ggplot(subset(d_fitdispcontr, study != "Tetranychus.turkestani" & study != "Tetranychus.cinnabarinus"), aes(x = es, y = OR, col = HILO, fill = HILO, size = totaln))+
   geom_point(pch = 1)+
-  geom_smooth(method = "lm", alpha = 0.1)+
+  geom_errorbar(aes(ymax = OR + se_dispersal, ymin = OR - se_dispersal), width = 0, size = 0.5)+
+  geom_errorbarh(aes(xmax = es + se_fitness, xmin = es - se_fitness), width = 0, size = 0.5)+
+  geom_smooth(data = subset(d_fitdispcontr, study != "Tetranychus.turkestani" & study != "Tetranychus.cinnabarinus" & es < 5), method = "lm", se = F, alpha = 0.1)+
   geom_hline(yintercept = 0, lty = 2)+
-  scale_y_continuous("Relative dispersal")+
-  scale_x_continuous("Relative fitness")+
-  scale_color_manual("", values = c("blue", "red"))+
-  scale_fill_manual("", values = c("blue", "red"))+
+  scale_y_continuous("Dispersal effect size (relative to opt)")+
+  scale_x_continuous("Fitness effect size (relative to opt)")+
+  scale_color_manual("", values = c("red", "blue"), limits = c("hot", "cold"))+
+  scale_fill_manual("", values = c("red", "blue"), limits = c("hot", "cold"))+
   guides(size = "none")+
   theme_classic(base_size = 20)
 
@@ -327,19 +336,23 @@ d_sub$V_dispersal <- with(d_sub, I(se_dispersal)^2)
 ##3) with this dataset, only temperature variation is significant ***re-run with final dataset***
 m_fitdispcontr_OH_meta <- rma.mv(yi = OR, V = V_dispersal, random = list(~ 1 | study, ~1|Taxonomic.group/species), mods = ~es + Temperature.variation, data = na.omit(subset(d_sub, select = c(OR, V_dispersal, study, Taxonomic.group, es, species, Temperature.variation))))
 
-forest(m_fitdispcontr_OH_meta, slab = na.omit(subset(d_sub, select = c(OR, V_dispersal, study, Taxonomic.group, es, species, Temperature.variation)))$study, addcred = TRUE, main = "Dispersal: Opt vs Hot")
 summary(m_fitdispcontr_OH_meta)
 anova(m_fitdispcontr_OH_meta)
+
+forest(m_fitdispcontr_OH_meta, slab = na.omit(subset(d_sub, select = c(OR, V_dispersal, study, Taxonomic.group, es, species, Temperature.variation)))$study, addfit = F, main = "Dispersal: Opt vs Hot")
 
 
 ggplot(subset(d_fitdispcontr, study != "Tetranychus.turkestani" & study != "Tetranychus.cinnabarinus" & HILO == "hot"), aes(x = es, y = OR, col = Temperature.variation, fill = Temperature.variation, size = totaln))+
   geom_point(pch = 1)+
-  geom_smooth(method = "lm", alpha = 0.1)+
+  geom_errorbar(aes(ymax = OR + se_dispersal, ymin = OR - se_dispersal), width = 0, size = 0.5)+
+  geom_errorbarh(aes(xmax = es + se_fitness, xmin = es - se_fitness), width = 0, size = 0.5)+
+  geom_smooth(method = "lm", alpha = 0.1, se = F)+
   geom_hline(yintercept = 0, lty = 2)+
-  scale_y_continuous("Relative dispersal")+
-  scale_x_continuous("Relative fitness")+
-  scale_color_discrete("Temperature variation")+
-  scale_fill_discrete("Temperature variation")+
+  scale_y_continuous("Dispersal effect size (opt vs hot)")+
+  scale_x_continuous("Fitness effect size (opt vs hot)")+
+  scale_color_manual("Temperature variation", values = c("darkgreen", "purple"))+
+  scale_fill_manual("Temperature variation", values = c("darkgreen", "purple"))+
+  scale_size_continuous(guide = F)+
   theme_classic(base_size = 20)
 
 # opt vs cool
@@ -357,22 +370,25 @@ drop1(m_fitdispcontr_OL, test = "Chisq")
 ### Testing hypotheses about methods that might influence estimate of effect size: Source, Dispersal.assay.duration
 ##2) remove if not significant
 ##3) with this dataset, only Source is significant ***re-run with final dataset***
-m_fitdispcontr_OL_meta <- rma.mv(yi = OR, V = I(se_dispersal)^2, random = list(~ 1 | study, ~1|Taxonomic.group/species), mods = ~es + Source, data = na.omit(subset(d_fitdispcontr, HILO == "cold", select = c(OR, se_dispersal, study, Taxonomic.group, es, species, Source))))
+m_fitdispcontr_OL_meta <- rma.mv(yi = OR, V = I(se_dispersal)^2, random = list(~ 1 | study, ~1|Taxonomic.group/species), mods = ~es + Source, data = na.omit(subset(d_fitdispcontr, HILO == "cold" & es <5, select = c(OR, se_dispersal, study, Taxonomic.group, es, species, Source))))
 
 summary(m_fitdispcontr_OL_meta)
 anova(m_fitdispcontr_OL_meta)
 
 ggplot(subset(d_fitdispcontr, study != "Tetranychus.turkestani" & study != "Tetranychus.cinnabarinus" & HILO == "cold" & es < 5 & es > 0), aes(x = es, y = OR, col = Source, fill = Source, size = totaln))+
   geom_point(data = subset(d_fitdispcontr, study != "Tetranychus.turkestani" & study != "Tetranychus.cinnabarinus" & HILO == "cold"), pch = 1)+
-  geom_smooth(method = "lm", alpha = 0.1)+
+  geom_errorbar(data = subset(d_fitdispcontr, study != "Tetranychus.turkestani" & study != "Tetranychus.cinnabarinus" & HILO == "cold"), aes(ymax = OR + se_dispersal, ymin = OR - se_dispersal), width = 0, size = 0.5)+
+  geom_errorbarh(data = subset(d_fitdispcontr, study != "Tetranychus.turkestani" & study != "Tetranychus.cinnabarinus" & HILO == "cold"), aes(xmax = es + se_fitness, xmin = es - se_fitness), width = 0, size = 0.5)+
+  geom_smooth(method = "lm", alpha = 0.1, se = F)+
   geom_hline(yintercept = 0, lty = 2)+
-  scale_y_continuous("Relative dispersal")+
-  scale_x_continuous("Relative fitness")+
-  scale_color_discrete("Source")+
-  scale_fill_discrete("Source")+
+  scale_y_continuous("Dispersal effect size (opt vs cold)")+
+  scale_x_continuous("Fitness effect size (opt vs cold)")+
+  scale_color_manual("Source", values = c("orange", "deepskyblue4"))+
+  scale_fill_manual("Source", values = c("orange", "deepskyblue4"))+
+  scale_size_continuous(guide = F)+
   theme_classic(base_size = 20)
 
-forest(m_fitdispcontr_OL_meta, slab = na.omit(subset(d_fitdispcontr, HILO == "cold", select = c(OR, se_dispersal, study, Taxonomic.group, es, species)))$study, addcred = TRUE, main = "Dispersal: Opt vs Cool")
+forest(m_fitdispcontr_OL_meta, slab = na.omit(subset(d_fitdispcontr, HILO == "cold" & es < 5, select = c(OR, se_dispersal, study, Taxonomic.group, es, species)))$study, addcred = TRUE, main = "Dispersal: Opt vs Cool")
 
 
 ```
@@ -391,7 +407,6 @@ for(file in dispersal_emmeans_list){
 }
 
 d_dispersal_emmeans <- left_join(d_dispersal_emmeans, d_mods)
-
 
 ggplot(d_dispersal_emmeans, aes(x = Temp.treatment, y = prob, col = study, group = study))+
   geom_point()+
