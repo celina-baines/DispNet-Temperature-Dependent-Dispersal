@@ -11,8 +11,7 @@ output: word_document
 
 Minor issues
 -   tetranychus cinnabarinus_PT, Tetranychus evansi calls low temp "control" - changed it to 'low' but can't re-run Rmd because of issues with analysis - Ines is re-running this; emailed her to ask her to make sure it's "low"
--   tetranychus turkestani, cinnabarinus, urticae - Siebe is providing sample size
-- no variation in T thermophila?
+
 
 
 
@@ -334,7 +333,7 @@ d_sub$V_dispersal <- with(d_sub, I(se_dispersal)^2)
 ### Testing hypotheses about methods that might influence estimate of effect size: Source, Dispersal.assay.duration
 ##2) remove if not significant
 ##3) with this dataset, only temperature variation is significant ***re-run with final dataset***
-m_fitdispcontr_OH_meta <- rma.mv(yi = OR, V = V_dispersal, random = list(~ 1 | study, ~1|Taxonomic.group/species), mods = ~es + Temperature.variation, data = na.omit(subset(d_sub, select = c(OR, V_dispersal, study, Taxonomic.group, es, species, Temperature.variation))))
+m_fitdispcontr_OH_meta <- rma.mv(yi = OR, V = V_dispersal, random = list(~ 1 | study, ~1|Taxonomic.group/species), mods = ~es * Temperature.variation, data = na.omit(subset(d_sub, select = c(OR, V_dispersal, study, Taxonomic.group, es, species, Temperature.variation))))
 
 summary(m_fitdispcontr_OH_meta)
 anova(m_fitdispcontr_OH_meta)
