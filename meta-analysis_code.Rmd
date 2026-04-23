@@ -5,9 +5,9 @@ output: word_document
 
 # to do
 
-1) Check for influence of model structure: Same meta-analysis but with all species using same simplest model and/or fit one GLMM in same model - have the data and can do this myself
-2) overall effect of temp on fitness and dispersal - Especially: how much does dispersal change per degree C?
-3) Lines/populations: Multi-level meta-analysis. Compare to model with lines/populations combined estimate. - need help from researchers with datasets to sort out multiple lines?
+1) Check for influence of model structure: Same meta-analysis but with all species using same simplest model and/or fit one GLMM in same model - compare to meta-analytical model with diff base models
+2) Lines/populations: Multi-level meta-analysis. Compare to model with lines/populations combined estimate. - need help from researchers with datasets to sort out multiple lines?
+3) Activity data
 
 Minor issues
 -   tetranychus cinnabarinus_PT, Tetranychus evansi calls low temp "control" - changed it to 'low' but can't re-run Rmd because of issues with analysis - Ines is re-running this; emailed her to ask her to make sure it's "low"
