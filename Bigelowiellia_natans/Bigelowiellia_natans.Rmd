@@ -161,6 +161,8 @@ Bigelowiellia natans is a marine flagellate unicellular microalgae, distributed 
 
 A previous experiment on the strain (Barton et al 19, doi:10.1002/lno.11170) estimated the thermal performance curve for growth of the species. The study used the Sharpe-Schoolfield equation to calculate thermal performance curve parameters, with a Topt of 26.68°C, an activation energy Ea of 0.99 eV, a deactivation energy Eh of 4.59eV characterizing the decreases in rate above Th (302.01 °K) where half the enzymes have become nonfunctional , and  lnc the rate normalized to an arbitrary reference temperature of 20°C is of -1.32.
 
+A growth curve experiment done by the authors using 6 temperatures (14, 18, 22, 26, 30 and 34°C) allowed fitting a temperature performance curve using the Boatman 2017 model with the rTPC package in R (Boatman et al., 2017, Padfield et al., 2021) to calculate CTmax of 42.2 °C.
+
 The strain was reared in K medium at 20°C on the long term before starting the experiment, on a 12/12 light cycle.
 
 
@@ -170,6 +172,7 @@ The strain was reared in K medium at 20°C on the long term before starting the 
 
 We created a growth curve and a dispersal experiment at 6 temperature treatments, 14, 18, 22, 26, 30 and 34°C. We chose tree temperatures out of the 6 to be the Tlow, Topt and Thigh, so that we had Topt, and Tlow and Thigh would be the most different temperatures from Topt where there is still enough cells to detect dispersal.
 This led to choose 14, 18 and 30 °C.
+The growth curve at the 6 temperatures was used to measure CTmax by fitting a temperature performance curve using the Boatman 2017 model with the rTPC package in R (Boatman et al., 2017, Padfield et al., 2021).
 
 ### Phase 1: Fitness assay
 

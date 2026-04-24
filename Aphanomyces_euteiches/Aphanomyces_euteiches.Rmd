@@ -167,6 +167,8 @@ The life cycle of A. euteiches includes asexual and sexual stages that occur onl
 
 This soilborne pathogen has been recorded mostly in the north hemisphere in cool and wet soils. The optimal temperature for the disease development (root rots) in artificial condition is comprised between 15°C-16°C and 28°C-30°C (Jones & Drechsler, 1925; Papavizas and Ayers, 1974). 
 
+A growth curve experiment done by the authors using 6 temperatures (14, 18, 22, 26, 30 and 34°C) allowed fitting a temperature performance curve using the Sharpe-Schoolfield model with high temperature inactivation with the rTPC package in R (Schoolfield et al., 1981, Padfield et al., 2021) to calculate CTmax. The FIFi46 strain had a CTmax of 34.9 °C [34.7, 35.2] [95% CI], and the RB84 strain had a CTmax of 36.1 °C [35.3, 41.4].
+
 **How were the organisms sourced**
 
 The Ae FIFi46 strain was isolated in June 2020 from the Itä Uusimaa region (south-east Finland, detailed coordinates not available) from 20-25cm depth soil samples (Kälin et al., 2022). This strain was baited using the susceptible pea cultivar Linnea as described by Olofsson (1967).
@@ -187,7 +189,8 @@ Dispersal was measured in zoospores (biflagellate motile cells).
 ### Temperature treatments
 
 We created a growth curve and a dispersal experiment at 6 temperature treatments, 14, 18, 22, 26, 30 and 34°C. We chose tree temperatures out of the 6 to be the Tlow, Topt and Thigh, so that we had Topt, and Tlow and Thigh would be the most different temperatures from Topt where there is still enough cells to detect dispersal.
-This led to choose 14, 22 and 26 °C.
+This led to choose 14, 22 and 26 °C. 
+The growth curve at the 6 temperatures was used to measure CTmax by fitting a temperature performance curve using the Sharpe-Schoolfield model with high temperature inactivation with the rTPC package in R (Schoolfield et al., 1981, Padfield et al., 2021).
 
 
 ### Phase 1: Fitness assay
@@ -203,6 +206,7 @@ Plates were placed in PolEko SmartPro incubators at the three chosen temperature
 Absorbance was measured at 600 nm to measure growth rate thrice then twice a day for 16 days with a TECAN Infinite M200 Pro reader.
 
 Growth rate was measured from the growth curves using the easylinear function from the growthrates R package, as mean absorbance dependent of time in hours for each replicate and temperature, with the with of the windows h fixed to 10.We used the maximum growth rate as our fitness measure.
+
 
 ### Phase 2: Dispersal assay
 
