@@ -164,7 +164,7 @@ fitness.proxy.type <- "other"
 *Pisaura mirabilis* are terrestrial spiders from the Pisauridae family, with a palearctic distribution and found all over Europe.
 The spiders live and all habitats but prefer wet environments such as wet meadows.
 Spiders have a one-year annual cycle in southern Europe, growing in the summer, hibernating in winter, reaching adulthood in spring, and reproducing and dying in autumn.A laboratory study showed a duration of the subadult instar of up to 21 days and of the adult stage of up to 145 days (Lang et Klarenberg 1995).
-Spiders are able to disperse aerially through ballooning dispersal (Wooolley et al 2016), as well as terrestrially.
+Spiders are able to disperse aerially through ballooning dispersal (Woolley et al 2016), as well as terrestrially.
 A test by the authors using individuals from the source populations and increasing temperature gradually degree by degree in a water bath until death gave a CTmax of 44.8°C +/- 1.73 SD (personal communication).
 
 **How were the organisms sourced**

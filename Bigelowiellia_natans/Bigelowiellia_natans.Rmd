@@ -155,11 +155,11 @@ fitness.proxy.type <- "r"
 
 ## Study organism
 
-We used Bigelowiellia natans, a laboratory strain of Chlorarachniophyte originally sourced from the North Atlantic - Sargasso Sea in 1981. The strain was sourced from Samuel Barton and Gabriel Yvon-Durocher from Exeter University for the purpose of another experiment (Bestion et al 2021, doi:10.1073/pnas.2019591118), who  originally sourced it for the purpose of an experiment (Barton et al 19, doi:10.1002/lno.11170) from the CCAP (The Culture Collection of Algae and Protozoa) and RCC (Roscoff Culture Collection), strain identification numbers:CCMP621, RCC 623. 
+We used Bigelowiellia natans, a laboratory strain of Chlorarachniophyte originally sourced from the North Atlantic - Sargasso Sea in 1981. The strain was sourced from Samuel Barton and Gabriel Yvon-Durocher from Exeter University for the purpose of another experiment (Bestion et al 2021, doi:10.1073/pnas.2019591118), who  originally sourced it for the purpose of an experiment (Barton et al 2019, doi:10.1002/lno.11170) from the CCAP (The Culture Collection of Algae and Protozoa) and RCC (Roscoff Culture Collection), strain identification numbers:CCMP621, RCC 623. 
 
 Bigelowiellia natans is a marine flagellate unicellular microalgae, distributed in Atlantic Islands, Sargasso Sea (Moestrup, Ø. & Sengco, M., 2001, Journal of Phycology).It is motile, but likely to also passively disperse due to its small size.
 
-A previous experiment on the strain (Barton et al 19, doi:10.1002/lno.11170) estimated the thermal performance curve for growth of the species. The study used the SHarpe-Schoolfielld equation to calculate thermap performance curve parameters, with a Topt of 26.68°C, an activation energy Ea of 0.99 eV, a deactivation energy Eh of 4.59eV characterizing the decreases in rate above Th (302.01 °K) where half the enzymes have become nonfunctional , and  lnc the rate normalized to an arbitrary reference temeprature of 20°C is of -1.32.
+A previous experiment on the strain (Barton et al 19, doi:10.1002/lno.11170) estimated the thermal performance curve for growth of the species. The study used the Sharpe-Schoolfield equation to calculate thermal performance curve parameters, with a Topt of 26.68°C, an activation energy Ea of 0.99 eV, a deactivation energy Eh of 4.59eV characterizing the decreases in rate above Th (302.01 °K) where half the enzymes have become nonfunctional , and  lnc the rate normalized to an arbitrary reference temperature of 20°C is of -1.32.
 
 The strain was reared in K medium at 20°C on the long term before starting the experiment, on a 12/12 light cycle.
 
