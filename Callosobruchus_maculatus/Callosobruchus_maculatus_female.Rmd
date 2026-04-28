@@ -119,7 +119,7 @@ Fit1 <- "Died/Survived" # or fill in other
 
 ## Formula for dispersal: (fill in as appropriate)
   
-dispersal.formula <- "Dispersed ~ Temp.treatment + Sex + Length + (1|Group)"
+dispersal.formula <- "Dispersed ~ Temp.treatment + Length + (1|Group)"
 
 ### notes
 #### other.fixed.effects does not apply to every species; include as appropriate; fixed effects should be standardized
@@ -313,7 +313,8 @@ d_phase1 <- d_phase1 %>% filter(Temp.treatment != "lab")
 d_phase2 <- d_phase2 %>% filter(Temp.rearing == "opt")
 d_phase2 <- d_phase2 %>% filter(Temp.treatment!= "lab")
 
-
+#sex filter
+d_phase2 <- d_phase2 %>% filter(Sex == "F")
 
 ```
 

@@ -39,8 +39,8 @@ Genus = "Folsomia"
 species = "candida"
 fitness.proxy = "Population growth, r"
 low.temp = 18 #value of low temperature treatment in Celsius
-opt.temp = 22 #value of optimal temperature treatment in Celsius
-high.temp = 26 #value of high temperature treatment in Celsius
+medium.low.temp = 22 #value of optimal temperature treatment in Celsius
+opt.temp = 26 #value of high temperature treatment in Celsius
 
 
 # 4. Check that the data files have the following headers (order of columns is not important):
@@ -145,7 +145,7 @@ Tvariation <- "homogenous"
 species.body.size <- 3 # mean body length in mm
 passive.dispersal <- "No"
 inbred <- "inbred line"
-disp.assay.duration <- 1 # order of magnitude for dispersal assay duration / generation time, i.e., approximate number of generations the dispersal assay lasted
+disp.assay.duration <- 0.1 # order of magnitude for dispersal assay duration / generation time, i.e., approximate number of generations the dispersal assay lasted
 fitness.proxy.type <- "r"
 
 # 10. Fill out methods information in text below.
@@ -179,7 +179,7 @@ approximately one month after the initial adults were added.
 
 ### Temperature treatments
 
-|      For this experiment, T~opt~= 22°C, T~hot~ = 26°C, and T~cold~ = 18°C. The optimal temperature was chosen based off literature which estimates the optimal temperature to be approximately 21°C [@snider2017]. A pilot was conducted to choose temperatures for T~hot~ and T~cold~. For the pilot, temperatures ranging from 14-26°C with increments of 2°C were tested using number of offspring as a proxy for fitness. No temperatures above 26°C were chosen because eggs lose viability at 28°C [@fountain2005]. To assess number of offspring as a proxy for population growth, mesocosms were adjusted to each temperature and stock containers were added to each mesocosm a week prior to the start date. Five age matched individuals were placed in each replicate and allowed an egg laying period of three days. Following this period, adults were removed and populations of new adults were counted after approximately one month. From this we concluded 18 and 26 would be appropriate temperatures for T~cold~ and T~hot~. Temperatures varied slightly around the three means of temperature treatments (18,22 and 26°C) with deviations of ± 1°C across all replicates and blocks.
+|      For this experiment, T~Low.medium~ = 22°C, T~opt~ = 26°C, and T~low~ = 18°C. The optimal temperature was chosen based off literature which estimates the optimal temperature to be approximately 21°C [@snider2017]. A pilot was conducted to determine temperatures for T~opt~ and T~low~. For the pilot, temperatures ranging from 14-26°C with increments of 2°C were tested using number of offspring as a proxy for fitness. No temperatures above 26°C were chosen because eggs lose viability at 28°C [@fountain2005]. To assess number of offspring as a proxy for population growth, mesocosms were adjusted to each temperature and stock containers were added to each mesocosm a week prior to the start date. Five age matched individuals were placed in each replicate and allowed an egg laying period of three days. Following this period, adults were removed and populations of new adults were counted after approximately one month. From this we concluded 18°C and 26°C would be appropriate temperatures for T~low~ and T~opt~. Temperatures varied slightly around the three means of temperature treatments (18,22 and 26°C) with deviations of ± 1°C across all replicates and blocks.
 
 ### Phase 1: Fitness assay
 
@@ -273,7 +273,7 @@ with(d_phase1, hist(fitness.transformation.function(Fitness), xlab = paste(trans
 
 ```
 
-```{r fitnessplotnormal, eval = fitness.normal | fitness.transformed.normal, echo = F, message = F, fig.cap = paste("Figure 2. Boxplot of fitness (", tolower(fitness.proxy), "), as a function of temperature treatment. low = ", low.temp, "C, opt = ", opt.temp, "C, high = ", high.temp, "C.")}
+```{r fitnessplotnormal, eval = fitness.normal | fitness.transformed.normal, echo = F, message = F, fig.cap = paste("Figure 2. Boxplot of fitness (", tolower(fitness.proxy), "), as a function of temperature treatment. low = ", low.temp, "C, opt = ", medium.low.temp, "C, high = ", opt.temp, "C.")}
 
 # plot fitness data
 
@@ -382,7 +382,7 @@ output_dispersal_contrasts <- output_dispersal_emmeans$contrasts %>%
 
 ```
 
-```{r dispersalplot, echo = F, warning = F, fig.cap = paste("Figure 1. Dispersal as a function of temperature treatment. low = ", low.temp, "C, opt = ", opt.temp, "C, high = ", high.temp, "C. Error bars represent 95% confidence intervals predicted from GLMM.")}
+```{r dispersalplot, echo = F, warning = F, fig.cap = paste("Figure 1. Dispersal as a function of temperature treatment. low = ", low.temp, "C, opt = ", medium.low.temp, "C, high = ", opt.temp, "C. Error bars represent 95% confidence intervals predicted from GLMM.")}
 
 # plot dispersal data
 

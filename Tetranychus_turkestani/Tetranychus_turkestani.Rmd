@@ -38,23 +38,23 @@ library(glmmTMB)
 Genus = "Tetranychus"
 species = "turkestani"
 fitness.proxy = "Population growth, r"
-low.temp = 24 #value of low temperature treatment in Celsius
-opt.temp = 30 #value of optimal temperature treatment in Celsius
+opt.temp = 24 #value of low temperature treatment in Celsius
+medium.high.temp = 30 #value of optimal temperature treatment in Celsius
 high.temp = 36 #value of high temperature treatment in Celsius
 
 
 # 4. Check that the data files have the following headers (order of columns is not important):
 
-## phase1 : Temp.treatment (levels = low, opt, high), Temp.value (in degrees C), random effects (name as appropriate), Fitness
+## phase1 : Temp.treatment (levels = opt, medium.high, high), Temp.value (in degrees C), random effects (name as appropriate), Fitness
 ### It's important to give the column of the fitness variable the header "Fitness". You have already provided a description of the fitness proxy which will be used in the knitted document.
 
 ## phase 2:
 
 ### If your phase 2 data are formatted with mesocosms as rows and number of dispersers/number of non-dispersers as columns, then these headers:
-#### Temp.treatment (levels = low, opt, high), Temp.value (in degrees C), random effects (name as appropriate), Num.disp, Num.nondisp (or alternatively, Num.disp and total N)
+#### Temp.treatment (levels = opt, medium.high, high), Temp.value (in degrees C), random effects (name as appropriate), Num.disp, Num.nondisp (or alternatively, Num.disp and total N)
 
 ### If your phase 2 data are formatted with individuals as rows and a dispersed column (0s and 1s) giving dispersal status for each individual, then these headers:
-#### Temp.treatment (levels = low, opt, high), Temp.value (in degrees C), random effects (name as appropriate), Dispersed (0/1)
+#### Temp.treatment (levels = opt, medium.high, high), Temp.value (in degrees C), random effects (name as appropriate), Dispersed (0/1)
 
 # note that the datasets can also include fixed effects and phenotypes, as appropriate for your study
 
@@ -208,6 +208,8 @@ No Wolbacchia present (capable of skewing sex-ratio)
 - Topt: 30°C; Optimal temperature for spider mites, as here their generation time and number of offspring increases.
 - Thot: 36°C; Sufficiently hot to affect the spider mites, while not causing complete mortality.
 
+However, we observed highest fitness in the Tcold treatment. The naming was changed accordingly.
+
 ### Phase 1: Fitness assay
 
 Fitness proxy: malthusian fitness = number of viable female offspring produced by one female. 
@@ -358,13 +360,13 @@ with(d_phase1, hist(fitness.transformation.function(Fitness), xlab = paste(trans
 
 ```
 
-```{r fitnessplotnormal, eval = fitness.normal | fitness.transformed.normal, echo = F, message = F, fig.cap = paste("Figure 2. Boxplot of fitness (", tolower(fitness.proxy), "), as a function of temperature treatment. low = ", low.temp, "C, opt = ", opt.temp, "C, high = ", high.temp, "C.")}
+```{r fitnessplotnormal, eval = fitness.normal | fitness.transformed.normal, echo = F, message = F, fig.cap = paste("Figure 2. Boxplot of fitness (", tolower(fitness.proxy), "), as a function of temperature treatment. opt = ", opt.temp, "C, medium.high = ", medium.high.temp, "C, high = ", high.temp, "C.")}
 
 # plot fitness data
 
 ggplot(d_phase1, aes(x = Temp.treatment, y = Fitness, col = Temp.treatment))+
   geom_boxplot()+
-  scale_x_discrete("Temperature treatment", limits = c("low", "opt", "high"))+
+  scale_x_discrete("Temperature treatment", limits = c("opt", "medium.high", "high"))+
   scale_color_manual(values = c("darkgreen", "red", "blue"), guide = "none")+
   theme_classic(base_size = 15)
 
@@ -372,7 +374,7 @@ ggplot(d_phase1, aes(x = Temp.treatment, y = Fitness, col = Temp.treatment))+
 
 `r ifelse(fitness.binary == T, print(paste("To estimate the effects of temperature (a factor) on fitness we used a generalized linear mixed model with a logit link and", tolower(fitness.proxy), "as the binary response variable. We used the formula:")), paste("To estimate the effects of temperature (a factor) on fitness, we used a linear mixed model with", tolower(fitness.proxy), "as the response variable. We used the formula:"))`  
 
-`r deparse(fitness.formula.pos)`
+`r deparse(fitness.formula)`
 
 ```{r fitnessmodelnormal, eval = fitness.normal | fitness.transformed.normal, echo = F}
 
@@ -445,7 +447,7 @@ output_fitness_contrasts
 
 `r ifelse(!overdispersion, print("To estimate the effect of temperature treatment (a factor) on dispersal, we used a generalized linear mixed model with a binomial error structure and a logit link. Dispersal (the number of dispersers vs non-dispersers) was the response variable. We used the formula:"), print("There was evidence of overdispersion in our dispersal data. Therefore, to estimate the effect of temperature treatment (a factor) on dispersal, we used a generalized linear mixed model with a negative binomial error structure. Dispersal (the number of dispersers vs non-dispersers) was the response variable. We used the formula:"))`  
 
-`r deparse(dispersal.formula.pos)`
+`r deparse(dispersal.formula)`
 
 
 ```{r dispersalmodelbinomial, eval = !overdispersion, echo = F}
@@ -500,7 +502,7 @@ output_disp_contrasts <- output_disp_emmeans$contrasts %>%
 
 ```
 
-```{r dispersalplot, echo = F, warning = F, fig.cap = paste("Figure 1. Dispersal as a function of temperature treatment. low = ", low.temp, "C, opt = ", opt.temp, "C, high = ", high.temp, "C. Error bars represent 95% confidence intervals predicted from GLMM.")}
+```{r dispersalplot, echo = F, warning = F, fig.cap = paste("Figure 1. Dispersal as a function of temperature treatment. opt = ", opt.temp, "C, medium.high = ", medium.high.temp, "C, high = ", high.temp, "C. Error bars represent 95% confidence intervals predicted from GLMM.")}
 
 # plot dispersal data
 
@@ -508,7 +510,7 @@ df_emmeans <- as.data.frame(output_disp_emmeans$emmeans)
 ggplot(df_emmeans, aes(x = Temp.treatment, y = prob, col = Temp.treatment)) +
   geom_point(size = 4) +
   geom_errorbar(aes(ymin = asymp.LCL, ymax = asymp.UCL), width = 0) +
-  scale_x_discrete("Temperature treatment", limits = c("low", "opt", "high")) +
+  scale_x_discrete("Temperature treatment", limits = c("opt", "medium.high", "high")) +
   scale_y_continuous("Dispersal count") +
   scale_color_manual(values = c("darkgreen", "red", "blue"), guide = "none") +
   theme_classic(base_size = 15)
@@ -567,17 +569,17 @@ d_moderator <- data.frame(
 ```{r writingoutputfiles, echo = F}
 # fitness output
 
-write.table(output_fitness_Tempeffect, paste(writing.path, "output_TempMain_", Genus, ".", species, ".txt", sep = ""))
+write.table(output_fitness_Tempeffect, paste(writing.path, "output_fitness_TempMain_", Genus, ".", species, ".txt", sep = ""))
 
 write.table(
   output_fitness_summary$coefficients$cond,
-  paste0(writing.path, "summary_cond_", Genus, ".", species, ".txt"),
+  paste0(writing.path, "output_fitness_Summary_", Genus, ".", species, ".txt"),
   sep = "\t", row.names = TRUE, quote = FALSE
 )
 
-write.table(output_fitness_emmeans$emmeans, paste(writing.path, "output_emmeans_", Genus, ".", species, ".txt", sep = ""))
+write.table(output_fitness_emmeans$emmeans, paste(writing.path, "output_fitness_emmeans_", Genus, ".", species, ".txt", sep = ""))
 
-write.table(output_fitness_emmeans$contrasts, paste(writing.path, "output_contrasts_", Genus, ".", species, ".txt", sep = ""))
+write.table(output_fitness_emmeans$contrasts, paste(writing.path, "output_fitness_contrasts_", Genus, ".", species, ".txt", sep = ""))
 
 
 # dispersal output 
@@ -586,15 +588,10 @@ write.table(output_disp_Tempeffect, paste(writing.path, "output_dispersal_TempMa
 
 write.table(
   output_disp_summary$coefficients$cond,
-  paste0(writing.path, "output_dispersal_Summary_cond_", Genus, ".", species, ".txt"),
+  paste0(writing.path, "output_dispersal_Summary_", Genus, ".", species, ".txt"),
   sep = "\t", row.names = TRUE, quote = FALSE
 )
 
-write.table(
-  output_disp_summary$coefficients$zi,
-  paste0(writing.path, "output_dispersal_Summary_zi_", Genus, ".", species, ".txt"),
-  sep = "\t", row.names = TRUE, quote = FALSE
-)
 
 write.table(output_disp_emmeans$emmeans, paste(writing.path, "output_dispersal_emmeans_", Genus, ".", species, ".txt", sep = ""))
 
