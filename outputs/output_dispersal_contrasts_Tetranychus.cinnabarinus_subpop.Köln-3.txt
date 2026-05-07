@@ -1,0 +1,4 @@
+"contrast" "odds.ratio" "SE" "df" "null" "z.ratio" "p.value"
+"1" "opt / high" 1 NA Inf 1 NA NA
+"2" "opt / low" 4.60837802875886e-16 NA Inf 1 NA NA
+"3" "high / low" 4.60837802875886e-16 NA Inf 1 NA NA

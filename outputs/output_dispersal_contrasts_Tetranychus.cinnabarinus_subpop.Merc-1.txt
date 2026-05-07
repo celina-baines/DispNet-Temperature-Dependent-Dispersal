@@ -1,0 +1,2 @@
+"contrast" "odds.ratio" "SE" "df" "null" "z.ratio" "p.value"
+"1" "opt / low" 0.904168278380718 0.716897583157065 Inf 1 -0.127055415101571 0.89889653898686

@@ -1,0 +1,3 @@
+"Df" "AIC" "LRT" "Pr(>Chi)"
+"<none>" NA 60.1819131067204 NA NA
+"Temp.treatment" 1 NA NA NA

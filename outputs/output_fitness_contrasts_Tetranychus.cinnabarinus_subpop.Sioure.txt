@@ -1,0 +1,4 @@
+"contrast" "ratio" "SE" "df" "null" "z.ratio" "p.value"
+"1" "opt / high" 5.99832720510177e+28 NA Inf 1 NA NA
+"2" "opt / low" 12.5714575820484 NA Inf 1 NA NA
+"3" "high / low" 2.22044604925031e-16 NA Inf 1 NA NA

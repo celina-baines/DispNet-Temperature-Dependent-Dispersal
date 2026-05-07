@@ -1,28 +1,7 @@
-Changes made to Rmd template:
+Hi Celina
 
-1. Added author contributions and acknowledgements sections to top of # Supplementary methods
+I pushed the new code to GitHub where I included the different populations. With this, I did notice that the sample size of each of them separately is really low (is equal for phase 1 and phase 2; see document attached), and we also see this in the analyses: the models have trouble converging and confidence intervals are huge. For T. urticae, I had to resort to a nbinom2 family, since Tweedie kept crashing the analysis. I thnik the sample sizes of the different populations are also to low to give an accurate optimal temperature for each of them seperately, so I think it is best to keep those on a species level. What do you think?
 
-## Author contributions
-Possible categories:
-- conceptualization  
-- statistical analysis  
-- methodology (design of methodology)  
-- investigation/conduct experiment  
-- funding acquisition  
-- writing (original draft, supplement)
-- list others as needed  
 
-## Acknowledgements
-Research assistants, funding sources, etc.
 
-2. Fixed problem with fitness.transformation.function (~line 75)
 
-Changed line to:
-
-fitness.transformation.function <- function(x) {return (log(x))} # give transformation formula here; replace "log" with transformation used e.g., sqrt(x) or log(x + 1), etc., where x will be Fitness, below
-
-3. Fixed problem with filter.dead (~line 97)
-
-Changed line to:
-
-filter.dead = TRUE/FALSE # choose FALSE if this does not apply to your species

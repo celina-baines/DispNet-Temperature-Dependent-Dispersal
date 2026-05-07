@@ -1,0 +1,4 @@
+"Temp.treatment" "response" "SE" "df" "asymp.LCL" "asymp.UCL"
+"1" "opt" 1.57142864095049 NA Inf NA NA
+"2" "high" 2.22044604925031e-16 NA Inf NA NA
+"3" "low" 0.124999717072938 NA Inf NA NA
