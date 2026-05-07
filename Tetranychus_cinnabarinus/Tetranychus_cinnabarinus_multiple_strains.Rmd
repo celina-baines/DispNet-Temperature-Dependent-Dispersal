@@ -327,6 +327,10 @@ d_phase2 <- d_phase2 %>%
 group_index_phase1 <- which(colnames(d_phase1) == group_name)
 group_index_phase2 <- which(colnames(d_phase2) == group_name)
 
+# Change "," to "."
+d_phase1$Fitness <- as.numeric(gsub(",", ".", as.character(d_phase1$Fitness)))
+d_phase2$Fitness <- as.numeric(gsub(",", ".", as.character(d_phase2$Fitness)))
+
 ```
 
 ```{r writedata, echo = F}
@@ -748,3 +752,4 @@ for(i in c(1:length(unique(d_phase2[,group_index_phase2])))){
 write.table(d_moderator, paste(writing.path, "moderators_", Genus, ".", species, ".txt", sep = ""))
 
 ```
+

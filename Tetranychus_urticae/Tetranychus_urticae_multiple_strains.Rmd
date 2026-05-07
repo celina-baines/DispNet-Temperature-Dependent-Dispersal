@@ -314,8 +314,8 @@ reading.path <- ("./")
 writing.path <- ("../outputs/")
 
 # load data file
-d_phase1 <- read.csv2(paste("Phase1_fitness_", Genus, ".", species, ".csv", sep = ""))
-d_phase2 <- read.csv2(paste("Phase2_dispersal_", Genus, ".", species, ".csv", sep = ""))
+d_phase1 <- read.csv2(paste("Phase1_fitness_", Genus, ".", species, ".csv", sep = ""), dec = ",")
+d_phase2 <- read.csv2(paste("Phase2_dispersal_", Genus, ".", species, ".csv", sep = ""), dec = ",")
 
 d_phase1 <- within(d_phase1, Temp.treatment <- relevel(as.factor(Temp.treatment), ref = "opt"))
 d_phase2 <- within(d_phase2, Temp.treatment <- relevel(as.factor(Temp.treatment), ref = "opt"))
@@ -327,6 +327,10 @@ group_index_phase1 <- which(colnames(d_phase1) == group_name)
 group_index_phase2 <- which(colnames(d_phase2) == group_name)
 
 
+
+# Change "," to "."
+d_phase1$Fitness <- as.numeric(gsub(",", ".", as.character(d_phase1$Fitness)))
+d_phase2$Fitness <- as.numeric(gsub(",", ".", as.character(d_phase2$Fitness)))
 ```
 
 ```{r writedata, echo = F}
@@ -352,7 +356,6 @@ write.csv(d_phase2, paste(data_path, disppath, sep = ""), row.names = FALSE)
 
 # histogram showing fitness proxy was normally distributed
 
-d_phase1$Fitness <- as.numeric(d_phase1$Fitness)
 
 ggplot(d_phase1, aes(x = Fitness)) +
   geom_histogram() +
@@ -410,7 +413,7 @@ for(i in c(1:length(unique(d_phase1[,group_index_phase1])))){
     
   } else{
     m_fitness <- glmmTMB(Fitness ~ Temp.treatment + (1|plate), data = subset(d_phase1, d_phase1[,group_index_phase1] ==
-      unique(d_phase1[,group_index_phase1])[i]), family = nbinom2()
+      unique(d_phase1[,group_index_phase1])[i]), family = tweedie()
 )
   }
   
@@ -605,7 +608,7 @@ for(i in c(1:length(unique(d_phase1[,group_index_phase1])))){
     
   } else{
     m_fitness <- glmmTMB(Fitness ~ Temp.treatment + (1|plate), data = subset(d_phase1, d_phase1[,group_index_phase1] ==
-      unique(d_phase1[,group_index_phase1])[i]), family = nbinom2()
+      unique(d_phase1[,group_index_phase1])[i]), family = tweedie()
 )
   }
   
@@ -745,3 +748,7 @@ for(i in c(1:length(unique(d_phase2[,group_index_phase2])))){
 write.table(d_moderator, paste(writing.path, "moderators_", Genus, ".", species, ".txt", sep = ""))
 
 ```
+
+
+
+
