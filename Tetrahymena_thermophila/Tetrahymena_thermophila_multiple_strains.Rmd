@@ -1,0 +1,619 @@
+---
+title: "Temperature dependent dispersal: A distributed experiment"
+author: "Nicolas Schtickzelle"
+output: word_document
+editor_options: 
+  chunk_output_type: console
+---
+```{r multiplestrainsinstructions, echo = F, warning = F}
+
+# ADDITIONAL INSTRUCTIONS FOR MULTIPLE STRAINS
+
+# This is the same template document as before, but modified for multiple strains
+
+# You can copy and paste the 'instructions' code chunk AND the Supplementary Methods text from your previous Rmd that you created for your species with multiple strains/populations combined.
+
+# HOWEVER, be careful to check your fitness.formula and dispersal.formula. If you had strain/population as a random effect in those formulas, it should now be removed. Also do a quick check to make sure everything else makes sense (e.g., is the structure of the fitness data still the same/consistent across populations?)
+
+
+# What is the name of the strain/population column in your Phase1 and Phase2 datasets? Write it in the quotations marks below.
+
+group_name <- "Strain"
+
+# After excluding strain/population from the fitness.formula and dispersal.formula, are there still random effects in your model? choose one.
+
+mixed.fitness <- FALSE
+mixed.dispersal <- FALSE
+
+```
+
+```{r instructions, echo = F, warning = F}
+# NOTE: You can copy and paste this section from the previous Rmd you created for your species with multiple strains/populations combined
+
+# INSTRUCTIONS FOR RESEARCHERS
+
+# Here, you'll find instructions and information to fill out about your species. Once you have finished following the instructions, go to the render_script in your species folder and run the code - this will automatically knit a word document to the shared Knitted_Markdowns folder. You don't need to make any changes to the analysis outside of this code chunk, but feel free to do so if it's appropriate for your species. If you make substantive changes to either of the models, please flag it for Celina.
+
+# Note: Do not try to "run all" within R, you will get an error. Knitting the document from the RStudio menu will only save it to your species folder, not add it to the shared folder, so please use render_script.
+
+# 0. Add names of researchers who worked on this species to author list above
+
+# 1. Before starting, make sure your data files are named:
+# Phase1_fitness_Genus.species.csv
+# Phase2_dispersal_Genus.species.csv
+
+## code below assumes .csv format (only in the code chunk named 'loaddata'; You can change this if you would rather not use .csv)
+
+
+# 2. Install any missing libraries from the list below:
+library(tidyverse)
+library(lme4)
+library(ggplot2)
+library(emmeans)
+library(DHARMa)
+
+# 3. Fill out information about your species below
+
+Genus = "Tetrahymena"
+species = "thermophila"
+fitness.proxy = "Population growth, r"
+low.temp = 15 #value of low temperature treatment in Celsius
+opt.temp = 31 #value of optimal temperature treatment in Celsius
+high.temp = 39 #value of high temperature treatment in Celsius
+
+
+# 4. Check that the data files have the following headers (order of columns is not important):
+
+## phase1 : Temp.treatment (levels = low, opt, high), Temp.value (in degrees C), random effects (name as appropriate), Fitness
+### It's important to give the column of the fitness variable the header "Fitness". You have already provided a description of the fitness proxy which will be used in the knitted document.
+
+## phase 2:
+
+### If your phase 2 data are formatted with mesocosms as rows and number of dispersers/number of non-dispersers as columns, then these headers:
+#### Temp.treatment (levels = low, opt, high), Temp.value (in degrees C), random effects (name as appropriate), Num.disp, Num.nondisp (or alternatively, Num.disp and total N)
+
+### If your phase 2 data are formatted with individuals as rows and a dispersed column (0s and 1s) giving dispersal status for each individual, then these headers:
+#### Temp.treatment (levels = low, opt, high), Temp.value (in degrees C), random effects (name as appropriate), Dispersed (0/1)
+
+# note that the datasets can also include fixed effects and phenotypes, as appropriate for your study
+
+
+# 5. Type of fitness data
+
+## Answer questions below about the fitness proxy
+
+### Is your fitness variable binary? (choose one)
+fitness.binary = FALSE
+
+### Is the fitness variable continuous normal (without transformation)? (choose one)
+fitness.normal = TRUE
+
+### Is the fitness variable normal after transformation? (choose one; choose NA if you said "TRUE" to either question above)
+fitness.transformed.normal = NA
+
+## If fitness variable is continuous normal AFTER transformation, choose transformation used (just write it in if not on this list):
+
+transform.description <- "square-root/log/log10" # leave as-is if not applicable
+fitness.transformation.function <- function(x) {return ((x))} # give transformation formula here; replace "log" with transformation used e.g., sqrt(x) or log(x + 1), etc., where x will be Fitness, below
+
+## note: if fitness (or transformed fitness) does not have a binomial or normal distribution, check in with Celina.
+
+
+# 6. Structure of dispersal data
+
+## Is there overdispersion in the dispersal data? If you do not yet know, choose FALSE and this will be dealt with in step 12.
+
+overdispersion = FALSE
+
+
+# 7. Dealing with mortality in dispersal assay
+
+## note on mortality: everyone will deal with mortality during the dispersal assay in a slightly different way. If individuals are rows in your dataset, you should have a row that indicates "Survived" (Y/N) through the entire experiment. In this case, set filter.dead = TRUE below. If mesocosms are rows in your dataset, you may have a column indicating the number of individuals that died. In this case, dead individuals can be excluded directly in the dispersal formula (e.g., (Num.disp, TotalN-(Num.disp+Num.dead))).
+
+## Make sure to describe how you dealt with mortality in the methods below.
+
+## If you are unsure how to handle mortality in your dataset, check with Celina.
+
+## Do rows represent individuals in the dataset and are there dead individuals that should be removed from the dispersal data?
+
+filter.dead = FALSE # choose FALSE if this does not apply to your species
+
+
+# 8. Model formulae
+
+## Formula for fitness: (fill in as appropriate)
+
+fitness.formula <- "Fitness ~ Temp.treatment"
+
+### notes:
+#### TRANSFORM FITNESS VARIABLE (if needed) *WITHIN* THE FORMULA; doing it within the formula is important for contrasts below  
+#### other.fixed.effects does not apply to every species; include as appropriate; fixed effects should be standardized
+#### include as many random effects as appropriate
+#### Fitness can be normal or binary, including 0s and 1s or cbind(number.survived, number.dead)
+
+### If fitness is binary: (ignore if fitness is not binary)
+
+### What do Fitness = 0 and Fitness = 1 mean?
+
+Fit0 <- "Died/Survived" # or fill in other
+Fit1 <- "Died/Survived" # or fill in other
+
+## Formula for dispersal: (fill in as appropriate)
+  
+dispersal.formula <- "cbind(Num.disp, Num.nondisp) ~ Temp.treatment"
+
+### notes
+#### other.fixed.effects does not apply to every species; include as appropriate; fixed effects should be standardized
+#### include as many random effects as appropriate
+#### Num.disp/Num.nondisp can be replaced with column "Dispersed" with values 0 and 1, if individuals are rows in your dataset
+#### remember to deal with mortality directly in dispersl formula if appropriate
+
+
+# 9. Moderators
+
+## We are collecting data on all proposed moderators; we will use a subset of these in the analysis
+## choose option on right hand side
+## see description of moderators and levels in README.md in project repo
+
+taxonomic.group <- "ciliate"
+rearing.environment <- "commonT"
+comp.strength <- "moderate"
+source <- "lab" # lab population or field caught
+habitat <- "aquatic"
+Tvariation <- "homogenous"
+species.body.size <- 0.05 # mean body length in mm
+passive.dispersal <- "No"
+inbred <- "inbred line"
+disp.assay.duration <- 1 # order of magnitude for dispersal assay duration / generation time, i.e., approximate number of generations the dispersal assay lasted
+fitness.proxy.type <- "r"
+
+
+# 10. Fill out methods information in text below.
+
+```
+
+# Supplementary methods for *`r (print(paste(Genus, species)))`*
+
+## Author contributions
+
+N.S.: conceptualization, methodology, conduct experiment, statistical analysis and visualization, writing, funding acquisition, project administration
+
+## Acknowledgements
+
+N.S. thanks Julie Jadoul for general culture and laboratory maintenance and Julie Jadoul and Michaëlla Dacek for helping with conducting the experiment.
+This work was supported by F.R.S.-FNRS grants to N.S. (EQP U.N035.16 and PDR T.0211.19) and from UCLouvain (ARC 18-23/095: DIVERCE).
+
+## Study organism
+
+*Tetrahymena thermophila* is a unicellular ciliate eukaryote whose natural habitat is freshwater ponds and streams in the east regions of North America where it feeds on aggregates of bacteria and dissolved nutrients. It actively disperses via swimming and has a generation time of c. 8h in our lab conditions. It lives originally in streams, ponds and lakes on the Atlantic coast of North America, where it disperses actively. As biological replicates, we used five strains (D3, D13, D16, D19, D21), i.e. isogenic lines of cells bearing a single genotype, that differ in various phenotypic traits; they were originally collected in the field by F.P. Doerder from 2003 to 2009. Upon their arrival in our lab, they were cryoconserved in liquid nitrogen. Stock cultures from this experiment were thawed and maintained for a few months (at 23°C 14:10 day/night light cycle) in an axenic PPYE liquid medium (2% of Proteose Peptone and 0.2% of Yeast Extract, diluted in ultrapure water, referred to as “1X medium” for its standard resource concentration); cultures were reinoculated into new medium every 10 days on average. All culture manipulations were performed under a laminar flow hood to maintain their axenic condition (Schtickzelle et al., 2009).
+
+## Study design
+
+For each of the 5 strains, we established two different mother cultures that were cultured independently from each other over a few weeks, so 10 mother cultures in total. The experiment (both phase 1 and 2 below) followed a factorial design with 3 temperatures, 5 strains and 2 biological replicates, so 30 experimental populations in total.
+
+### Temperature treatments
+
+As temperature treatments, we used Tcold = 15°C, Topt = 31°C, and Thot = 39°C. Tcold is the below the standard culture temperature but growth is still fast enough to be measured in a reasonable time frame; Topt is around the temperature at which the growth rate is maximal (which differs among strains: Jacob et al. 2018); Thot is the temperature at which some growth is still possible, but it is on the descending side of the temperature performance curve, just below lethal temperature (c. 42°C). There was no daily variation in temperature. Due to logistic constraints, each temperature was allocated to one incubator (identicial model: Sanyo MIR-554); the temperature of each of the 3 incubators was monitored every 5 min over the duration experiment to confirm temperature treatments were stable and accurate.
+
+### Phase 1: Fitness assay
+
+As a fitness proxy, we used maximum growth rate (r), i.e. the exponential population growth observed of a population starting from very low density. For each of the 30 experimental populations, we inoculated two wells (technical replicates to accommodate for potential culture contamination) of a 24 well plate (Greiner 662102) with 2 ml of 0.3X culture medium and 100 µl of mother culture. We recorded population growth, using optical density measurements (OD at 550nm, using a Biotek Synergy H1 multiplate reader: Jacob et al. 2018) as a cell density proxy, regularly over a period of 23 days maximum (where the populations at 15°C were declining after reaching and maintaining carrying capacity for some time). One plate was used for each temperature and each plate contained 4 wells with medium only used a blank to correct OD. Each of the 3 plates was placed at its experimental temperature except for a few minutes when an OD read was performed on the multiplate reader. For every read, the OD value was the average of 9 measurements spread as a grid over the well area. During the experiment, we monitored populations for a sudden sharp increase in OD, and in these cases checked for bacterial contamination under the microscope. Contaminated populations were discarded and their monitoring was stopped; this never happened during the exponential growth phase that is analysed.
+
+Growth curves (i.e. time series of OD) were first cleaned for obvious outliers (e.g. due to a bubble at the surface of the liquid culture that biased the value upwards) by discarding values that were higher than 110% of the maximum observed OD. Then, they were truncated after the stationary phase by cutting the time series after the last time where OD was above 90% of the median of the highest 5 OD values in the curve. Maximum growth rate (r) was then calculated for each growth curve separately as the maximum linear slope of the temporal increase of the log-transformed optical density with the easy linear fit in the `growthrates` package.
+
+
+### Phase 2: Dispersal assay
+
+To quantify dispersal, we used standard two-patch microcosms consisting of two habitat patches (1.5 ml standard microtubes) connected by a corridor (4 mm internal diameter silicon pipe, 2.5 cm long) and filled with growth medium (Schtickzelle et al. 2009); one system was used for each of the 30 experimental populations. The dispersal system was filled prior to the experiments with 3 ml of 0.3X medium through one tube to ensure fluid transition between the tubes, and then closed by placing a clamp in the middle of the connecting pipe. To start the experiment, a specific volume from the corresponding mother culture was placed into the “start” tube of the system so that the population was at a 100.000 cells/ml density. The tube content was then homogenized to encourage cells to move freely throughout the start tube and the dispersal system placed in the incubator at its experimental temperature. After 1.5 h of acclimation, the clamp closing the connecting pipe was removed and cells could freely disperse between the two tubes for 4 hours. The 30 dispersal systems were launched at a 5 min interval to ensure the 1.5 h + 4 h was strictly respected for each system. 
+
+At the end of 5.5 h, the dispersal system was closed and a series of measures extracted for the “start” and “target” tubes using a digital image analysis procedure, which allows estimation of cell densities and several phenotypic traits in an objective and automated manner. To do so, five independent samples were taken from each tube after culture homogenization, and each loaded in a chamber of a counting slide (Kima Precision cell 301890, Italy); for each chamber, a dark field image was taken using a Canon EOS 5D Mark II mounted on a Nikon Eclipse 50i microscope. Images were then treated and segmented using Fiji software (Version 1.47, Schneider et al. 2012) to identify individual cells and extract measures. This workflow, containing several data cleaning steps to eliminate artefacts, has been carefully validated and extensively optimized to produce accurate and repeatable results (see details and measures of error rates in Pennekamp and Schtickzelle (2013)).
+
+
+```{r instructions2, echo = F}
+
+# 11. Knit RMarkdown
+
+## Now it is time to knit the RMarkdown document. Open the render_script document in the species folder and run that script (see README.md for additional instructions). It will automatically write the files to the correct folders in the repository. Remember not to 'run all' in the RMarkdown. You will get an error.
+
+# 12. Check diagnostics
+
+## The final section of the output doc will be model diagnostics. Check the output word doc (it will be in the 'Knitted_Markdowns' folder) for any issues and re-run the render_script if necessary after selecting different options in the RMarkdown (e.g., does the fitness variable need to be transformed? Is there overdispersion in the dispersal data?)
+
+## You should also check the word doc for warning messages for the models (e.g., singularity in mixed models). These (if there are any) will print in the knitted doc next to the model results.
+
+## If problems persist, the way the analysis is done may have to be changed (check in with Celina).
+
+## Note that the current default description of the diagnostics is: "There was no evidence for lack of fit for either the fitness or the dispersal model." Change this as needed.
+
+
+#############
+
+# YOU ARE DONE! NO NEED TO FILL IN OR CHANGE ANYTHING BELOW.
+
+############
+
+```
+
+## Statistical Analysis
+
+```{r loaddata, echo = F}
+
+# Set reading and writing paths; Do not change these paths
+reading.path <- ("./")
+
+writing.path <- ("../outputs/")
+
+# load data file
+d_phase1 <- read.csv(paste("Phase1_fitness_", Genus, ".", species, ".csv", sep = ""))
+d_phase2 <- read.csv(paste("Phase2_dispersal_", Genus, ".", species, ".csv", sep = ""))
+
+d_phase1 <- within(d_phase1, Temp.treatment <- relevel(as.factor(Temp.treatment), ref = "opt"))
+d_phase2 <- within(d_phase2, Temp.treatment <- relevel(as.factor(Temp.treatment), ref = "opt"))
+
+d_phase2 <- d_phase2 %>%
+  { if (filter.dead) filter(., Survived == "Y") else . }
+
+group_index_phase1 <- which(colnames(d_phase1) == group_name)
+group_index_phase2 <- which(colnames(d_phase2) == group_name)
+
+```
+
+```{r writedata, echo = F}
+
+# specify fitness and dispersal file names
+fitpath <- paste("Phase1_fitness_", Genus, ".", species, ".csv", sep = "")
+disppath <- paste("Phase2_dispersal_", Genus, ".", species, ".csv", sep = "")
+
+data_path <- "../raw_data/" #path to save the data is to the raw_data folder
+
+#save copy of final dfs used in this file to the raw_data folder
+write.csv(d_phase1, paste(data_path, fitpath, sep = ""), row.names = FALSE)
+write.csv(d_phase2, paste(data_path, disppath, sep = ""), row.names = FALSE)
+
+```
+
+
+### Does fitness change with temperature (phase 1)?
+
+`r ifelse(fitness.transformed.normal == TRUE, print(paste(fitness.proxy, " was not normally distributed so we ", transform.description, "-transformed it. The transformed variable followed a normal distribution.", sep = "")), ifelse(fitness.normal == TRUE, print(paste(fitness.proxy, "was normally distributed.")), print(paste("The fitness proxy,", tolower(fitness.proxy), ", was a binary variable."))))`
+
+```{r fitnessnormal, eval = fitness.normal, echo = F, fig.cap = paste("Figure 1. Histogram of fitness (", tolower(fitness.proxy), ") values for each", tolower(group_name), ".")}
+
+# histogram showing fitness proxy was normally distributed
+
+ggplot(d_phase1, aes(x = Fitness)) +
+  geom_histogram() +
+  labs(x = fitness.proxy) +
+  theme_classic()+
+  facet_wrap(~d_phase1[,group_index_phase1])
+
+```
+
+
+```{r transformedfitnessnormal, eval = fitness.transformed.normal, echo = F, fig.cap = paste("Figure 1. Histogram of", transform.description, "-transformed", tolower(fitness.proxy), "values for each", tolower(group_name), ".")}
+
+# histogram showing transformed fitness proxy was normally distributed
+
+ggplot(d_phase1, aes(x = fitness.transformation.function(Fitness))) +
+  geom_histogram() +
+  labs(x = paste(transform.description, "-transformed ", tolower(fitness.proxy), sep = "")) +
+  theme_classic()+
+  facet_wrap(~d_phase1[,group_index_phase1])
+
+
+
+```
+
+```{r fitnessplotnormal, eval = fitness.normal | fitness.transformed.normal, echo = F, message = F, fig.cap = paste("Figure 2. Boxplot of fitness (", tolower(fitness.proxy), "), as a function of temperature treatment for each", tolower(group_name), ". low = ", low.temp, "C, opt = ", opt.temp, "C, high = ", high.temp, "C.")}
+
+# plot fitness data
+
+ggplot(d_phase1, aes(x = Temp.treatment, y = Fitness, col = Temp.treatment))+
+  geom_boxplot()+
+  scale_x_discrete("Temperature treatment", limits = c("low", "opt", "high"))+
+  scale_color_manual(values = c("darkgreen", "red", "blue"), guide = "none")+
+  theme_classic(base_size = 15)+
+  facet_wrap(~d_phase1[,group_index_phase1])
+
+```
+
+`r ifelse(fitness.binary == T, print(paste("To estimate the effects of temperature (a factor) on fitness we used a generalized linear mixed model with a logit link and", tolower(fitness.proxy), "as the binary response variable. We used the formula:")), paste("To estimate the effects of temperature (a factor) on fitness, we used a linear mixed model with", tolower(fitness.proxy), "as the response variable. We used the formula:"))`  
+
+`r (print(fitness.formula))`
+
+```{r fitnessmodelnormal, eval = fitness.normal | fitness.transformed.normal, echo = F}
+
+# model testing effects of temperature on fitness for each strain
+
+output_fitness_Tempeffect <- list()
+output_fitness_summary <- list()
+output_fitness_emmeans <- list()
+output_fitness_contrasts <- list()
+
+for(i in c(1:length(unique(d_phase1[,group_index_phase1])))){
+  # fixed effects (mixed.fitness = F) or mixed effects (mixed.fitness = T) model
+  if(mixed.fitness == FALSE){
+    m_fitness <- lm(fitness.formula, data = subset(d_phase1, d_phase1[,group_index_phase1] == unique(d_phase1[,group_index_phase1])[i]))
+
+  } else{
+    m_fitness <- lmer(fitness.formula, data = subset(d_phase1, d_phase1[,group_index_phase1] == unique(d_phase1[,group_index_phase1])[i]))
+  }
+
+  # outputs
+    output_fitness_Tempeffect[[paste(group_name, unique(d_phase1[,group_index_phase1])[i], sep = "_")]] <- anova(m_fitness) # anova table
+
+    output_fitness_summary[[paste(group_name, unique(d_phase1[,group_index_phase1])[i], sep = "_")]] <- summary(m_fitness) # summary
+
+    output_fitness_emmeans[[paste(group_name, unique(d_phase1[,group_index_phase1])[i], sep = "_")]] <- emmeans(m_fitness, specs = pairwise ~ Temp.treatment, regrid = "response", adjust = "none")$emmeans # group means
+
+    output_fitness_contrasts[[paste(group_name, unique(d_phase1[,group_index_phase1])[i], sep = "_")]] <- emmeans(m_fitness, specs = pairwise ~ Temp.treatment, regrid = "response", adjust = "none")$contrasts %>%
+     summary(infer = TRUE) # pairwise contrasts
+
+
+}
+
+
+```
+
+
+```{r fitnesstablebinary, eval = fitness.binary, echo = F}
+paste("Table 1. Relationship between", tolower(fitness.proxy), "and temperature treatment for each", tolower(group_name), ".")
+
+d_fittable <- d_phase1 %>% 
+  rename(Temperature.treatment = Temp.treatment)
+d_fittable$Survival <- with(d_fittable, ifelse(Fitness == 0, Fit0, Fit1))
+
+fittable <- with(d_fittable, table(Temperature.treatment, Survival, d_phase1[,group_index_phase1]))
+ftable(fittable)
+
+```
+
+
+```{r fitnessmodelbinary, eval = fitness.binary, echo = F}
+
+# model testing effects of temperature on fitness
+
+output_fitness_Tempeffect <- list()
+output_fitness_summary <- list()
+output_fitness_emmeans <- list()
+output_fitness_contrasts <- list()
+
+for(i in c(1:length(unique(d_phase1[,group_index_phase1])))){
+  # fixed effects (mixed.fitness = F) or mixed effects (mixed.fitness = T) model
+  if(mixed.fitness == FALSE){
+    m_fitness <- glm(fitness.formula, family = binomial, data = subset(d_phase1, d_phase1[,group_index_phase1] == unique(d_phase1[,group_index_phase1])[i]))
+    
+  } else{
+    m_fitness <- glmer(fitness.formula, family = binomial, data = subset(d_phase1, d_phase1[,group_index_phase1] == unique(d_phase1[,group_index_phase1])[i]))
+  }
+  
+  # outputs
+    output_fitness_Tempeffect[[paste(group_name, unique(d_phase1[,group_index_phase1])[i], sep = "_")]] <- drop1(m_fitness, test = "Chisq") # drop1 table
+    
+    output_fitness_summary[[paste(group_name, unique(d_phase1[,group_index_phase1])[i], sep = "_")]] <- summary(m_fitness) # summary
+    
+    output_fitness_emmeans[[paste(group_name, unique(d_phase1[,group_index_phase1])[i], sep = "_")]] <- emmeans(m_fitness, specs = pairwise ~ Temp.treatment, type = "response", adjust = "none")$emmeans # group means
+    
+    output_fitness_contrasts[[paste(group_name, unique(d_phase1[,group_index_phase1])[i], sep = "_")]] <- emmeans(m_fitness, specs = pairwise ~ Temp.treatment, type = "response", adjust = "none")$contrasts %>%
+     summary(infer = TRUE) # pairwise contrasts
+  
+
+}
+
+```
+
+#### Results for main effect of temperature on fitness
+```{r fitnessresultsmaineffect, echo = F}
+
+output_fitness_Tempeffect
+
+```
+
+#### Post-hoc pairwise contrasts: differences in fitness between temperature treatments
+```{r fitnessresultscontrasts, echo = F}
+
+output_fitness_contrasts
+
+```
+
+
+### Does dispersal change with temperature (phase 2)?
+
+`r ifelse(!overdispersion, print("To estimate the effect of temperature treatment (a factor) on dispersal, we used a generalized linear mixed model with a binomial error structure and a logit link. Dispersal (the number of dispersers vs non-dispersers) was the response variable. We used the formula:"), print("There was evidence of overdispersion in our dispersal data. Therefore, to estimate the effect of temperature treatment (a factor) on dispersal, we used a generalized linear mixed model with a negative binomial error structure. Dispersal (the number of dispersers vs non-dispersers) was the response variable. We used the formula:"))`  
+
+`r (print(dispersal.formula))`
+
+
+```{r dispersalmodelbinomial, eval = !overdispersion, echo = F}
+
+# binomial model testing effects of temperature on dispersal
+
+output_dispersal_Tempeffect <- list()
+output_dispersal_summary <- list()
+output_dispersal_emmeans <- list()
+output_dispersal_contrasts <- list()
+
+for(i in c(1:length(unique(d_phase2[,group_index_phase2])))){
+  # fixed effects (mixed.dispersal = F) or mixed effects (mixed.dispersal = T) model
+  if(mixed.dispersal == FALSE){
+    m_dispersal <- glm(dispersal.formula, family = binomial, data = subset(d_phase2, d_phase2[,group_index_phase2] == unique(d_phase2[,group_index_phase2])[i]))
+    
+  } else{
+    m_dispersal <- glmer(dispersal.formula, family = binomial, data = subset(d_phase2, d_phase2[,group_index_phase2] == unique(d_phase2[,group_index_phase2])[i]))
+  }
+  
+  # outputs
+    output_dispersal_Tempeffect[[paste(group_name, unique(d_phase2[,group_index_phase2])[i], sep = "_")]] <- drop1(m_dispersal, test = "Chisq") # drop1 table
+    
+    output_dispersal_summary[[paste(group_name, unique(d_phase2[,group_index_phase2])[i], sep = "_")]] <- summary(m_dispersal) # summary
+    
+    output_dispersal_emmeans[[paste(group_name, unique(d_phase2[,group_index_phase2])[i], sep = "_")]] <- emmeans(m_dispersal, specs = pairwise ~ Temp.treatment, type = "response", adjust = "none")$emmeans # group means
+    
+    output_dispersal_contrasts[[paste(group_name, unique(d_phase2[,group_index_phase2])[i], sep = "_")]] <- emmeans(m_dispersal, specs = pairwise ~ Temp.treatment, type = "response", adjust = "none")$contrasts %>%
+     summary(infer = TRUE) # pairwise contrasts
+  
+
+}
+
+
+
+```
+
+```{r dispersalmodelnegbinomial, eval = overdispersion, echo = F}
+
+
+print("different overdispersion models were used; you can adjust code for binomial modle yourself (go to code chunk at Line 502 in Rmd), or let Celina know to work on this at the end of May")
+
+```
+
+```{r dispersalplot, echo = F, warning = F, fig.cap = paste("Figure 1. Dispersal as a function of temperature treatment for each ", tolower(group_name), ". low = ", low.temp, "C, opt = ", opt.temp, "C, high = ", high.temp, "C. Error bars represent 95% confidence intervals predicted from GLMM.", sep = "")}
+
+# plot dispersal data
+
+df_dispersal_emmeans <- cbind(group = rep(unique(d_phase2[,group_index_phase2]), each = 3), map_dfr(output_dispersal_emmeans, as.data.frame))
+
+ggplot(df_dispersal_emmeans, aes(x = Temp.treatment, y = prob, col = Temp.treatment))+
+  geom_point(size = 4)+
+  geom_errorbar(aes(ymin = asymp.LCL, ymax = asymp.UCL), width = 0)+
+  scale_x_discrete("Temperature treatment", limits = c("low", "opt", "high"))+
+  scale_y_continuous("Dispersal probability")+
+  scale_color_manual(values = c("darkgreen", "red", "blue"), guide = "none")+
+  theme_classic(base_size = 15)+
+  facet_wrap(~group)
+
+```
+
+#### Results for main effect of temperature on dispersal
+```{r dispersalresultsmaineffect, echo = F}
+
+output_dispersal_Tempeffect
+
+```
+
+#### Post-hoc pairwise contrasts: differences in dispersal between temperature treatments
+```{r dispersalresultscontrasts, echo = F}
+
+output_dispersal_contrasts
+
+```
+
+### Model Diagnostics
+
+There was no evidence for lack of fit for either the fitness or the dispersal model.
+
+#### Diagnostic plots for fitness data
+
+```{r modeldiagnosticsfitness, echo = F, fig.width = 8, fig.height = 7}
+
+for(i in c(1:length(unique(d_phase1[,group_index_phase1])))){
+  # fixed effects (mixed.fitness = F) or mixed effects (mixed.fitness = T) model
+  if(mixed.fitness == FALSE){
+    m_fitness <- glm(fitness.formula, family = binomial, data = subset(d_phase1, d_phase1[,group_index_phase1] == unique(d_phase1[,group_index_phase1])[i]))
+    
+  } else{
+    m_fitness <- glmer(fitness.formula, family = binomial, data = subset(d_phase1, d_phase1[,group_index_phase1] == unique(d_phase1[,group_index_phase1])[i]))
+  }
+  
+diagnostic_fitness <- simulateResiduals(fittedModel = m_fitness)
+plot(diagnostic_fitness)
+mtext(unique(d_phase1[,group_index_phase1])[i], side = 4, line = 0.5, cex = 2)
+}
+
+
+
+```
+
+#### Diagnostic plots for dispersal data
+
+```{r modeldiagnosticsdispersal, echo = F, fig.width = 8, fig.height = 7}
+
+for(i in c(1:length(unique(d_phase2[,group_index_phase2])))){
+  # fixed effects (mixed.dispersal = F) or mixed effects (mixed.dispersal = T) model
+  if(mixed.dispersal == FALSE){
+    m_dispersal <- glm(dispersal.formula, family = binomial, data = subset(d_phase2, d_phase2[,group_index_phase2] == unique(d_phase2[,group_index_phase2])[i]))
+    
+  } else{
+    m_dispersal <- glmer(dispersal.formula, family = binomial, data = subset(d_phase2, d_phase2[,group_index_phase2] == unique(d_phase2[,group_index_phase2])[i]))
+  }
+  
+diagnostic_dispersal <- simulateResiduals(fittedModel = m_dispersal)
+plot(diagnostic_dispersal)
+mtext(unique(d_phase2[,group_index_phase2])[i], side = 4, line = 0.5, cex = 2)
+}
+
+
+
+
+```
+
+```{r moderators, echo = F}
+
+d_moderator <- data.frame(
+  "Species" = paste(Genus, species),
+  "Taxonomic group" = taxonomic.group,
+  "Rearing.environment" = rearing.environment,
+  "Competition.strength" = comp.strength,
+  "Source" = source,
+  "Habitat" = habitat,
+  "Temperature.variation" = Tvariation,
+  "Species mean body size" = species.body.size,
+  "Passive.dispersal" = passive.dispersal,
+  "Inbred.or.Mixed" = inbred,
+  "Dispersal.assay.duration" = disp.assay.duration,
+  "Fitness.proxy.type" = fitness.proxy.type
+)
+
+```
+
+```{r writingoutputfiles, echo = F}
+
+# fitness output
+for(i in c(1:length(unique(d_phase1[,group_index_phase1])))){
+  write.table(output_fitness_Tempeffect[[i]], paste(writing.path, "output_fitness_TempMain_", Genus, ".", species, "_subpop", ".", unique(d_phase1[,group_index_phase1])[i], ".txt", sep = ""))
+
+  }
+
+for(i in c(1:length(unique(d_phase1[,group_index_phase1])))){
+  write.table(output_fitness_summary[[i]]$coefficients, paste(writing.path, "output_fitness_Summary_", Genus, ".", species, "_subpop", ".", unique(d_phase1[,group_index_phase1])[i], ".txt", sep = ""))
+
+  }
+
+for(i in c(1:length(unique(d_phase1[,group_index_phase1])))){
+  write.table(output_fitness_emmeans[[i]], paste(writing.path, "output_fitness_emmeans_", Genus, ".", species, "_subpop", ".", unique(d_phase1[,group_index_phase1])[i], ".txt", sep = ""))
+
+  }
+
+for(i in c(1:length(unique(d_phase1[,group_index_phase1])))){
+  write.table(output_fitness_contrasts[[i]], paste(writing.path, "output_fitness_contrasts_", Genus, ".", species, "_subpop", ".", unique(d_phase1[,group_index_phase1])[i], ".txt", sep = ""))
+
+  }
+
+
+# dispersal output
+for(i in c(1:length(unique(d_phase2[,group_index_phase2])))){
+  write.table(output_dispersal_Tempeffect[[i]], paste(writing.path, "output_dispersal_TempMain_", Genus, ".", species, "_subpop", ".", unique(d_phase2[,group_index_phase2])[i], ".txt", sep = ""))
+
+  }
+
+for(i in c(1:length(unique(d_phase2[,group_index_phase2])))){
+  write.table(output_dispersal_summary[[i]]$coefficients, paste(writing.path, "output_dispersal_Summary_", Genus, ".", species, "_subpop", ".", unique(d_phase2[,group_index_phase2])[i], ".txt", sep = ""))
+
+  }
+
+for(i in c(1:length(unique(d_phase2[,group_index_phase2])))){
+  write.table(output_dispersal_emmeans[[i]], paste(writing.path, "output_dispersal_emmeans_", Genus, ".", species, "_subpop", ".", unique(d_phase2[,group_index_phase2])[i], ".txt", sep = ""))
+
+  }
+
+for(i in c(1:length(unique(d_phase2[,group_index_phase2])))){
+  write.table(output_dispersal_contrasts[[i]], paste(writing.path, "output_dispersal_contrasts_", Genus, ".", species, "_subpop", ".", unique(d_phase2[,group_index_phase2])[i], ".txt", sep = ""))
+
+  }
+
+
+
+# moderator output
+
+write.table(d_moderator, paste(writing.path, "moderators_", Genus, ".", species, ".txt", sep = ""))
+
+```
