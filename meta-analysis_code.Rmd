@@ -13,7 +13,9 @@ Minor issues
 -   tetranychus cinnabarinus_PT, Tetranychus evansi calls low temp "control" - changed it to 'low' but can't re-run Rmd because of issues with analysis - Ines is re-running this; emailed her to ask her to make sure it's "low"
 
 
-
+NB
+- keep T. cinnabarinus at the species level; strain level has too low sample size
+- T. thermophila (Nicolas) dispersal diagnostic plots fail - probably due to combination of small sample size and low variance. How do we want to deal with this?
 
 
 ```{r libraries}
