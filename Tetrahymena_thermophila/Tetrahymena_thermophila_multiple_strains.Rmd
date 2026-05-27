@@ -88,8 +88,8 @@ fitness.binary = FALSE
 ### Is the fitness variable continuous normal (without transformation)? (choose one)
 fitness.normal = TRUE
 
-### Is the fitness variable normal after transformation? (choose one; choose NA if you said "TRUE" to either question above)
-fitness.transformed.normal = NA
+### Is the fitness variable normal after transformation? (choose one; choose FALSE if you said "TRUE" to either question above)
+fitness.transformed.normal = FALSE
 
 ## If fitness variable is continuous normal AFTER transformation, choose transformation used (just write it in if not on this list):
 
@@ -503,7 +503,26 @@ There was no evidence for lack of fit for either the fitness or the dispersal mo
 
 #### Diagnostic plots for fitness data
 
-```{r modeldiagnosticsfitness, echo = F, fig.width = 8, fig.height = 7}
+```{r modeldiagnosticsfitnessnormal, eval = fitness.normal | fitness.transformed.normal, echo = F, fig.width = 8, fig.height = 7}
+
+for(i in c(1:length(unique(d_phase1[,group_index_phase1])))){
+  # fixed effects (mixed.fitness = F) or mixed effects (mixed.fitness = T) model
+  if(mixed.fitness == FALSE){
+    m_fitness <- lm(fitness.formula,data = subset(d_phase1, d_phase1[,group_index_phase1] == unique(d_phase1[,group_index_phase1])[i]))
+    
+  } else{
+    m_fitness <- lmer(fitness.formula, data = subset(d_phase1, d_phase1[,group_index_phase1] == unique(d_phase1[,group_index_phase1])[i]))
+  }
+  
+diagnostic_fitness <- simulateResiduals(fittedModel = m_fitness)
+plot(diagnostic_fitness)
+mtext(unique(d_phase1[,group_index_phase1])[i], side = 4, line = 0.5, cex = 2)
+}
+
+```
+
+
+```{r modeldiagnosticsfitnessbinary, eval = fitness.binary, echo = F, fig.width = 8, fig.height = 7}
 
 for(i in c(1:length(unique(d_phase1[,group_index_phase1])))){
   # fixed effects (mixed.fitness = F) or mixed effects (mixed.fitness = T) model
@@ -519,11 +538,10 @@ plot(diagnostic_fitness)
 mtext(unique(d_phase1[,group_index_phase1])[i], side = 4, line = 0.5, cex = 2)
 }
 
-
-
 ```
 
 #### Diagnostic plots for dispersal data
+
 
 ```{r modeldiagnosticsdispersal, echo = F, fig.width = 8, fig.height = 7}
 
@@ -540,8 +558,6 @@ diagnostic_dispersal <- simulateResiduals(fittedModel = m_dispersal)
 plot(diagnostic_dispersal)
 mtext(unique(d_phase2[,group_index_phase2])[i], side = 4, line = 0.5, cex = 2)
 }
-
-
 
 
 ```
