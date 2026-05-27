@@ -66,8 +66,8 @@ fitness.binary = TRUE/FALSE
 ### Is the fitness variable continuous normal (without transformation)? (choose one)
 fitness.normal = TRUE/FALSE
 
-### Is the fitness variable normal after transformation? (choose one; choose NA if you said "TRUE" to either question above)
-fitness.transformed.normal = TRUE/FALSE/NA
+### Is the fitness variable normal after transformation? (choose one; choose FALSE if you said "TRUE" to either question above)
+fitness.transformed.normal = TRUE/FALSE
 
 ## If fitness variable is continuous normal AFTER transformation, choose transformation used (just write it in if not on this list):
 
