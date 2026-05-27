@@ -13,6 +13,7 @@ library(lme4)
 library(ggplot2)
 library(emmeans)
 library(DHARMa)
+library(metafor)
 
 # load dataset with sample sizes
 d_samplesize <- read.csv(here::here("./outputs/Sample_sizes.csv"))
@@ -180,4 +181,5 @@ ggplot(d_phase2_allspp, aes(x = Tdiff, y = Num.disp/(Num.disp + Num.nondisp)))+
   geom_smooth(method = "loess", span = 0.8)+
   geom_line(data = predictedy_Tdiff, aes(x = Tdiff, y = prob))+
   theme_classic()
+
 
