@@ -83,16 +83,38 @@ for(i in c(1:nrow(formulae))){
 d_modoutput$contr <- str_remove(d_modoutput$treatment, ".*Temp.treatment")
 d_modoutput$V <- with(d_modoutput, I(se^2))
 
+
+# join with moderator dataset
+
+mods_main_list <- list.files(path = "./outputs", pattern = "moderators_")
+
+d_mods <- NULL
+for(file in mods_main_list){
+  name <- gsub(".txt", "", file)
+  df <- read.table(paste("./outputs/", file, sep = ""), header = T)
+  df$study <- str_sub(name, 12)
+  assign(name, df)
+  d_mods <- bind_rows(d_mods, df)
+}
+
+
+d_modoutput <- left_join(d_modoutput, d_mods, by = c("study", "Taxonomic.group"))
+
+
+
+
 # meta-analytical model
-
+##1) choose four moderators: 
+### Testing biological hypotheses about what is driving dispersal: Temp variation, and Competition strength
+### Testing hypotheses about methods that might influence estimate of effect size: Source, Dispersal.assay.duration
 ## opt vs hot
-m_OH_meta <- rma.mv(yi = OR, V = V, random = list(~ 1 | study, ~1|Taxonomic.group/species), data = subset(d_modoutput, contr == "high" | contr == "medium.high"))
-
+m_OH_meta <- rma.mv(yi = OR, V = V, mods = ~Temperature.variation + Competition.strength + Source + Dispersal.assay.duration, random = list(~ 1 | study, ~1|Taxonomic.group/species), data = subset(d_modoutput, V < 40000 & contr == "high" | contr == "medium.high"))
+# excluding T. cinnabarinus and T. turkestani because of very high variance
 summary(m_OH_meta)
 anova(m_OH_meta)
 
 ## opt vs cold
-m_OL_meta <- rma.mv(yi = OR, V = V, random = list(~ 1 | study, ~1|Taxonomic.group/species), data = subset(d_modoutput, contr == "low" | contr == "medium.low"))
+m_OL_meta <- rma.mv(yi = OR, V = V, mods = ~Temperature.variation + Competition.strength + Source + Dispersal.assay.duration, random = list(~ 1 | study, ~1|Taxonomic.group/species), data = subset(d_modoutput, contr == "low" | contr == "medium.low"))
 
 summary(m_OL_meta)
 anova(m_OL_meta)
