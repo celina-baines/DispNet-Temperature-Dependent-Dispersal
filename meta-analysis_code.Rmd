@@ -11,6 +11,7 @@ output: word_document
 
 Minor issues
 -   tetranychus cinnabarinus_PT, Tetranychus evansi calls low temp "control" - changed it to 'low' but can't re-run Rmd because of issues with analysis - Ines is re-running this; emailed her to ask her to make sure it's "low"
+- T. cinnabarinus_PT - state that fitness.transformed.normal = T, but then use glmer with no family set in fitness formula
 
 
 NB
