@@ -16,14 +16,14 @@ library(DHARMa)
 library(metafor)
 
 # load dataset with sample sizes
-d_samplesize <- read.csv(here::here("./outputs/Sample_sizes.csv"))
+d_samplesize <- read.csv(here::here("./outputs/mixedpops/Sample_sizes.csv"))
 
 
 # Model formulae
 
 ## Formula for dispersal: 
 
-formulae <- read.csv(here::here("./outputs/fitness.dispersal.formulas.csv"))
+formulae <- read.csv(here::here("./outputs/mixedpops/fitness.dispersal.formulas.csv"))
 
 
 # Analysis of all dispersal datasets with same formula/model structure
@@ -43,7 +43,7 @@ for(i in c(1:nrow(formulae))){
   # load dataset
   d_phase2 <- read.csv(here::here(paste("./raw_data/Phase2_dispersal_", Genus, ".", species_st, ".csv", sep = "")))
   d_phase2 <- within(d_phase2, Temp.treatment <- relevel(as.factor(Temp.treatment), ref = "opt"))
-  d_mods <- read.table(here::here(paste("./outputs/moderators_", Genus, ".", species_st, ".txt", sep = "")))
+  d_mods <- read.table(here::here(paste("./outputs/mixedpops/moderators_", Genus, ".", species_st, ".txt", sep = "")))
   # filter out dead individuals where appropriate
   #d_phase2 <- d_phase2 %>%
   #  { if (filter.dead) filter(., Survived == "Y") else . }
@@ -86,12 +86,12 @@ d_modoutput$V <- with(d_modoutput, I(se^2))
 
 # join with moderator dataset
 
-mods_main_list <- list.files(path = "./outputs", pattern = "moderators_")
+mods_main_list <- list.files(path = "./outputs/mixedpops", pattern = "moderators_")
 
 d_mods <- NULL
 for(file in mods_main_list){
   name <- gsub(".txt", "", file)
-  df <- read.table(paste("./outputs/", file, sep = ""), header = T)
+  df <- read.table(paste("./outputs/mixedpops/", file, sep = ""), header = T)
   df$study <- str_sub(name, 12)
   assign(name, df)
   d_mods <- bind_rows(d_mods, df)
@@ -107,6 +107,12 @@ d_modoutput <- left_join(d_modoutput, d_mods, by = c("study", "Taxonomic.group")
 ##1) choose four moderators: 
 ### Testing biological hypotheses about what is driving dispersal: Temp variation, and Competition strength
 ### Testing hypotheses about methods that might influence estimate of effect size: Source, Dispersal.assay.duration
+m_meta <- rma.mv(yi = OR, V = V, mods = ~contr + Temperature.variation + Competition.strength + Source + Dispersal.assay.duration, random = list(~ 1 | study, ~1|Taxonomic.group/species), data = subset(d_modoutput, V < 40000))
+# excluding T. cinnabarinus and T. turkestani because of very high variance
+summary(m_meta)
+anova(m_meta)
+
+
 ## opt vs hot
 m_OH_meta <- rma.mv(yi = OR, V = V, mods = ~Temperature.variation + Competition.strength + Source + Dispersal.assay.duration, random = list(~ 1 | study, ~1|Taxonomic.group/species), data = subset(d_modoutput, V < 40000 & contr == "high" | contr == "medium.high"))
 # excluding T. cinnabarinus and T. turkestani because of very high variance
@@ -126,6 +132,8 @@ anova(m_OL_meta)
 ## note: could do the same for fitness possibly but it makes much less sense because the fitness metrics are so different
 
 dispersal_rawdata_list <- list.files(path = "./raw_data", pattern = "Phase2_dispersal_")
+# remove Aphanomyces_multiple strains from list
+dispersal_rawdata_list <- dispersal_rawdata_list[-2] 
 
 d_phase2_allspp <- NULL
 for(file in dispersal_rawdata_list){
@@ -136,7 +144,7 @@ for(file in dispersal_rawdata_list){
   study <- str_sub(name, 18)
   
   Genus <- sub("\\..*", "", study)
-  d_mods <- read.table(here::here(paste("./outputs/moderators_", study, ".txt", sep = "")))
+  d_mods <- read.table(here::here(paste("./outputs/mixedpops/moderators_", study, ".txt", sep = "")))
   
   # convert dispersed -> num.disp, num.nondisp
   if (subset(formulae, study == str_sub(name, 18))$dispersal.formula.simple == "Dispersed ~ Temp.treatment") {
@@ -173,15 +181,18 @@ ggplot(predictedy, aes(x = Temp.treatment, y = prob))+
   theme_classic()
 
 
+
+
 # 2) overall effect of temp on dispersal: how much does dispersal change per degree C? Overall analysis and/or separate hot and cold again
 # as a function of degree C
 m_tempC <- glmer(cbind(Num.disp, Num.nondisp) ~ Temp.value + (1|study) + (1|Taxonomic.group/species), family = binomial, data = d_phase2_allspp)
 summary(m_tempC)
-drop1(m_trt, test = "Chisq")
+drop1(m_tempC, test = "Chisq")
+
+predictedy.Tvalue <- as.data.frame(emmeans(m_tempC, specs = ~ Temp.value, type = "response"))
 
 ggplot(d_phase2_allspp, aes(x = Temp.value, y = Num.disp/(Num.disp + Num.nondisp)))+
   geom_point()+
-  geom_smooth(method = "loess", span = 0.8)+
   theme_classic()
 
 # as a function of diff from opt
@@ -191,17 +202,21 @@ opt_temp <- opt_temp %>%
 
 d_phase2_allspp <- left_join(d_phase2_allspp, opt_temp, relationship = "many-to-many")
 d_phase2_allspp$Tdiff <- with(d_phase2_allspp, Temp.value - optC)
-
-m_tempTdiff <- glmer(cbind(Num.disp, Num.nondisp) ~ poly(Tdiff, 2) + (1|study) + (1|Taxonomic.group/species), family = binomial, data = d_phase2_allspp)
-summary(m_tempTdiff)
-drop1(m_tempTdiff, test = "Chisq")
-
-predictedy_Tdiff <- as.data.frame(emmeans(m_tempTdiff, specs = ~ Tdiff, at = list(Tdiff = seq(min(d_phase2_allspp$Tdiff), max(d_phase2_allspp$Tdiff), 0.1)), type = "response"))
+d_phase2_allspp$absTdiff <- with(d_phase2_allspp, abs(Tdiff))
+d_phase2_allspp$above.below.opt <- with(d_phase2_allspp, ifelse(Tdiff == 0, "opt", ifelse(Tdiff < 0, "cold", "hot")))
 
 ggplot(d_phase2_allspp, aes(x = Tdiff, y = Num.disp/(Num.disp + Num.nondisp)))+
   geom_point()+
   geom_smooth(method = "loess", span = 0.8)+
-  geom_line(data = predictedy_Tdiff, aes(x = Tdiff, y = prob))+
   theme_classic()
 
+
+
+ggplot(d_phase2_allspp, aes(col = above.below.opt, x = absTdiff, y = Num.disp/(Num.disp + Num.nondisp)))+
+  geom_point()+
+  geom_smooth(method = "glm", method.args = list(family = binomial))+
+  theme_classic()
+
+m_absdiff.cold <- glmer(cbind(Num.disp, Num.nondisp) ~ absTdiff + (1|study) + (1|Taxonomic.group/species), family = binomial, data = subset(d_phase2_allspp, above.below.opt != "hot"))
+m_absdiff.hot <- glmer(cbind(Num.disp, Num.nondisp) ~ absTdiff + (1|study) + (1|Taxonomic.group/species), family = binomial, data = subset(d_phase2_allspp, above.below.opt != "cold"))
 
