@@ -1,3 +1,0 @@
-"npar" "AIC" "LRT" "Pr(Chi)"
-"<none>" NA 1857.34525429913 NA NA
-"Temp.treatment" 2 9786.8406279737 7933.49537367457 0
