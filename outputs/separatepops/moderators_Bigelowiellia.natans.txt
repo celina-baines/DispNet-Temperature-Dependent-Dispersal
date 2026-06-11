@@ -1,0 +1,2 @@
+"Species" "Taxonomic.group" "Rearing.environment" "Competition.strength" "Source" "Habitat" "Temperature.variation" "Species.mean.body.size" "Passive.dispersal" "Inbred.or.Mixed" "Dispersal.assay.duration" "Fitness.proxy.type"
+"1" "Bigelowiellia natans" "microalgae" "commonT" "low" "lab" "aquatic" "homogenous" NA "Yes" "inbred line" 0.01 "r"
