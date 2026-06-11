@@ -192,7 +192,7 @@ T. evansi outbred was maintained under standard conditions (25 ± 2°C, 60% RH, 
 
 ####  Were specific individuals/phenotypes/stages selected for the experiment?  
 
-Mated females (ca. 8 days at high temperatures - opt and high - and 10 to 11 days at control temperature).
+Mated females (ca. 8 days at high temperatures - opt and high - and 10 to 11 days at control (low) temperature).
 
 ## Study design
 
@@ -292,20 +292,18 @@ Squared petri dishes with a layer of water-soaked cotton. In each, 16 circles (1
 
 ## Statistical Analysis
 
-Note that here I used as ref the control temperature. This was changed, so that everytime there was a mention to low, it would be control instead.
-
 ```{r loaddata, echo = F}
 # Set reading and writing paths; Do not change these paths
 reading.path <- ("./")
 
-writing.path <- ("../outputs/")
+writing.path <- ("../outputs/mixedpops/")
 
 # load data file
 d_phase1 <- read.csv(paste(reading.path, "Phase1_fitness_", Genus, ".", species, ".csv", sep = ""))
 d_phase2 <- read.csv(paste(reading.path, "Phase2_dispersal_", Genus, ".", species, ".csv", sep = ""))
 
-d_phase1 <- within(d_phase1, Temp.treatment <- relevel(as.factor(Temp.treatment), ref = "control"))
-d_phase2 <- within(d_phase2, Temp.treatment <- relevel(as.factor(Temp.treatment), ref = "control"))
+d_phase1 <- within(d_phase1, Temp.treatment <- relevel(as.factor(Temp.treatment), ref = "opt"))
+d_phase2 <- within(d_phase2, Temp.treatment <- relevel(as.factor(Temp.treatment), ref = "opt"))
 
 d_phase2 <- d_phase2 %>%
   { if (filter.dead) filter(., Survived == "Y") else . }
@@ -354,7 +352,7 @@ with(d_phase1, hist(fitness.transformation.function(Fitness), xlab = paste(trans
 
 ggplot(d_phase1, aes(x = Temp.treatment, y = Fitness, col = Temp.treatment))+
   geom_boxplot()+
-  scale_x_discrete("Temperature treatment", limits = c("control", "opt", "high"))+
+  scale_x_discrete("Temperature treatment", limits = c("low", "opt", "high"))+
   scale_color_manual(values = c("darkgreen", "red", "blue"), guide = "none")+
   theme_classic(base_size = 15)
 
@@ -466,7 +464,7 @@ output_dispersal_contrasts <- output_dispersal_emmeans$contrasts %>%
 ggplot(as.data.frame(output_dispersal_emmeans$emmeans), aes(x = Temp.treatment, y = prob, col = Temp.treatment))+
   geom_point(size = 4)+
   geom_errorbar(aes(ymin = asymp.LCL, ymax = asymp.UCL), width = 0)+
-  scale_x_discrete("Temperature treatment", limits = c("control", "opt", "high"))+
+  scale_x_discrete("Temperature treatment", limits = c("low", "opt", "high"))+
   scale_y_continuous("Dispersal probability")+
   scale_color_manual(values = c("darkgreen", "red", "blue"), guide = "none")+
   theme_classic(base_size = 15)
