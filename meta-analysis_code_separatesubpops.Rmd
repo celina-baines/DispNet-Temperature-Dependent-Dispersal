@@ -5,9 +5,7 @@ output: word_document
 
 # to do
 
-1) Check for influence of model structure: Same meta-analysis but with all species using same simplest model and/or fit one GLMM in same model - compare to meta-analytical model with diff base models
-2) Lines/populations: Multi-level meta-analysis. Compare to model with lines/populations combined estimate. - need help from researchers with datasets to sort out multiple lines?
-3) Activity data
+**missing some species/strains in d_g_fitness
 
 Minor issues
 - T. cinnabarinus_PT - state that fitness.transformed.normal = T, but then use glmer with no family set in fitness formula
@@ -54,7 +52,10 @@ for(file in mods_main_list){
   d_mods <- bind_rows(d_mods, df)
 }
 
-d_mods$species <- gsub("\\_.*", "", d_mods$study)
+d_mods <- d_mods %>%
+  rename("linean.name" = "Species")
+d_mods$Genus <- sub(" .*", "", d_mods$linean.name)
+d_mods$species <- sub(".* ", "", d_mods$linean.name)
 
 d_mods[d_mods == "homogeneous"] <- "homogenous"
 
@@ -193,6 +194,16 @@ for(file in fitness_emmeans_list){
 
   }
 }
+
+d_g_fitness <- rbind(d_g_fitness_OH, d_g_fitness_OL)
+d_g_fitness <- subset(d_g_fitness, !is.na(study))
+d_g_fitness$Genus <- sub("\\..*", "", d_g_fitness$study)
+d_g_fitness$species <- str_extract(d_g_fitness$study, "(?<=\\.)[^._]+")
+d_g_fitness <- d_g_fitness %>%
+  rename("study_strain" = "study")
+d_g_fitness$Temp.group <- with(d_g_fitness, ifelse(Temp.contr == "OH" | Temp.contr == "OMH", "hot", "cold"))
+
+d_g_fitness <- left_join(d_g_fitness, d_mods)
 ```
 
 ```{r fitnessmeta}
@@ -202,9 +213,26 @@ for(file in fitness_emmeans_list){
 m_fitnessOH <- rma(yi = d_g_fitness_OH$es, vi = d_g_fitness_OH$var)
 m_fitnessOL <- rma(yi = d_g_fitness_OL$es, vi = d_g_fitness_OL$var)
 
+m_fitness_meta <- rma.mv(yi = es, V = var, random = list(~ 1 | study, ~1|Taxonomic.group/species), mods = ~ -1 + Temp.group, data = d_g_fitness)# model with no intercept
+
+summary(m_fitness_meta)
+
+p_fitness_meta <- unique(as.data.frame(predict(m_fitness_meta)))
+p_fitness_meta$Temp.group <- c("cold", "hot") 
+
+ggplot()+
+  geom_point(data = d_g_fitness, aes(x = es, y = study_strain, col = Temp.group, size = sample.size))+
+  geom_errorbarh(data = d_g_fitness, aes(xmin = es - se, xmax = es + se, y = study_strain))+
+  geom_vline(xintercept = 0, lty = 2)+
+  geom_vline(data = p_fitness_meta, aes(xintercept = pred, col = Temp.group), size = 1.5)+
+  geom_rect(data = p_fitness_meta, aes(xmin = ci.lb, xmax = ci.ub, ymin = -Inf, ymax = Inf, fill = Temp.group), alpha = 0.2)+
+  facet_wrap(~Temp.group)+
+  theme_classic()
 ```
 
 ```{r fitnessforest, echo = F, fig.width = 6.5}
+
+forest(m_fitness_meta, slab = d_g_fitness$study_strain, addcred = TRUE, main = "Fitness: Opt vs Hot, Opt vs Cold")
 
 forest(m_fitnessOH, slab = d_g_fitness_OH$study, addcred = TRUE, main = "Fitness: Opt vs Hot")
 
