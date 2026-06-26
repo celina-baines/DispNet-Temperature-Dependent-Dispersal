@@ -1,0 +1,23 @@
+Group,study_strain,Tmax,SE_Tmax,SD_Tmax,N_Tmax,Direct_or_literature,Methods,Information_sharer
+ISEM,Tetrahymena.thermophila_ISEM,40.33,0.127,0.359,8,Direct,TPC,Peter
+Louvain,Tetrahymena.thermophila,41.7,0.2,0.45,5,Direct,Lethal temperature,Nicolas
+INRAE,Trichogramma.cacoeciae,44,NA,NA,NA,Other population,-,Elodie
+SETE,Aphanomyces.euteiches_subpop.Fifi46,34.91,0.128,0.443,12,Direct,stopped growth,Delphine
+SETE,Aphanomyces.euteiches_subpop.RB84,36.11,1.561,5.407,12,Direct,stopped growth,Delphine
+SETE,Bigelowiellia.natans,42.21,NA,NA,12,Direct,stopped growth,Elvire
+Utoronto,Folsomia.candida,37.6,0.6,3.286,30,"From Allen et al. 2016, other population (South Africa)",Righting response to increasing temperature,Celina
+SETE,Gryllus.campestris,44.8,0.36,1.44,16,Direct,Lethal temperature,Elvire
+Utoronto,Notonecta.undulata,43.9,0.2,0.447,5,"From Katzenberger et al. (2021), other population (Pensylvanie)",Righting response to increasing temperature,Celina
+SETE,Pardosa.sp,40.8,0.519,2.84,30,Direct,Lethal temperature,Elvire
+SETE,Pisaura.mirabilis,44.8,0.447,1.73,15,Direct,Lethal temperature,Elvire
+Ghent,Tetranychus.cinnabarinus,36.05,0.001,0.031,608,Direct,quadratic curves on eggs number,Siebe
+Ghent,Tetranychus.turkestani,36,NA,NA,186,Direct,estimated from biology and other species,Siebe
+Ghent,Tetranychus.urticae_subpop.BeisC,36.59,0.006,0.153,664,Direct,quadratic curves on eggs number,Siebe
+Ghent,Tetranychus.urticae_subpop.Led-5,36.59,0.006,0.153,664,Direct,quadratic curves on eggs number,Siebe
+Ghent,Tetranychus.urticae_subpop.Lux,36.59,0.006,0.153,664,Direct,quadratic curves on eggs number,Siebe
+Ghent,Tetranychus.urticae_subpop.Mar,36.59,0.006,0.153,664,Direct,quadratic curves on eggs number,Siebe
+PT,Tetranychus.cinnabarinus_PT,36.82,NA,5.46,NA,Direct,quadratic curves on eggs number,Leonor
+PT,Tetranychus.evansi,NA,NA,NA,NA,Direct,quadratic curves on eggs number,Leonor
+SETE,Pteronemobius.heydenii,40.8,0.56,2.17,15,Direct,Lethal temperature,Elvire
+SETE,Philoscia.muscorum,31.4,0.458,1.83,16,Direct,Lethal temperature,Elvire
+SETE,Armadillidium.vulgare,39.2,0.276,1.56,32,Direct,Lethal temperature,Elvire
