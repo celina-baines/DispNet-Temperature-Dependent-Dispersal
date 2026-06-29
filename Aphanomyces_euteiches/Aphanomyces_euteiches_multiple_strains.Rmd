@@ -373,6 +373,15 @@ output_fitness_contrasts <- list()
 output_fitness_summary <- list()
 
 for(i in c(1:length(unique(d_phase1[,group_index_phase1])))){
+  
+  # changing the reference level for each strain (as the optimum is not for the same temperature)
+  if(group_index_phase1=="Fifi46"){
+      d_phase1 <- within(d_phase1, Temp.treatment <- relevel(as.factor(Temp.treatment), ref = "opt1"))
+  }else{
+      d_phase1 <- within(d_phase1, Temp.treatment <- relevel(as.factor(Temp.treatment), ref = "opt2"))
+  }
+
+  
   # fixed effects (mixed.fitness = F) or mixed effects (mixed.fitness = T) model
   if(mixed.fitness == FALSE){
     m_fitness <- lm(fitness.formula, data = subset(d_phase1, d_phase1[,group_index_phase1] == unique(d_phase1[,group_index_phase1])[i]))
@@ -475,8 +484,16 @@ output_dispersal_emmeans <- list()
 output_dispersal_contrasts <- list()
 
 for(i in c(1:length(unique(d_phase2[,group_index_phase2])))){
+  
+   # changing the reference level for each strain (as the optimum is not for the same temperature)
+  if(group_index_phase2=="Fifi46"){
+      d_phase2 <- within(d_phase2, Temp.treatment <- relevel(as.factor(Temp.treatment), ref = "opt1"))
+  }else{
+      d_phase2 <- within(d_phase2, Temp.treatment <- relevel(as.factor(Temp.treatment), ref = "opt2"))
+  }
+  
   # fixed effects (mixed.dispersal = F) or mixed effects (mixed.dispersal = T) model
-  if(mixed.dispersal == FALSE){
+   if(mixed.dispersal == FALSE){
     m_dispersal <- glm(dispersal.formula, family = binomial, data = subset(d_phase2, d_phase2[,group_index_phase2] == unique(d_phase2[,group_index_phase2])[i]))
     
   } else{
