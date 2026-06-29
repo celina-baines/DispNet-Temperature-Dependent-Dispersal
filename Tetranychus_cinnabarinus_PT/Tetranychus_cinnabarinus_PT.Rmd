@@ -196,7 +196,7 @@ Zélé, F., I. Santos, I. Olivieri, M. Weill, O. Duron, and S. Magalhães. (2018
 
 #Were specific individuals/phenotypes/stages selected for the experiment?  
 
-Mated females (ca. 8 days at high temperatures - opt and high - and 10 to 11 days at control temperature).
+Mated females (ca. 8 days at high temperatures - opt and high - and 10 to 11 days at control (low) temperature).
 
 
 ## Study design
@@ -387,7 +387,7 @@ with(d_phase1, hist(fitness.transformation.function(Fitness), xlab = paste(trans
 
 ggplot(d_phase1, aes(x = Temp.treatment, y = Fitness, col = Temp.treatment))+
   geom_boxplot()+
-  scale_x_discrete("Temperature treatment", limits = c("control", "opt", "high"))+
+  scale_x_discrete("Temperature treatment", limits = c("low", "opt", "high"))+
   scale_color_manual(values = c("darkgreen", "red", "blue"), guide = "none")+
   theme_classic(base_size = 15)
 
@@ -395,7 +395,7 @@ ggplot(d_phase1, aes(x = Temp.treatment, y = Fitness, col = Temp.treatment))+
 
 `r ifelse(fitness.binary == T, print(paste("To estimate the effects of temperature (a factor) on fitness we used a generalized linear mixed model with a logit link and", tolower(fitness.proxy), "as the binary response variable. We used the formula:")), paste("To estimate the effects of temperature (a factor) on fitness, we used a linear mixed model with", tolower(fitness.proxy), "as the response variable. We used the formula:"))`  
 
-`r deparse(fitness.formula.pos)`
+`r deparse(fitness.formula)`
 
 ```{r fitnessmodelnormal, eval = fitness.normal | fitness.transformed.normal, echo = F}
 
@@ -457,7 +457,7 @@ output_fitness_contrasts
 
 `r ifelse(!overdispersion, print("To estimate the effect of temperature treatment (a factor) on dispersal, we used a generalized linear mixed model with a binomial error structure and a logit link. Dispersal (the number of dispersers vs non-dispersers) was the response variable. We used the formula:"), print("There was evidence of overdispersion in our dispersal data. Therefore, to estimate the effect of temperature treatment (a factor) on dispersal, we used a generalized linear mixed model with a negative binomial error structure. Dispersal (the number of dispersers vs non-dispersers) was the response variable. We used the formula:"))`  
 
-`r deparse(dispersal.formula.pos)`
+`r deparse(dispersal.formula)`
 
 
 ```{r dispersalmodelbinomial, eval = !overdispersion, echo = F}

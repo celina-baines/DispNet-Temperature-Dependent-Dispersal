@@ -1,0 +1,554 @@
+---
+title: "meta-analysis_code"
+output: word_document
+---
+
+# to do
+
+**missing some species/strains in d_g_fitness?
+
+# Methods
+
+## Species with multiple strains
+
+For several species, data was collected on multiple strains/subpopulations. These were included as separate estimates in the meta-analysis if the sample size was >= 5 for all strain/temperature treatment combinations. Only *Aphanomyces euteiches* and *Tetranychus urticae* met this criterion. For all other species using multiple strains, we combined data from all strains into one estimate. Note that two species (*Tetrahymena thermophila* and *Tetranychus cinnabarinus*) were replicated across two different research groups, and the estimates from each group are treated as separate. Species is included as a random effect in the meta-regression model, to account for multiple estimates for some species.
+
+
+
+```{r libraries, echo = F}
+library(tidyverse)
+library(mgsub)
+library(esc)
+library(metafor)
+library(lme4)
+```
+
+```{r moderators, echo = F}
+
+# sample sizes
+d_sampleN <- read.csv("./outputs/separatepops/Sample_sizes_separatepops.csv", header = T)
+
+# moderators
+## Tmax
+
+d_Tmax <- read.csv("./outputs/Tmax.csv", header = T)
+
+
+## all other moderators
+mods_main_list <- list.files(path = "./outputs/separatepops", pattern = "moderators_")
+
+d_mods <- NULL
+for(file in mods_main_list){
+  name <- gsub(".txt", "", file)
+  df <- read.table(paste("./outputs/separatepops/", file, sep = ""), header = T)
+  df$study <- str_sub(name, 12)
+  assign(name, df)
+  d_mods <- bind_rows(d_mods, df)
+}
+
+d_mods <- d_mods %>%
+  rename("linean.name" = "Species")
+d_mods$Genus <- sub(" .*", "", d_mods$linean.name)
+d_mods$species <- sub(".* ", "", d_mods$linean.name)
+
+d_mods[d_mods == "homogeneous"] <- "homogenous"
+
+
+```
+
+## Calculating effect sizes
+
+For each species, we fit models to estimate the effect of temperature on both fitness and dispersal (see Supplement for details on model fitting). We calculated effect sizes for the difference in fitness and dispersal between 1) the optimal and the cool temperature, and 2) the optimal and the hot temperature. In some species, the intermediate temperature did not have the highest fitness. In these cases, we assigned the temperature with the highest fitness as "optimal". If the temperatures of the other two treatments were greater than the "optimal" temperature, they were assigned the names "medium high" and "high" temperature, respectively; if the temperatures were lower than optimal, they were assigned the names "medium low" and "low", respectively.
+
+To estimate the size of the effect of temperature on fitness, we calculated Hedge's g using the 'esc' package in R. For fitness proxies that were normally distributed, we used the *esc_mean_se function* to convert treatment means and standard error to Hedge's g. For binary fitness proxies (i.e., survival) we used the *convert_or2d* function to convert log-odds ratios to Hedge's g. To estimate the size of the effect of temperature on dispersal, we used the estimated log-odds ratios from the GLMMs for each species.
+
+```{r, esfitness, echo = F}
+
+# pairwise temperature treatment differences in fitness
+
+
+## list emmeans datasets
+fitness_emmeans_list <- list.files(path = "./outputs/separatepops", pattern = "output_fitness_emmeans")
+
+## estimate Hedge's g
+d_g_fitness_OH <- NULL # dataframe of effect sizes for fitness for opt vs high
+d_g_fitness_OL <- NULL # dataframe of effect sizes for fitness for opt vs low
+for(file in fitness_emmeans_list){
+  name <- gsub(".txt", "", file)
+  df <- read.table(paste("./outputs/separatepops/", file, sep = ""), header = T) #read all emmeans files in list
+  df$study <- str_sub(name, 24)
+  assign(name, df)
+  
+    # rename off-labels (Aphanomyces files)
+  if (any(df == "opt1", na.rm = TRUE)) {
+  df[df == "opt1"] <- "opt"
+  df[df == "high1"] <- "high"
+  df[df == "low1"] <- "low"
+  df[df == "medium.low1"] <- "medium.low"
+  }
+  
+  if (any(df == "opt2", na.rm = TRUE)) {
+  df[df == "opt2"] <- "opt"
+  df[df == "high2"] <- "high"
+  df[df == "low2"] <- "low"
+  }
+  
+  if("emmean" %in% names(df)){ #if there is an emmeans column (meaning the fitness proxy is normal) then estimate Hedge's g from means/se
+    g_fitness_OH <- as.data.frame(esc_mean_se(grp1m = subset(df, Temp.treatment == "opt")$emmean[1], 
+                                              grp1se = subset(df, Temp.treatment == "opt")$SE[1], 
+                                              grp1n = subset(d_sampleN, study == df$study[1])$Fitness.Nopt, 
+                                              grp2m = subset(df, Temp.treatment == "high")$emmean[1], 
+                                              grp2se = subset(df, Temp.treatment == "high")$SE[1], 
+                                              grp2n = subset(d_sampleN, study == df$study[1])$Fitness.Nhigh, 
+                                              es.type = "g", 
+                                              study = df$study[1]))
+    g_fitness_OMH <- as.data.frame(esc_mean_se(grp1m = subset(df, Temp.treatment == "opt")$emmean[1], 
+                                               grp1se = subset(df, Temp.treatment == "opt")$SE[1], 
+                                               grp1n = subset(d_sampleN, study == df$study[1])$Fitness.Nopt, 
+                                               grp2m = subset(df, Temp.treatment == "medium.high")$emmean[1], 
+                                               grp2se = subset(df, Temp.treatment == "medium.high")$SE[1], 
+                                               grp2n = subset(d_sampleN, study == df$study[1])$Fitness.Nmediumhigh, 
+                                               es.type = "g", 
+                                               study = df$study[1]))
+    g_fitness_OL <- as.data.frame(esc_mean_se(grp1m = subset(df, Temp.treatment == "opt")$emmean[1], 
+                                              grp1se = subset(df, Temp.treatment == "opt")$SE[1], 
+                                              grp1n = subset(d_sampleN, study == df$study[1])$Fitness.Nopt, 
+                                              grp2m = subset(df, Temp.treatment == "low")$emmean[1], 
+                                              grp2se = subset(df, Temp.treatment == "low")$SE[1], 
+                                              grp2n = subset(d_sampleN, study == df$study[1])$Fitness.Nlow, 
+                                              es.type = "g", 
+                                              study = df$study[1]))
+    g_fitness_OML <- as.data.frame(esc_mean_se(grp1m = subset(df, Temp.treatment == "opt")$emmean[1], 
+                                               grp1se = subset(df, Temp.treatment == "opt")$SE[1], 
+                                               grp1n = subset(d_sampleN, study == df$study[1])$Fitness.Nopt, 
+                                               grp2m = subset(df, Temp.treatment == "medium.low")$emmean[1], 
+                                               grp2se = subset(df, Temp.treatment == "medium.low")$SE[1], 
+                                               grp2n = subset(d_sampleN, study == df$study[1])$Fitness.Nmediumlow,
+                                               es.type = "g", 
+                                               study = df$study[1]))
+    
+    d_g_fitness_OH <- rbind(d_g_fitness_OH, cbind(g_fitness_OH, "Temp.contr" = "OH"), cbind(g_fitness_OMH, "Temp.contr" = "OMH"))
+    d_g_fitness_OL <- rbind(d_g_fitness_OL, cbind(g_fitness_OL, "Temp.contr" = "OL"), cbind(g_fitness_OML, "Temp.contr" = "OML"))
+  }
+  
+  if("response" %in% names(df)){ #if there is an response column (meaning the transformed fitness proxy is normal) then estimate Hedge's g from means/se
+    g_fitness_OH <- as.data.frame(esc_mean_se(grp1m = subset(df, Temp.treatment == "opt")$response[1], 
+                                              grp1se = subset(df, Temp.treatment == "opt")$SE[1], 
+                                              grp1n = max(1, subset(d_sampleN, study == df$study[1])$Fitness.Nopt), 
+                                              grp2m = subset(df, Temp.treatment == "high")$response[1], 
+                                              grp2se = subset(df, Temp.treatment == "high")$SE[1], 
+                                              grp2n = max(1, subset(d_sampleN, study == df$study[1])$Fitness.Nhigh), 
+                                              es.type = "g", 
+                                              study = df$study[1]))
+    g_fitness_OMH <- as.data.frame(esc_mean_se(grp1m = subset(df, Temp.treatment == "opt")$response[1], 
+                                               grp1se = subset(df, Temp.treatment == "opt")$SE[1], 
+                                               grp1n = max(1, subset(d_sampleN, study == df$study[1])$Fitness.Nopt), 
+                                               grp2m = subset(df, Temp.treatment == "medium.high")$response[1], 
+                                               grp2se = subset(df, Temp.treatment == "medium.high")$SE[1], 
+                                               grp2n = max(1, subset(d_sampleN, study == df$study[1])$Fitness.Nmedium.high), 
+                                               es.type = "g", 
+                                               study = df$study[1]))
+    g_fitness_OL <- as.data.frame(esc_mean_se(grp1m = subset(df, Temp.treatment == "opt")$response[1], 
+                                              grp1se = subset(df, Temp.treatment == "opt")$SE[1], 
+                                              grp1n = max(1, subset(d_sampleN, study == df$study[1])$Fitness.Nopt), 
+                                              grp2m = subset(df, Temp.treatment == "low")$response[1], 
+                                              grp2se = subset(df, Temp.treatment == "low")$SE[1], 
+                                              grp2n = max(1, subset(d_sampleN, study == df$study[1])$Fitness.Nlow), 
+                                              es.type = "g", 
+                                              study = df$study[1]))
+    g_fitness_OML <- as.data.frame(esc_mean_se(grp1m = subset(df, Temp.treatment == "opt")$response[1], 
+                                               grp1se = subset(df, Temp.treatment == "opt")$SE[1], 
+                                               grp1n = max(1, subset(d_sampleN, study == df$study[1])$Fitness.Nopt), 
+                                               grp2m = subset(df, Temp.treatment == "medium.low")$response[1], 
+                                               grp2se = subset(df, Temp.treatment == "medium.low")$SE[1], 
+                                               grp2n = max(1, subset(d_sampleN, study == df$study[1])$Fitness.Nmedium.low),
+                                               es.type = "g", 
+                                               study = df$study[1]))
+    
+    d_g_fitness_OH <- rbind(d_g_fitness_OH, cbind(g_fitness_OH, "Temp.contr" = "OH"), cbind(g_fitness_OMH, "Temp.contr" = "OMH"))
+    d_g_fitness_OL <- rbind(d_g_fitness_OL, cbind(g_fitness_OL, "Temp.contr" = "OL"), cbind(g_fitness_OML, "Temp.contr" = "OML"))
+  }
+  
+  if("prob" %in% names(df)){ #if there is a prob column (meaning the fitness proxy is binary) then estimate Hedge's g from OR
+    d2 <- read.table(paste("./outputs/separatepops/output_fitness_Summary_", df$study[1], ".txt", sep = ""), header = T)
+    d2 <- rownames_to_column(d2, var = "term")
+    
+    g_fitness_OH <- as.data.frame(convert_or2d(or = exp(subset(d2, term == "Temp.treatmenthigh")$Estimate[1]), 
+                                               se = subset(d2, term == "Temp.treatmenthigh")$Std..Error[1], 
+                                               totaln = subset(d_sampleN, study == df$study[1])$Fitness.totalN, 
+                                               es.type = "g", 
+                                               study = df$study[1]))
+    g_fitness_OMH <- as.data.frame(convert_or2d(or = exp(subset(d2, term == "Temp.treatmentmedium.high")$Estimate[1]), 
+                                                se = subset(d2, term == "Temp.treatmentmedium.high")$Std..Error[1], 
+                                                totaln = subset(d_sampleN, study == df$study[1])$Fitness.totalN, 
+                                                es.type = "g", 
+                                                study = df$study[1]))
+    g_fitness_OL <- as.data.frame(convert_or2d(or = exp(subset(d2, term == "Temp.treatmentlow")$Estimate[1]), 
+                                               se = subset(d2, term == "Temp.treatmentlow")$Std..Error[1], 
+                                               totaln = subset(d_sampleN, study == df$study[1])$Fitness.totalN, 
+                                               es.type = "g", 
+                                               study = df$study[1]))
+    g_fitness_OML <- as.data.frame(convert_or2d(or = exp(subset(d2, term == "Temp.treatmentmedium.low")$Estimate[1]), 
+                                                se = subset(d2, term == "Temp.treatmentmedium.low")$Std..Error[1], 
+                                                totaln = subset(d_sampleN, study == df$study[1])$Fitness.totalN, 
+                                                es.type = "g", study = df$study[1]))
+    
+    g_fitness_OH$es <- g_fitness_OH$es*-1
+    g_fitness_OMH$es <- g_fitness_OMH$es*-1
+    g_fitness_OL$es <- g_fitness_OL$es*-1
+    g_fitness_OML$es <- g_fitness_OML$es*-1
+    d_g_fitness_OH <- rbind(d_g_fitness_OH, cbind(g_fitness_OH, "Temp.contr" = "OH"), cbind(g_fitness_OMH, "Temp.contr" = "OMH"))
+    d_g_fitness_OL <- rbind(d_g_fitness_OL, cbind(g_fitness_OL, "Temp.contr" = "OL"), cbind(g_fitness_OML, "Temp.contr" = "OML"))
+    
+
+  }
+}
+
+d_g_fitness <- rbind(d_g_fitness_OH, d_g_fitness_OL)
+d_g_fitness <- subset(d_g_fitness, !is.na(study) & !is.na(es))
+d_g_fitness$Genus <- sub("\\..*", "", d_g_fitness$study)
+d_g_fitness$species <- str_extract(d_g_fitness$study, "(?<=\\.)[^._]+")
+d_g_fitness <- d_g_fitness %>%
+ rename("study_strain" = "study",
+        "es_fitness" = "es",
+        "se_fitness" = "se",
+        "var_fitness" = "var"
+        )
+d_g_fitness$Temp.group <- with(d_g_fitness, ifelse(Temp.contr == "OH" | Temp.contr == "OMH", "hot", "cold"))
+d_g_fitness <- left_join(d_g_fitness, d_mods)
+d_g_fitness <- left_join(d_g_fitness, subset(d_Tmax, select = c(study_strain, Tmax, SE_Tmax, SD_Tmax)))
+```
+
+
+
+```{r, esdispersal, echo = F}
+
+# pairwise temperature treatment differences in dispersal
+
+## list summary datasets
+dispersal_summary_list <- list.files(path = "./outputs/separatepops", pattern = "output_dispersal_Summary")
+
+## estimate Hedge's g
+d_OR_dispersal_OH <- NULL # dataframe of effect sizes for dispersal for opt vs high
+d_OR_dispersal_OL <- NULL # dataframe of effect sizes for dispersal for opt vs low
+
+for(file in dispersal_summary_list){
+  name <- gsub(".txt", "", file)
+  df <- read.table(paste("./outputs/separatepops/", file, sep = ""), header = T) #read all summary files in list
+  df <- rownames_to_column(df, var = "term")
+  df$study <- str_sub(name, 26)
+  assign(name, df)
+  
+  # rename off-labels (Aphanomyces files)
+  if (any(df == "Temp.treatmentlow1" | df == "Temp.treatmenthigh1", na.rm = TRUE)) {
+  df[df == "Temp.treatmentlow1"] <- "Temp.treatmentlow"
+  df[df == "Temp.treatmenthigh1"] <- "Temp.treatmenthigh"
+  df[df == "Temp.treatmentmedium.low1"] <- "Temp.treatmentmedium.low"
+  df[df == "Temp.treatmentmedium.high1"] <- "Temp.treatmentmedium.high"
+  }
+  
+  if (any(df == "Temp.treatmentlow2" | df == "Temp.treatmenthigh2", na.rm = TRUE)) {
+  df[df == "Temp.treatmentlow2"] <- "Temp.treatmentlow"
+  df[df == "Temp.treatmenthigh2"] <- "Temp.treatmenthigh"
+  df[df == "Temp.treatmentmedium.low2"] <- "Temp.treatmentmedium.low"
+  df[df == "Temp.treatmentmedium.high2"] <- "Temp.treatmentmedium.high"
+  }
+  
+  # extract OR
+  OR_dispersal_OH <- data.frame("study" = df$study[1], 
+                                "OR" = subset(df, term == "Temp.treatmenthigh")$Estimate[1], 
+                                "se" = subset(df, term == "Temp.treatmenthigh")$Std..Error[1], 
+                                "totaln" = subset(d_sampleN, study == df$study[1])$Dispersal.totalN)
+  OR_dispersal_OMH <- data.frame("study" = df$study[1], 
+                                 "OR" = subset(df, term == "Temp.treatmentmedium.high")$Estimate[1], 
+                                 "se" = subset(df, term == "Temp.treatmentmedium.high")$Std..Error[1], 
+                                 "totaln" = subset(d_sampleN, study == df$study[1])$Dispersal.totalN)
+  OR_dispersal_OL <- data.frame("study" = df$study[1], 
+                                "OR" = subset(df, term == "Temp.treatmentlow")$Estimate[1], 
+                                "se" = subset(df, term == "Temp.treatmentlow")$Std..Error[1], 
+                                "totaln" = subset(d_sampleN, study == df$study[1])$Dispersal.totalN)  
+  OR_dispersal_OML <- data.frame("study" = df$study[1], 
+                                 "OR" = subset(df, term == "Temp.treatmentmedium.low")$Estimate[1], 
+                                 "se" = subset(df, term == "Temp.treatmentmedium.low")$Std..Error[1], 
+                                 "totaln" = subset(d_sampleN, study == df$study[1])$Dispersal.totalN)
+  
+  d_OR_dispersal_OH <- rbind(d_OR_dispersal_OH, cbind("Temp.contr" = "OH", OR_dispersal_OH), cbind("Temp.contr" = "OMH", OR_dispersal_OMH))
+  
+  d_OR_dispersal_OL <- rbind(d_OR_dispersal_OL, 
+                             cbind("Temp.contr" = "OL", OR_dispersal_OL), 
+                             cbind("Temp.contr" = "OML", OR_dispersal_OML))
+
+}
+
+d_OR_dispersal <- rbind(d_OR_dispersal_OH, d_OR_dispersal_OL)
+d_OR_dispersal <- subset(d_OR_dispersal, !is.na(study) & !is.na(OR))
+d_OR_dispersal$Genus <- sub("\\..*", "", d_OR_dispersal$study)
+d_OR_dispersal$species <- str_extract(d_OR_dispersal$study, "(?<=\\.)[^._]+")
+d_OR_dispersal <- d_OR_dispersal %>%
+  rename("study_strain" = "study",
+         "OR_dispersal" = "OR",
+         "se_dispersal" = "se",
+         "totaln_dispersal" = "totaln"
+         )
+d_OR_dispersal$Temp.group <- with(d_OR_dispersal, ifelse(Temp.contr == "OH" | Temp.contr == "OMH", "hot", "cold"))
+
+d_OR_dispersal <- left_join(d_OR_dispersal, d_mods)
+d_OR_dispersal <- left_join(d_OR_dispersal, subset(d_Tmax, select = c(study_strain, Tmax, SE_Tmax, SD_Tmax)))
+
+
+
+
+```
+
+## Meta-analytical models
+
+To explore the fitness differences temperature treatments (comparing optimal with cool, and optimal with hot), We fit a meta-regression random effects model using Hedge's g estimates. Study and species nested within taxonomic group were included as random effects. We also used moderators to test hypotheses about the sources of variation in the effects of temperature on fitness. Moderators were:
+
+1) temperature variation: the level of spatial variation in temperature in the environment the organism has lived in for the last several generations; each species was classified by researchers as living in homogenous or hetergenous environments.  
+2) competition strength: the density of conspecifics in the experimental mesocosms, relative to the estimated carrying capacity; researchers classified each species as experiencing "low" or "moderate" competition (we kept density under carrying capacity, so no species experienced high competition).  
+3) Tcrit(hi)  
+4) source of organisms (lab organism or collected from the field). 
+5) dispersal assay duration (length of the dispersal assay relative to the generation time of the organism).  
+
+
+
+```{r fitnessmeta}
+
+# random effects metaanalytical model
+
+m_fitness_meta <- rma.mv(yi = es_fitness, V = var_fitness, random = list(~ 1 | study, ~1|Taxonomic.group/species), mods = ~ -1 + Temp.group, data = d_g_fitness)# model with no intercept
+
+summary(m_fitness_meta)
+
+p_fitness_meta <- unique(as.data.frame(predict(m_fitness_meta)))
+p_fitness_meta$Temp.group <- c("cold", "hot") 
+
+ggplot()+
+  geom_point(data = d_g_fitness, aes(x = es, y = study_strain, col = Temp.group, size = sample.size))+
+  geom_errorbarh(data = d_g_fitness, aes(xmin = es - se, xmax = es + se, y = study_strain))+
+  geom_vline(xintercept = 0, lty = 2)+
+  geom_vline(data = p_fitness_meta, aes(xintercept = pred, col = Temp.group), size = 1.5)+
+  geom_rect(data = p_fitness_meta, aes(xmin = ci.lb, xmax = ci.ub, ymin = -Inf, ymax = Inf, fill = Temp.group), alpha = 0.2)+
+  facet_wrap(~Temp.group)+
+  theme_classic()
+```
+
+```{r fitnessforest, echo = F, fig.width = 6.5}
+
+forest(m_fitness_meta, slab = d_g_fitness$study_strain, addcred = TRUE, main = "Fitness: Opt vs Hot, Opt vs Cold")
+
+forest(m_fitnessOH, slab = d_g_fitness_OH$study, addcred = TRUE, main = "Fitness: Opt vs Hot")
+
+forest(m_fitnessOL, slab = d_g_fitness_OL$study, addcred = TRUE, main = "Fitness: Opt vs Cold")
+
+```
+
+
+```{r fitdispcontr}
+
+
+
+d_OR_dispersal <- rbind(d_OR_dispersal_OH, d_OR_dispersal_OL)
+d_OR_dispersal$species <- gsub("\\_.*", "", d_OR_dispersal$study)
+
+d_OR_dispersal <- d_OR_dispersal %>%
+  rename(se_dispersal = se)
+
+
+d_fitdispcontr <- full_join(d_g_fitness, d_OR_dispersal, by = c("study", "Temp.contr"))
+d_fitdispcontr$HILO <- with(d_fitdispcontr, ifelse(Temp.contr == "OH" | Temp.contr == "OMH", "hot", "cold"))
+d_fitdispcontr <- full_join(d_fitdispcontr, d_mods)
+
+# note -es so that when hot/cold have high fitness, "relative fitness" is greater
+ggplot(subset(d_fitdispcontr, study != "Tetranychus.turkestani" & study != "Tetranychus.cinnabarinus"), aes(x = es, y = OR, col = HILO, fill = HILO, size = totaln))+
+  geom_point(pch = 1)+
+  geom_errorbar(aes(ymax = OR + se_dispersal, ymin = OR - se_dispersal), width = 0, size = 0.5)+
+  geom_errorbarh(aes(xmax = es + se_fitness, xmin = es - se_fitness), width = 0, size = 0.5)+
+  geom_smooth(data = subset(d_fitdispcontr, study != "Tetranychus.turkestani" & study != "Tetranychus.cinnabarinus" & es < 5), method = "lm", se = F, alpha = 0.1)+
+  geom_hline(yintercept = 0, lty = 2)+
+  scale_y_continuous("Dispersal effect size (relative to opt)")+
+  scale_x_continuous("Fitness effect size (relative to opt)")+
+  scale_color_manual("", values = c("red", "blue"), limits = c("hot", "cold"))+
+  scale_fill_manual("", values = c("red", "blue"), limits = c("hot", "cold"))+
+  guides(size = "none")+
+  theme_classic(base_size = 20)
+
+# hot and cold together
+# lmm
+
+m_fitdispcontr <- lmer(OR ~ es+HILO + (1|Taxonomic.group/species) + (1|study), data = na.omit(subset(d_fitdispcontr, select = c(OR, es, HILO, Taxonomic.group, study, species), study != "Tetranychus.turkestani" & study != "Tetranychus.cinnabarinus")))
+summary(m_fitdispcontr)
+drop1(m_fitdispcontr, test = "Chisq")
+
+# metaregression with hot and cold together
+# plan for testing moderators:
+##1) choose four moderators: 
+### Testing biological hypotheses about what is driving dispersal: Temp variation, and Competition strength
+### Testing hypotheses about methods that might influence estimate of effect size: Source, Dispersal.assay.duration
+##2) remove if not significant
+##3) with this dataset, only temperature variation is significant ***re-run with final dataset***
+
+m_fitdispcontr_meta <- rma.mv(yi = OR, V = I(se_dispersal)^2, random = list(~ 1 | study, ~1|Taxonomic.group/species), mods = ~es * HILO + Source, data = na.omit(subset(d_fitdispcontr, select = c(OR, se_dispersal, study, Taxonomic.group, es, HILO, species, Source))))
+# note: when I INCLUDE the es outliers (es > 5) I get a nonsense result where the red line is positive and moves out of the range of the actual data points
+
+# plotting
+newmods <- rbind(expand.grid("es" = seq(min(subset(d_fitdispcontr, HILO == "cold")$es, na.rm = T), max(subset(d_fitdispcontr, HILO == "cold")$es, na.rm = T), length.out = 10), "HILO" = c("cold"), "Source" = c("field", "lab")),
+                 expand.grid("es" = seq(min(subset(d_fitdispcontr, HILO == "hot")$es, na.rm = T), max(subset(d_fitdispcontr, HILO == "hot" & es < 30)$es, na.rm = T), length.out = 10), "HILO" = c("hot"), "Source" = c("field", "lab"))
+)
+
+newX <- model.matrix(~ 0+ es * HILO + Source, data = newmods)
+newX <- newX[, -2]
+predict_meta <- cbind(newmods[1:40,], predict(m_fitdispcontr_meta, newmods = newX))
+
+ggplot(subset(d_fitdispcontr, study != "Tetranychus.turkestani" & study != "Tetranychus.cinnabarinus"), aes(x = es, y = OR, col = HILO, fill = HILO))+
+  geom_point(aes(size = totaln), pch = 1)+
+  geom_errorbar(aes(ymax = OR + se_dispersal, ymin = OR - se_dispersal), width = 0, size = 0.5)+
+  geom_errorbarh(aes(xmax = es + se_fitness, xmin = es - se_fitness), width = 0, size = 0.5)+
+  geom_line(data = predict_meta, aes(x = es, y = pred, col = HILO, lty = Source))+
+  geom_hline(yintercept = 0, lty = 2)+
+  scale_y_continuous("Dispersal effect size (relative to opt)")+
+  scale_x_continuous("Fitness effect size (relative to opt)")+
+  scale_color_manual("", values = c("red", "blue"), limits = c("hot", "cold"))+
+  scale_fill_manual("", values = c("red", "blue"), limits = c("hot", "cold"))+
+  guides(size = "none")+
+  theme_classic(base_size = 20)
+
+
+# opt vs hot
+# same study from different labs look like different study - need to correct
+# lmm
+m_fitdispcontr_OH <- lmer(OR ~ es + (1|Taxonomic.group/species) + (1|study), data = na.omit(subset(d_fitdispcontr, select = c(OR, es, Taxonomic.group, study, study, species), HILO == "hot" & study != "Tetranychus.turkestani" & study != "Tetranychus.cinnabarinus")))
+summary(m_fitdispcontr_OH)
+drop1(m_fitdispcontr_OH, test = "Chisq")
+
+# meta regression
+d_sub <- subset(d_fitdispcontr, HILO == "hot" & study != "Tetranychus.turkestani" & study != "Tetranychus.cinnabarinus")
+d_sub$V_dispersal <- with(d_sub, I(se_dispersal)^2)
+
+# plan for testing moderators:
+##1) choose four moderators: 
+### Testing biological hypotheses about what is driving dispersal: Temp variation, and Competition strength
+### Testing hypotheses about methods that might influence estimate of effect size: Source, Dispersal.assay.duration
+##2) remove if not significant
+##3) with this dataset, only temperature variation is significant ***re-run with final dataset***
+m_fitdispcontr_OH_meta <- rma.mv(yi = OR, V = V_dispersal, random = list(~ 1 | study, ~1|Taxonomic.group/species), mods = ~es * Temperature.variation, data = na.omit(subset(d_sub, select = c(OR, V_dispersal, study, Taxonomic.group, es, species, Temperature.variation))))
+
+summary(m_fitdispcontr_OH_meta)
+anova(m_fitdispcontr_OH_meta)
+
+forest(m_fitdispcontr_OH_meta, slab = na.omit(subset(d_sub, select = c(OR, V_dispersal, study, Taxonomic.group, es, species, Temperature.variation)))$study, addfit = F, main = "Dispersal: Opt vs Hot")
+
+
+ggplot(subset(d_fitdispcontr, study != "Tetranychus.turkestani" & study != "Tetranychus.cinnabarinus" & HILO == "hot"), aes(x = es, y = OR, col = Temperature.variation, fill = Temperature.variation, size = totaln))+
+  geom_point(pch = 1)+
+  geom_errorbar(aes(ymax = OR + se_dispersal, ymin = OR - se_dispersal), width = 0, size = 0.5)+
+  geom_errorbarh(aes(xmax = es + se_fitness, xmin = es - se_fitness), width = 0, size = 0.5)+
+  geom_smooth(method = "lm", alpha = 0.1, se = F)+
+  geom_hline(yintercept = 0, lty = 2)+
+  scale_y_continuous("Dispersal effect size (opt vs hot)")+
+  scale_x_continuous("Fitness effect size (opt vs hot)")+
+  scale_color_manual("Temperature variation", values = c("darkgreen", "purple"))+
+  scale_fill_manual("Temperature variation", values = c("darkgreen", "purple"))+
+  scale_size_continuous(guide = F)+
+  theme_classic(base_size = 20)
+
+# opt vs cool
+
+## lmm
+m_fitdispcontr_OL <- lmer(OR ~ es + (1|Taxonomic.group/species) + (1|study), data = na.omit(subset(d_fitdispcontr, select = c(OR, es, Taxonomic.group, study, species), HILO == "cold" & study != "Tetranychus.turkestani" & study != "Tetranychus.cinnabarinus")))
+summary(m_fitdispcontr_OL)
+drop1(m_fitdispcontr_OL, test = "Chisq")
+
+
+## meta regression
+# plan for testing moderators:
+##1) choose four moderators: 
+### Testing biological hypotheses about what is driving dispersal: Temp variation, and Competition strength
+### Testing hypotheses about methods that might influence estimate of effect size: Source, Dispersal.assay.duration
+##2) remove if not significant
+##3) with this dataset, only Source is significant ***re-run with final dataset***
+m_fitdispcontr_OL_meta <- rma.mv(yi = OR, V = I(se_dispersal)^2, random = list(~ 1 | study, ~1|Taxonomic.group/species), mods = ~es + Source, data = na.omit(subset(d_fitdispcontr, HILO == "cold" & es <5, select = c(OR, se_dispersal, study, Taxonomic.group, es, species, Source))))
+
+summary(m_fitdispcontr_OL_meta)
+anova(m_fitdispcontr_OL_meta)
+
+ggplot(subset(d_fitdispcontr, study != "Tetranychus.turkestani" & study != "Tetranychus.cinnabarinus" & HILO == "cold" & es < 5 & es > 0), aes(x = es, y = OR, col = Source, fill = Source, size = totaln))+
+  geom_point(data = subset(d_fitdispcontr, study != "Tetranychus.turkestani" & study != "Tetranychus.cinnabarinus" & HILO == "cold"), pch = 1)+
+  geom_errorbar(data = subset(d_fitdispcontr, study != "Tetranychus.turkestani" & study != "Tetranychus.cinnabarinus" & HILO == "cold"), aes(ymax = OR + se_dispersal, ymin = OR - se_dispersal), width = 0, size = 0.5)+
+  geom_errorbarh(data = subset(d_fitdispcontr, study != "Tetranychus.turkestani" & study != "Tetranychus.cinnabarinus" & HILO == "cold"), aes(xmax = es + se_fitness, xmin = es - se_fitness), width = 0, size = 0.5)+
+  geom_smooth(method = "lm", alpha = 0.1, se = F)+
+  geom_hline(yintercept = 0, lty = 2)+
+  scale_y_continuous("Dispersal effect size (opt vs cold)")+
+  scale_x_continuous("Fitness effect size (opt vs cold)")+
+  scale_color_manual("Source", values = c("orange", "deepskyblue4"))+
+  scale_fill_manual("Source", values = c("orange", "deepskyblue4"))+
+  scale_size_continuous(guide = F)+
+  theme_classic(base_size = 20)
+
+forest(m_fitdispcontr_OL_meta, slab = na.omit(subset(d_fitdispcontr, HILO == "cold" & es < 5, select = c(OR, se_dispersal, study, Taxonomic.group, es, species)))$study, addcred = TRUE, main = "Dispersal: Opt vs Cool")
+
+
+```
+
+```{r}
+dispersal_emmeans_list <- list.files(path = "./outputs/separatepops", pattern = "output_dispersal_emmeans")
+
+d_dispersal_emmeans <- NULL
+for(file in dispersal_emmeans_list){
+  name <- gsub(".txt", "", file)
+  df <- read.table(paste("./outputs/separatepops/", file, sep = ""), header = T)
+  df <- rownames_to_column(df, var = "term")
+  df$study <- str_sub(name, 26)
+  assign(name, df)
+  d_dispersal_emmeans <- bind_rows(d_dispersal_emmeans, df)
+}
+
+d_dispersal_emmeans <- left_join(d_dispersal_emmeans, d_mods)
+
+ggplot(d_dispersal_emmeans, aes(x = Temp.treatment, y = prob, col = study, group = study))+
+  geom_point()+
+  geom_line()+
+  geom_errorbar(aes(ymin = asymp.LCL, ymax = asymp.UCL), width = 0)+
+  scale_x_discrete(limits = c("low", "medium.low", "opt", "medium.high", "high"))+
+  theme_classic()+
+  facet_wrap(~Temperature.variation)
+
+```
+
+```{r}
+
+dispersal_temp.values_list <- list.files(path = "./raw_data", pattern = "Phase2_dispersal_")
+
+d_dispersal_temp.values <- NULL
+for(file in dispersal_temp.values_list){
+  name <- gsub(".csv", "", file)
+  df <- read.csv(paste("./raw_data/", file, sep = ""), header = T)
+  df <- rownames_to_column(df, var = "term")
+  df <- subset(df, select = c(Temp.value, Temp.treatment))
+  df$study <- str_sub(name, 18)
+  assign(name, df)
+  df <- unique(df)
+  d_dispersal_temp.values <- bind_rows(d_dispersal_temp.values, df)
+}
+
+d_topt <- subset(d_dispersal_temp.values, Temp.treatment == "opt", select = c(Temp.value, study))
+colnames(d_topt)[colnames(d_topt) == "Temp.value"] <- "Topt"
+```
+
+
+```{r dispersalcontrmeta, echo = T}
+
+# outdated - using metaregression models below
+# # join moderator dataset
+# d_dispmeta_OH <- full_join(d_OR_dispersal_OH, d_mods)
+# d_dispmeta_OL <- full_join(d_OR_dispersal_OL, d_mods)
+# 
+# # random effects metaanalytical model
+# 
+# m_dispersalOH <- rma(yi = OR, sei = se, mods = ~Taxonomic.group, data = subset(d_dispmeta_OH, study != "Tetranychus.turkestani" & study != "Tetranychus.cinnabarinus"))
+# 
+# d_dispmeta_OL$V_dispersal <- with(d_dispmeta_OL, I(se)^2)
+# 
+# m_dispersalOL <- rma.mv(yi = OR, V = V_dispersal, random = list(~ 1 | study), mods = ~Taxonomic.group, data = d_dispmeta_OL)
+
+```

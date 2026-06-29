@@ -1,0 +1,2 @@
+"Species" "Taxonomic.group" "Rearing.environment" "Competition.strength" "Source" "Habitat" "Temperature.variation" "Species.mean.body.size" "Passive.dispersal" "Inbred.or.Mixed" "Dispersal.assay.duration" "Fitness.proxy.type"
+"1" "Tetranychus cinnabarinus_PT" "arthropod" "treatmentT" "low" "lab" "terrestrial" "homogeneous" 0.44 "Yes" "mixed" 0.1 "other"

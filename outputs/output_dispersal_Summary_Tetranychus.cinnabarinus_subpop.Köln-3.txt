@@ -1,4 +1,0 @@
-"Estimate" "Std. Error" "z value" "Pr(>|z|)"
-"(Intercept)" -39.4077097710795 NA NA NA
-"Temp.treatmenthigh" 0 NA NA NA
-"Temp.treatmentlow" 35.313485530385 NA NA NA

@@ -30,32 +30,34 @@ library(lme4)
 ```{r import files, echo = F}
 
 # main effect of temperature on fitness
-fitness_main_list <- list.files(path = "./outputs", pattern = "output_fitness_TempMain")
+fitness_main_list <- list.files(path = "./outputs/mixedpops", pattern = "output_fitness_TempMain")
 
 d_fitness_main <- NULL
 for(file in fitness_main_list){
   name <- gsub(".txt", "", file)
-  df <- read.table(paste("./outputs/", file, sep = ""), header = T)
+  df <- read.table(paste("./outputs/mixedpops/", file, sep = ""), header = T)
   df <- rownames_to_column(df, var = "term")
   df$study <- str_sub(name, 25)
   assign(name, df)
   d_fitness_main <- bind_rows(d_fitness_main, df)
 }
 
-d_sampleN <- read.csv("./outputs/Sample_sizes.csv", header = T)
+d_sampleN <- read.csv("./outputs/mixedpops/Sample_sizes.csv", header = T)
 
-mods_main_list <- list.files(path = "./outputs", pattern = "moderators_")
+mods_main_list <- list.files(path = "./outputs/mixedpops", pattern = "moderators_")
 
 d_mods <- NULL
 for(file in mods_main_list){
   name <- gsub(".txt", "", file)
-  df <- read.table(paste("./outputs/", file, sep = ""), header = T)
+  df <- read.table(paste("./outputs/mixedpops/", file, sep = ""), header = T)
   df$study <- str_sub(name, 12)
   assign(name, df)
   d_mods <- bind_rows(d_mods, df)
 }
 
 d_mods$species <- gsub("\\_.*", "", d_mods$study)
+d_mods[d_mods == "homogeneous"] <- "homogenous"
+
 
 ```
 
@@ -71,14 +73,14 @@ We calculated Hedge's g for the pairwise temperature treatment comparisons of fi
 
 
 ## list emmeans datasets
-fitness_emmeans_list <- list.files(path = "./outputs", pattern = "output_fitness_emmeans")
+fitness_emmeans_list <- list.files(path = "./outputs/mixedpops", pattern = "output_fitness_emmeans")
 
 ## estimate Hedge's g
 d_g_fitness_OH <- NULL # dataframe of effect sizes for fitness for opt vs high
 d_g_fitness_OL <- NULL # dataframe of effect sizes for fitness for opt vs low
 for(file in fitness_emmeans_list){
   name <- gsub(".txt", "", file)
-  df <- read.table(paste("./outputs/", file, sep = ""), header = T) #read all emmeans files in list
+  df <- read.table(paste("./outputs/mixedpops/", file, sep = ""), header = T) #read all emmeans files in list
   df$study <- str_sub(name, 24)
   assign(name, df)
   
@@ -159,7 +161,7 @@ for(file in fitness_emmeans_list){
   }
   
   if("prob" %in% names(df)){ #if there is a prob column (meaning the fitness proxy is binary) then estimate Hedge's g from OR
-    d2 <- read.table(paste("./outputs/output_fitness_Summary_", df$study[1], ".txt", sep = ""), header = T)
+    d2 <- read.table(paste("./outputs/mixedpops/output_fitness_Summary_", df$study[1], ".txt", sep = ""), header = T)
     d2 <- rownames_to_column(d2, var = "term")
     
     g_fitness_OH <- as.data.frame(convert_or2d(or = exp(subset(d2, term == "Temp.treatmenthigh")$Estimate[1]), 
@@ -213,7 +215,7 @@ forest(m_fitnessOL, slab = d_g_fitness_OL$study, addcred = TRUE, main = "Fitness
 
 ```{r, esdispersaloverall, echo = F, fig.width = 6.5}
 
-d_dispersal_overall <- read.csv("outputs/overall_dispersal_chisq_boot.csv")
+d_dispersal_overall <- read.csv("outputs/mixedpops/overall_dispersal_chisq_boot.csv")
 m_dispersal.overall <- rma(yi = chisq, sei = se, data = subset(d_dispersal_overall, study != "Tetranychus.cinnabarinus_PT"))
 forest(m_dispersal.overall, slab = subset(d_dispersal_overall, study != "Tetranychus.cinnabarinus_PT")$study, addcred = TRUE)
 
@@ -225,7 +227,7 @@ forest(m_dispersal.overall, slab = subset(d_dispersal_overall, study != "Tetrany
 # pairwise temperature treatment differences in dispersal
 
 ## list summary datasets
-dispersal_summary_list <- list.files(path = "./outputs", pattern = "output_dispersal_Summary")
+dispersal_summary_list <- list.files(path = "./outputs/mixedpops", pattern = "output_dispersal_Summary")
 
 ## estimate Hedge's g
 d_OR_dispersal_OH <- NULL # dataframe of effect sizes for dispersal for opt vs high
@@ -233,7 +235,7 @@ d_OR_dispersal_OL <- NULL # dataframe of effect sizes for dispersal for opt vs l
 
 for(file in dispersal_summary_list){
   name <- gsub(".txt", "", file)
-  df <- read.table(paste("./outputs/", file, sep = ""), header = T) #read all summary files in list
+  df <- read.table(paste("./outputs/mixedpops/", file, sep = ""), header = T) #read all summary files in list
   df <- rownames_to_column(df, var = "term")
   df$study <- str_sub(name, 26)
   assign(name, df)
@@ -257,7 +259,9 @@ for(file in dispersal_summary_list){
   
   d_OR_dispersal_OH <- rbind(d_OR_dispersal_OH, cbind("Temp.contr" = "OH", OR_dispersal_OH), cbind("Temp.contr" = "OMH", OR_dispersal_OMH))
   
-  d_OR_dispersal_OL <- rbind(d_OR_dispersal_OL, cbind("Temp.contr" = "OL", OR_dispersal_OL), cbind("Temp.contr" = "OML", OR_dispersal_OML))
+  d_OR_dispersal_OL <- rbind(d_OR_dispersal_OL, 
+                             cbind("Temp.contr" = "OL", OR_dispersal_OL), 
+                             cbind("Temp.contr" = "OML", OR_dispersal_OML))
 
 }
 
@@ -286,6 +290,7 @@ d_g_fitness <- rbind(d_g_fitness_OH, d_g_fitness_OL)
 d_g_fitness$species <- gsub("\\_.*", "", d_g_fitness$study)
 d_g_fitness <- d_g_fitness %>%
   rename(se_fitness = se)
+
 
 d_OR_dispersal <- rbind(d_OR_dispersal_OH, d_OR_dispersal_OL)
 d_OR_dispersal$species <- gsub("\\_.*", "", d_OR_dispersal$study)
@@ -318,6 +323,36 @@ ggplot(subset(d_fitdispcontr, study != "Tetranychus.turkestani" & study != "Tetr
 m_fitdispcontr <- lmer(OR ~ es+HILO + (1|Taxonomic.group/species) + (1|study), data = na.omit(subset(d_fitdispcontr, select = c(OR, es, HILO, Taxonomic.group, study, species), study != "Tetranychus.turkestani" & study != "Tetranychus.cinnabarinus")))
 summary(m_fitdispcontr)
 drop1(m_fitdispcontr, test = "Chisq")
+
+# metaregression with hot and cold together
+# plan for testing moderators:
+##1) choose four moderators: 
+### Testing biological hypotheses about what is driving dispersal: Temp variation, and Competition strength
+### Testing hypotheses about methods that might influence estimate of effect size: Source, Dispersal.assay.duration
+##2) remove if not significant
+##3) with this dataset, only temperature variation is significant ***re-run with final dataset***
+
+m_fitdispcontr_meta <- rma.mv(yi = OR, V = I(se_dispersal)^2, random = list(~ 1 | study, ~1|Taxonomic.group/species), mods = ~es * HILO + Source + Dispersal.assay.duration + Temperature.variation + Competition.strength, data = na.omit(subset(d_fitdispcontr, es < 5, select = c(OR, se_dispersal, study, Taxonomic.group, es, HILO, species, Source, Dispersal.assay.duration, Temperature.variation, Competition.strength))))
+# note: when I INCLUDE the es outliers (es > 5) I get a nonsense result where the red line is positive and moves out of the range of the actual data points
+
+# plotting
+m_fitdispcontr_meta_plot <- rma.mv(yi = OR, V = I(se_dispersal)^2, random = list(~ 1 | study, ~1|Taxonomic.group/species), mods = ~es * HILO, data = subset(d_fitdispcontr, !is.na(study) & es < 5))
+
+predict_meta <- cbind(na.omit(subset(d_fitdispcontr, es < 5, select = c(OR, se_dispersal, study, Taxonomic.group, es, HILO, species, Source, Dispersal.assay.duration, Temperature.variation, Competition.strength))), predict(m_fitdispcontr_meta_plot))
+
+ggplot(subset(d_fitdispcontr, study != "Tetranychus.turkestani" & study != "Tetranychus.cinnabarinus"), aes(x = es, y = OR, col = HILO, fill = HILO))+
+  geom_point(aes(size = totaln), pch = 1)+
+  geom_errorbar(aes(ymax = OR + se_dispersal, ymin = OR - se_dispersal), width = 0, size = 0.5)+
+  geom_errorbarh(aes(xmax = es + se_fitness, xmin = es - se_fitness), width = 0, size = 0.5)+
+  geom_line(data = predict_meta, aes(x = es, y = pred, col = HILO))+
+  geom_hline(yintercept = 0, lty = 2)+
+  scale_y_continuous("Dispersal effect size (relative to opt)")+
+  scale_x_continuous("Fitness effect size (relative to opt)")+
+  scale_color_manual("", values = c("red", "blue"), limits = c("hot", "cold"))+
+  scale_fill_manual("", values = c("red", "blue"), limits = c("hot", "cold"))+
+  guides(size = "none")+
+  theme_classic(base_size = 20)
+
 
 # opt vs hot
 # same study from different labs look like different study - need to correct
@@ -396,12 +431,12 @@ forest(m_fitdispcontr_OL_meta, slab = na.omit(subset(d_fitdispcontr, HILO == "co
 ```
 
 ```{r}
-dispersal_emmeans_list <- list.files(path = "./outputs", pattern = "output_dispersal_emmeans")
+dispersal_emmeans_list <- list.files(path = "./outputs/mixedpops", pattern = "output_dispersal_emmeans")
 
 d_dispersal_emmeans <- NULL
 for(file in dispersal_emmeans_list){
   name <- gsub(".txt", "", file)
-  df <- read.table(paste("./outputs/", file, sep = ""), header = T)
+  df <- read.table(paste("./outputs/mixedpops/", file, sep = ""), header = T)
   df <- rownames_to_column(df, var = "term")
   df$study <- str_sub(name, 26)
   assign(name, df)
@@ -442,7 +477,7 @@ colnames(d_topt)[colnames(d_topt) == "Temp.value"] <- "Topt"
 
 ```{r}
 
-disp_pattern <- read.csv("./outputs/dispersal_pattern.csv", header = T)
+disp_pattern <- read.csv("./outputs/mixedpops/dispersal_pattern.csv", header = T)
 
 d_dispersal_emmeans2 <- left_join(d_dispersal_emmeans, d_dispersal_temp.values)
 d_dispersal_emmeans2 <- left_join(d_dispersal_emmeans2, disp_pattern)
