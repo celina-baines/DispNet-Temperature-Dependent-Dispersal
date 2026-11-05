@@ -317,6 +317,7 @@ writing.path <- ("../outputs/")
 d_phase1 <- read.csv2(paste("Phase1_fitness_", Genus, ".", species, ".csv", sep = ""), dec = ",")
 d_phase2 <- read.csv2(paste("Phase2_dispersal_", Genus, ".", species, ".csv", sep = ""), dec = ",")
 
+
 d_phase1 <- within(d_phase1, Temp.treatment <- relevel(as.factor(Temp.treatment), ref = "opt"))
 d_phase2 <- within(d_phase2, Temp.treatment <- relevel(as.factor(Temp.treatment), ref = "opt"))
 
@@ -384,12 +385,12 @@ ggplot(d_phase1, aes(x = fitness.transformation.function(Fitness))) +
 
 # plot fitness data
 
-ggplot(d_phase1, aes(x = Temp.treatment, y = Fitness, col = Temp.treatment))+
+ggplot(d_phase1, aes(x = factor(Temp.treatment, levels = c("low", "opt", "medium.high", "high")), y = Fitness, col = factor(Temp.treatment, levels = c("low", "opt", "medium.high", "high"))))+
   geom_boxplot()+
-  scale_x_discrete("Temperature treatment", limits = c("low", "opt", "high"))+
-  scale_color_manual(values = c("darkgreen", "red", "blue"), guide = "none")+
+  scale_x_discrete("Temperature treatment")+
+  scale_color_manual(values = c("blue", "darkgreen","purple", "red"), guide = "none")+
   theme_classic(base_size = 15)+
-  facet_wrap(~d_phase1[,group_index_phase1])
+  facet_wrap(~d_phase1[,group_index_phase1], scales = "free_x")
 
 ```
 
@@ -568,14 +569,14 @@ df_dispersal_emmeans <- purrr::map2_dfr(
   ~ dplyr::mutate(as.data.frame(.x), group = .y)
 )
 
-ggplot(df_dispersal_emmeans, aes(x = Temp.treatment, y = prob, col = Temp.treatment))+
+ggplot(df_dispersal_emmeans, aes(x = factor(Temp.treatment, levels = c("low", "opt", "medium.high", "high")), y = prob, col = factor(Temp.treatment, levels = c("low", "opt", "medium.high", "high"))))+
   geom_point(size = 4)+
   geom_errorbar(aes(ymin = asymp.LCL, ymax = asymp.UCL), width = 0)+
-  scale_x_discrete("Temperature treatment", limits = c("low", "opt", "high"))+
+  scale_x_discrete("Temperature treatment")+
+  scale_color_manual(values = c("blue", "darkgreen","purple", "red"), guide = "none")+
   scale_y_continuous("Dispersal probability")+
-  scale_color_manual(values = c("darkgreen", "red", "blue"), guide = "none")+
   theme_classic(base_size = 15)+
-  facet_wrap(~group)
+  facet_wrap(~group, scales = "free_x")
 
 ```
 
