@@ -2,8 +2,6 @@
 
 # Additional analyses
 
-# NOTES
-## Tetranychus evansi still has contr = "control"; need to fix that
 
 # 1) Check for influence of model structure: Same meta-analysis but with all species using same simplest model and/or fit one GLMM in same model - have the data and can do this myself
 
